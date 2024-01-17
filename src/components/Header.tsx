@@ -1,11 +1,8 @@
 'use client';
-import Link from 'next/link';
 // components/Header.tsx
 import React, { useState, useEffect } from 'react';
 // import '../styles/globals.css';
 // import { useRouter } from "next/router"; ->클라이언트 기반 렌더링임 (Link로 변경 1/17일 수정함)
-import { showLoginModal } from '@/components/login/LoginModal';
-import { showSignupModal } from '@/components/signup/SignupModal'; // Import the missing SignupModal component
 
 interface HeaderProps {}
 //헤더 반응형 완성 - 로그인/로그아웃 상태에 따른 메뉴 상태 추가 (1/16일 수정함)
@@ -24,29 +21,28 @@ const Header: React.FC<HeaderProps> = (props) => {
     const handleClickHome = () => {
         // router.push('/');
     };
-
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
             <div className="flex flex-wrap items-center justify-between gap-4 px-10 py-4 relative bg-white min-h-[70px] lg:flex-grow">
                 {/*왼쪽 정렬*/}
                 <div className="flex items-center gap-4">
-                    <Link href="/" onClick={handleClickHome}>
+                    <a href="javascript:void(0)" onClick={handleClickHome}>
                         <img
                             src="https://readymadeui.com/readymadeui.svg"
                             alt="logo"
                             className="w-36"
                         />
-                    </Link>
+                    </a>
                     {/*여기 수정해야함 -> 라우팅 방식 바뀜*/}
 
-                    <Link
-                        href="/book"
+                    <a
+                        href="javascript:void(0)"
                         className="lg:hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]"
                         onClick={handleClickBook}
                     >
                         Book
-                    </Link>
+                    </a>
                 </div>
 
                 {/* 오른쪽 정렬*/}
@@ -105,23 +101,22 @@ const Header: React.FC<HeaderProps> = (props) => {
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-8' : ''}`}
                                 >
-                                    <button
+                                    <a
+                                        href="#"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
-                                        onClick={showLoginModal}
                                     >
                                         Login
-                                    </button>
+                                    </a>
                                 </li>
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-4' : ''}`}
                                 >
-                                    {' '}
-                                    <button
+                                    <a
+                                        href="#"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
-                                        onClick={showSignupModal}
                                     >
-                                        Signup
-                                    </button>
+                                        Register
+                                    </a>
                                 </li>
                             </>
                         )}
