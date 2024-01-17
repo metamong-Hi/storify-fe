@@ -3,7 +3,7 @@
 // components/Header.tsx
 import React,{useState,useEffect} from "react";
 // import '../styles/globals.css';
-// import { useRouter } from "next/router";
+// import { useRouter } from "next/router"; ->클라이언트 기반 렌더링임 (Link로 변경 1/17일 수정함)
 
 interface HeaderProps {
 
@@ -34,6 +34,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           <a href="javascript:void(0)" onClick={handleClickHome}>
             <img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
           </a>
+          {/*여기 수정해야함 -> 라우팅 방식 바뀜*/}
 
           <a href='javascript:void(0)'
             className='lg:hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]' onClick={handleClickBook}>Book</a>
