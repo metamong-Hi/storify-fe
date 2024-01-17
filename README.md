@@ -34,3 +34,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+설치한 파일들
+npx create-next-app
+
+
+npm i redux
+
+
+npm i tailwind
+
+
+npm i react-pageflip //책 넘기기 효과
+
+npm i turn
+
+npm i --save-dev prettier
+
+npm install --save-dev 
+	@babel/preset-typescript 
+    	@babel/plugin-proposal-class-properties 
+    	@babel/plugin-proposal-object-rest-spread
+
+
+
+ api 주소
+ https://storify-be.fly.dev/api       

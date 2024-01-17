@@ -15,6 +15,12 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.page {
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 5px;
+  /* 기타 스타일링 */
+}
 
 body {
   color: rgb(var(--foreground-rgb));
