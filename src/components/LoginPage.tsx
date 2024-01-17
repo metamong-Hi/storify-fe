@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { LoginData } from '../types/auth';
+import { LoginData } from '@/types/auth';
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });

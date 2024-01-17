@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { SignupData } from '../types/user';
+import { SignupData } from '@/types/user';
 
 const SignupPage: React.FC = () => {
   const [formData, setFormData] = useState<SignupData>({ username: '', email: '', password: '' });
