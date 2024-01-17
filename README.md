@@ -58,6 +58,7 @@ npm install --save-dev
     	@babel/plugin-proposal-object-rest-spread
 
 
+npm install eslint --save-dev
 
  api 주소
  https://storify-be.fly.dev/api       
