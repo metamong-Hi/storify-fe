@@ -19,6 +19,8 @@
     "react-router": "^6.21.2",
     "redux": "^5.0.1",
     "styled-components": "^6.1.8",
+    "sweetalert2": "^11.10.3",
+    "sweetalert2-react-content": "^5.0.7",
     "tailwind": "^4.0.0",
     "three": "^0.160.0",
     "usestate": "^1.1.3"

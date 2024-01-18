@@ -37,7 +37,14 @@ yarn-error.log*
 next-env.d.ts
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #history
 =======
 >>>>>>> 2ca06c4d1a51bb4b881b208ffae36e4046ae87dd
 .history
+=======
+
+#.history history 수정
+.history/
+
+>>>>>>> 2f3f1ab5ad2e598519bca8db538ad7caf277b1e6
