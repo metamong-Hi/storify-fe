@@ -57,7 +57,7 @@ npm install --save-dev
     	@babel/plugin-proposal-class-properties 
     	@babel/plugin-proposal-object-rest-spread
 
-
+@babel/plugin=
 npm install eslint --save-dev
 
  api 주소

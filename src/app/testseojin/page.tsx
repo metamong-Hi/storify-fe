@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import ThreeScene from '@/components/ThreeScene'
 import bigButton from '@/components/buttons/bigButton'
-import doubleModal from '@/components/modal/doubleModal'
+import DoubleModal from '@/components/modal/doubleModal'
 import SignupPage from '@/components/SignupPage'
 import React, { useState } from 'react';
 export default function Test() {
@@ -17,9 +17,9 @@ export default function Test() {
   return (
     <div>
       <button onClick={handleToggleModal}>Open Modal</button>
-      <doubleModal show={showModal} onClose={handleToggleModal} children1={<SignupPage />} children2={<SignupPage />}>
+      <DoubleModal show={showModal} onClose={handleToggleModal} children1={"hi"} children2={<SignupPage />}>
         {/* children1에는 Signup 컴포넌트, children2에는 다른 내용을 넣을 수 있습니다. */}
-      </doubleModal>
+      </DoubleModal>
     </div>
   );
 }
