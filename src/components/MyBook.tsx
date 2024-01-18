@@ -47,7 +47,7 @@ interface MyBookProps {
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   return (
     <>
-      <h5>My Post: {bookId}</h5><br/>
+       <h5 style={{ textAlign: 'center', paddingTop: '20px' }}>{bookId}</h5><br/>
       <StyledFlipBook>
       <HTMLFlipBook width={600} height={600}   style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}>
           {/* 페이지 1 */}
@@ -60,7 +60,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               </div>
-             
           </div>
 
           {/* 페이지 2 */}
@@ -82,7 +81,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               </div>
-              
           </div>
 
           {/* 페이지 4 */}
@@ -103,18 +101,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               </div>
-              <div style={{display:'flex',justifyContent:'center',alignItems:'center',paddingLeft: '30px',paddingRight:'30px'}}>
-              where the lyrics express strong attraction and daydreaming about someone special. The lines convey a sense of falling deeply for someone, asking for their affirmation and attention. The song reflects on the feeling of being incomplete without the presence of this person, indicating a deep emotional connection. The lyrics also play with the idea of wanting the other person's call and affirmation, highlighting a mix of anticipation and longing.
-              </div>
           </div>
 
           <div className="demoPage"  >
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px'  }}>
-              <img
-                  src="/images/newjeans6.jpeg"
-                  alt="Page 6"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+              
               </div>
               <div style={{display:'flex',justifyContent:'center',alignItems:'center',paddingLeft: '30px',paddingRight:'30px'}}>
               where the lyrics express strong attraction and daydreaming about someone special. The lines convey a sense of falling deeply for someone, asking for their affirmation and attention. The song reflects on the feeling of being incomplete without the presence of this person, indicating a deep emotional connection. The lyrics also play with the idea of wanting the other person's call and affirmation, highlighting a mix of anticipation and longing.
