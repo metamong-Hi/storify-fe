@@ -1,9 +1,9 @@
-import Bookshelf from '@/components/book/Bookshelf';
+import BookShelves from '@/components/book/BookShelves';
 
 export default function Library() {
     return (
         <div>
-            <Bookshelf />
+            <BookShelves />
         </div>
     );
 }

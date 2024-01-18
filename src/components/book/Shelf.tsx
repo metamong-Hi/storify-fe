@@ -9,7 +9,6 @@ import 'tailwindcss/tailwind.css';
 // Assuming the imported image is processed and placed in the public folder
 
 import Image from 'next/image';
-import MyBook from '@/components/MyBook';
 
 interface BookshelfProps {
     books: { title: string }[];
