@@ -38,5 +38,5 @@ next-env.d.ts
 
 
 #.history history 수정
-.history
+.history/
 
