@@ -9,28 +9,24 @@ interface BookshelfProps {
     books: { title: string }[];
 }
 
+// 2,2,2 배열을 만들어서 2개씩 나눠서 보여줌.
+
 const Shelf: React.FC<BookshelfProps> = ({ key, books = [] }) => {
-    const rows = [books.slice(0, 3), books.slice(3, 6)];
+    const rows = [books.slice(0, 2), books.slice(2, 4), books.slice(4, 6)];
     return (
-        <div
-            key={key}
-            className="flex justify-start"
-            style={{
-                backgroundImage: 'url(/textures/bookshelf/bookShelf.png)',
-                width: 'full',
-                height: 'full',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
-        >
+        <div className="flex flex-col justify-center items-center book-row bg-no-repeat bg-center bg-cover">
             {rows.map((row, rowIndex) => (
-                <div key={rowIndex} className="book-row">
+                <div key={rowIndex} className="flex justify-center">
                     {row.map((book, bookIndex) => (
                         <Link key={bookIndex} href={`/book/${encodeURIComponent(book.title)}`}>
-                            <div className="relative w-12 h-16 shadow-lg rounded flex justify-center items-center text-xs font-medium text-gray-700 bg-white m-2">
-                                <p className="flex justify-center items-center text-center">
-                                    {book.title}
-                                </p>
+                            <div
+                                className="relative shadow-lg rounded flex justify-center items-center text-xs font-medium text-gray-700 bg-white ml-5 mb-10"
+                                style={{
+                                    width: '8vw',
+                                    height: '15vh',
+                                }}
+                            >
+                                <p className="text-center">{book.title}</p>
                             </div>
                         </Link>
                     ))}
