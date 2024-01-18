@@ -1,5 +1,4 @@
 "use client"
-"use client"
 import React, { useState } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
 import BasicButton from '@/components/buttons/basicButton'; // Adjust the path as necessary
@@ -7,22 +6,21 @@ import BigButton from '@/components/buttons/bigButton';
 import MediumImageButton from '@/components/buttons/middleImageButton';
 import LargeImageButton from '@/components/buttons/largeImageButton';
 import SmallImageButton from '@/components/buttons/smallImageButton';
+import ErrorPage from '@/components/errors/error';
+import LoadingPage from '@/components/loadings/loading';
+import SpeechBubble from '@/components/speechBubble/speechBubble';
 
-const ParentComponent = () => {
-  const handleClick = () => {
-    console.log('Image button clicked!');
-  };
-
+const ExamplePage = () => {
   return (
     <div>
-      <h1>Welcome to My App</h1>
-      <SmallImageButton
-        onClick={handleClick}
-        imageSrc="/path/to/image.jpg"  // Replace with your image path
-        alt="Description of Image"
+      <SpeechBubble
+        imageSrc="/images/furnitures/speechBubble.png"
+        alt="Descriptive Alt Text"
+        overlayText="Your Overlay Text Here"
       />
+      {/* ... other components */}
     </div>
   );
 };
 
-export default ParentComponent;
+export default ExamplePage;
