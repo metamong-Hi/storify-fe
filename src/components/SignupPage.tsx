@@ -32,7 +32,6 @@ const StyledSignupPage = styled.div`
 
 
 `;
-//hi
 const SignupPage: React.FC = () => {
   const [formData, setFormData] = useState<SignupData>({ username: '', email: '', password: '' });
 

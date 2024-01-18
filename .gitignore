@@ -36,5 +36,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+<<<<<<< HEAD
 #history
+=======
+>>>>>>> 2ca06c4d1a51bb4b881b208ffae36e4046ae87dd
 .history
