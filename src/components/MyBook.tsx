@@ -68,8 +68,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       .catch(error => {
         console.error("Fetching error: ", error);
       });
-      //  console.log(page)
-  }, []); // 빈 종속성 배열 추가
+
+  }, []); 
   
   console.log(page)
   return (
@@ -84,14 +84,12 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           <div className="demoPage" key={index}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '30px' }}>
               {isEvenPage ? (
-                // Display image for even pages (odd indices)
                 <img
                   src={item.imageUrl}
                   alt={`Page ${index + 1}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                // Display text for odd pages (even indices)
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
                   {item.content}
                 </div>
