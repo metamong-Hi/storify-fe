@@ -13,9 +13,6 @@ const StyledBookcase = styled.div`
     align-items: center;
     height: 100vh;
 `;
-
-//슬라이드로 만들어서 보여줌.
-
 export default function BookShelves() {
     const [bookShelves, setBookShelves] = useState<Array<{ books: { title: string }[] }>>([]);
 
@@ -24,7 +21,7 @@ export default function BookShelves() {
         for (let i = 0; i < allBooks.length; i += 6) {
             const shelfBooks = allBooks.slice(i, i + 6);
             while (shelfBooks.length < 6) {
-                shelfBooks.push({ title: '' } as { title: string }); // 빈 책 객체를 추가합니다.
+                shelfBooks.push({ title: '' } as { title: string });
             }
             newBookShelves.push({
                 books: shelfBooks,
@@ -35,7 +32,7 @@ export default function BookShelves() {
 
     return (
         <div
-            className="flex justify-center items-center "
+            className="flex   "
             style={{
                 width: '70vw',
                 height: '80vh',
@@ -43,7 +40,7 @@ export default function BookShelves() {
         >
             <Swiper
                 spaceBetween={0}
-                slidesPerView={1}
+                slidesPerView={2}
                 centeredSlides={true}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
