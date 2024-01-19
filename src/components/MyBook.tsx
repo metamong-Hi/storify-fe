@@ -45,8 +45,9 @@ interface MyBookProps {
 
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [page,setPage]=useState([]);
+  const [title,setTitle]=useState("");
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL+'/api/books/65aa18a8d5ab9bd8af914eb6')
+    fetch(process.env.NEXT_PUBLIC_API_URL+`/api/books/${bookId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -54,6 +55,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         return response.json();
       })
       .then(data => {
+        setTitle(data.title);
         const pagesArray = Object.values(data.body);
         const pages = pagesArray.map(item => ({
           content: item.text,
@@ -72,7 +74,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   console.log(page)
   return (
     <>
-       <h5 style={{ textAlign: 'center', paddingTop: '20px' }}>{bookId}</h5><br/>
+       <h5 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h5><br/>
       <StyledFlipBook>
       <HTMLFlipBook width={600} height={600} style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}>
       {page.map((item, index) => {
