@@ -1,55 +1,33 @@
-export const allBooks: Array<{ title: string }> = [
-  { title: "html" },
-  { title: "java" },
-  { title: "javascript" },
-  { title: "typescript" },
-  { title: "react" },
-  { title: "next" },
-  { title: "node" },
-  { title: "express" },
-  { title: "mysql" },
-  { title: "mongodb" },
-  { title: "python" },
-  { title: "django" },
-  { title: "flask" },
-  { title: "c" },
-  { title: "c++" },
-  { title: "c#" },
-  { title: "php" },
-  { title: "ruby" },
-  { title: "rails" },
-  { title: "scala" },
-  { title: "go" },
-  { title: "rust" },
-  { title: "swift" },
-  { title: "kotlin" },
-  { title: "android" },
-  { title: "ios" },
-  { title: "linux" },
-  { title: "ubuntu" },
-  { title: "centos" },
-  { title: "debian" },
-  { title: "redhat" },
-  { title: "fedora" },
-  { title: "windows" },
-  { title: "macos" },
-  { title: "unix" },
-  { title: "nginx" },
-  { title: "apache" },
-  { title: "tomcat" },
-  { title: "jenkins" },
-  { title: "docker" },
-  { title: "kubernetes" },
-  { title: "aws" },
-  { title: "azure" },
-  { title: "gcp" },
-  { title: "spring" },
-  { title: "spring boot" },
-  { title: "spring cloud" },
-  { title: "spring data" },
-  { title: "spring security" },
-  { title: "spring batch" },
-  { title: "spring integration" },
-  { title: "spring jpa" },
-  { title: "spring cloud loadbalancer" },
-];
+import { BooksData } from '@/types/books';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+async function GET(url: string): Promise<BooksData[]> {
+    try {
+        return (await fetch(url)).json();
+    } catch (error: any) {
+        return error.message;
+    }
+}
+
+export async function getAllBooks() {
+    const data = await GET(API_URL + '/api/books');
+    console.log(data);
+
+    const newBookShelves = [];
+    for (let i = 0; i < data.length; i += 6) {
+        const shelfBooks = data.slice(i, i + 6);
+        while (shelfBooks.length < 6) {
+            shelfBooks.push({
+                _id: '',
+                title: '',
+                userId: '',
+                storyId: '',
+            });
+        }
+        newBookShelves.push(shelfBooks);
+    }
+    console.log(newBookShelves);
+
+    return newBookShelves;
+}
