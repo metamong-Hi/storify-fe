@@ -13,7 +13,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body>
+            <body
+                style={{
+                    backgroundImage: 'url(images/backGround/brickBackground.jpg)',
+                    backgroundSize: 'fill',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'bottom',
+                    width: '100vw',
+
+                    height: '100vh',
+                }}
+            >
                 <Header />
                 {children}
             </body>
