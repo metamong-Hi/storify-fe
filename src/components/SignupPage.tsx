@@ -42,7 +42,7 @@ const SignupPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://storify-be.fly.dev/api/auth/register', { // '/api/signup'은 서버의 회원가입 처리 API 경로
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/auth/register', { // '/api/signup'은 서버의 회원가입 처리 API 경로
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
