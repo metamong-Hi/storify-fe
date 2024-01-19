@@ -55,21 +55,18 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         return response.json();
       })
       .then(data => {
-        setTitle(data.title);
+        setTitle(data.title)
         const pagesArray = Object.values(data.body);
-        const pages = pagesArray.map(item => ({
-          content: item.text,
-          id: item._id,
-          imageUrl: item.imageUrl
-        }));
-        setPage(pages);
+        const newPages = pagesArray.flatMap(item => [item.imageUrl, item.text]);
+
+        setPage(newPages);
        
       })
       .catch(error => {
         console.error("Fetching error: ", error);
       });
-
-  }, []); 
+      //  console.log(page)
+  }, []); // 빈 종속성 배열 추가
   
   console.log(page)
   return (
@@ -85,13 +82,13 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '30px' }}>
               {isEvenPage ? (
                 <img
-                  src={item.imageUrl}
+                  src={item}
                   alt={`Page ${index + 1}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
-                  {item.content}
+                  {item}
                 </div>
               )}
             </div>
