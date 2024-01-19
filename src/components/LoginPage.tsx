@@ -8,8 +8,8 @@ const StyledLoginPage = styled.div`
   align-items: center;
   height: 100vh;
   .form-container {
-    display: flex; // Flex 컨테이너 설정
-    gap: 5px; // 폼 사이의 간격
+    display: flex; 
+    gap: 5px; 
   }
   .fairy{
     width: 600px;
@@ -50,7 +50,7 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data); // 로그인 결과 처리
+      console.log(data); 
     } catch (error) {
       console.log("망했다")
       console.error('Login failed:', error);
