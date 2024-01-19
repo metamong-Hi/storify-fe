@@ -1,7 +1,6 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-// import styles from '../styles/styles.css'; // 스타일 파일 경로
 import styled from 'styled-components';
 
 const StyledFlipBook = styled.div`
@@ -38,80 +37,68 @@ const StyledImage = styled.img`
   object-fit: cover;
 `;
 
-// Props 타입 정의
+
 interface MyBookProps {
   bookId: string;
 }
 
 
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
+  const [page,setPage]=useState([]);
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_API_URL+'/api/books/65aa18a8d5ab9bd8af914eb6')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        const pagesArray = Object.values(data.body);
+        const pages = pagesArray.map(item => ({
+          content: item.text,
+          id: item._id,
+          imageUrl: item.imageUrl
+        }));
+        setPage(pages);
+       
+      })
+      .catch(error => {
+        console.error("Fetching error: ", error);
+      });
+      //  console.log(page)
+  }, []); // 빈 종속성 배열 추가
+  
+  console.log(page)
   return (
     <>
        <h5 style={{ textAlign: 'center', paddingTop: '20px' }}>{bookId}</h5><br/>
       <StyledFlipBook>
-      <HTMLFlipBook width={600} height={600}   style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}>
-          {/* 페이지 1 */}
+      <HTMLFlipBook width={600} height={600} style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}>
+      {page.map((item, index) => {
+        const isEvenPage = index % 2 === 0;
 
-          <div className="demoPage" >
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px'}}>
-          <img
-                  src="/images/newjeans9.jpeg"
-                  alt="Page 3"
+        return (
+          <div className="demoPage" key={index}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '30px' }}>
+              {isEvenPage ? (
+                // Display image for even pages (odd indices)
+                <img
+                  src={item.imageUrl}
+                  alt={`Page ${index + 1}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              </div>
-          </div>
-
-          {/* 페이지 2 */}
-          <div className="demoPage" >
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px' }}>
-       
+                />
+              ) : (
+                // Display text for odd pages (even indices)
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
+                  {item.content}
+                </div>
+              )}
             </div>
-            <div style={{display:'flex',justifyContent:'center',alignItems:'center',paddingLeft: '30px',paddingRight:'30px'}}>
-              where the lyrics express strong attraction and daydreaming about someone special. The lines convey a sense of falling deeply for someone, asking for their affirmation and attention. The song reflects on the feeling of being incomplete without the presence of this person, indicating a deep emotional connection. The lyrics also play with the idea of wanting the other person's call and affirmation, highlighting a mix of anticipation and longing.
-              </div>
           </div>
-
-          {/* 페이지 3 */}
-          <div className="demoPage" >
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px' }}>
-              <img
-                  src="/images/newjeans11.jpeg"
-                  alt="Page 3"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              </div>
-          </div>
-
-          {/* 페이지 4 */}
-          <div className="demoPage"  >
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px' }}>
-             
-              </div>
-              <div style={{display:'flex',justifyContent:'center',alignItems:'center',paddingLeft: '30px',paddingRight:'30px'}}>
-              where the lyrics express strong attraction and daydreaming about someone special. The lines convey a sense of falling deeply for someone, asking for their affirmation and attention. The song reflects on the feeling of being incomplete without the presence of this person, indicating a deep emotional connection. The lyrics also play with the idea of wanting the other person's call and affirmation, highlighting a mix of anticipation and longing.
-              </div>
-          </div>
-
-          <div className="demoPage"  >
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px' }}>
-              <img
-                  src="/images/newjeans5.jpeg"
-                  alt="Page 5"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              </div>
-          </div>
-
-          <div className="demoPage"  >
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',padding:'30px'  }}>
-              
-              </div>
-              <div style={{display:'flex',justifyContent:'center',alignItems:'center',paddingLeft: '30px',paddingRight:'30px'}}>
-              where the lyrics express strong attraction and daydreaming about someone special. The lines convey a sense of falling deeply for someone, asking for their affirmation and attention. The song reflects on the feeling of being incomplete without the presence of this person, indicating a deep emotional connection. The lyrics also play with the idea of wanting the other person's call and affirmation, highlighting a mix of anticipation and longing.
-              </div>
-          </div>
-      </HTMLFlipBook>
+        );
+      })}
+    </HTMLFlipBook>
       </StyledFlipBook>
     </>
   );
