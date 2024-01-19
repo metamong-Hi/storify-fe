@@ -1,15 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 
-interface ErrorPageProps {
-  // Add any additional props you might need
-}
-
-const ErrorPage: React.FC<ErrorPageProps> = () => {
+const ErrorPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-pink-100">
       <div className="text-center">
-        <div className="mx-auto w-96 h-96 rounded-sm p-2 inline-block relative"> 
+        <div className="mx-auto w-96 h-96 rounded-sm p-2 inline-block relative animate-wiggle" style={{ transformOrigin: 'bottom' }}> 
           <Image 
             src="/images/angels/error.png" 
             alt="Error"
@@ -24,7 +20,7 @@ const ErrorPage: React.FC<ErrorPageProps> = () => {
           onClick={() => window.location.href = '/'} 
           className="mt-6 px-6 py-3 bg-purple-500 text-white font-bold rounded-lg hover:bg-purple-600"
         >
-          Back to Home
+          홈으로 가기
         </button>
       </div>
     </div>

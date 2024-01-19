@@ -9,16 +9,31 @@ import SmallImageButton from '@/components/buttons/smallImageButton';
 import ErrorPage from '@/components/errors/error';
 import LoadingPage from '@/components/loadings/loading';
 import SpeechBubble from '@/components/speechBubble/speechBubble';
+import BasicBox from '@/components/boxes/basicBox';
+import SmallBox from '@/components/boxes/smallBox';
+import LargeBox from '@/components/boxes/largeBox';
+import BorderlessBox from '@/components/boxes/BorderlessBox';
+import TransparentBox from '@/components/boxes/transparentBox';
 
 const ExamplePage = () => {
   return (
     <div>
-      <SpeechBubble
-        imageSrc="/images/furnitures/speechBubble.png"
-        alt="Descriptive Alt Text"
-        overlayText="Your Overlay Text Here"
-      />
-      {/* ... other components */}
+      <BasicBox>
+        기본박스
+      </BasicBox>
+      <SmallBox>
+        작은 박스
+      </SmallBox>
+      <LargeBox>
+        큰 박스
+      </LargeBox>
+      <BorderlessBox>
+        테두리 없는 박스
+      </BorderlessBox>
+      <TransparentBox>
+        투명한 박스
+      </TransparentBox>
+
     </div>
   );
 };

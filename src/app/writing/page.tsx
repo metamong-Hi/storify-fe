@@ -20,17 +20,6 @@ const ParentComponent: React.FC = () => {
 
   return (
     <div>
-      {/* Speech Bubble with Higher z-index */}
-      <div className="flex justify-center items-top h-screen" style={{ zIndex: 20 }}> {/* Adjust z-index as needed */}
-        <SpeechBubble
-          imageSrc="/images/furnitures/speechBubble.png"
-          alt="Descriptive Alt Text"
-          overlayText="Your Overlay Text Here"
-        />
-      </div>
-
-      {/* Double Modal with Lower z-index */}
-      <div style={{ zIndex: 10 }}> {/* Adjust z-index as needed */}
         <DoubleModal
           show={modalShow}
           onClose={() => setModalShow(false)}
@@ -45,13 +34,22 @@ const ParentComponent: React.FC = () => {
               <BigButton onClick={handleFirstButtonClick}>단순 생성</BigButton>
             </div>
         }
-          children2={<BigButton onClick={handleFirstButtonClick}>고급 생성</BigButton>}
+          children2={
+            <div className="text-center">
+                <Image
+                    src="/images/angels/writing.png" 
+                    alt="Image Description"
+                    width={256}  
+                    height={256}
+                    style={{ opacity: 0 }}
+                />
+                <BigButton onClick={handleFirstButtonClick}>고급 생성</BigButton>
+            </div>
+          }
         />
       </div>
-
-      {/* Other content can go here */}
-    </div>
   );
 };
 
 export default ParentComponent;
+
