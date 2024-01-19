@@ -24,25 +24,25 @@ const Header: React.FC<HeaderProps> = (props) => {
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
-            <div className="flex flex-wrap items-center justify-between gap-4 px-10 py-4 relative bg-white min-h-[70px] lg:flex-grow">
+            <div className="flex flex-wrap items-center justify-between gap-4  mx-8 relative bg-white min-h-[70px] lg:flex-grow">
                 {/*왼쪽 정렬*/}
-                <div className="flex items-center gap-4">
-                    <a href="javascript:void(0)" onClick={handleClickHome}>
+                <div className="flex items-center ">
+                <a href="javascript:void(0)" onClick={handleClickHome}>
                         <img
-                            src="https://readymadeui.com/readymadeui.svg"
+                            src="/images/angels/logo.png"
                             alt="logo"
-                            className="w-36"
+                            className="w-16 h-16"
                         />
                     </a>
-                    {/*여기 수정해야함 -> 라우팅 방식 바뀜*/}
-
-                    <a
-                        href="javascript:void(0)"
-                        className="lg:hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]"
-                        onClick={handleClickBook}
-                    >
-                        Book
+                    <a href="javascript:void(0)" onClick={handleClickHome}>
+                        <img
+                            src="/images/Logos/storifyLogo.png"
+                            alt="logo"
+                            className="w-28 h-24"
+                        />
                     </a>
+
+                    {/*여기 수정해야함 -> 라우팅 방식 바뀜*/}
                 </div>
 
                 {/* 오른쪽 정렬*/}
