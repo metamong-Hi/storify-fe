@@ -15,18 +15,9 @@ export default function BookShelves() {
         const bookShelves = () => {
             return (
                 <>
-                    {' '}
                     {allbooks.map((shelf, index) => (
                         <SwiperSlide key={index}>
-                            <div
-                                className="flex justify-center items-center bg-no-repeat bg-center bg-cove"
-                                style={{
-                                    backgroundImage: 'url(/textures/bookshelf/bookShelf.png)',
-                                    height: '100vh',
-                                }}
-                            >
-                                <Shelf key={index} books={shelf} />
-                            </div>
+                            <Shelf key={index} books={shelf} />
                         </SwiperSlide>
                     ))}
                 </>
@@ -37,25 +28,22 @@ export default function BookShelves() {
     }
     useEffect(() => {
         settingBookShelves();
-        console.log('BookShelves.tsx');
     }, []);
 
     return (
-        <div
-            className="flex justify-center items-center"
-            style={{
-                width: '80vw',
-                height: '80vh',
-            }}
-        >
+        <div className="flex justify-center items-center ">
             <Swiper
                 spaceBetween={0}
-                slidesPerView={1}
+                slidesPerView={2}
                 centeredSlides={true}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
+                style={{
+                    height: '100vh',
+                    width: '100vw',
+                }}
             >
-                {bookShelves}
+                {bookShelves ? bookShelves : <></>}
             </Swiper>
         </div>
     );
