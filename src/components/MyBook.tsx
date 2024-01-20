@@ -88,7 +88,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                 />
               ) : (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
+                  <p class="text-2xl">
                   {item}
+                  </p>
                 </div>
               )}
             </div>

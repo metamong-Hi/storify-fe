@@ -7,7 +7,7 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
