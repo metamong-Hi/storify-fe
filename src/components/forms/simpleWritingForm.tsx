@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import MediumImageButton from '../buttons/middleImageButton';
+import MediumImageButton from '../buttons/mediumImageButton';
 import Link from 'next/link';
 
 interface SimpleWritingFormProps {
@@ -14,8 +14,8 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
     setText(event.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+  const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault(); 
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/stories/ai', {
         method: 'POST',
@@ -37,6 +37,10 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
     }
   };
 
+  const handleButtonClick = () => {
+    handleSubmit();
+  };
+
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <textarea
@@ -54,6 +58,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
       <div className="flex justify-end mt-4"> {/* Flex container for right alignment */}
         <Link href={destination} passHref>
             <MediumImageButton 
+              onClick={handleButtonClick}
               imageSrc="/Images/buttons/redArrow.png"
               alt="Submit"
             />

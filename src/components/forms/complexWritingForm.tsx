@@ -1,7 +1,8 @@
 "use client"
-import React, { useState } from 'react';
-import MediumImageButton from '../buttons/middleImageButton';
+import React, { useState, useEffect } from 'react';
+import MediumImageButton from '../buttons/mediumImageButton';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface ComplexWritingFormProps {
     destination: string; 
@@ -9,20 +10,39 @@ interface ComplexWritingFormProps {
 
 const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
+  const [accumulatedText, setAccumulatedText] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.pathname === '/writing/complexWriting/background') {
+      // Append current text to accumulatedText and send POST request
+      sendPostRequest(accumulatedText + text);
+    } else if (router.pathname === '/writing/complexWriting/people') {
+      // Append current text to accumulatedText
+      setAccumulatedText(accumulatedText + text);
+    } else if (router.pathname === '/writing/complexWriting/events') {
+      // Store the current text without sending a POST request
+      setAccumulatedText(text);
+    }
+  }, [router.pathname, text]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    sendPostRequest(accumulatedText + text);
+  };
+
+  const sendPostRequest = async (finalText: string) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/stories/ai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: text }) 
+        body: JSON.stringify({ message: finalText }) 
       });
       if (response.ok) {
 

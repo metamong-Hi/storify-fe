@@ -5,9 +5,10 @@ interface MediumImageButtonProps {
 
   imageSrc: string;
   alt: string;
+  onClick?: () => void; 
 }
 
-const MediumImageButton: React.FC<MediumImageButtonProps> = ({  imageSrc, alt }) => {
+const MediumImageButton: React.FC<MediumImageButtonProps> = ({  imageSrc, alt, onClick }) => {
     return (
       <button 
         className="
@@ -17,6 +18,7 @@ const MediumImageButton: React.FC<MediumImageButtonProps> = ({  imageSrc, alt })
           md:p-6 
           lg:p-8 
         "
+        onClick={onClick}
       >
         <Image 
           src={imageSrc} 
