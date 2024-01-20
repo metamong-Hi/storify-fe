@@ -5,7 +5,6 @@ import Error from '@/components/errors/error';
 const SomePage: React.FC = () => {
   return (
     <Error/>
-
   );
 };
 
