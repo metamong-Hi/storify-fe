@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import MediumImageButton from '../buttons/middleImageButton';
 import Link from 'next/link';
 
-interface SimpleWritingFormProps {
-  destination: string; 
-}
+interface ComplexWritingFormProps {
+    destination: string; 
+  }
 
-const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) => {
+const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,7 +52,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
         }}
       />
       <div className="flex justify-end mt-4"> {/* Flex container for right alignment */}
-        <Link href={destination} passHref>
+      <Link href={destination} passHref>
             <MediumImageButton 
               imageSrc="/Images/buttons/redArrow.png"
               alt="Submit"
@@ -63,4 +63,4 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
   );
 };
 
-export default SimpleWritingForm;
+export default ComplexWritingForm;
