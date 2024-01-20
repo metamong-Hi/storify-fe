@@ -71,7 +71,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   console.log(page)
   return (
     <>
-       <h5 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h5><br/>
+       <h1 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h1><br/>
       <StyledFlipBook>
       <HTMLFlipBook width={600} height={600} style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}>
       {page.map((item, index) => {
@@ -87,8 +87,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
-                  <p class="text-2xl">
+                <div style={{ display: 'flex', justifyContent: 'center', lineHeight:'1.5',textAlign: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
+                  <p class="text-3xl  leading-loose">
                   {item}
                   </p>
                 </div>
