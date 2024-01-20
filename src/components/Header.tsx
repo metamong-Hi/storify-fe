@@ -1,17 +1,14 @@
 'use client';
 // components/Header.tsx
 import React, { useState, useEffect } from 'react';
-// import '../styles/globals.css';
-// import { useRouter } from "next/router"; ->클라이언트 기반 렌더링임 (Link로 변경 1/17일 수정함)
 
 interface HeaderProps {}
-//헤더 반응형 완성 - 로그인/로그아웃 상태에 따른 메뉴 상태 추가 (1/16일 수정함)
+
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    //   const router = useRouter();
-    // 여기 수정함 1/16 토글 버튼 ->menu 오픈
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -24,21 +21,21 @@ const Header: React.FC<HeaderProps> = (props) => {
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
-            <div className="flex flex-wrap items-center justify-between gap-4  mx-8 relative bg-white min-h-[70px] lg:flex-grow">
+            <div className="flex flex-wrap items-center justify-between gap-4  mx-8 relative bg-white min-h-[70px] lg:flex-grow" style={{ zIndex: 1000 }}>
                 {/*왼쪽 정렬*/}
                 <div className="flex items-center ">
                 <a href="javascript:void(0)" onClick={handleClickHome}>
                         <img
                             src="/images/angels/logo.png"
                             alt="logo"
-                            className="w-16 h-16"
+                            className="w-12 h-12"
                         />
                     </a>
                     <a href="javascript:void(0)" onClick={handleClickHome}>
                         <img
                             src="/images/Logos/storifyLogo.png"
                             alt="logo"
-                            className="w-28 h-24"
+                            className="w-24 h-12"
                         />
                     </a>
 
@@ -56,9 +53,9 @@ const Header: React.FC<HeaderProps> = (props) => {
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 ></path>
                             </svg>
                         </button>
@@ -86,7 +83,6 @@ const Header: React.FC<HeaderProps> = (props) => {
                                     className={`py-2 px-3 lg:py-0 lg:px-4 ${isMenuOpen ? 'mt-8' : ''}`}
                                 >
                                     {' '}
-                                    {/* 'mt-8'는 Tailwind의 마진 클래스입니다 */}
                                     <a
                                         href="#"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
