@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
-
+import Image from 'next/image'
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;

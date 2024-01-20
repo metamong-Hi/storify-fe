@@ -21,9 +21,9 @@ const Header: React.FC<HeaderProps> = (props) => {
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
-            <div className="flex flex-wrap items-center justify-between gap-4  mx-8 relative bg-white min-h-[70px] lg:flex-grow" style={{ zIndex: 1000 }}>
+            <div className="flex flex-wrap items-center justify-between gap-4  mx-0 relative bg-white min-h-[70px] lg:flex-grow" style={{ zIndex: 1000 }}>
                 {/*왼쪽 정렬*/}
-                <div className="flex items-center ">
+                <div className="flex items-center mx-8">
                 <a href="javascript:void(0)" onClick={handleClickHome}>
                         <img
                             src="/images/angels/logo.png"
