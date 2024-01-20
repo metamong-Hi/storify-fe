@@ -2,11 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import Gauge from '../gauge/gauge';
 
-interface LoadingPageProps {
+interface LoadingProps {
   // Add any additional props you might need
 }
 
-const LoadingPage: React.FC<LoadingPageProps> = () => {
+const Loading: React.FC<LoadingProps> = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-pink-100">
       <div className="text-center">
@@ -27,4 +27,4 @@ const LoadingPage: React.FC<LoadingPageProps> = () => {
   );
 };
 
-export default LoadingPage;
+export default Loading;
