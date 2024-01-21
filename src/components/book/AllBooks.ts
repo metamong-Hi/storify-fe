@@ -12,32 +12,21 @@ async function GET(url: string): Promise<BooksData[]> {
 
 export async function getAllBooks() {
     const data = await GET(API_URL + '/api/books');
-    const makeBookButton = {
-        _id: 'makeBookButton',
-        title: 'makeBookButton',
-        userId: '',
-        storyId: '',
-    };
-    const allBooks = [...data, makeBookButton];
+    console.log(data);
 
-    console.log(allBooks);
     const newBookShelves = [];
-    for (let i = 0; i < allBooks.length; i += 6) {
-        const shelfBooks = allBooks.slice(i, i + 6);
-
-        if (shelfBooks.length < 6) {
-            const placeholders = Array.from({ length: 6 - shelfBooks.length }, () => ({
+    for (let i = 0; i < data.length; i += 6) {
+        const shelfBooks = data.slice(i, i + 6);
+        while (shelfBooks.length < 6) {
+            shelfBooks.push({
                 _id: '',
                 title: '',
                 userId: '',
                 storyId: '',
-            }));
-            newBookShelves.push(shelfBooks.concat(placeholders));
-        } else {
-            newBookShelves.push(shelfBooks);
+            });
         }
+        newBookShelves.push(shelfBooks);
     }
-
     console.log(newBookShelves);
 
     return newBookShelves;
