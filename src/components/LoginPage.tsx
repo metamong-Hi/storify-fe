@@ -70,7 +70,6 @@ const LoginPage: React.FC = () => {
       setCookie('token', data.accessToken, 1);
     
       console.log("로그인 성공함");
-      <Link href="/"/>
     } catch (error) {
       console.log("망했다")
       console.error('Login failed:', error);
@@ -119,9 +118,11 @@ const LoginPage: React.FC = () => {
       />  
     
       <div className="flex items-center justify-between">
+        <Link href="/">
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">
           확인
         </button>
+        </Link>
       </div>
       </div>
       </div>
