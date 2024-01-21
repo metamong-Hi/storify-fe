@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { LoginData } from '@/types/auth';
 import styled from 'styled-components';
+import Image from 'next/image';
+import Link from 'next/link'; 
 const StyledLoginPage = styled.div`
   display: flex;
   justify-content: center;
@@ -32,11 +34,24 @@ const StyledLoginPage = styled.div`
 
 
 `;
+interface SimpleWritingFormProps {
+  destination: string; 
+}
 const LoginPage: React.FC = () => {
+
   const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const setCookie = (name, value, days) => {
+    let expires = "";
+    if (days) {
+      let date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,7 +65,12 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
+      
       console.log(data); 
+      setCookie('token', data.accessToken, 1);
+    
+      console.log("로그인 성공함");
+      <Link href="/"/>
     } catch (error) {
       console.log("망했다")
       console.error('Login failed:', error);
@@ -63,11 +83,16 @@ const LoginPage: React.FC = () => {
   <div className="form-container">
     <div className='fairy'>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img
-                  src="/images/angels/login.png"
-                  alt="fairy"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+    <div className="w-100 h-100">
+        <Image
+            src="/Images/angels/login.png"
+            alt="Sign Up"
+            width={0}  
+            height={0} 
+            sizes="100vw"
+            style={{width:'100%',height:'100%'}}
+        />
+        </div>
               </div>
     </div>
     <form onSubmit={handleSubmit} className="form max-w-md mx-auto">

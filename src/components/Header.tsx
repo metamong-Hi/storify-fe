@@ -1,7 +1,7 @@
 'use client';
 // components/Header.tsx
 import React, { useState, useEffect } from 'react';
-
+import Link from "next/link";
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -21,23 +21,24 @@ const Header: React.FC<HeaderProps> = (props) => {
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
-            <div className="flex flex-wrap items-center justify-between gap-4  mx-8 relative bg-white min-h-[70px] lg:flex-grow" style={{ zIndex: 1000 }}>
+            <div className="flex flex-wrap items-center justify-between gap-4  mx-0 relative bg-white min-h-[70px] lg:flex-grow" style={{ zIndex: 1000 }}>
                 {/*왼쪽 정렬*/}
-                <div className="flex items-center ">
-                <a href="javascript:void(0)" onClick={handleClickHome}>
+                <div className="flex items-center mx-8">
+                <Link href="/">
+    
                         <img
                             src="/images/angels/logo.png"
                             alt="logo"
                             className="w-12 h-12"
                         />
-                    </a>
-                    <a href="javascript:void(0)" onClick={handleClickHome}>
+                    </Link>
+                    <Link href="/">
                         <img
                             src="/images/Logos/storifyLogo.png"
                             alt="logo"
                             className="w-24 h-12"
                         />
-                    </a>
+                    </Link>
 
                     {/*여기 수정해야함 -> 라우팅 방식 바뀜*/}
                 </div>
@@ -97,22 +98,22 @@ const Header: React.FC<HeaderProps> = (props) => {
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-8' : ''}`}
                                 >
-                                    <a
-                                        href="#"
+                                    <Link 
+                                        href="/login"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
                                     >
                                         Login
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-4' : ''}`}
                                 >
-                                    <a
-                                        href="#"
+                                    <Link
+                                        href="/signup"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
                                     >
                                         Register
-                                    </a>
+                                    </Link>
                                 </li>
                             </>
                         )}
