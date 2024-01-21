@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "babelrc": "^0.0.7",
+    "js-cookie": "^3.0.5",
     "next": "14.0.4",
     "next-redux-wrapper": "^8.1.0",
     "react": "^18.2.0",

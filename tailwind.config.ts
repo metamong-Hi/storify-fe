@@ -21,6 +21,12 @@ const config: Config = {
         '20': '20px',
         '24': '24px',
       },
+      inset: {
+        '1/5': '20%',
+        '2/5': '40%',
+        '3/5': '60%',
+        '4/5': '80%',
+      },
       keyframes: {
         spin: {
           '0%': { transform: 'rotateY(0deg)' },

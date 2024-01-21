@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { SignupData } from '@/types/user';
 import styled from 'styled-components';
+import Image from 'next/image';
 const StyledSignupPage = styled.div`
   display: flex;
   justify-content: center;
@@ -63,12 +64,17 @@ const SignupPage: React.FC = () => {
     <div className="form-container">
     <div className='fairy'>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img
-                  src="/images/angels/signUp.png"
-                  alt="fairy"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              </div>
+        <div className="w-100 h-100">
+        <Image
+            src="/Images/angels/signUp.png"
+            alt="Sign Up"
+            width={0}  
+            height={0}
+            sizes="100vw"
+            style={{width:'100%',height:'100%'}}
+        />
+        </div>
+    </div>
     </div>
     <form onSubmit={handleSubmit} className="form max-w-md mx-auto">
     <div className="content">

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-const ErrorPage: React.FC = () => {
+const Error: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-pink-100">
       <div className="text-center">
@@ -27,4 +27,4 @@ const ErrorPage: React.FC = () => {
   );
 };
 
-export default ErrorPage;
+export default Error;
