@@ -4,6 +4,13 @@ import { LoginData } from '@/types/auth';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link'; 
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
+// import { setToken } from '../store/userSlice';
+import {login}from '../store/userSlice';
+// import { login, loginSuccess } from '../store/actions';
+
+// import { login } from '../store/userSlice'; // login 액션 import
 const StyledLoginPage = styled.div`
   display: flex;
   justify-content: center;
@@ -40,7 +47,9 @@ interface SimpleWritingFormProps {
 const LoginPage: React.FC = () => {
 
   const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
-
+  const dispatch = useAppDispatch();
+  const loginStatus = useAppSelector(state => state.user.status);
+  const loginError = useAppSelector(state => state.user.error);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -56,24 +65,27 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/auth/login', { // '/api/login'은 서버의 로그인 처리 API 경로
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
+    // try {
+    //   const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/auth/login', { // '/api/login'은 서버의 로그인 처리 API 경로
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(formData),
+    //   });
+    //   const data = await response.json();
       
-      console.log(data); 
-      setCookie('token', data.accessToken, 1);
+    //   console.log(data); 
+    //   // setCookie('token', data.accessToken, 1);
+    //   dispatch(setToken(data.accessToken));
     
-      console.log("로그인 성공함");
-    } catch (error) {
-      console.log("망했다")
-      console.error('Login failed:', error);
-    }
+    //   console.log("로그인 성공함");
+    // } catch (error) {
+    //   console.log("망했다")
+    //   console.error('Login failed:', error);
+    // }
+    dispatch(login({ username: formData.username, password: formData.password }));
+    console.log("여기까지 왔다");
   };
 
   return (
@@ -118,11 +130,13 @@ const LoginPage: React.FC = () => {
       />  
     
       <div className="flex items-center justify-between">
-        <Link href="/">
+        {/* <Link href="/"> */}
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">
           확인
         </button>
-        </Link>
+        {/* </Link> */}
+        {loginStatus === 'loading' && <p>로그인 시도 중...</p>}
+              {loginStatus === 'failed' && <p>로그인 실패: {loginError}</p>}
       </div>
       </div>
       </div>

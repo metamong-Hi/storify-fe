@@ -3,11 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 interface HeaderProps {}
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for(let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if(name === cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+      }
+    }
+    return null;
+  }
 
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -18,6 +28,8 @@ const Header: React.FC<HeaderProps> = (props) => {
     const handleClickHome = () => {
         // router.push('/');
     };
+
+    const token = getCookie('token');
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
@@ -73,7 +85,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                         >
                             X
                         </button>
-                        {isLoggedIn ? (
+                        {!token ? (
                             <>
                                 {!isMenuOpen && (
                                     <h5 className="hidden sm:block md:block">
