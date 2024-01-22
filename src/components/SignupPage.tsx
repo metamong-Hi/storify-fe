@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SignupData } from '@/types/user';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link'; 
 const StyledSignupPage = styled.div`
   display: flex;
   justify-content: center;
@@ -116,9 +117,11 @@ const SignupPage: React.FC = () => {
         className="shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       />
       <div className="flex items-center justify-between">
+      <Link href="/">
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">
           확인
         </button>
+        </Link>
       </div>
       </div>
       </div>

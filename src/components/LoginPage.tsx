@@ -86,6 +86,7 @@ const LoginPage: React.FC = () => {
     // }
     dispatch(login({ username: formData.username, password: formData.password }));
     console.log("여기까지 왔다");
+
   };
 
   return (
@@ -130,13 +131,14 @@ const LoginPage: React.FC = () => {
       />  
     
       <div className="flex items-center justify-between">
-        {/* <Link href="/"> */}
+        <Link href="/">
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">
           확인
         </button>
-        {/* </Link> */}
+       
         {loginStatus === 'loading' && <p>로그인 시도 중...</p>}
               {loginStatus === 'failed' && <p>로그인 실패: {loginError}</p>}
+        </Link>
       </div>
       </div>
       </div>
