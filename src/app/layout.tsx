@@ -16,11 +16,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
             <body>
-       
+                <Provider store={store}>
                 <Header />
                 <div className="flex flex-col h-screen">
-                <Provider store={store}>{children}</Provider>
+                {children}
+                
                 </div>
+                </Provider>
             </body>
         </html>
     );

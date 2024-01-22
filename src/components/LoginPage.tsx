@@ -65,26 +65,13 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // try {
-    //   const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/auth/login', { // '/api/login'은 서버의 로그인 처리 API 경로
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   const data = await response.json();
-      
-    //   console.log(data); 
-    //   // setCookie('token', data.accessToken, 1);
-    //   dispatch(setToken(data.accessToken));
+    dispatch(login({ username: formData.username, password: formData.password })) .then(() => {
+      window.location.href = '/'; 
+    })
+    .catch((error) => {
     
-    //   console.log("로그인 성공함");
-    // } catch (error) {
-    //   console.log("망했다")
-    //   console.error('Login failed:', error);
-    // }
-    dispatch(login({ username: formData.username, password: formData.password }));
+      console.error("로그인 실패: ", error);
+    });
     console.log("여기까지 왔다");
 
   };
@@ -131,14 +118,14 @@ const LoginPage: React.FC = () => {
       />  
     
       <div className="flex items-center justify-between">
-        <Link href="/">
+        {/* <Link href="/"> */}
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">
           확인
         </button>
        
         {loginStatus === 'loading' && <p>로그인 시도 중...</p>}
               {loginStatus === 'failed' && <p>로그인 실패: {loginError}</p>}
-        </Link>
+        {/* </Link> */}
       </div>
       </div>
       </div>
