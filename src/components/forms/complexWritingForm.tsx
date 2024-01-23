@@ -6,16 +6,6 @@ import Link from 'next/link';
 interface ComplexWritingFormProps {
     destination: string; 
   }
-  function getCookie(name:string) {
-    let cookieArr = document.cookie.split(";");
-    for(let i = 0; i < cookieArr.length; i++) {
-      let cookiePair = cookieArr[i].split("=");
-      if(name === cookiePair[0].trim()) {
-        return decodeURIComponent(cookiePair[1]);
-      }
-    }
-    return null;
-  }
 const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
   const [accumulatedText, setAccumulatedText] = useState('');
@@ -27,7 +17,7 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) 
     event.preventDefault();
     sendPostRequest(accumulatedText + text);
   };
-  const token = getCookie('token');
+  const token = localStorage.getItem('token');
   const sendPostRequest = async (finalText: string) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/stories/ai', {

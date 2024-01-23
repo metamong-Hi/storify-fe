@@ -10,14 +10,20 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-    const dispatch=useAppDispatch();
+    const [username,setUsername]=useState("");
    
+    const dispatch=useAppDispatch();
+    // const username = useAppSelector(state => state.user.username);
+    const realToken=useAppSelector(state => state.user.token);
+    console.log(realToken);
     useEffect(() => {
         const token = localStorage.getItem('token');
+        setUsername(localStorage.getItem('username') || '');
+        // setUsername(hihi);
+        //여기 수정함
         setIsLoggedIn(!!token);
-    }, []);
 
+    }, []);
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -96,7 +102,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                             <>
                                 {!isMenuOpen && (
                                     <h5 className="hidden sm:block md:block">
-                                        {name}님 환영합니다
+                                        {username}님 환영합니다
                                     </h5>
                                 )}
                                 <li
