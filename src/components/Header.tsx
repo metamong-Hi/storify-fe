@@ -2,12 +2,21 @@
 // components/Header.tsx
 import React, { useState, useEffect } from 'react';
 import Link from "next/link";
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import  {useAppSelector} from '@/hooks/useAppSelector';
+import {logout} from '@/store/userSlice';
+import {store} from '@/store/index';
 interface HeaderProps {}
-
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+    const dispatch=useAppDispatch();
+   
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
+    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -18,6 +27,17 @@ const Header: React.FC<HeaderProps> = (props) => {
     const handleClickHome = () => {
         // router.push('/');
     };
+    const handleClickLogout=()=>{
+        dispatch(logout())
+        .then(()=>{
+            localStorage.removeItem('token'); 
+            setIsLoggedIn(false); 
+            console.log("로그아웃 성공함");
+        }).catch((error)=>{
+            console.log("로그아웃 망함"+error);
+        });
+    }
+
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
@@ -40,7 +60,6 @@ const Header: React.FC<HeaderProps> = (props) => {
                         />
                     </Link>
 
-                    {/*여기 수정해야함 -> 라우팅 방식 바뀜*/}
                 </div>
 
                 {/* 오른쪽 정렬*/}
@@ -85,9 +104,8 @@ const Header: React.FC<HeaderProps> = (props) => {
                                 >
                                     {' '}
                                     <a
-                                        href="#"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
-                                        onClick={() => setIsLoggedIn(false)}
+                                        onClick={()=>handleClickLogout()}
                                     >
                                         Logout
                                     </a>
@@ -104,6 +122,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                                     >
                                         Login
                                     </Link>
+                                    
                                 </li>
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-4' : ''}`}
