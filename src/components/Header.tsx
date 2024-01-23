@@ -11,19 +11,18 @@ const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username,setUsername]=useState("");
+   
     const dispatch=useAppDispatch();
     // const username = useAppSelector(state => state.user.username);
     const realToken=useAppSelector(state => state.user.token);
     console.log(realToken);
-    console.log(username);
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const hihi=localStorage.getItem('username');
-        setUsername(hihi);
+        setUsername(localStorage.getItem('username') || '');
+        // setUsername(hihi);
         setIsLoggedIn(!!token);
 
     }, []);
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
