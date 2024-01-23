@@ -18,7 +18,19 @@ const ClusterCardContainer = () => {
         if (index === 4) {
             setActiveCard(activeCard === cardSize ? null : cardSize);
         } else {
-            setFlyOff(sizes.slice(index + 1));
+            const newFlyOff = sizes.slice(index + 1);
+            setFlyOff(newFlyOff);
+    
+            // Upgrade the size of each remaining card
+            const updatedCardStack = cardStack.map((size) => {
+                const currentIndex = sizes.indexOf(size);
+                if (!newFlyOff.includes(size) && currentIndex < 4) {
+                    return sizes[currentIndex + 1];
+                }
+                return size;
+            });
+    
+            setCardStack(updatedCardStack);
         }
     };
 
