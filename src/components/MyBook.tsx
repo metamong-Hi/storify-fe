@@ -37,6 +37,10 @@ const StyledImage = styled.img`
   object-fit: cover;
 `;
 
+interface PageItem {
+  imageUrl: string;
+  text: string;
+}
 
 interface MyBookProps {
   bookId: string;
@@ -44,7 +48,7 @@ interface MyBookProps {
 
 
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
-  const [page,setPage]=useState([]);
+  const [page, setPage] = useState<string[]>([]);
   const [title,setTitle]=useState("");
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL+`/api/books/${bookId}`)
@@ -56,8 +60,12 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       })
       .then(data => {
         setTitle(data.title)
-        const pagesArray = Object.values(data.body);
-        const newPages = pagesArray.flatMap(item => [item.imageUrl, item.text]);
+        // const pagesArray = Object.values(data.body);
+        // const newPages = pagesArray.flatMap(item => [item.imageUrl, item.text]);
+
+        // setPage(newPages);
+        const pagesArray = Object.values(data.body) as PageItem[];
+        const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
 
         setPage(newPages);
        
@@ -69,11 +77,39 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   }, []); // 빈 종속성 배열 추가
   
   console.log(page)
+  //@ts-ignore
   return (
     <>
        <h1 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h1><br/>
       <StyledFlipBook>
-      <HTMLFlipBook width={600} height={600} style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}>
+      <HTMLFlipBook
+  width={600} // 너비를 600으로 설정
+  height={600} // 높이를 600으로 설정
+  style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}
+  startPage={0}
+  drawShadow={false}
+  flippingTime={4}
+  usePortrait={true}
+  startZIndex={0}
+  autoSize={false}
+  clickEventForward={true}
+  useMouseEvents={true}
+  swipeDistance={4}
+  showPageCorners={true}
+  disableFlipByClick={true}
+  size="stretch"
+  minWidth={600}
+  maxWidth={600}
+  minHeight={600}
+  maxHeight={600}
+  maxShadowOpacity={0.5}
+  showCover={true}
+  mobileScrollSupport={true}
+  onFlip={() => {}}
+  onChangeOrientation={() => {}}
+  onChangeState={() => {}}
+  className="demo-book"
+>
       {page.map((item, index) => {
         const isEvenPage = index % 2 === 0;
 
@@ -88,7 +124,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                 />
               ) : (
                 <div style={{ display: 'flex', justifyContent: 'center', lineHeight:'1.5',textAlign: 'center', paddingLeft: '30px', paddingRight: '30px' }}>
-                  <p class="text-3xl  leading-loose">
+                  <p >
                   {item}
                   </p>
                 </div>
