@@ -7,26 +7,38 @@ interface SimpleWritingFormProps {
   destination: string; 
 }
 
+function getCookie(name:string) {
+  let cookieArr = document.cookie.split(";");
+  for(let i = 0; i < cookieArr.length; i++) {
+    let cookiePair = cookieArr[i].split("=");
+    if(name === cookiePair[0].trim()) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return null;
+}
 const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-
+  const token = getCookie('token');
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault(); 
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/stories/ai', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({ message: text }) 
       });
       if (response.ok) {
-
         console.log('Story submitted successfully');
+        console.log(response)
+        alert(response);
       } else {
 
         console.error('Failed to submit story');
