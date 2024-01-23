@@ -15,11 +15,13 @@ import LargeBox from '@/components/boxes/largeBox';
 import BorderlessBox from '@/components/boxes/BorderlessBox';
 import TransparentBox from '@/components/boxes/transparentBox';
 import SimpleWritingForm from '@/components/forms/simpleWritingForm';
-
+import Card from '@/components/cards/card';
+import ClusterCard from '@/components/cards/clusterCard';
+import ClusterCardContainer from '@/components/cards/clusterCardContainer';
 const TestBHPage: React.FC = () => {
   return (
-    <div className="p-4">
-      <LoadingPage />
+    <div className="p-4 bg-gray-200 min-h-screen"> {/* Updated to bg-gray-200 */}
+      <ClusterCardContainer/>
     </div>
   );
 };

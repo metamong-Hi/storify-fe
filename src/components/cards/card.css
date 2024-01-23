@@ -1,0 +1,59 @@
+/* card.css */
+
+.card-container {
+    max-width: 20rem; /* equivalent to max-w-sm */
+    background-color: white;
+    border-radius: 0.5rem; /* equivalent to rounded */
+    overflow: hidden;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* equivalent to shadow-lg */
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    cursor: pointer; /* Add cursor pointer for click effect */
+    position: relative; /* Needed for the shadow effect */
+  }
+
+  .card-container:hover {
+    transform: translate(-0.25rem, -0.25rem);
+  }
+
+  .card-tilt-up {
+    transform: rotateX(-30deg);
+  }
+
+  .card-tilt-down {
+    transform: rotateX(30deg);
+  }
+
+  .card-tilt-left {
+    transform: rotateY(-30deg);
+  }
+
+  .card-tilt-right {
+    transform: rotateY(30deg);
+  }
+
+  .zoomed {
+    transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(2);
+  }
+
+  .clicked {
+    transform: perspective(600px) rotateX(0deg) rotateY(360deg) scale(2);
+  }
+
+  /* Shadow Effect */
+  .card-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Adjust the shadow color */
+    transform-origin: center;
+    transform: scale(0.9); /* Adjust the shadow scale */
+    pointer-events: none; /* Prevent shadow from blocking mouse events */
+    transition: transform 0.7s ease;
+  }
+
+  .card-container:hover .card-shadow {
+    transform: scale(1);
+  }
