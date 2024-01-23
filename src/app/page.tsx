@@ -6,7 +6,7 @@ export default function Home() {
         <main
             className="flex justify-center items-center bg-no-repeat"
             style={{
-                backgroundImage: 'url(images/backGround/brickBackground.jpg)',
+                backgroundImage: 'url("images/backGround/brickBackground.jpg")',
                 backgroundSize: 'fill',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'bottom',

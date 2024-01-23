@@ -17,7 +17,7 @@ const SpeechBubble: React.FC<SpeechBubbleProps> = ({ imageSrc, alt, overlayText 
         objectFit="cover"
         className="rounded-lg"
       />
-      <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black font-bold text-xl text-center">
+      <p className="absolute top-1/2 left-2/5 transform -translate-x-1/2 -translate-y-1/2 text-black font-bold text-3xl text-center">
         {overlayText}
       </p>
     </div>

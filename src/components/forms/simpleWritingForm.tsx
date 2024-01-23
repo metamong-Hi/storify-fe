@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, forwardRef  } from 'react';
 import MediumImageButton from '../buttons/mediumImageButton';
 import Link from 'next/link';
 
@@ -17,7 +17,8 @@ function getCookie(name:string) {
   }
   return null;
 }
-const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) => {
+const SimpleWritingForm = forwardRef<HTMLTextAreaElement, SimpleWritingFormProps>(
+  ({ destination }, ref) => {
   const [text, setText] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -56,6 +57,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <textarea
+        ref={ref} 
         id="story"
         name="story"
         rows={10}
@@ -77,7 +79,10 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
         </Link>
       </div>
     </form>
-  );
-};
+    );
+  }
+);
 
+
+SimpleWritingForm.displayName = 'SimpleWritingForm'; 
 export default SimpleWritingForm;
