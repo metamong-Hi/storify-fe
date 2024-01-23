@@ -1,7 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
-
 export default function MakeBookButton() {
     return (
         <div
@@ -11,7 +7,7 @@ export default function MakeBookButton() {
                 height: '14vh',
             }}
         >
-            <FontAwesomeIcon icon={faPlus} />
+            +
         </div>
     );
 }

@@ -1,10 +1,10 @@
-"use client"
+'use client';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import { Provider } from 'react-redux';
-import {store} from '../store/index';
+import { store } from '../store/index';
 const inter = Inter({ subsets: ['latin'] });
 
 // export const metadata: Metadata = {
@@ -17,11 +17,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <html lang="en">
             <body>
                 <Provider store={store}>
-                <Header />
-                <div className="flex flex-col h-screen">
-                {children}
-                
-                </div>
+                    <Header />
+                    <div className="flex flex-col">{children}</div>
                 </Provider>
             </body>
         </html>
