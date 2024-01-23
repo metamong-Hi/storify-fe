@@ -96,6 +96,7 @@ export const userSlice = createSlice({
       .addCase(logout.fulfilled, (state,action) => {
         state.status = 'idle';
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
         console.log(localStorage.getItem('token'));
         state.token = null;
       })
