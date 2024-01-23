@@ -20,11 +20,11 @@ function getCookie(name:string) {
 const SimpleWritingForm = forwardRef<HTMLTextAreaElement, SimpleWritingFormProps>(
   ({ destination }, ref) => {
   const [text, setText] = useState('');
-
+  const token = localStorage.getItem('token');
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-  const token = getCookie('token');
+  
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault(); 
     try {
@@ -32,16 +32,21 @@ const SimpleWritingForm = forwardRef<HTMLTextAreaElement, SimpleWritingFormProps
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${token}`
+
+
         },
         body: JSON.stringify({ message: text }) 
       });
       if (response.ok) {
         console.log('Story submitted successfully');
         console.log(response)
+
+        console.log("뭔데 그래서");
+
         alert(response);
       } else {
-
+        console.log("그래서 뭔데");
         console.error('Failed to submit story');
       }
     } catch (error) {
