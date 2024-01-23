@@ -9,26 +9,29 @@ interface SimpleWritingFormProps {
 
 const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
-
+  const token = localStorage.getItem('token');
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-
+  // console.log(token+"여기 토큰이다");
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault(); 
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/stories/ai', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ message: text }) 
       });
       if (response.ok) {
-
         console.log('Story submitted successfully');
+        console.log(response)
+        console.log("뭔데 그래서");
+        alert(response);
       } else {
-
+        console.log("그래서 뭔데");
         console.error('Failed to submit story');
       }
     } catch (error) {
