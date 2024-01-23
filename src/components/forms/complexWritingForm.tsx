@@ -5,6 +5,9 @@ import Link from 'next/link';
 // import { useRouter } from 'next/router';
 interface ComplexWritingFormProps {
     destination: string; 
+    text: string;
+    setText: React.Dispatch<React.SetStateAction<string>>;
+    textAreaRef: React.RefObject<HTMLTextAreaElement>;
   }
   function getCookie(name:string) {
     let cookieArr = document.cookie.split(";");
@@ -16,8 +19,7 @@ interface ComplexWritingFormProps {
     }
     return null;
   }
-const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) => {
-  const [text, setText] = useState('');
+const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ text, setText, destination, textAreaRef }) => {
   const [accumulatedText, setAccumulatedText] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,6 +52,7 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) 
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <textarea
+        ref={textAreaRef}
         id="story"
         name="story"
         rows={10}

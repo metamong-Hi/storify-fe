@@ -1,14 +1,24 @@
 "use client"
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
 import SimpleWritingForm from '@/components/forms/simpleWritingForm';
 import Image from 'next/image';
-import SpeechBubble from "@/components/objects/speechBubble/speechBubble";
 import SpeechBubbleV from '@/components/objects/speechBubble/speechBubble2';
 import Eraser from '@/components/objects/eraserAndPencil/eraser';
 import Pencil from '@/components/objects/eraserAndPencil/pencil';
 
 const ParentComponent: React.FC = () => {
+  const [formText, setFormText] = useState('');
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleEraserClick = () => {
+    setFormText('');
+  };
+
+  const handlePencilClick = () => {
+    console.log('Pencil clicked');
+    textAreaRef.current?.focus(); // Focus the textarea when pencil is clicked
+  };
 
   return (
     <div
@@ -22,9 +32,11 @@ const ParentComponent: React.FC = () => {
       }}
     >
       <div className="flex flex-col justify-between items-center h-full"> {/* Flex container */}
-        <div className="flex flex-row justify-end items-center">
-            <Eraser />
-            <Pencil />
+          
+        <div className="flex flex-row justify-end items-center w-1/2">
+            <Eraser onClick={handleEraserClick} />
+            <Pencil onClick={handlePencilClick} />
+            
           </div>
         <div className="relative flex-grow">
           <DoubleModal
@@ -43,7 +55,7 @@ const ParentComponent: React.FC = () => {
                 />
               </div>
             }
-            children2={<SimpleWritingForm destination="/"/>}
+            children2={<SimpleWritingForm text={formText} setText={setFormText} textAreaRef={textAreaRef} destination="/"/>}
           />
 
         </div>

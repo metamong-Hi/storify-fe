@@ -1,0 +1,5 @@
+.pencil-container {
+    position: relative;
+    z-index: 100; /* doubleModal보다 높은 값을 설정 */
+  }
+  

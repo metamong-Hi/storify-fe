@@ -5,6 +5,9 @@ import Link from 'next/link';
 
 interface SimpleWritingFormProps {
   destination: string; 
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+  textAreaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
 function getCookie(name:string) {
@@ -17,9 +20,7 @@ function getCookie(name:string) {
   }
   return null;
 }
-const SimpleWritingForm = forwardRef<HTMLTextAreaElement, SimpleWritingFormProps>(
-  ({ destination }, ref) => {
-  const [text, setText] = useState('');
+const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, destination, textAreaRef }) => {
   const token = localStorage.getItem('token');
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -62,7 +63,7 @@ const SimpleWritingForm = forwardRef<HTMLTextAreaElement, SimpleWritingFormProps
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <textarea
-        ref={ref} 
+        ref={textAreaRef}
         id="story"
         name="story"
         rows={10}
@@ -85,9 +86,6 @@ const SimpleWritingForm = forwardRef<HTMLTextAreaElement, SimpleWritingFormProps
       </div>
     </form>
     );
-  }
-);
+  };
 
-
-SimpleWritingForm.displayName = 'SimpleWritingForm'; 
 export default SimpleWritingForm;

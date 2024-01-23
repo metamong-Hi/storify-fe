@@ -4,10 +4,11 @@ import Image from 'next/image';
 import './eraser.css'
 
 // Eraser 컴포넌트의 Props 타입 정의
-interface EraserProps {
-  style?: CSSProperties; // style 속성 추가
-}
-const Eraser: React.FC<EraserProps> = ({ style }) => {
+type EraserProps = {
+  // other props
+  onClick?: () => void; // Add this line
+};
+const Eraser: React.FC<EraserProps> = ({ onClick }) => {
     const [isShaking, setIsShaking] = useState(false);
     const dustParticles = 10; // Number of dust particles
   
@@ -37,9 +38,15 @@ const Eraser: React.FC<EraserProps> = ({ style }) => {
       setIsShaking(true);
       setTimeout(() => setIsShaking(false), 1000); // Stop shaking after 1 second
     };
+    const combinedOnClick = () => {
+      handleEraserClick();
+      if (onClick) {
+        onClick(); // Call the passed-in onClick function
+      }
+    };
   
     return (
-      <div onClick={handleEraserClick} className={`eraser-container ${isShaking ? 'shake' : ''}`} style={style}>
+      <div onClick={combinedOnClick} className={`eraser-container ${isShaking ? 'shake' : ''}`} >
         <Image src="/images/buttons/eraser.png" alt="Eraser" width={100} height={100} />
         {isShaking && createDust()}
       </div>

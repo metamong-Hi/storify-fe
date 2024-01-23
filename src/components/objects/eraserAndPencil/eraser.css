@@ -1,18 +1,36 @@
 @keyframes zigzagFall {
     0% { 
-      transform: translate(0, -100%); /* Start above the screen */
+      transform: translate(0, 50%); 
     }
-    25% {
-      transform: translate(100px, -50%); /* Move right and down */
+    10% {
+      transform: translate(150px, 100%); 
+    }
+    20% {
+      transform: translate(-250px, 150%); 
+    }
+    30% {
+      transform: translate(150px, 200%); 
+    }
+    40% { 
+      transform: translate(-250px, 250%); 
     }
     50% {
-      transform: translate(-100px, 0%); /* Move left and down */
+      transform: translate(150px, 300%); 
     }
-    75% {
-      transform: translate(100px, 50%); /* Move right and down */
+    60% {
+      transform: translate(-250px, 350%); 
+    }
+    70% {
+      transform: translate(150px, 400%); 
+    }
+    80% {
+      transform: translate(-250px, 450%); 
+    }
+    90% {
+      transform: translate(150px, 500%); 
     }
     100% {
-      transform: translate(0, 100%); /* End at the bottom */
+      transform: translate(0, 550%); 
     }
   }
   
