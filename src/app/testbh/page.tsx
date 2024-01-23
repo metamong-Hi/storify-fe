@@ -23,8 +23,7 @@ import Pencil from '@/components/objects/eraserAndPencil/pencil';
 const TestBHPage: React.FC = () => {
   return (
     <div className="flex justify-center items-center p-4 bg-gray-200 min-h-screen "> {/* Updated to bg-gray-200 */}
-      <Eraser />
-      <Pencil />
+      <ClusterCardContainer/>
     </div>
   );
 };

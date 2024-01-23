@@ -53,15 +53,7 @@ const LoginPage: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const setCookie = (name, value, days) => {
-    let expires = "";
-    if (days) {
-      let date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-  };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,7 +84,7 @@ const LoginPage: React.FC = () => {
             style={{width:'100%',height:'100%'}}
         />
         </div>
-              </div>
+    </div>
     </div>
     <form onSubmit={handleSubmit} className="form max-w-md mx-auto">
     <div className="content">
