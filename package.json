@@ -9,11 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^2.0.1",
     "babelrc": "^0.0.7",
     "js-cookie": "^3.0.5",
     "next": "14.0.4",
     "next-redux-wrapper": "^8.1.0",
+    "node": "^20.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-pageflip": "^2.0.3",

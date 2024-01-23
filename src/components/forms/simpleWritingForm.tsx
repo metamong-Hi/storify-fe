@@ -7,13 +7,23 @@ interface SimpleWritingFormProps {
   destination: string; 
 }
 
+function getCookie(name:string) {
+  let cookieArr = document.cookie.split(";");
+  for(let i = 0; i < cookieArr.length; i++) {
+    let cookiePair = cookieArr[i].split("=");
+    if(name === cookiePair[0].trim()) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return null;
+}
 const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
   const token = localStorage.getItem('token');
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-  // console.log(token+"여기 토큰이다");
+  
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault(); 
     try {
@@ -22,13 +32,17 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
+
+
         },
         body: JSON.stringify({ message: text }) 
       });
       if (response.ok) {
         console.log('Story submitted successfully');
         console.log(response)
+
         console.log("뭔데 그래서");
+
         alert(response);
       } else {
         console.log("그래서 뭔데");

@@ -27,6 +27,9 @@ const config: Config = {
         '3/5': '60%',
         '4/5': '80%',
       },
+      borderRadius: {
+        '4xl': '2rem',  
+      },
       keyframes: {
         spin: {
           '0%': { transform: 'rotateY(0deg)' },
