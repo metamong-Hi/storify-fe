@@ -1,14 +1,17 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, forwardRef  } from 'react';
 import MediumImageButton from '../buttons/mediumImageButton';
 import Link from 'next/link';
 
 interface SimpleWritingFormProps {
   destination: string; 
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+  textAreaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
-const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) => {
-  const [text, setText] = useState('');
+
+const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, destination, textAreaRef }) => {
   const token = localStorage.getItem('token');
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -51,6 +54,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <textarea
+        ref={textAreaRef}
         id="story"
         name="story"
         rows={10}
@@ -72,7 +76,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ destination }) =>
         </Link>
       </div>
     </form>
-  );
-};
+    );
+  };
 
 export default SimpleWritingForm;

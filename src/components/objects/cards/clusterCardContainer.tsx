@@ -9,15 +9,15 @@ const ClusterCardContainer = () => {
     const [flyOff, setFlyOff] = useState<CardSize[]>([]);
 
     const handleCardClick = (cardSize: CardSize) => {
-        console.log(`Card clicked: ${cardSize}`);
-        if (cardSize === 'xlarge') {
-            // Reset to original orientation
+
+        const sizes: CardSize[] = ['xsmall', 'small', 'middle', 'large', 'xlarge'];
+        const index = sizes.indexOf(cardSize);
+        // Remove the front card and set the new array as the card stack
+        if (index === 4) {
             setActiveCard(activeCard === cardSize ? null : cardSize);
         } else {
-            // Set the current and all smaller cards to fly off
-            const sizes: CardSize[] = ['xsmall', 'small', 'middle', 'large', 'xlarge'];
-            const index = sizes.indexOf(cardSize);
-            setFlyOff(sizes.slice(index + 1));
+            const newFlyOff = sizes.slice(index + 1);
+            setFlyOff(newFlyOff);
         }
     };
 
