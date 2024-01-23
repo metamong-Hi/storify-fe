@@ -8,10 +8,6 @@ const ClusterCardContainer = () => {
     const [activeCard, setActiveCard] = useState<CardSize | null>(null);
     const [flyOff, setFlyOff] = useState<CardSize[]>([]);
 
-    const handleFlyOffEnd = (cardSize: string) => {
-        setFlyOff(flyOff.filter((size) => size !== cardSize));
-    };
-
     const handleCardClick = (cardSize: CardSize) => {
         console.log(`Card clicked: ${cardSize}`);
         if (cardSize === 'xlarge') {
@@ -31,8 +27,7 @@ const ClusterCardContainer = () => {
                 <ClusterCard
                     key={index}
                     className={`${size} ${activeCard === size ? 'active' : ''} ${flyOff.includes(size) ? 'fly-off' : ''}`}
-                    onClick={() => handleCardClick(size)}
-                    onFlyOffEnd={() => handleFlyOffEnd(size)} // 애니메이션 종료 이벤트 핸들러 추가
+                    onClick={() => handleCardClick(size as CardSize)} // Explicit type assertion
                 />
             ))}
         </div>
