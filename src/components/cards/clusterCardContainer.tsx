@@ -46,7 +46,6 @@ const ClusterCardContainer = () => {
             {cards.map((size, index) => (
                 <ClusterCard
                     key={size}
-                    size={size}
                     onClick={() => handleCardClick(size)}
                     // 사라지는 카드에 특별한 클래스를 추가합니다.
                     className={size === disappearCard ? 'fly-off' : ''}
