@@ -7,12 +7,14 @@ interface UserState {
   token: string | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  username: string | null; 
 }
 
 const initialState: UserState = {
   token: null,
   status: 'idle',
   error: null,
+  username:null
 };
 
 export const login = createAsyncThunk(
@@ -28,7 +30,8 @@ export const login = createAsyncThunk(
       });
       if (!response.ok) throw new Error('로그인 망함');
       const data = await response.json();
-      return data.accessToken;
+      return { accessToken: data.accessToken, username: data.username }; // 예시, 실제 응답 구조에 따라 다를 수 있음
+   
     } catch (error) {
       return rejectWithValue(error instanceof Error ? error.message : "An unknown error occurred");
     }
@@ -76,9 +79,13 @@ export const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.token = action.payload;
-        localStorage.setItem('token', action.payload);
+        state.token = action.payload.accessToken; // 수정된 부분
+        state.username = action.payload.username;
+        localStorage.setItem('token', action.payload.accessToken);
+        localStorage.setItem('username',action.payload.username);
+
         console.log(localStorage.getItem('token'));
+        console.log(localStorage.getItem('username'));
         console.log('로그인 성공:', action.payload);
       })
       .addCase(login.rejected, (state, action) => {
