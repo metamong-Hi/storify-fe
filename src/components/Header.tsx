@@ -20,6 +20,7 @@ const Header: React.FC<HeaderProps> = (props) => {
         const token = localStorage.getItem('token');
         setUsername(localStorage.getItem('username') || '');
         // setUsername(hihi);
+        //여기 수정함
         setIsLoggedIn(!!token);
 
     }, []);
