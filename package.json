@@ -12,10 +12,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-<<<<<<< HEAD
-    "@react-navigation/native": "^6.1.9",
-=======
->>>>>>> 35576c29d724ea46c447b3415dfcf5e9d8a0e714
     "@reduxjs/toolkit": "^2.0.1",
     "babelrc": "^0.0.7",
     "js-cookie": "^3.0.5",
