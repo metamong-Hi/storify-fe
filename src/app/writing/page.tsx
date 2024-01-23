@@ -6,11 +6,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SpeechBubble from "@/components/speechBubble/speechBubble";
 
-const ParentComponent: React.FC = () => {
+const Writing: React.FC = () => {
   const [modalShow, setModalShow] = useState(true);
 
   return (
-    <div>
+    <div            
+      style={{
+      backgroundImage: 'url(images/backGround/brickBackground.jpg)',
+      backgroundSize: 'fill',
+      height: '100vh', // Ensuring it covers the full viewport height
+      width: '100vw',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom',
+  }}>
         <SpeechBubble
           imageSrc="/images/furnitures/speechBubble.png"
           alt="Descriptive Alt Text"
@@ -51,4 +59,4 @@ const ParentComponent: React.FC = () => {
   );
 };
 
-export default ParentComponent;
+export default Writing;

@@ -10,16 +10,17 @@ const ParentComponent: React.FC = () => {
 
   return (
     <div>
-      <SpeechBubble
-          imageSrc="/images/furnitures/speechBubble.png"
-          alt="Descriptive Alt Text"
-          overlayText="오늘 있었던 일을 자세히 적어줘"
-        />
+
       <DoubleModal
         show={modalShow}
         onClose={() => setModalShow(false)}
         children1={
-          <div className="flex flex-col justify-center items-center text-center" >
+          <div className="flex flex-col justify-center items-center text-center relative" >
+          <SpeechBubble
+          imageSrc="/images/furnitures/speechBubble.png"
+          alt="Descriptive Alt Text"
+          overlayText="오늘 있었던 일을 자세히 적어줘"
+          />
           <Image
             src="/images/angels/writing.png" 
             alt="Image Description"

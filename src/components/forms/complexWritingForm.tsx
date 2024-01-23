@@ -2,61 +2,51 @@
 import React, { useState, useEffect } from 'react';
 import MediumImageButton from '../buttons/mediumImageButton';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-
+// import { useRouter } from 'next/router';
 interface ComplexWritingFormProps {
     destination: string; 
   }
-
+  function getCookie(name:string) {
+    let cookieArr = document.cookie.split(";");
+    for(let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if(name === cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+      }
+    }
+    return null;
+  }
 const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) => {
   const [text, setText] = useState('');
   const [accumulatedText, setAccumulatedText] = useState('');
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.pathname === '/writing/complexWriting/background') {
-      // Append current text to accumulatedText and send POST request
-      sendPostRequest(accumulatedText + text);
-    } else if (router.pathname === '/writing/complexWriting/people') {
-      // Append current text to accumulatedText
-      setAccumulatedText(accumulatedText + text);
-    } else if (router.pathname === '/writing/complexWriting/events') {
-      // Store the current text without sending a POST request
-      setAccumulatedText(text);
-    }
-  }, [router.pathname, text]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     sendPostRequest(accumulatedText + text);
   };
-
+  const token = getCookie('token');
   const sendPostRequest = async (finalText: string) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/stories/ai', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({ message: finalText }) 
       });
       if (response.ok) {
-
         console.log('Story submitted successfully');
       } else {
-
         console.error('Failed to submit story');
       }
     } catch (error) {
-
       console.error('Error submitting story:', error);
     }
   };
-
   return (
     <form className="w-full max-w-lg" onSubmit={handleSubmit}>
       <textarea
@@ -82,5 +72,4 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({ destination }) 
     </form>
   );
 };
-
 export default ComplexWritingForm;
