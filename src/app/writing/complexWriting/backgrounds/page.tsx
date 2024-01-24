@@ -7,7 +7,7 @@ import SpeechBubbleV from '@/components/objects/speechBubble/speechBubble2';
 import Eraser from '@/components/objects/eraserAndPencil/eraser';
 import Pencil from '@/components/objects/eraserAndPencil/pencil';
 
-const Events: React.FC = () => {
+const Backgrounds: React.FC = () => {
 
   const [formText, setFormText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -46,7 +46,7 @@ const Events: React.FC = () => {
                 <SpeechBubbleV
                   imageSrc="/images/furnitures/speechBubble.png"
                   alt="Descriptive Alt Text"
-                  overlayText="오늘 있었던 일을 적어줘"
+                  overlayText="언제, 어디서 있었던 일인지 알려줘"
                 />
                 <Image
                   src="/images/angels/writing.png"
@@ -56,7 +56,7 @@ const Events: React.FC = () => {
                 />
               </div>
             }
-            children2={<ComplexWritingForm text={formText} setText={setFormText} textAreaRef={textAreaRef} destination="/writing/complexWriting/people"/>}
+            children2={<ComplexWritingForm text={formText} setText={setFormText} textAreaRef={textAreaRef} destination="/"/>}
           />
 
         </div>
@@ -64,5 +64,4 @@ const Events: React.FC = () => {
     </div>
   );
 };
-
-export default Events;
+export default Backgrounds;

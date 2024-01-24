@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Gauge from '../gauge/gauge';
+import Gauge from '../objects/gauge/gauge';
 
 interface LoadingProps {
     // Add any additional props you might need
