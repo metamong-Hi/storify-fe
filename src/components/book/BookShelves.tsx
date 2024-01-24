@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ReactElement, useEffect, useState } from 'react';
-import Shelf from './Shelf';
+import Book from './Book';
 import { getAllBooks } from './AllBooks';
 import Pagination from './Pagination'; // Pagination 컴포넌트를 추가합니다.
 
@@ -11,8 +11,8 @@ export default function BookShelves() {
 
     async function settingBookShelves(page: number) {
         const allbooks = await getAllBooks(page);
-        const bookShelves = allbooks.map((shelf, index) => (
-            <Shelf key={index} shelf={{ ...shelf }} index={index} />
+        const bookShelves = allbooks.map((book, index) => (
+            <Book key={index} Book={{ ...book }} index={index} />
         ));
         setBookShelves(bookShelves);
     }
@@ -22,8 +22,13 @@ export default function BookShelves() {
     }, [currentPage]);
 
     return (
-        <div className="bg-gray-100 p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+            className="bg-gray-100 p-2"
+            style={{
+                width: '100vw',
+            }}
+        >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {bookShelves.length > 0 ? bookShelves : <p>Loading...</p>}
             </div>
             <Pagination currentPage={currentPage} setPage={setCurrentPage} />

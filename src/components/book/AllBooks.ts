@@ -11,7 +11,7 @@ async function GET(url: string): Promise<BooksData[]> {
 }
 
 export async function getAllBooks(page: number) {
-    const data = await GET(`${API_URL}/api/books?page=${page}`);
+    const data = await GET(`${API_URL}/api/books?page=${page} &limit=9`);
     // const makeBookButton = {
     //     _id: 'makeBookButton',
     //     title: 'makeBookButton',
