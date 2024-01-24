@@ -10,16 +10,14 @@ async function GET(url: string): Promise<BooksData[]> {
     }
 }
 
-export async function getAllBooks() {
-    const data = await GET(API_URL + '/api/books?page=1');
-    const makeBookButton = {
-        _id: 'makeBookButton',
-        title: 'makeBookButton',
-        userId: '',
-        storyId: '',
-    };
-    const allBooks = [...data, makeBookButton];
-    console.log('in allbooks', allBooks);
-
-    return allBooks;
+export async function getAllBooks(page: number) {
+    const data = await GET(`${API_URL}/api/books?page=${page}`);
+    // const makeBookButton = {
+    //     _id: 'makeBookButton',
+    //     title: 'makeBookButton',
+    //     userId: '',
+    //     storyId: '',
+    // };
+    // const allBooks = [...data, makeBookButton];
+    return [...data];
 }

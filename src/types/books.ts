@@ -3,6 +3,7 @@ export interface BooksData {
     _id: string;
     userId: string;
     storyId: string;
+    coverUrl: string;
     body: {
         [key: number]: {
             imagePrompt: string;
