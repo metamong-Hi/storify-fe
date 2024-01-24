@@ -1,28 +1,30 @@
 'use client';
+
+import Image from 'next/image';
 // components/Header.tsx
 import React, { useState, useEffect } from 'react';
-import Link from "next/link";
+import Link from 'next/link';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import  {useAppSelector} from '@/hooks/useAppSelector';
-import {logout} from '@/store/userSlice';
-import {store} from '@/store/index';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { logout } from '@/store/userSlice';
+import { store } from '@/store/index';
 interface HeaderProps {}
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username,setUsername]=useState("");
-   
-    const dispatch=useAppDispatch();
+    const [username, setUsername] = useState('');
+
+    const dispatch = useAppDispatch();
     // const username = useAppSelector(state => state.user.username);
-    const realToken=useAppSelector(state => state.user.token);
+    const realToken = useAppSelector((state) => state.user.token);
     console.log(realToken);
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        setUsername(localStorage.getItem('username') || '');
-        // setUsername(hihi);
-        //여기 수정함
-        setIsLoggedIn(!!token);
-
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            setUsername(localStorage.getItem('username') || '');
+            // setUsername(hihi);
+            setIsLoggedIn(!!token);
+        }
     }, []);
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -33,39 +35,45 @@ const Header: React.FC<HeaderProps> = (props) => {
     const handleClickHome = () => {
         // router.push('/');
     };
-    const handleClickLogout=()=>{
+    const handleClickLogout = () => {
         dispatch(logout())
-        .then(()=>{
-            localStorage.removeItem('token'); 
-            setIsLoggedIn(false); 
-            console.log("로그아웃 성공함");
-        }).catch((error)=>{
-            console.log("로그아웃 망함"+error);
-        });
-    }
+            .then(() => {
+                localStorage.removeItem('token');
+                setIsLoggedIn(false);
+                console.log('로그아웃 성공함');
+            })
+            .catch((error) => {
+                console.log('로그아웃 망함' + error);
+            });
+    };
 
     const name = '민상기';
     return (
         <header className="shadow-md font-sans">
-            <div className="flex flex-wrap items-center justify-between gap-4  mx-0 relative bg-white min-h-[70px] lg:flex-grow" style={{ zIndex: 1000 }}>
+            <div
+                className="flex flex-wrap items-center justify-between gap-4  mx-0 relative bg-white min-h-[70px] lg:flex-grow"
+                style={{ zIndex: 1000 }}
+            >
                 {/*왼쪽 정렬*/}
                 <div className="flex items-center mx-8">
-                <Link href="/">
-    
-                        <img
+                    <Link href="/">
+                        <Image
                             src="/images/angels/logo.png"
                             alt="logo"
                             className="w-12 h-12"
+                            width={100}
+                            height={100}
                         />
                     </Link>
                     <Link href="/">
-                        <img
+                        <Image
                             src="/images/Logos/storifyLogo.png"
                             alt="logo"
                             className="w-24 h-12"
+                            width={500}
+                            height={500}
                         />
                     </Link>
-
                 </div>
 
                 {/* 오른쪽 정렬*/}
@@ -111,7 +119,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                                     {' '}
                                     <a
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
-                                        onClick={()=>handleClickLogout()}
+                                        onClick={() => handleClickLogout()}
                                     >
                                         Logout
                                     </a>
@@ -122,13 +130,12 @@ const Header: React.FC<HeaderProps> = (props) => {
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-8' : ''}`}
                                 >
-                                    <Link 
+                                    <Link
                                         href="/login"
                                         className="text-[#333] block font-semibold text-[15px] hover:text-[#007bff] lg:inline-block"
                                     >
                                         Login
                                     </Link>
-                                    
                                 </li>
                                 <li
                                     className={`border-b lg:border-none py-2 px-3 lg:py-0 lg:px-4' ${isMenuOpen ? 'mt-4' : ''}`}
