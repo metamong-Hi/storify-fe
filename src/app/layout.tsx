@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <body>
                 <Provider store={store}>
                     <Header />
-                    <div className = "bg-transparent">{children}</div>
+                    <div className = "bg-white">{children}</div>
                 </Provider>
             </body>
         </html>

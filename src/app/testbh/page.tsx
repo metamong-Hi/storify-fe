@@ -21,17 +21,38 @@ import ClusterCardContainer from '@/components/objects/cards/clusterCardContaine
 import Eraser from '@/components/objects/eraserAndPencil/eraser';
 import Pencil from '@/components/objects/eraserAndPencil/pencil';
 import MenuBar from '@/components/menubar/menuBar';
-// import ColorfulBackground from '@/components/background/background';
 
 
 const TestBH: React.FC = () => {
+
+  const menuItems = [
+    { text: '홈', url: '/' },
+    { text: '프로필', url: '/profile' },
+    { text: '책장 1', url: '/'},
+    { text: '책장 2', url: '/'},
+    { text: '책장 3', url: '/'},
+    { text: '책장 4', url: '/'},
+  ];
+
+  const handleCardClick = () => {
+    console.log('클릭');
+  };
   return (
     <div className="w-screen min-h-[600vh]">
-      <div className="h-[100vh] w-full bg-pastelRed flex justify-center items-start pt-20">
+      <div className="h-[100vh] w-full bg-pastelRed flex flex-col justify-between items-center p-20">
         <h1 className="text-6xl font-bold text-white">AI요정이 생성해 주는 동화</h1>
+        <Card 
+        imageSrc="/images/angels/Logo.png" 
+        title="제목" 
+        text="내용" 
+        buttonText="클릭" 
+        onButtonClick={handleCardClick} 
+      />
+        <MenuBar buttonLabel="메뉴" menuItems={menuItems} />
       </div>
       <div className="h-[100vh] w-full bg-pastelOrange flex justify-center items-start pt-20">
         <h1 className="text-6xl font-bold text-white">텍스트 2</h1>
+        <ClusterCardContainer/>
       </div>
       <div className="h-[100vh] w-full bg-pastelYellow flex justify-center items-start pt-20">
         <h1 className="text-6xl font-bold text-white">텍스트 3</h1>
@@ -45,8 +66,6 @@ const TestBH: React.FC = () => {
       <div className="h-[100vh] w-full bg-pastelPurple flex justify-center items-start pt-20">
         <h1 className="text-6xl font-bold text-white">텍스트 3</h1>
       </div>
-      
-
       
     </div>
   );
