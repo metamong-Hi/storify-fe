@@ -61,8 +61,8 @@ const Header: React.FC<HeaderProps> = (props) => {
                             src="/images/angels/logo.png"
                             alt="logo"
                             className="w-12 h-12"
-                            width={12}
-                            height={12}
+                            width={100}
+                            height={100}
                         />
                     </Link>
                     <Link href="/">
@@ -70,8 +70,8 @@ const Header: React.FC<HeaderProps> = (props) => {
                             src="/images/Logos/storifyLogo.png"
                             alt="logo"
                             className="w-24 h-12"
-                            width={24}
-                            height={12}
+                            width={500}
+                            height={500}
                         />
                     </Link>
                 </div>
