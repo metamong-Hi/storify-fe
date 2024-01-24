@@ -8,7 +8,6 @@
 }
 .card {
     position: absolute;
-    /* Use top and left to adjust the position of each card */
 }
 
 
@@ -57,9 +56,12 @@
   }
   
   @keyframes flyOff {
-    to {
-        transform: translateX(100vw) scale(3); /* Moves the card off the screen */
-        opacity: 0; /* Fades the card out */
-
+    38.2% {
+        transform: translateX(0vw) scale(1.618); /* Scale to 1.618 at 38.2% */
+        opacity: 1;
     }
-  }
+    100% {
+        transform: translateX(100vw) scale(2.618); /* Scale to 1.618*1.618 at 100% */
+        opacity: 0; /* Fades the card out */
+    }
+}

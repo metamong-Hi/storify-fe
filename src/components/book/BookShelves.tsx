@@ -4,7 +4,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Shelf from './Shelf';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css'; // Swiper styles
+import 'swiper/css'; 
 import { getAllBooks } from './AllBooks';
 import Link from 'next/link';
 import MakeBookButton from './MakeBookButton';

@@ -30,6 +30,14 @@ const config: Config = {
       borderRadius: {
         '4xl': '2rem',  
       },
+      colors: {
+        pastelRed: '#fda5a550',
+        pastelOrange: '#fdba7450',
+        pastelYellow: '#fcd34d50',
+        pastelGreen: '#86efac50',
+        pastelBlue: '#93c5fd50',
+        pastelPurple: '#c4b5fd50'
+      },
       keyframes: {
         spin: {
           '0%': { transform: 'rotateY(0deg)' },

@@ -20,12 +20,36 @@ import ClusterCard from '@/components/objects/cards/clusterCard';
 import ClusterCardContainer from '@/components/objects/cards/clusterCardContainer';
 import Eraser from '@/components/objects/eraserAndPencil/eraser';
 import Pencil from '@/components/objects/eraserAndPencil/pencil';
-const TestBHPage: React.FC = () => {
+import MenuBar from '@/components/menubar/menuBar';
+// import ColorfulBackground from '@/components/background/background';
+
+
+const TestBH: React.FC = () => {
   return (
-    <div className="flex justify-center items-center p-4 bg-gray-200 min-h-screen "> {/* Updated to bg-gray-200 */}
-      <ClusterCardContainer/>
+    <div className="w-screen min-h-[600vh]">
+      <div className="h-[100vh] w-full bg-pastelRed flex justify-center items-start pt-20">
+        <h1 className="text-6xl font-bold text-white">AI요정이 생성해 주는 동화</h1>
+      </div>
+      <div className="h-[100vh] w-full bg-pastelOrange flex justify-center items-start pt-20">
+        <h1 className="text-6xl font-bold text-white">텍스트 2</h1>
+      </div>
+      <div className="h-[100vh] w-full bg-pastelYellow flex justify-center items-start pt-20">
+        <h1 className="text-6xl font-bold text-white">텍스트 3</h1>
+      </div>
+      <div className="h-[100vh] w-full bg-pastelGreen flex justify-center items-start pt-20">
+        <h1 className="text-6xl font-bold text-white">텍스트 1</h1>
+      </div>
+      <div className="h-[100vh] w-full bg-pastelBlue flex justify-center items-start pt-20">
+        <h1 className="text-6xl font-bold text-white">텍스트 2</h1>
+      </div>
+      <div className="h-[100vh] w-full bg-pastelPurple flex justify-center items-start pt-20">
+        <h1 className="text-6xl font-bold text-white">텍스트 3</h1>
+      </div>
+      
+
+      
     </div>
   );
-};
+}
 
-export default TestBHPage;
+export default TestBH;
