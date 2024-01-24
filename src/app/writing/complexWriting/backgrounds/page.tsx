@@ -18,7 +18,7 @@ const Backgrounds: React.FC = () => {
 
   const handlePencilClick = () => {
     console.log('Pencil clicked');
-    textAreaRef.current?.focus(); // Focus the textarea when pencil is clicked
+    textAreaRef.current?.focus(); 
   };
 
   return (
