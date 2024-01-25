@@ -1,16 +1,25 @@
 /* card.css */
 
 .card-container {
-    max-width: 20rem; /* equivalent to max-w-sm */
-    background-color: white;
-    border-radius: 0.5rem; /* equivalent to rounded */
-    overflow: hidden;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* equivalent to shadow-lg */
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease;
-    cursor: pointer; /* Add cursor pointer for click effect */
-    position: relative; /* Needed for the shadow effect */
-  }
+  /* 기존 스타일 유지 */
+  max-width: 20rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+
+  /* 유리 재질 효과를 위한 스타일 */
+  background: rgba(255, 255, 255, 0.3); /* 투명한 배경 */
+  backdrop-filter: blur(10px); /* 배경 블러 효과 */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* 투명한 테두리 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 그림자 추가 */
+}
+
+/* 나머지 스타일 유지 */
+
 
   .card-container:hover {
     transform: translate(-0.25rem, -0.25rem);

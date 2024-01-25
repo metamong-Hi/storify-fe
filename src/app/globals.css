@@ -35,3 +35,14 @@ body {
 .flip-horizontal {
   transform: scaleX(-1);
 }
+.pastel-background {
+  background-image: 
+    linear-gradient(to bottom, 
+      #fda5a550 0%, #fda5a550 16.666%, 
+      #fdbb7450 16.666%, #fdbb7450 33.333%, 
+      #fcd34d50 33.333%, #fcd34d50 50%, 
+      #86efac50 50%, #86efac50 66.666%, 
+      #93c5fd50 66.666%, #93c5fd50 83.333%, 
+      #c4b5fd50 83.333%, #c4b5fd50 100%);
+}
+

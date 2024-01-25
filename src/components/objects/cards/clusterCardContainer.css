@@ -1,65 +1,67 @@
 .card-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    gap: 0px; /* 카드들 사이의 여백 조정 */
+  gap: 0px; /* 카드들 사이의 여백 조정 */
 }
 .card {
-    position: absolute;
-    /* Use top and left to adjust the position of each card */
+  position: absolute;
 }
 
 
-  
+
 /* 왼쪽 카드에 작게 적용 */
 .card.xsmall {
-    transform: perspective(900px) rotateY(20deg) scale(0.146);
-    left:400px;
-    z-index: 3; /* 다른 카드들보다 위로 올라가도록 조절 */
-  }
-  
-  .card.small {
-    transform: perspective(900px) rotateY(20deg) scale(0.236);
-    left:445px;
-    z-index: 4; /* 다른 카드들보다 위로 올라가도록 조절 */
-  }
-  
-  .card.middle {
-    transform: perspective(900px) rotateY(20deg) scale(0.382);
-    left:510px;
-    z-index: 5; /* 다른 카드들보다 위로 올라가도록 조절 */
-  }
-  
-  .card.large {
-    transform: perspective(900px) rotateY(20deg) scale(0.618);
-    left:620px;
-    z-index: 6; /* 다른 카드들보다 위로 올라가도록 조절 */
-  }
-  
-  /* 오른쪽 카드에 크게 적용 */
-  .card.xlarge {
-    transform: perspective(900px) rotateY(20deg) scale(1);
-    left: 800px;
-    z-index: 7; /* 가장 위에 표시되도록 조절 */
-  }
+  transform: perspective(900px) rotateY(20deg) scale(0.146);
+  left:400px;
+  z-index: 3; /* 다른 카드들보다 위로 올라가도록 조절 */
+}
 
-  .card.active {
-    transform: perspective(900px) rotateY(0deg); /* Resets the rotation */
-    z-index: 8; /* Ensures it's above other cards */
-  }
+.card.small {
+  transform: perspective(900px) rotateY(20deg) scale(0.236);
+  left:445px;
+  z-index: 4; /* 다른 카드들보다 위로 올라가도록 조절 */
+}
 
-  
-  .card.fly-off {
-    animation: flyOff 0.5s forwards; /* Animation to fly off */
-    z-index: 9; /* Ensures it flies above other cards */
-  }
-  
-  @keyframes flyOff {
-    to {
-        transform: translateX(100vw) scale(3); /* Moves the card off the screen */
-        opacity: 0; /* Fades the card out */
+.card.middle {
+  transform: perspective(900px) rotateY(20deg) scale(0.382);
+  left:510px;
+  z-index: 5; /* 다른 카드들보다 위로 올라가도록 조절 */
+}
 
-    }
+.card.large {
+  transform: perspective(900px) rotateY(20deg) scale(0.618);
+  left:620px;
+  z-index: 6; /* 다른 카드들보다 위로 올라가도록 조절 */
+}
+
+/* 오른쪽 카드에 크게 적용 */
+.card.xlarge {
+  transform: perspective(900px) rotateY(20deg) scale(1);
+  left: 800px;
+  z-index: 7; /* 가장 위에 표시되도록 조절 */
+}
+
+.card.active {
+  transform: perspective(900px) rotateY(0deg); /* Resets the rotation */
+  z-index: 8; /* Ensures it's above other cards */
+}
+
+
+.card.fly-off {
+  animation: flyOff 0.5s forwards; /* Animation to fly off */
+  z-index: 9; /* Ensures it flies above other cards */
+}
+
+@keyframes flyOff {
+  38.2% {
+      transform: translateX(0vw) scale(1.618); /* Scale to 1.618 at 38.2% */
+      opacity: 1;
   }
+  100% {
+      transform: translateX(100vw) scale(2.618); /* Scale to 1.618*1.618 at 100% */
+      opacity: 0; /* Fades the card out */
+  }
+}
