@@ -1,4 +1,3 @@
-// BookShelves.tsx
 import React from 'react';
 import Book from './Book';
 import BookSkeleton from '../skeleton/BookSkeleton';

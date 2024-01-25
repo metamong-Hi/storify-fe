@@ -6,7 +6,7 @@ interface HeartIconProps {
     height?: number;
     strokeWidth?: number;
     fill?: string;
-    [key: string]: any; // 나머지 props에 대한 인덱스 서명
+    [key: string]: any;
 }
 
 export const HeartIcon: React.FC<HeartIconProps> = ({
