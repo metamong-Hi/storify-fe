@@ -12,40 +12,17 @@ const Page = () => {
     const [bookShelves, setBookShelves] = useState<BooksData[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
 
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(0);
-
-    const handleResize = useCallback(() => {
-        if (typeof window === 'undefined') return;
-        setWindowWidth(window.innerWidth);
-        setWindowHeight(window.innerHeight);
-    }, []);
+    const limit = 24;
 
     useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [handleResize]);
-
-    const limit = useMemo(() => {
-        if (windowWidth >= 1920 || windowHeight >= 1920) return 36;
-        else if (windowWidth >= 1600 || windowHeight >= 1600) return 24;
-        else if (windowWidth >= 1200 || windowHeight >= 1200) return 12;
-        else return 12;
-    }, [windowWidth, windowHeight]);
-
-    useEffect(() => {
-        fetchBooks(currentPage, limit);
-    }, [currentPage, limit]);
-
-    const fetchBooks = async (page: number, limit: number) => {
-        getAllBooks(page, limit)
+        getAllBooks(currentPage, limit)
             .then((data) => {
                 setBookShelves(data.books);
             })
             .catch((error) => {
                 console.error('Failed to fetch books:', error);
             });
-    };
+    }, [currentPage, limit]);
 
     useEffect(() => {
         getAllBooks(1, limit)
@@ -56,10 +33,6 @@ const Page = () => {
                 console.error('Failed to fetch total number of books:', error);
             });
     }, [limit]);
-
-    useEffect(() => {
-        fetchBooks(currentPage, limit);
-    }, [currentPage, limit]);
 
     const totalPages = useMemo(() => {
         return Math.ceil(totalItems / limit);

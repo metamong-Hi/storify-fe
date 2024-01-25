@@ -6,8 +6,7 @@ import Header from '@/components/Header';
 import { Provider } from 'react-redux';
 import { store } from '../store/index';
 const inter = Inter({ subsets: ['latin'] });
-import {Providers} from "./providers";
-
+import { Providers } from './providers';
 
 // export const metadata: Metadata = {
 //     title: 'Create Next App',
@@ -21,7 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Provider store={store}>
                     <Providers>
                         <Header />
-                        <div className = "bg-white">{children}</div>
+                        <div className="bg-white scrollbar-hide flex justify-center items-center ">
+                            {children}
+                        </div>
                     </Providers>
                 </Provider>
             </body>
