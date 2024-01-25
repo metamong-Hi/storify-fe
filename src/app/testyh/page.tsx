@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
 import BasicButton from '@/components/buttons/basicButton'; // Adjust the path as necessary
 import BigButton from '@/components/buttons/bigButton';
-import MediumImageButton from '@/components/buttons/mediumImageButton';
-import LargeImageButton from '@/components/buttons/largeImageButton';
-import SmallImageButton from '@/components/buttons/smallImageButton';
+import MediumImageButton from '@/components/buttons/imageButtons/mediumImageButton';
+import LargeImageButton from '@/components/buttons/imageButtons/largeImageButton';
+import SmallImageButton from '@/components/buttons/imageButtons/smallImageButton';
 import ErrorPage from '@/components/errors/error';
 import LoadingPage from '@/components/loadings/loading';
 import SpeechBubble from '@/components/speechBubble/speechBubble';

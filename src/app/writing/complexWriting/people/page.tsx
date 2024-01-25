@@ -1,9 +1,8 @@
 "use client"
 import React, { useState, useRef  } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
-import ComplexWritingForm from '@/components/forms/complexWritingForm';
+import ComplexWritingForm from '@/components/forms/eventsWritingForm';
 import Image from 'next/image';
-import SpeechBubbleV from '@/components/objects/speechBubble/speechBubble2';
 import Eraser from '@/components/objects/eraserAndPencil/eraser';
 import Pencil from '@/components/objects/eraserAndPencil/pencil';
 const People: React.FC = () => {
@@ -41,11 +40,6 @@ const People: React.FC = () => {
           <DoubleModal
             children1={
               <div className="flex flex-col justify-center items-center text-center relative">
-                <SpeechBubbleV
-                  imageSrc="/images/furnitures/speechBubble.png"
-                  alt="Descriptive Alt Text"
-                  overlayText="누가 누가 등장하는 지 적어줘"
-                />
                 <Image
                   src="/images/angels/writing.png"
                   alt="Image Description"
@@ -54,7 +48,7 @@ const People: React.FC = () => {
                 />
               </div>
             }
-            children2={<ComplexWritingForm text={formText} setText={setFormText} textAreaRef={textAreaRef} destination="/writing/complexWriting/backgrounds"/>}
+            children2={<ComplexWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/backgrounds"/>}
           />
 
         </div>

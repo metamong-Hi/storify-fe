@@ -3,13 +3,12 @@ import React, { useState, useRef } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
 import SimpleWritingForm from '@/components/forms/simpleWritingForm';
 import Image from 'next/image';
-import SpeechBubbleV from '@/components/objects/speechBubble/speechBubble2';
+// import SpeechBubbleV from '@/components/objects/speechBubble/speechBubble2';
 import Eraser from '@/components/objects/eraserAndPencil/eraser';
 import Pencil from '@/components/objects/eraserAndPencil/pencil';
 
 const ParentComponent: React.FC = () => {
   const [formText, setFormText] = useState('');
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleEraserClick = () => {
     setFormText('');
@@ -42,11 +41,6 @@ const ParentComponent: React.FC = () => {
           <DoubleModal
             children1={
               <div className="flex flex-col justify-center items-center text-center relative">
-                <SpeechBubbleV
-                  imageSrc="/images/furnitures/speechBubble.png"
-                  alt="Descriptive Alt Text"
-                  overlayText="오늘 있었던 일을 자세히 적어줘"
-                />
                 <Image
                   src="/images/angels/writing.png"
                   alt="Image Description"
@@ -55,7 +49,7 @@ const ParentComponent: React.FC = () => {
                 />
               </div>
             }
-            children2={<SimpleWritingForm text={formText} setText={setFormText} textAreaRef={textAreaRef} destination="/"/>}
+            children2={<SimpleWritingForm text={formText} setText={setFormText} destination="/"/>}
           />
 
         </div>

@@ -1,10 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
-import BigButton from '@/components/buttons/bigButton';
 import Image from 'next/image';
 import Link from 'next/link';
-import SpeechBubble from "@/components/objects/speechBubble/speechBubble";
+// import SpeechBubble from "@/components/objects/speechBubble/speechBubble";
 
 const Writing: React.FC = () => {
   const [modalShow, setModalShow] = useState(true);
@@ -23,11 +22,6 @@ const Writing: React.FC = () => {
       <DoubleModal
         children1={
           <div className="flex flex-col justify-center items-center text-center">
-            <SpeechBubble
-          imageSrc="/images/furnitures/speechBubble.png"
-          alt="Descriptive Alt Text"
-          overlayText="요정의 도움을 받으려면 고급생성을 눌러줘!"
-        />
             <Image
               src="/images/angels/writing.png" 
               alt="Image Description"
@@ -36,7 +30,7 @@ const Writing: React.FC = () => {
               style={{ opacity: 0 }}
             />
             <Link href="/writing/simpleWriting" passHref>
-              <BigButton>단순 생성</BigButton>
+              <button>단순 생성</button>
             </Link>
           </div>
         }
@@ -51,7 +45,7 @@ const Writing: React.FC = () => {
               style={{ opacity: 1 }}
             />
             <Link href="/writing/complexWriting/events" passHref>
-              <BigButton>고급 생성</BigButton>
+              <button>고급 생성</button>
             </Link>
           </div>
         }

@@ -1,26 +1,30 @@
 'use client';
 import React, { useState, forwardRef } from 'react';
-import MediumImageButton from '../buttons/mediumImageButton';
+import MediumImageButton from '../buttons/imageButtons/mediumImageButton';
 import Link from 'next/link';
+import {Textarea} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
+import Pencil from '../objects/eraserAndPencil/pencil';
+import Eraser from '../objects/eraserAndPencil/eraser';
+import  MyTextArea from "@/components/nextUICustom/myTextArea"
 
 interface SimpleWritingFormProps {
     destination: string;
     text: string;
     setText: React.Dispatch<React.SetStateAction<string>>;
-    textAreaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
 const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({
     text,
     setText,
     destination,
-    textAreaRef,
 }) => {
     let token: string | null;
     if (typeof window !== 'undefined') {
         token = localStorage.getItem('token');
     }
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value);
     };
 
@@ -38,12 +42,8 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({
             if (response.ok) {
                 console.log('Story submitted successfully');
                 console.log(response);
-
-                console.log('뭔데 그래서');
-
                 alert(response);
             } else {
-                console.log('그래서 뭔데');
                 console.error('Failed to submit story');
             }
         } catch (error) {
@@ -56,33 +56,59 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({
     };
 
     return (
-        <form className="w-full max-w-lg" onSubmit={handleSubmit}>
-            <textarea
-                ref={textAreaRef}
-                id="story"
-                name="story"
-                rows={10}
-                className="w-full bg-white text-gray-800 text-2xl border border-gray-300 rounded-lg shadow-sm p-2 leading-loose focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        <Card className="max-w-[50vw] max-h-full">
+            <form onSubmit={handleSubmit}>
+            <CardHeader className="flex flex-row justify-center items-center ">
+                <Image
+                    alt="angel"
+                    radius="sm"
+                    src="/images/angels/description2.png"
+                    width="60%" 
+                    height="60%"
+                    style = {{marginLeft: '20%'}}
+                />
+                <p className="text-2xl flex-grow text-left ml-4">오늘 있었던 일들을 적어봐</p>
+            </CardHeader>
+
+            <CardBody >
+                <Textarea
+                label="오늘 한 일"
+                placeholder=""
+                className=" custom-textarea w-full h-full"
                 value={text}
                 onChange={handleChange}
-                style={{
-                    backgroundSize: '100% 2em',
-                    backgroundImage:
-                        'linear-gradient(to bottom, transparent 1.9em, #000 1.9em, #000 0.5em, transparent 2em )',
-                }}
-            />
-            <div className="flex justify-end mt-4">
-                {' '}
-                {/* Flex container for right alignment */}
-                <Link href={destination} passHref>
-                    <MediumImageButton
-                        onClick={handleButtonClick}
-                        imageSrc="/Images/buttons/redArrow.png"
-                        alt="Submit"
-                    />
-                </Link>
-            </div>
-        </form>
+                variant = 'flat'
+                color = 'primary'
+                size ='lg'
+                minRows={5}
+                style={{ fontSize: '1.75rem' }}
+                
+                />
+            </CardBody>
+
+            <CardFooter>
+                <div className="flex flex-row justify-between mt-1 w-full">
+                    <Link href={destination} passHref>
+                        <MediumImageButton
+                            onClick={handleButtonClick}
+                            imageSrc="/Images/buttons/redArrow.png"
+                            alt="Submit"
+                        />
+                    </Link>
+                
+                    <Link href={destination} passHref>
+                        <MediumImageButton
+                            onClick={handleButtonClick}
+                            imageSrc="/Images/buttons/redArrow2.png"
+                            alt="Submit"
+                        />
+                    </Link>
+                </div>
+            </CardFooter>
+            </form>
+
+        </Card>
+        
     );
 };
 

@@ -46,3 +46,6 @@ body {
       #c4b5fd50 83.333%, #c4b5fd50 100%);
 }
 
+.custom-textarea {
+  font-size: 3rem;
+}
