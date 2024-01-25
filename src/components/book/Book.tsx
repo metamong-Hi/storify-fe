@@ -23,9 +23,9 @@ const Book = ({ Book, index }: BookProps) => {
                     src={imageURL}
                     alt="Book Cover Image"
                     className="object-cover"
-                    fit="fill"
                     height={1000}
                     width={1000}
+                    loading="lazy"
                 />
             </Link>
 

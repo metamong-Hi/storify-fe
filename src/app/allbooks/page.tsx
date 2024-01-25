@@ -48,7 +48,7 @@ const Page = () => {
                         key={'light'}
                         total={totalPages}
                         initialPage={1}
-                        value={currentPage}
+                        page={currentPage}
                         onChange={(page: number) => {
                             setCurrentPage(page);
                         }}
