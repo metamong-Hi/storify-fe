@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-// Styled component로 물결 애니메이션을 포함한 게이지 바를 정의합니다.
 const WaveGauge = styled.div<{ width: string; backgroundColor: string }>`
     height: 100%;
     border-radius: 9999px;

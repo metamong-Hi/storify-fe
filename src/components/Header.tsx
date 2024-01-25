@@ -1,13 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-// components/Header.tsx
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
 import { store } from '@/store/index';
+
+import { Tabs, Tab } from '@nextui-org/react';
+
 interface HeaderProps {}
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,33 +49,32 @@ const Header: React.FC<HeaderProps> = (props) => {
             });
     };
 
-    const name = '민상기';
     return (
         <header className="shadow-md font-sans">
-            <div
-                className="flex flex-wrap items-center justify-between gap-4  mx-0 relative bg-white min-h-[70px] lg:flex-grow"
-                style={{ zIndex: 1000 }}
-            >
-                {/*왼쪽 정렬*/}
+            <div className="flex flex-wrap items-center justify-between gap-4 z-1000 mx-0 relative bg-white min-h-[70px] lg:flex-grow">
                 <div className="flex items-center mx-8">
-                    <Link href="/">
-                        <Image
-                            src="/images/angels/logo.png"
-                            alt="logo"
-                            className="w-12 h-12"
-                            width={100}
-                            height={100}
-                        />
+                    <Link
+                        href="/"
+                        className="text-4xl font-bold text-indigo-600 hover:text-indigo-800 transition duration-300 ease-in-out"
+                    >
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                            STORIFY
+                        </span>
                     </Link>
-                    <Link href="/">
-                        <Image
-                            src="/images/Logos/storifyLogo.png"
-                            alt="logo"
-                            className="w-24 h-12"
-                            width={500}
-                            height={500}
-                        />
-                    </Link>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                    <Tabs
+                        key={'underlined'}
+                        variant={'underlined'}
+                        color={'default'}
+                        aria-label="Tabs variants"
+                        radius="full"
+                    >
+                        <Tab href="/home" key="home" title="홈" />
+                        <Tab target="/allbooks" key="shelves" title="책장" />
+                        <Tab key="music" title="Music" />
+                        <Tab key="videos" title="Videos" />
+                    </Tabs>
                 </div>
 
                 {/* 오른쪽 정렬*/}
