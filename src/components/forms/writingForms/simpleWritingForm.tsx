@@ -55,15 +55,6 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   return (
     <Card className="max-w-[50vw] max-h-full">
       <CardHeader className="flex flex-row justify-center items-center ">
-        <Image
-          isZoomed
-          alt="angel"
-          radius="sm"
-          src="/images/angels/description2.png"
-          width="70%"
-          height="70%"
-          style={{ marginLeft: '15%' }}
-        />
         <p className="text-4xl flex-grow text-center">오늘 있었던 일들을 적어봐</p>
       </CardHeader>
       <CardBody>

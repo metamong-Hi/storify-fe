@@ -27,15 +27,6 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
     <Card className="max-w-[50vw] max-h-full">
       <CardHeader className="flex justify-around">
         <p className="text-4xl">오늘 어떤 일이 있었는지 자세히 적어줘</p>
-        <Image
-          isZoomed
-          alt="angel"
-          radius="sm"
-          src="/images/angels/description3.png"
-          width="70%"
-          height="70%"
-          style={{ marginLeft: '15%' }}
-        />
       </CardHeader>
 
       <CardBody>
@@ -45,7 +36,7 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
           value={text}
           onChange={handleChange}
           variant="bordered"
-          color="success"
+          color="primary"
           size="lg"
           minRows={5}
           style={{ fontSize: '1.5rem' }}
@@ -55,15 +46,16 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
           <Link href={destination} passHref>
-            <Button color="success" variant="light">
+            <Button color="primary" variant="light">
               뒤로 가기
             </Button>
           </Link>
-
           <div className="flex flex-row text-center items-center text-middle">
-            <Button color="success" variant="light" onClick={handleButtonClick}>
-              다음으로
-            </Button>
+            <Link href={destination} passHref>
+              <Button color="primary" variant="light" onClick={handleButtonClick}>
+                다음으로
+              </Button>
+            </Link>
           </div>
         </div>
       </CardFooter>

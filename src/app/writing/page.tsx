@@ -7,11 +7,11 @@ const Writing: React.FC = () => {
 
   return (
     
-    <div className="h-[100vh] w-full bg-pastelRed flex flex-col items-center p-1">
-    <h1 className="text-6xl font-bold text-white">AI요정이 생성해 주는 동화</h1>
-    <div className="w-full h-full flex flex-row justify-around items-center">
-      <SimpleCard/>
-      <ComplexCard/>
+    <div className="h-[100vh] w-full  flex flex-col items-center p-1">
+    <h1 className="text-6xl font-bold text-black">AI요정이 생성해 주는 동화</h1>
+    <div className="w-full h-full flex flex-row justify-center items-center">
+      <SimpleCard />
+      <ComplexCard />
     </div>
     </div>
    
