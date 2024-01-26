@@ -50,9 +50,13 @@ const TestBH: React.FC = () => {
   };
   return (
     <div className="w-screen min-h-[1200vh]">
+      <div className="h-[100vh] w-full bg-pastelRed flex flex-col items-center pt-1">
+        <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
+        
+      </div>
       <div className="h-[100vh] w-full bg-pastelOrange flex flex-col items-center pt-1">
         <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
-        <FriendPage />
+  
       </div>
       <div className="h-[100vh] w-full bg-pastelYellow flex flex-col  items-center p-1">
         <h1 className="text-6xl font-bold text-white mb-4">고급 생성(등장인물)</h1>

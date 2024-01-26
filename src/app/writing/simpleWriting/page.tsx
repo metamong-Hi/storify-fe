@@ -10,7 +10,7 @@ import Pencil from '@/components/objects/eraserAndPencil/pencil';
 const ParentComponent: React.FC = () => {
   const [formText, setFormText] = useState('');
   return (
-    <div className="h-[100vh] w-full bg-pastelOrange flex flex-col items-center pt-1">
+    <div className="h-[100vh] w-full bg-pastelBlue flex flex-col items-center pt-1">
     <h1 className="text-6xl font-bold text-white mb-4">단순 생성</h1>
     <SimpleWritingForm text={formText} setText={setFormText} destination="/"/>
   </div>

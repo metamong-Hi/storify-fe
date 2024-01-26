@@ -1,13 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-import DoubleModal from '@/components/modal/doubleModal';
-import Image from 'next/image';
-import Link from 'next/link';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
 
 const Writing: React.FC = () => {
-  const [modalShow, setModalShow] = useState(true);
 
   return (
     
