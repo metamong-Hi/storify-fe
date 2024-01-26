@@ -2,7 +2,12 @@ import { BooksData } from '@/types/books';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-async function GET(url: string): Promise<BooksData[]> {
+interface BooksResponse {
+    total: number;
+    books: BooksData[];
+}
+
+async function GET(url: string): Promise<BooksResponse> {
     try {
         return (await fetch(url)).json();
     } catch (error: any) {
@@ -10,16 +15,7 @@ async function GET(url: string): Promise<BooksData[]> {
     }
 }
 
-export async function getAllBooks() {
-    const data = await GET(API_URL + '/api/books?page=1');
-    const makeBookButton = {
-        _id: 'makeBookButton',
-        title: 'makeBookButton',
-        userId: '',
-        storyId: '',
-    };
-    const allBooks = [...data, makeBookButton];
-    console.log('in allbooks', allBooks);
-
-    return allBooks;
+export async function getAllBooks(page: number, limit: number) {
+    const data = await GET(`${API_URL}/api/books?page=${page}&limit=${limit}`);
+    return data;
 }
