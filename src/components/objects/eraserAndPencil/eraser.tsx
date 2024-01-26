@@ -46,8 +46,8 @@ const Eraser: React.FC<EraserProps> = ({ onClick }) => {
     };
   
     return (
-      <div onClick={combinedOnClick} className={`eraser-container ${isShaking ? 'shake' : ''}`} >
-        <Image src="/images/buttons/eraser.png" alt="Eraser" width={100} height={100} />
+      <div onClick={combinedOnClick} className={`eraser-container ${isShaking ? 'shake' : ''}`}>
+        <Image src="/images/buttons/eraser.png" alt="Eraser" width={50} height={50}/>
         {isShaking && createDust()}
       </div>
     );
