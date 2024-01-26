@@ -1,41 +1,42 @@
 @keyframes zigzagFall {
     0% { 
-      transform: translate(0, 50%); 
+      transform: translate(0, -300%); 
     }
     10% {
-      transform: translate(150px, 100%); 
+      transform: translate(300px, -270%); 
     }
     20% {
-      transform: translate(-250px, 150%); 
+      transform: translate(-250px, -240%); 
     }
     30% {
-      transform: translate(150px, 200%); 
+      transform: translate(300px, -210%); 
     }
     40% { 
-      transform: translate(-250px, 250%); 
+      transform: translate(-250px, -180%); 
     }
     50% {
-      transform: translate(150px, 300%); 
+      transform: translate(300px, -150%); 
     }
     60% {
-      transform: translate(-250px, 350%); 
+      transform: translate(-250px, -120%); 
     }
     70% {
-      transform: translate(150px, 400%); 
+      transform: translate(300px, -90%); 
     }
     80% {
-      transform: translate(-250px, 450%); 
+      transform: translate(-250px, -60%); 
     }
     90% {
-      transform: translate(150px, 500%); 
+      transform: translate(300px,-30%); 
     }
     100% {
-      transform: translate(0, 550%); 
+      transform: translate(0, 0%); 
     }
   }
   
   .shake {
     animation: zigzagFall 1s ease forwards; /* Adjust duration as needed */
+    z-index: 100;
   }
   
   .eraser-container {
