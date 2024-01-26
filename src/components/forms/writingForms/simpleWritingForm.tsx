@@ -1,12 +1,12 @@
 'use client';
 import React, { useState, forwardRef } from 'react';
-import MediumImageButton from '../buttons/imageButtons/mediumImageButton';
+import MediumImageButton from '../../buttons/imageButtons/mediumImageButton';
 import Link from 'next/link';
 import {Textarea} from "@nextui-org/react";
 import {Button} from "@nextui-org/react";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
-import Pencil from '../objects/eraserAndPencil/pencil';
-import Eraser from '../objects/eraserAndPencil/eraser';
+import Pencil from '../../objects/eraserAndPencil/pencil';
+import Eraser from '../../objects/eraserAndPencil/eraser';
 import  MyTextArea from "@/components/nextUICustom/myTextArea"
 
 interface SimpleWritingFormProps {

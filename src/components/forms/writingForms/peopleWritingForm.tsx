@@ -1,19 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import MediumImageButton from '../buttons/imageButtons/mediumImageButton';
+import MediumImageButton from '../../buttons/imageButtons/mediumImageButton';
 import Link from 'next/link';
-import {Textarea} from "@nextui-org/react";
-import {Button} from "@nextui-org/react";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
-import Pencil from '../objects/eraserAndPencil/pencil';
-import Eraser from '../objects/eraserAndPencil/eraser';
+import { Card, CardHeader, CardBody, CardFooter, Divider, Image, Textarea, Button } from "@nextui-org/react";
 
-interface BackgroundWritingFormProps {
+interface PeopleWritingFormProps {
     destination: string;
     text: string;
     setText: React.Dispatch<React.SetStateAction<string>>;
 }
-const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
+const PeopleWritingForm: React.FC<PeopleWritingFormProps> = ({
     text,
     setText,
     destination,
@@ -58,7 +54,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
         <Card className="max-w-[50vw] max-h-full">
             <form onSubmit={handleSubmit}>
             <CardHeader className="flex justify-around">
-            <p className="text-2xl">언제, 어디에서 있었던 일인지 자세히 적어줘</p>
+            <p className="text-2xl">등장하는 인물(사람, 동물)을 자세히 적어줘</p>
             <Image
                 alt="angel"
                 radius="sm"
@@ -71,7 +67,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
 
             <CardBody>
             <Textarea
-                    label="하루중 아침, 점심, 저녁, 밤 그리고 장소"
+                    label="주인공, 조연1, 조연2, 조연3"
                     placeholder=""
                     className=" w-full h-full"
                     value={text}
@@ -93,6 +89,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
                             alt="Submit"
                         />
                     </Link>
+                
                 <Link href={destination} passHref>
                     <MediumImageButton
                         onClick={handleButtonClick}
@@ -107,4 +104,4 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
         </Card>
     );
 };
-export default BackgroundWritingForm;
+export default PeopleWritingForm;
