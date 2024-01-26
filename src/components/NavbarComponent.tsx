@@ -117,18 +117,15 @@ const NavbarComponent = () => {
                   showFallback
                   isBordered
                   color="default"
-                  size="large"
+                  size="lg"
                   src="https://images.unsplash.com/broken"
                   className="mr-2"
-                  onClick={() => console.log('Avatar clicked')}
                 />
               </DropdownTrigger>
               <DropdownMenu>
                 <DropdownItem key="mypage">마이페이지</DropdownItem>
-                <DropdownItem key="logout">
-                  <Link herf="#" onAction={() => handleClickLogout()} color="danger">
-                    로그아웃
-                  </Link>
+                <DropdownItem key="logout" onAction={() => handleClickLogout()} color="danger">
+                  로그아웃
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
