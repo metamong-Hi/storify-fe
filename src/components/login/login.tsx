@@ -7,6 +7,9 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import {login}from '@/store/userSlice';
 import{signup}from '@/store/userSlice';
+import Swal from 'sweetalert2';
+
+
 function LoginPage() {
   const [selected, setSelected] = useState("login");
 
@@ -20,7 +23,56 @@ function LoginPage() {
     username: '',
     password: ''
   });
-
+  const showLoginSuccessAlert = () => {
+    Swal.fire({
+      title: `로그인 성공`,
+      text: '로그인에 성공했어요!',
+      icon: 'success', 
+      confirmButtonText: 'OK',
+    }).then((result) => {
+      if (result.value) {
+        window.location.href='/'
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
+  const showLoginFailedAlert = () => {
+    Swal.fire({
+      title: `로그인 실패`,
+      text: '로그인에 실패했어요!',
+      icon: 'error', 
+      confirmButtonText: 'OK',
+    }).then((result) => {
+      if (result.value) {
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
+  const showSignupSuccessAlert = () => {
+    Swal.fire({
+      title: `회원가입 성공`,
+      text: '회원가입에 성공했어요!',
+      icon: 'success', 
+      confirmButtonText: 'OK',
+    }).then((result) => {
+      if (result.value) {
+        window.location.href='/'
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
+  const showSignupFailedAlert = () => {
+    Swal.fire({
+      title: `회원가입 실패`,
+      text: '회원가입에 실패했어요!',
+      icon: 'error', 
+      confirmButtonText: 'OK',
+    }).then((result) => {
+      if (result.value) {
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -32,15 +84,16 @@ function LoginPage() {
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login({ username: formData.username, password: formData.password })) .then(() => {
-      window.location.href = '/'; 
+    dispatch(login({ username: formData.username, password: formData.password }))
+    .then(() => {
+      console.log("로그인 성공");
+      showLoginSuccessAlert();
     })
     .catch((error) => {
-    
       console.error("로그인 실패: ", error);
+      showLoginFailedAlert();
     });
-    console.log("여기까지 왔다");
-
+  console.log("여기까지 왔다");
   };
   const [formSignupData,setFormSignupData]=useState({
     username :'',
@@ -56,7 +109,12 @@ function LoginPage() {
   };
   const handleSignUpSubmit =async (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
-    dispatch(signup({username:formSignupData.username, password:formSignupData.password, email:formSignupData.email}));
+    dispatch(signup({username:formSignupData.username, password:formSignupData.password, email:formSignupData.email})).then(()=>{
+      showSignupSuccessAlert();
+    }).catch((error)=>{
+      console.log("회원가입 실패: ********* ",error);
+      showSignupFailedAlert();
+    });
 
     console.log("여기까지 옴+si");
   };

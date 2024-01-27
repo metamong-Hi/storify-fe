@@ -11,7 +11,7 @@ const StyledFlipBook = styled.div`
 
     .html-flip-book {
         width: 600px;
-        height: 800px;
+        height: 600px;
         box-shadow: 40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8);
     }
 
@@ -72,39 +72,37 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     }, [bookId]); // 빈 종속성 배열 추가
 
     console.log(page);
-    //@ts-ignore
     return (
         <>
             <h1 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h1>
-            <br />
             <StyledFlipBook>
                 <HTMLFlipBook
                     width={600} // 너비를 600으로 설정
                     height={600} // 높이를 600으로 설정
                     style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}
-                    // startPage={0}
-                    // drawShadow={false}
-                    // flippingTime={4}
-                    // usePortrait={true}
-                    // startZIndex={0}
-                    // autoSize={false}
-                    // clickEventForward={true}
-                    // useMouseEvents={true}
-                    // swipeDistance={4}
-                    // showPageCorners={true}
-                    // disableFlipByClick={true}
-                    // size="stretch"
-                    // minWidth={600}
-                    // maxWidth={600}
-                    // minHeight={600}
-                    // maxHeight={600}
-                    // maxShadowOpacity={0.5}
-                    // showCover={true}
-                    // mobileScrollSupport={true}
-                    // onFlip={() => {}}
-                    // onChangeOrientation={() => {}}
-                    // onChangeState={() => {}}
-                    // className="demo-book"
+                    startPage={0}
+                    drawShadow={false}
+                    flippingTime={4}
+                    usePortrait={true}
+                    startZIndex={0}
+                    autoSize={true}
+                    clickEventForward={true}
+                    useMouseEvents={true}
+                    swipeDistance={4}
+                    showPageCorners={true}
+                    disableFlipByClick={true}
+                    size="fixed"
+                    minWidth={600}
+                    maxWidth={600}
+                    minHeight={600}
+                    maxHeight={600}
+                    maxShadowOpacity={0.5}
+                    showCover={false}
+                    mobileScrollSupport={true}
+                    onFlip={() => {}}
+                    onChangeOrientation={() => {}}
+                    onChangeState={() => {}}
+                    className="hi"
                 >
                     {page.map((item, index) => {
                         const isEvenPage = index % 2 === 0;
@@ -136,7 +134,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                             style={{
                                                 display: 'flex',
                                                 justifyContent: 'center',
-                                                lineHeight: '1.5',
                                                 textAlign: 'center',
                                                 paddingLeft: '30px',
                                                 paddingRight: '30px',

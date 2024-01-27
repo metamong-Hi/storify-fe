@@ -51,7 +51,7 @@ export const login = createAsyncThunk(
                 },
                 body: JSON.stringify({ username, password }),
             });
-            if (!response.ok) throw new Error('로그인 망함');
+            // if (!response.ok) throw new Error('로그인 망함');
             const data = await response.json();
             return { accessToken: data.accessToken, username: data.username }; // 예시, 실제 응답 구조에 따라 다를 수 있음
         } catch (error) {
@@ -151,6 +151,7 @@ export const userSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.payload as string;
                 console.log('회원가입 실패:', action.payload);
+                
             });
     },
 });
