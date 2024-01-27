@@ -73,7 +73,7 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+    <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -142,7 +142,13 @@ const NavbarComponent = () => {
         ) : (
           <>
             <NavbarItem>
-              <Button as={Link} color="primary" href="/login" variant="flat" size="lg">
+              <Button
+                as={Link}
+                href="/login"
+                variant="ghost"
+                className="border-[#FFC4D0] text-[#FFC4D0] hover:bg-[#FFC4D0] hover:text-[#FBE8E7] transition duration-300 ease-in-out"
+                style={{}}
+              >
                 로그인
               </Button>
             </NavbarItem>
