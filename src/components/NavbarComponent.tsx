@@ -174,20 +174,20 @@ const NavbarComponent = () => {
       isOpen={isOpen}
       onOpenChange={onOpenChange}
     >
-      <ModalContent>
+      <ModalContent className="flex flex-col justify-center items-center p-4">
 
         {(onClose)=>(
           <>
             <ModalHeader className='flex flex-col gap-1'>
-              Modal Title
+              로그인 / 회원가입
             </ModalHeader>
-            <ModalBody className='center'>
+            <ModalBody  className="flex justify-center items-center">
               <LoginPage/>
             </ModalBody>
             <ModalFooter>
-              <Button color="danger" variant='light' onPress={onClose}>
-                close
-              </Button>
+              {/* <Button color="danger" variant='light' onPress={onClose}>
+                닫기
+              </Button> */}
             </ModalFooter>
           </>
         )}
