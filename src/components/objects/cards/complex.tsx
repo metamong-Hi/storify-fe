@@ -19,7 +19,7 @@ const ComplexCard = () => {
           width="100%"   
           height="100%"/>
           </Link>
-          <Link href="/writing/simpleWriting" passHref>
+          <Link href="/writing/complexWriting" passHref>
         <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
           <Button className=" text-black" variant="light" color="secondary" radius="lg" size="lg" style = {{fontSize : "1.25rem "}}>
             자세히 만들기

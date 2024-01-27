@@ -19,14 +19,14 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleButtonClick = () => {
     localStorage.setItem('eventsText', accumulatedText + text);
   };
+
   return (
-    <Card className="max-w-[50vw] max-h-full">
+    <Card className="w-[70vw] max-h-full">
       <CardHeader className="flex justify-around">
-        <p className="text-4xl">오늘 어떤 일이 있었는지 자세히 적어줘</p>
+        <p className="text-4xl">그 사람들과 오늘 어떤 일이 있었는지 자세히 적어줘</p>
       </CardHeader>
 
       <CardBody>
@@ -39,13 +39,13 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
           color="primary"
           size="lg"
           minRows={5}
-          style={{ fontSize: '1.5rem' }}
+          style={{ fontSize: '1.25rem' }}
         />
       </CardBody>
 
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
-          <Link href={destination} passHref>
+          <Link href='/writing/complexWriting/people' passHref>
             <Button color="primary" variant="light">
               뒤로 가기
             </Button>
