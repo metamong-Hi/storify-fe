@@ -14,33 +14,33 @@ const PeopleWritingForm: React.FC<PeopleWritingFormProps> = ({ text, setText, de
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleButtonClick = () => {
     localStorage.setItem('peopleText', accumulatedText + text);
   };
 
+
   return (
-    <Card className="max-w-[50vw] max-h-full">
+    <Card className="w-[70vw] max-h-full">
       <CardHeader className="flex justify-around">
-        <p className="text-4xl">등장하는 인물(사람, 동물)을 자세히 적어줘</p>
+        <p className="text-4xl">이야기에 등장하는 인물(사람, 동물)을 자세히 적어줘</p>
       </CardHeader>
       <CardBody>
         <Textarea
-          placeholder="주인공, 조연1, 조연2, 조연3"
+          placeholder="너의 이름과 동화에 등장할 사람들을 소개해줘"
           className=" w-full h-full"
           value={text}
           onChange={handleChange}
           variant="bordered"
           color="primary"
           size="lg"
-          minRows={5}
-          style={{ fontSize: '1.5rem' }}
+          minRows={6}
+          style={{ fontSize: '1.25rem' }}
         />
       </CardBody>
 
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
-          <Link href={destination} passHref>
+          <Link href='/writing' passHref>
             <Button color="primary" variant="light">
               뒤로 가기
             </Button>

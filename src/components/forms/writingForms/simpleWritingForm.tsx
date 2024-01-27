@@ -13,6 +13,10 @@ interface SimpleWritingFormProps {
   setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
+interface BookData {
+  _id: string;
+}
+
 const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, destination }) => {
 
   let token: string | null;
@@ -20,6 +24,10 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   const [responseContent, setResponseContent] = useState('');
   const [displayedText, setDisplayedText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [isTypingCompleted, setIsTypingCompleted] = useState(false);
+  const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
+  const [bookData, setBookData] = useState<BookData | null>(null);
   
 
   if (typeof window !== 'undefined') {
@@ -53,15 +61,21 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
+          imageStyle : "cartoon",
           aiStory: data.content,
           storyId: data.story._id,
         }),
       });
 
       if (bookResponse.ok) {
-        console.log("동화책 생성 성공!")
-        const bookData = await bookResponse.json();
-        window.location.href = `/book/${bookData._id}`;
+        const responseData = await bookResponse.json();
+        setBookData(responseData);
+        setImageUrls([
+          responseData.body[1].imageUrl,
+          responseData.body[2].imageUrl,
+          responseData.body[3].imageUrl,
+        ]);
+        
       } else {
         alert('책 제작 요청에 실패했습니다. 다시 시도해주세요.');
       }
@@ -75,7 +89,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   };
 
   useEffect(() => {
-    setDisplayedText(''); // responseContent가 변경될 때마다 displayedText를 초기화합니다.
+    setDisplayedText(''); 
     let i = 0;
     const typingEffect = (currentText: string) => {
       if (i < responseContent.length) {
@@ -91,12 +105,34 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   }, [responseContent]);
 
   useEffect(() => {
-    // 스크롤을 TextArea의 끝으로 이동시키는 로직
+
     if (textAreaRef.current) {
       textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
     }
-  }, [displayedText]); // displayedText가 변경될 때마다 스크롤을 조정합니다.
+  }, [displayedText]); 
 
+  useEffect(() => {
+    if (displayedText === responseContent) {
+      setIsTypingCompleted(true);
+    }
+  }, [displayedText, responseContent]);
+  useEffect(() => {
+    if (isTypingCompleted && imageUrls.length > 0) {
+      // 블러 효과가 있는 이미지를 띄움
+      setIsImageBlurCompleted(false);
+      // 5초 후에 블러 효과 제거
+      setTimeout(() => {
+        setIsImageBlurCompleted(true);
+        // 블러 효과가 사라진 후 1초 후에 리디렉션
+        setTimeout(() => {
+          if (bookData) {
+            window.location.href = `/book/${bookData._id}`;
+          }
+        }, 1000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
+      }, 5000); // 여기에서 5000은 블러 효과를 제거하기 위한 시간입니다.
+    }
+  }, [isTypingCompleted, imageUrls, bookData]);
+  
   const handleButtonClick = () => {
     handleSubmit();
   };
@@ -136,6 +172,16 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
           minRows={6}
           style={{ fontSize: '1.25rem', borderColor: '#EABF9F'}}
       />
+        <div className="flex justify-around gap-2 mt-2">
+    {imageUrls.map((url, index) => (
+      <Image
+        key={index}
+        src={url}
+        alt={`Image ${index + 1}`}
+        className={`w-60 h-auto blur-effect`}
+      />
+    ))}
+  </div>
         </CardBody>
       </Card>
     );
@@ -162,7 +208,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
       </CardBody>
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
-          <Link href={destination} passHref>
+          <Link href="/writing" passHref>
             <Button color="primary" variant="light">
               뒤로 가기
             </Button>
