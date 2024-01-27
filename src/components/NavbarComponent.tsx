@@ -79,7 +79,7 @@ const NavbarComponent = () => {
   ];
 
   return (
-
+<>
     <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen}>
 
       <NavbarContent justify="start">
