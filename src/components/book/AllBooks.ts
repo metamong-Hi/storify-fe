@@ -9,7 +9,7 @@ interface BooksResponse {
 
 async function GET(url: string): Promise<BooksResponse> {
   try {
-    return (await fetch(url, { cache: 'force-cache' })).json();
+    return (await fetch(url)).json();
   } catch (error: any) {
     return error.message;
   }
