@@ -10,7 +10,7 @@ const BookSkeleton = ({ cnt }: Props) => {
       <Skeleton className="rounded-lg">
         <Image alt="Book Cover Image" className="object-cover" height={1000} width={1000} />
       </Skeleton>
-      <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] h-[calc(20%_-_8px)] shadow-small ml-1 z-10">
+      <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] h-[calc(15%_-_8px)] shadow-small ml-1 z-10">
         <div className="flex justify-between items-center">
           <Skeleton className="w-3/5 rounded-lg">
             <div className="text-gray-600 text-sm"></div>

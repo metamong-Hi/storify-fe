@@ -16,6 +16,7 @@
     "@nextui-org/react": "^2.2.9",
     "@reduxjs/toolkit": "^2.0.1",
     "babelrc": "^0.0.7",
+    "classnames": "^2.5.1",
     "framer-motion": "^11.0.3",
     "js-cookie": "^3.0.5",
     "next": "14.0.4",

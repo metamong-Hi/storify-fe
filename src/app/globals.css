@@ -17,18 +17,15 @@
 }
 .page {
   background: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   /* 기타 스타일링 */
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
+
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
     rgb(var(--background-start-rgb));
 }
 
@@ -36,14 +33,21 @@ body {
   transform: scaleX(-1);
 }
 .pastel-background {
-  background-image: 
-    linear-gradient(to bottom, 
-      #fda5a550 0%, #fda5a550 16.666%, 
-      #fdbb7450 16.666%, #fdbb7450 33.333%, 
-      #fcd34d50 33.333%, #fcd34d50 50%, 
-      #86efac50 50%, #86efac50 66.666%, 
-      #93c5fd50 66.666%, #93c5fd50 83.333%, 
-      #c4b5fd50 83.333%, #c4b5fd50 100%);
+  background-image: linear-gradient(
+    to bottom,
+    #fda5a550 0%,
+    #fda5a550 16.666%,
+    #fdbb7450 16.666%,
+    #fdbb7450 33.333%,
+    #fcd34d50 33.333%,
+    #fcd34d50 50%,
+    #86efac50 50%,
+    #86efac50 66.666%,
+    #93c5fd50 66.666%,
+    #93c5fd50 83.333%,
+    #c4b5fd50 83.333%,
+    #c4b5fd50 100%
+  );
 }
 
 .custom-textarea {
@@ -51,14 +55,23 @@ body {
 }
 
 @keyframes blurFadeOut {
-  0%   { filter: blur(20px); }
-  25%  { filter: blur(15px); }
-  50%  { filter: blur(10px); }
-  75%  { filter: blur(5px); }
-  100% { filter: blur(0px); }
+  0% {
+    filter: blur(20px);
+  }
+  25% {
+    filter: blur(15px);
+  }
+  50% {
+    filter: blur(10px);
+  }
+  75% {
+    filter: blur(5px);
+  }
+  100% {
+    filter: blur(0px);
+  }
 }
 
 .blur-effect {
   animation: blurFadeOut 5s ease-out forwards;
 }
-
