@@ -100,11 +100,8 @@ const NavbarComponent = () => {
             className="sm:hidden"
           />
           <NavbarBrand>
-            <Link
-              href="/"
-              className="text-4xl font-bold text-indigo-600 hover:text-indigo-800 transition duration-300 ease-in-out"
-            >
-              <span className="text-transparent text-[#B68973]">STORIFY</span>
+            <Link href="/" className="text-4xl  font-bold duration-300 ease-in-out">
+              <span className="text-[#B68973]">STORIFY</span>
             </Link>
           </NavbarBrand>
         </NavbarContent>
@@ -158,7 +155,13 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
-                <Button onClick={onOpen}>로그인</Button>
+                <Button
+                  onClick={onOpen}
+                  className="font-bold text-[#B68973] border-[#B68973] border-2 bg-[#FAF3E0]  hover:bg-[#B68973] hover:text-[#FAF3E0]"
+                  variant="flat"
+                >
+                  로그인
+                </Button>
               </NavbarItem>
             </>
           )}
