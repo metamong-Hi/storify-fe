@@ -1,22 +1,18 @@
 "use client"
 import React, { useState } from 'react';
-import DoubleModal from '@/components/modal/doubleModal';
-import Image from 'next/image';
-import Link from 'next/link';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
 
 const Writing: React.FC = () => {
-  const [modalShow, setModalShow] = useState(true);
 
   return (
     
-    <div className="h-[100vh] w-full bg-pastelRed flex flex-col items-center p-1">
-    <h1 className="text-6xl font-bold text-white">AI요정이 생성해 주는 동화</h1>
-    <div className="w-full h-full flex flex-row justify-around items-center">
-      <SimpleCard/>
-      <ComplexCard/>
-    </div>
+    <div className="h-[91vh] w-full  flex flex-col items-center p-10">
+      <h1 className="text-4xl font-bold text-[#1E212D]">AI요정이 생성해 주는 동화</h1>
+      <div className="w-full h-full flex  flex-col sm :flex-col md:flex-row lg:flex-row justify-center items-center ">
+        <SimpleCard />
+        <ComplexCard />
+      </div>
     </div>
    
   );

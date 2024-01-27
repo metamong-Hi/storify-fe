@@ -40,6 +40,7 @@ const config: Config = {
                 pastelGreen: '#86efac50',
                 pastelBlue: '#93c5fd50',
                 pastelPurple: '#c4b5fd50',
+                
             },
             keyframes: {
                 spin: {
