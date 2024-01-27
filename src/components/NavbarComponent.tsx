@@ -125,7 +125,7 @@ const NavbarComponent = () => {
                   showFallback
                   isBordered
                   color="default"
-                  size="lg"
+                  size="  md"
                   src="https://images.unsplash.com/broken"
                   className="mr-2"
                 />
