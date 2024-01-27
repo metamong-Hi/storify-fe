@@ -179,7 +179,7 @@ const NavbarComponent = () => {
         {(onClose)=>(
           <>
             <ModalHeader className='flex flex-col gap-1'>
-              로그인 / 회원가입
+              {/* 로그인 / 회원가입 */}
             </ModalHeader>
             <ModalBody  className="flex justify-center items-center">
               <LoginPage/>
