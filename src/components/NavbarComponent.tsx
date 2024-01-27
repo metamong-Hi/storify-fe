@@ -79,7 +79,6 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <>
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify="start">
         <NavbarMenuToggle
@@ -124,14 +123,23 @@ const NavbarComponent = () => {
                   showFallback
                   isBordered
                   color="default"
-                  size="lg"
+                  size="md"
                   src="https://images.unsplash.com/broken"
                   className="mr-2"
                 />
               </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="mypage">마이페이지</DropdownItem>
-                <DropdownItem key="logout" onAction={() => handleClickLogout()} color="danger">
+              <DropdownMenu aria-label="Action event example">
+                <DropdownItem key="mypage">
+                  <Link href="/mypage" color="foreground">
+                    마이페이지
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key="logout"
+                  onAction={() => handleClickLogout()}
+                  className="text-danger"
+                  color="danger"
+                >
                   로그아웃
                 </DropdownItem>
               </DropdownMenu>
@@ -140,8 +148,7 @@ const NavbarComponent = () => {
         ) : (
           <>
             <NavbarItem>
-              {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
-              <Button onClick={onOpen}>  
+              <Button as={Link} color="primary" href="/login" variant="flat" size="lg">
                 로그인
               </Button>
             </NavbarItem>
