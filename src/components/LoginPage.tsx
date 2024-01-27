@@ -58,10 +58,9 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ username: formData.username, password: formData.password })) .then(() => {
-      window.location.href = '/'; 
+      window.location.reload(); 
     })
     .catch((error) => {
-    
       console.error("로그인 실패: ", error);
     });
     console.log("여기까지 왔다");

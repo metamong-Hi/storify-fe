@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
+import LoginPage from '@/components/login/login';
 import { store } from '@/store/index';
 import {
   Navbar,
@@ -24,11 +25,16 @@ import {
 } from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
 
+import {Modal,ModalContent,ModalHeader,ModalBody,ModalFooter,ModalProps,useDisclosure} from '@nextui-org/react';
+
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const pathName = usePathname();
+
+
+  const {isOpen,onOpen,onOpenChange}=useDisclosure();
 
   const dispatch = useAppDispatch();
   // const username = useAppSelector(state => state.user.username);
@@ -75,6 +81,7 @@ const NavbarComponent = () => {
   return (
 
     <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen}>
+
       <NavbarContent justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -118,23 +125,14 @@ const NavbarComponent = () => {
                   showFallback
                   isBordered
                   color="default"
-                  size="md"
+                  size="lg"
                   src="https://images.unsplash.com/broken"
                   className="mr-2"
                 />
               </DropdownTrigger>
-              <DropdownMenu aria-label="Action event example">
-                <DropdownItem key="mypage">
-                  <Link href="/mypage" color="foreground">
-                    마이페이지
-                  </Link>
-                </DropdownItem>
-                <DropdownItem
-                  key="logout"
-                  onAction={() => handleClickLogout()}
-                  className="text-danger"
-                  color="danger"
-                >
+              <DropdownMenu>
+                <DropdownItem key="mypage">마이페이지</DropdownItem>
+                <DropdownItem key="logout" onAction={() => handleClickLogout()} color="danger">
                   로그아웃
                 </DropdownItem>
               </DropdownMenu>
@@ -143,13 +141,8 @@ const NavbarComponent = () => {
         ) : (
           <>
             <NavbarItem>
-              <Button
-                as={Link}
-                href="/login"
-                variant="ghost"
-                className="border-[#FFC4D0] text-[#FFC4D0] hover:bg-[#FFC4D0] hover:text-[#FBE8E7] transition duration-300 ease-in-out"
-                style={{}}
-              >
+              {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
+              <Button onClick={onOpen}>  
                 로그인
               </Button>
             </NavbarItem>
@@ -178,6 +171,31 @@ const NavbarComponent = () => {
         <NavbarMenuItem></NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
+      <ModalContent className="flex flex-col justify-center items-center p-4">
+
+        {(onClose)=>(
+          <>
+            <ModalHeader className='flex flex-col gap-1'>
+              {/* 로그인 / 회원가입 */}
+            </ModalHeader>
+            <ModalBody  className="flex justify-center items-center">
+              <LoginPage/>
+            </ModalBody>
+            <ModalFooter>
+              {/* <Button color="danger" variant='light' onPress={onClose}>
+                닫기
+              </Button> */}
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+
+    </Modal>
+    </>
   );
 };
 

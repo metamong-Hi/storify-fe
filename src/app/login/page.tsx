@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
-import LoginPage from '@/components/LoginPage';
+import LoginPage from '@/components/login/login';
 
 export default function Page({ params }: { params: { bookId: string } }) {
     const bookId = params.bookId; // Assign the bookId to a variable

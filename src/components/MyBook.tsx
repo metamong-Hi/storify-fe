@@ -11,14 +11,17 @@ const StyledFlipBook = styled.div`
 
     .html-flip-book {
         width: 600px;
-        height: 800px;
+        height: 600px;
         box-shadow: 40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8);
     }
 
     .demoPage {
         outline: 3px solid black;
+        background-color: white;
         // border-radius: 20px;
+
     }
+    
     // .demoPage {
     //     outline: none;
     //     font-family: 'Times New Roman', serif;
@@ -72,11 +75,14 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     }, [bookId]); // 빈 종속성 배열 추가
 
     console.log(page);
-    //@ts-ignore
     return (
         <>
-            <h1 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h1>
-            <br />
+              <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        paddingTop: '50px', }}>
+                                                {title}
+            </p>
             <StyledFlipBook>
                 <HTMLFlipBook
                     width={600} // 너비를 600으로 설정
@@ -87,24 +93,24 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     flippingTime={4}
                     usePortrait={true}
                     startZIndex={0}
-                    autoSize={false}
+                    autoSize={true}
                     clickEventForward={true}
                     useMouseEvents={true}
                     swipeDistance={4}
                     showPageCorners={true}
                     disableFlipByClick={true}
-                    size="stretch"
-                    minWidth={600}
+                    size="fixed"
+                    minWidth={300}
                     maxWidth={600}
-                    minHeight={600}
+                    minHeight={300}
                     maxHeight={600}
                     maxShadowOpacity={0.5}
-                    showCover={true}
+                    showCover={false}
                     mobileScrollSupport={true}
                     onFlip={() => {}}
                     onChangeOrientation={() => {}}
                     onChangeState={() => {}}
-                    className="demo-book"
+                    className="hi"
                 >
                     {page.map((item, index) => {
                         const isEvenPage = index % 2 === 0;
@@ -121,8 +127,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                 >
                                     {isEvenPage ? (
                                         <Image
-                                            width={1000}
-                                            height={1000}
+                                            width={600}
+                                            height={600}
                                             src={item}
                                             alt={`Page ${index + 1}`}
                                             style={{
@@ -136,13 +142,14 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                             style={{
                                                 display: 'flex',
                                                 justifyContent: 'center',
-                                                lineHeight: '1.5',
                                                 textAlign: 'center',
                                                 paddingLeft: '30px',
                                                 paddingRight: '30px',
                                             }}
                                         >
-                                            <p>{item}</p>
+                                          <p style={{ fontSize: '1.875rem', lineHeight: '2.75rem' }}>
+                                                {item}
+                                                </p>
                                         </div>
                                     )}
                                 </div>
