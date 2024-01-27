@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
+import LoginPage from '@/components/login/login';
 import { store } from '@/store/index';
+import Link from 'next/link';
 import {
   Navbar,
   NavbarBrand,
@@ -13,7 +15,6 @@ import {
   NavbarItem,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
   Button,
   Avatar,
   DropdownItem,
@@ -24,11 +25,23 @@ import {
 } from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
 
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalProps,
+  useDisclosure,
+} from '@nextui-org/react';
+
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const pathName = usePathname();
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const dispatch = useAppDispatch();
   // const username = useAppSelector(state => state.user.username);
@@ -73,111 +86,127 @@ const NavbarComponent = () => {
   ];
 
   return (
-
-    <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent justify="start">
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <Link
-            href="/"
-            className="text-4xl font-bold text-indigo-600 hover:text-indigo-800 transition duration-300 ease-in-out"
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              STORIFY
-            </span>
-          </Link>
-        </NavbarBrand>
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {menuItems.map((item) => (
-          <NavbarItem key={item.link}>
-            <Link color={isActive(item.link) ? 'primary' : 'foreground'} href={item.link}>
-              {item.text}
+    <>
+      <Navbar
+        maxWidth="2xl"
+        height="4rem"
+        isBordered
+        onMenuOpenChange={setIsMenuOpen}
+        className="bg-[#FAF3E0]/80"
+      >
+        <NavbarContent justify="start">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="sm:hidden"
+          />
+          <NavbarBrand>
+            <Link
+              href="/"
+              className="text-4xl font-bold text-indigo-600 hover:text-indigo-800 transition duration-300 ease-in-out"
+            >
+              <span className="text-transparent text-[#B68973]">STORIFY</span>
             </Link>
-          </NavbarItem>
-        ))}
-      </NavbarContent>
-      <NavbarContent as="div" justify="end">
-        {isLoggedIn ? (
-          <>
-            <NavbarItem>
-              <span className="lg">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 pr-2">
-                  {username}
-                </span>
-                님 환영합니다
-              </span>
-            </NavbarItem>
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Avatar
-                  showFallback
-                  isBordered
-                  color="default"
-                  size="md"
-                  src="https://images.unsplash.com/broken"
-                  className="mr-2"
-                />
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Action event example">
-                <DropdownItem key="mypage">
-                  <Link href="/mypage" color="foreground">
-                    마이페이지
-                  </Link>
-                </DropdownItem>
-                <DropdownItem
-                  key="logout"
-                  onAction={() => handleClickLogout()}
-                  className="text-danger"
-                  color="danger"
-                >
-                  로그아웃
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </>
-        ) : (
-          <>
-            <NavbarItem>
-              <Button
-                as={Link}
-                href="/login"
-                variant="ghost"
-                className="border-[#FFC4D0] text-[#FFC4D0] hover:bg-[#FFC4D0] hover:text-[#FBE8E7] transition duration-300 ease-in-out"
-                style={{}}
+          </NavbarBrand>
+        </NavbarContent>
+
+        <NavbarContent className="text-2xl font-bold hidden sm:flex gap-6" justify="center">
+          {menuItems.map((item) => (
+            <NavbarItem key={item.link}>
+              <Link
+                className={`
+    ${
+      isActive(item.link)
+        ? 'text-[#1E212D] bg-[#EABF9F] border border-transparent rounded-full px-4 py-2 transition transform hover:bg-[#DAA49A] active:bg-[#C98A7E] active:scale-90 shadow-md'
+        : 'text-[#1E212D] hover:bg-gray-200 active:bg-gray-300 active:scale-95 rounded-full px-4 py-2 transition'
+    }`}
+                href={item.link}
               >
-                로그인
-              </Button>
+                {item.text}
+              </Link>
             </NavbarItem>
-          </>
-        )}
-      </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={index}>
-            <Link color={isActive(item.link) ? 'primary' : 'foreground'} href={item.link} size="lg">
-              {item.text}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-        {isLoggedIn ? null : (
-          <>
-            <NavbarMenuItem>
-              <Link href="/login">로그인</Link>
+          ))}
+        </NavbarContent>
+        <NavbarContent as="div" justify="end">
+          {isLoggedIn ? (
+            <>
+              <NavbarItem>
+                <span className="">
+                  <span className="text-[#B68973] text-xl font-bold  pr-2">{username}</span>님
+                  환영합니다
+                </span>
+              </NavbarItem>
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <Avatar
+                    showFallback
+                    isBordered
+                    color="default"
+                    size="  md"
+                    src="https://images.unsplash.com/broken"
+                    className="mr-2"
+                  />
+                </DropdownTrigger>
+                <DropdownMenu>
+                  <DropdownItem key="mypage">마이페이지</DropdownItem>
+                  <DropdownItem key="logout" onAction={() => handleClickLogout()} color="danger">
+                    로그아웃
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </>
+          ) : (
+            <>
+              <NavbarItem>
+                {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
+                <Button onClick={onOpen}>로그인</Button>
+              </NavbarItem>
+            </>
+          )}
+        </NavbarContent>
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={index}>
+              <Link
+                color={isActive(item.link) ? 'primary' : 'foreground'}
+                href={item.link}
+                className="text-xl font-bold"
+              >
+                {item.text}
+              </Link>
             </NavbarMenuItem>
-            <NavbarMenuItem>
-              <Link href="/signup">회원가입</Link>
-            </NavbarMenuItem>
-          </>
-        )}
+          ))}
+          {isLoggedIn ? null : (
+            <>
+              <NavbarMenuItem>
+                <Link href="/login">로그인</Link>
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Link href="/signup">회원가입</Link>
+              </NavbarMenuItem>
+            </>
+          )}
 
-        <NavbarMenuItem></NavbarMenuItem>
-      </NavbarMenu>
-    </Navbar>
+          <NavbarMenuItem></NavbarMenuItem>
+        </NavbarMenu>
+      </Navbar>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent className="flex flex-col justify-center items-center p-4">
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
+              <ModalBody className="flex justify-center items-center">
+                <LoginPage />
+              </ModalBody>
+              <ModalFooter>
+                {/* <Button color="danger" variant='light' onPress={onClose}>
+                닫기
+              </Button> */}
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
