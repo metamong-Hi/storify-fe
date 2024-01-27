@@ -79,8 +79,9 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <>
-    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+
+    <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen}>
+
       <NavbarContent justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}

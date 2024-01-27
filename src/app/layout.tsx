@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Provider store={store}>
           <Providers>
             <NavbarComponent />
-            {/* <div className="bg-white scrollbar-hide flex justify-center items-center "> */}
+
               {children}
             {/* </div> */}
           </Providers>
