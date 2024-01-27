@@ -11,9 +11,20 @@ interface BookProps {
 
 const Book = ({ Book, index }: BookProps) => {
   const [liked, setLiked] = React.useState(false);
-  const body = Book.body ? Book.body : null;
-  const noBookImg = body ? body[1].imageUrl : '/images/pictures/noBookImg.png';
-  const imageURL = Book.coverUrl ? Book.coverUrl : noBookImg;
+  let imageURL;
+
+  try {
+    const body = Book.body || null;
+    const noBookImg = body ? body[1].imageUrl : '/images/pictures/noBookImg.png';
+    imageURL = Book.coverUrl || noBookImg;
+  } catch (error) {
+    imageURL = '/images/pictures/noBookImg.png';
+  }
+
+  let token = '' as string;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token') ?? '';
+  }
 
   return (
     <Card isFooterBlurred key={index} radius="lg" className="border-none relative">
@@ -28,28 +39,30 @@ const Book = ({ Book, index }: BookProps) => {
           loading="lazy"
         />
       </Link>
+      {token ? (
+        <CardHeader className="p-0">
+          <Button
+            isIconOnly
+            className="absolute z-10 top-2 right-2 text-default-900/60 bg-white/60 border-black border-1 hover:bg-white"
+            onPress={() => setLiked((v) => !v)}
+          >
+            <HeartIcon
+              className={liked ? '[&>path]:stroke-transparent' : ''}
+              fill={liked ? '#fc3c3c' : 'none'}
+            />
+          </Button>
+        </CardHeader>
+      ) : null}
 
-      <CardHeader className="p-0">
-        <Button
-          isIconOnly
-          className="absolute z-10 top-2 right-2 text-default-900/60 bg-white/60 border-black border-1 hover:bg-white"
-          onPress={() => setLiked((v) => !v)}
-        >
-          <HeartIcon
-            className={liked ? '[&>path]:stroke-transparent' : ''}
-            fill={liked ? '#fc3c3c' : 'none'}
-          />
-        </Button>
-      </CardHeader>
-
-      <CardFooter className="justify-between bg-white/50 border-white/10 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] h-[calc(20%_-_8px)] shadow-small ml-1 z-10">
-        <div className="flex justify-between items-center">
-          <div className="text-black-600 text-sm md:text-lg lg:text-xl">{Book.title}</div>
+      <CardFooter className="justify-center bg-white/50 border-white/10 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] h-[calc(20%_-_8px)] shadow-small ml-1 z-10">
+        <div className="whitespace-nowrap overflow-hidden text-overflow-ellipsis">
+          <div className="text-black-600 text-sm md:text-base lg:text-lg">{Book.title}</div>
         </div>
-        <div className="flex flex-col justify-between items-center">
+
+        {/* <div className="flex flex-col justify-between items-center">
           <div className="text-black-600 text-sm md:text-lg lg:text-xl">{Book.count} views</div>
           <div className="text-black-600 text-sm md:text-lg lg:text-xl">{Book.rate} likes</div>
-        </div>
+        </div> */}
       </CardFooter>
     </Card>
   );
