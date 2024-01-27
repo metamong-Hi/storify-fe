@@ -82,29 +82,29 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     width={600} // 너비를 600으로 설정
                     height={600} // 높이를 600으로 설정
                     style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}
-                    startPage={0}
-                    drawShadow={false}
-                    flippingTime={4}
-                    usePortrait={true}
-                    startZIndex={0}
-                    autoSize={false}
-                    clickEventForward={true}
-                    useMouseEvents={true}
-                    swipeDistance={4}
-                    showPageCorners={true}
-                    disableFlipByClick={true}
-                    size="stretch"
-                    minWidth={600}
-                    maxWidth={600}
-                    minHeight={600}
-                    maxHeight={600}
-                    maxShadowOpacity={0.5}
-                    showCover={true}
-                    mobileScrollSupport={true}
-                    onFlip={() => {}}
-                    onChangeOrientation={() => {}}
-                    onChangeState={() => {}}
-                    className="demo-book"
+                    // startPage={0}
+                    // drawShadow={false}
+                    // flippingTime={4}
+                    // usePortrait={true}
+                    // startZIndex={0}
+                    // autoSize={false}
+                    // clickEventForward={true}
+                    // useMouseEvents={true}
+                    // swipeDistance={4}
+                    // showPageCorners={true}
+                    // disableFlipByClick={true}
+                    // size="stretch"
+                    // minWidth={600}
+                    // maxWidth={600}
+                    // minHeight={600}
+                    // maxHeight={600}
+                    // maxShadowOpacity={0.5}
+                    // showCover={true}
+                    // mobileScrollSupport={true}
+                    // onFlip={() => {}}
+                    // onChangeOrientation={() => {}}
+                    // onChangeState={() => {}}
+                    // className="demo-book"
                 >
                     {page.map((item, index) => {
                         const isEvenPage = index % 2 === 0;
@@ -121,8 +121,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                 >
                                     {isEvenPage ? (
                                         <Image
-                                            width={1000}
-                                            height={1000}
+                                            width={600}
+                                            height={600}
                                             src={item}
                                             alt={`Page ${index + 1}`}
                                             style={{

@@ -16,7 +16,27 @@ const initialState: UserState = {
     error: null,
     username: null,
 };
-
+export const signup = createAsyncThunk(
+    'user/signup',
+    async ({ username, password,email }: { username: string; password: string; email:string }, { rejectWithValue }) => {
+        try {
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password,email }),
+            });
+            if (!response.ok) throw new Error('회원가입 망함');
+            const data = await response.json();
+            return { }; // 예시, 실제 응답 구조에 따라 다를 수 있음
+        } catch (error) {
+            return rejectWithValue(
+                error instanceof Error ? error.message : 'An unknown error occurred',
+            );
+        }
+    },
+);
 export const login = createAsyncThunk(
     'user/login',
     async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
