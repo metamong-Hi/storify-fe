@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
+import LoginPage from '@/components/login/login';
 import { store } from '@/store/index';
 import {
   Navbar,
@@ -24,11 +25,16 @@ import {
 } from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
 
+import {Modal,ModalContent,ModalHeader,ModalBody,ModalFooter,ModalProps,useDisclosure} from '@nextui-org/react';
+
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const pathName = usePathname();
+
+
+  const {isOpen,onOpen,onOpenChange}=useDisclosure();
 
   const dispatch = useAppDispatch();
   // const username = useAppSelector(state => state.user.username);
@@ -73,6 +79,7 @@ const NavbarComponent = () => {
   ];
 
   return (
+    <>
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify="start">
         <NavbarMenuToggle
@@ -133,7 +140,8 @@ const NavbarComponent = () => {
         ) : (
           <>
             <NavbarItem>
-              <Button as={Link} color="primary" href="/login" variant="flat" size="lg">
+              {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
+              <Button onClick={onOpen}>  
                 로그인
               </Button>
             </NavbarItem>
@@ -162,6 +170,31 @@ const NavbarComponent = () => {
         <NavbarMenuItem></NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
+      <ModalContent>
+
+        {(onClose)=>(
+          <>
+            <ModalHeader className='flex flex-col gap-1'>
+              Modal Title
+            </ModalHeader>
+            <ModalBody className='center'>
+              <LoginPage/>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant='light' onPress={onClose}>
+                close
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+
+    </Modal>
+    </>
   );
 };
 

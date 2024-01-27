@@ -58,7 +58,7 @@ function LoginPage() {
     e.preventDefault();
     dispatch(signup({username:formSignupData.username, password:formSignupData.password, email:formSignupData.email}));
 
-    console.log("여기까지 옴+signup");
+    console.log("여기까지 옴+si");
   };
 
   return (
