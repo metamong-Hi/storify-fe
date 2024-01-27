@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import Image from 'next/image';
+import {Button} from '@nextui-org/react';
 const StyledFlipBook = styled.div`
     display: flex;
     justify-content: center;
@@ -46,6 +47,8 @@ interface MyBookProps {
     bookId: string;
 }
 
+
+
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     const [page, setPage] = useState<string[]>([]);
     const [title, setTitle] = useState('');
@@ -73,10 +76,36 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             });
         //  console.log(page)
     }, [bookId]); // 빈 종속성 배열 추가
-
-    console.log(page);
+    const handleDelete = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          console.log(token);
+          console.log(bookId);
+          const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          });
+      
+          if (response.ok) {
+            console.log('삭제됨');
+          } else {
+            console.error('삭제 실패',response);
+          }
+        } catch (error) {
+          console.error('삭제 중 오류 발생', error);
+        }
+      }
+      
     return (
         <>
+           <div style={{ textAlign: 'right' }}>
+        <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
+                 삭제
+        </Button>  
+        </div>
               <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
@@ -98,7 +127,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     useMouseEvents={true}
                     swipeDistance={4}
                     showPageCorners={true}
-                    disableFlipByClick={true}
+                    disableFlipByClick={false}
                     size="fixed"
                     minWidth={300}
                     maxWidth={600}
@@ -147,7 +176,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                                 paddingRight: '30px',
                                             }}
                                         >
-                                          <p style={{ fontSize: '1.875rem', lineHeight: '2.75rem' }}>
+                                          <p style={{ fontSize: '1.5rem', lineHeight: '2.75rem' }}>
                                                 {item}
                                                 </p>
                                         </div>
@@ -158,6 +187,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     })}
                 </HTMLFlipBook>
             </StyledFlipBook>
+         
         </>
     );
 };
