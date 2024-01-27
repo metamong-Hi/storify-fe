@@ -45,7 +45,26 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
         const data = await response.json();
         setResponseContent(data.content);
         setIsLoading(false);
+        // 두 번째 POST 요청
+        const bookResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/books', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          aiStory: data.content,
+          storyId: data.story._id,
+        }),
+      });
 
+      if (bookResponse.ok) {
+        console.log("동화책 생성 성공!")
+        const bookData = await bookResponse.json();
+        window.location.href = `/book/${bookData._id}`;
+      } else {
+        alert('책 제작 요청에 실패했습니다. 다시 시도해주세요.');
+      }
       } else {
         alert('제출에 실패했습니다. 다시 시도해주세요.');
       }
@@ -101,8 +120,8 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
     return (
       <Card className="w-[70vw] bg-white max-h-full mt-10">
         <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center">오늘 있었던 일들을 적어봐</p>
-          <p className="text-3xl flex-grow text-center">AI요정이 동화책으로 만들어줄게</p>
+          <p className="text-3xl flex-grow text-center">동화가 완성됐어!</p>
+          <p className="text-3xl flex-grow text-center">그림도 그려서 곧바로 보여줄거야.</p>
         </CardHeader>
         <CardBody>
         <Textarea
@@ -118,21 +137,6 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
           style={{ fontSize: '1.25rem', borderColor: '#EABF9F'}}
       />
         </CardBody>
-        <CardFooter>
-          <div className="flex flex-row justify-between items-center w-full">
-            <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
-                맘에 안들어 다시 만들래
-              </Button>
-            </Link>
-  
-            <div className="flex flex-row text-center items-center text-middle">
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
-                동화책 보러 가기
-              </Button>
-            </div>
-          </div>
-        </CardFooter>
       </Card>
     );
   }
@@ -141,7 +145,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
     <Card className="w-[70vw] bg-white max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
         <p className="text-3xl flex-grow text-center">오늘 있었던 일들을 적어봐</p>
-        <p className="text-3xl flex-grow text-center">AI요정이 동화책으로 만들어줄게</p>
+        <p className="text-3xl flex-grow text-center">요정이 동화책으로 만들어줄게</p>
       </CardHeader>
       <CardBody>
         <Textarea
@@ -166,7 +170,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
 
           <div className="flex flex-row text-center items-center text-middle">
             <Button color="primary" variant="light" onClick={handleButtonClick}>
-              제출하기
+              제출 하기
             </Button>
           </div>
         </div>
