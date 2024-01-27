@@ -18,21 +18,12 @@ const Page = () => {
     getAllBooks(currentPage, limit)
       .then((data) => {
         setBookShelves(data.books);
+        setTotalItems(data.total);
       })
       .catch((error) => {
         console.error('Failed to fetch books:', error);
       });
   }, [currentPage, limit]);
-
-  useEffect(() => {
-    getAllBooks(1, limit)
-      .then((data) => {
-        setTotalItems(data.total);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch total number of books:', error);
-      });
-  }, [limit]);
 
   const totalPages = useMemo(() => {
     return Math.ceil(totalItems / limit);
