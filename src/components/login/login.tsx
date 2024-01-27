@@ -6,6 +6,7 @@ import { Tabs, Tab, Input, Link, Button, Card, CardBody } from "@nextui-org/reac
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import {login}from '@/store/userSlice';
+import{signup}from '@/store/userSlice';
 function LoginPage() {
   const [selected, setSelected] = useState("login");
 
@@ -41,11 +42,23 @@ function LoginPage() {
     console.log("여기까지 왔다");
 
   };
-
-  const handleSignUpSubmit = (e) => {
+  const [formSignupData,setFormSignupData]=useState({
+    username :'',
+    email:'',
+    password:''
+  });
+  const handleInputChangeSignup=(e)=>{
+    const{name,value}=e.target;
+    setFormSignupData({
+      ...formSignupData,
+      [name]:value
+    });
+  };
+  const handleSignUpSubmit =async (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
-    // 회원가입 처리 로직
-    console.log("Sign-up form submitted");
+    dispatch(signup({username:formSignupData.username, password:formSignupData.password, email:formSignupData.email}));
+
+    console.log("여기까지 옴+signup");
   };
 
   return (
@@ -94,14 +107,33 @@ function LoginPage() {
             </Tab>
             <Tab key="sign-up" title="회원가입">
               <form className="flex flex-col gap-4 h-[300px]" onSubmit={handleSignUpSubmit}>
-                <Input isRequired label="Name" placeholder="Enter your name" type="text" />
-                <Input isRequired label="Email" placeholder="Enter your email" type="email" />
-                <Input
-                  isRequired
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                />
+              <Input
+        isRequired
+        label="이름"
+        placeholder="이름을 입력하세요"
+        type="text"
+        name="username"
+        value={formSignupData.username}
+        onChange={handleInputChangeSignup}
+      />
+              <Input
+        isRequired
+        label="비밀번호"
+        placeholder="비밀번호를 입력하세요"
+        type="password"
+        name="password"
+        value={formSignupData.password}
+        onChange={handleInputChangeSignup}
+      />
+       <Input
+        isRequired
+        label="이메일"
+        placeholder="이메일을 입력하세요"
+        type="email"
+        name="email"
+        value={formSignupData.email}
+        onChange={handleInputChangeSignup}
+      />
                 <p className="text-center text-small">
                   이미 계정이 있으신가요?{" "}
                   <Link size="sm" onPress={() => setSelected("login")}>

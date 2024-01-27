@@ -3,6 +3,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { useAppSelector } from '@/hooks/useAppSelector';
+import { sign } from 'crypto';
 interface UserState {
     token: string | null;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -29,7 +30,9 @@ export const signup = createAsyncThunk(
             });
             if (!response.ok) throw new Error('회원가입 망함');
             const data = await response.json();
-            return { }; // 예시, 실제 응답 구조에 따라 다를 수 있음
+            return {
+
+            }; 
         } catch (error) {
             return rejectWithValue(
                 error instanceof Error ? error.message : 'An unknown error occurred',
@@ -124,6 +127,30 @@ export const userSlice = createSlice({
                     console.log(localStorage.getItem('token'));
                 }
                 state.token = null;
+            })
+
+
+
+            .addCase(signup.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(signup.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                // state.token = action.payload.accessToken; // 수정된 부분
+                // state.username = action.payload.username;
+                if (typeof window !== 'undefined') {
+                    // localStorage.setItem('token', action.payload.accessToken);
+                    // localStorage.setItem('username', action.payload.username);
+
+                    console.log("회원가입 성공함");
+                }
+
+                console.log("회원가입 성공함");
+            })
+            .addCase(signup.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload as string;
+                console.log('회원가입 실패:', action.payload);
             });
     },
 });
