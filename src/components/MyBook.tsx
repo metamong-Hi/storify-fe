@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -13,13 +13,13 @@ const StyledFlipBook = styled.div`
     .html-flip-book {
         width: 600px;
         height: 600px;
-        box-shadow: 40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8);
+        box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
     }
 
     .demoPage {
-        outline: 3px solid black;
+        outline: 1px solid black;
         background-color: white;
-        // border-radius: 20px;
+        border-radius: 20px;
 
     }
     
@@ -48,10 +48,14 @@ interface MyBookProps {
 }
 
 
-
+  let token: string | null;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+  }
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     const [page, setPage] = useState<string[]>([]);
     const [title, setTitle] = useState('');
+
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`)
             .then((response) => {
@@ -78,9 +82,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     }, [bookId]); // 빈 종속성 배열 추가
     const handleDelete = async () => {
         try {
-          const token = localStorage.getItem('token');
-          console.log(token);
-          console.log(bookId);
+            console.log(token+"토큰이다");
+            console.log(bookId+"북아이디다");
           const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
             method: 'DELETE',
             headers: {
@@ -116,7 +119,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                 <HTMLFlipBook
                     width={600} // 너비를 600으로 설정
                     height={600} // 높이를 600으로 설정
-                    style={{ boxShadow: '40px 40px 45px rgba(0.1, 0.1, 0.1, 0.8)' }}
+                    style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)' }}
                     startPage={0}
                     drawShadow={false}
                     flippingTime={4}
@@ -152,6 +155,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         padding: '30px',
+                    
                                     }}
                                 >
                                     {isEvenPage ? (
@@ -164,6 +168,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                                 objectFit: 'cover',
                                                 width: '100%',
                                                 height: '100%',
+                                                borderRadius:'20px'
+                                    
                                             }}
                                         />
                                     ) : (
@@ -187,7 +193,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     })}
                 </HTMLFlipBook>
             </StyledFlipBook>
-         
+          
         </>
     );
 };
