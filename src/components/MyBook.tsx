@@ -74,7 +74,12 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     console.log(page);
     return (
         <>
-            <h1 style={{ textAlign: 'center', paddingTop: '20px' }}>{title}</h1>
+              <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        paddingTop: '50px', }}>
+                                                {title}
+            </p>
             <StyledFlipBook>
                 <HTMLFlipBook
                     width={600} // 너비를 600으로 설정
@@ -139,7 +144,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                                 paddingRight: '30px',
                                             }}
                                         >
-                                            <p>{item}</p>
+                                          <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem' }}>
+                                                {item}
+                                                </p>
                                         </div>
                                     )}
                                 </div>
