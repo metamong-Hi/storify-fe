@@ -31,7 +31,7 @@ function LoginPage() {
       confirmButtonText: 'OK',
     }).then((result) => {
       if (result.value) {
-        window.location.href='/'
+        window.location.reload();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
@@ -56,7 +56,7 @@ function LoginPage() {
       confirmButtonText: 'OK',
     }).then((result) => {
       if (result.value) {
-        window.location.href='/'
+        window.location.reload();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
@@ -95,6 +95,10 @@ function LoginPage() {
     });
   console.log("여기까지 왔다");
   };
+
+
+
+
   const [formSignupData,setFormSignupData]=useState({
     username :'',
     email:'',
@@ -116,7 +120,7 @@ function LoginPage() {
       showSignupFailedAlert();
     });
 
-    console.log("여기까지 옴+si");
+    console.log("여기까지 옴");
   };
 
   return (
@@ -152,12 +156,12 @@ function LoginPage() {
       />
                 <p className="text-center text-small">
                   계정이 없으신가요?{" "}
-                  <Link size="sm" onPress={() => setSelected("sign-up")}>
+                  <Link size="sm" style={{color:'#FFC4D0'}}onPress={() => setSelected("sign-up")}>
                     회원가입
                   </Link>
                 </p>
                 <div className="flex gap-2 justify-end">
-                  <Button type="submit" fullWidth color="primary">
+                  <Button type="submit" fullWidth style={{backgroundColor:'#FFC4D0'}}>
                     로그인
                   </Button>
                 </div>
@@ -194,12 +198,12 @@ function LoginPage() {
       />
                 <p className="text-center text-small">
                   이미 계정이 있으신가요?{" "}
-                  <Link size="sm" onPress={() => setSelected("login")}>
+                  <Link size="sm" style={{color:'#FFC4D0'}}onPress={() => setSelected("login")}>
                     로그인
                   </Link>
                 </p>
                 <div className="flex gap-2 justify-end">
-                  <Button type="submit" fullWidth color="primary">
+                  <Button type="submit" fullWidth style={{backgroundColor:'#FFC4D0'}}>
                     회원가입
                   </Button>
                 </div>

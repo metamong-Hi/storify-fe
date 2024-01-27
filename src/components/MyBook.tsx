@@ -17,8 +17,11 @@ const StyledFlipBook = styled.div`
 
     .demoPage {
         outline: 3px solid black;
+        background-color: white;
         // border-radius: 20px;
+
     }
+    
     // .demoPage {
     //     outline: none;
     //     font-family: 'Times New Roman', serif;
@@ -97,9 +100,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     showPageCorners={true}
                     disableFlipByClick={true}
                     size="fixed"
-                    minWidth={600}
+                    minWidth={300}
                     maxWidth={600}
-                    minHeight={600}
+                    minHeight={300}
                     maxHeight={600}
                     maxShadowOpacity={0.5}
                     showCover={false}
@@ -144,7 +147,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                                 paddingRight: '30px',
                                             }}
                                         >
-                                          <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem' }}>
+                                          <p style={{ fontSize: '1.875rem', lineHeight: '2.75rem' }}>
                                                 {item}
                                                 </p>
                                         </div>
