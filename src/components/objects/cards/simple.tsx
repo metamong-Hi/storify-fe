@@ -18,7 +18,7 @@ const SimpleCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
-        src= "https://storify-fe.vercel.app/images/pictures/sample1.png"
+        src= "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b38a5ae074aed077d12d0b-1706265201395-0.png"
         width="100%"  
         height="100%"
       />

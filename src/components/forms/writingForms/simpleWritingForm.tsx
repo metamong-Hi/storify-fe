@@ -127,7 +127,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
           if (bookData) {
             window.location.href = `/book/${bookData._id}`;
           }
-        }, 1000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
+        }, 2000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
       }, 5000); // 여기에서 5000은 블러 효과를 제거하기 위한 시간입니다.
     }
   }, [isTypingCompleted, imageUrls, bookData]);
@@ -140,8 +140,8 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
     return (
       <Card className="w-[70vw] max-h-full mt-10">
         <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center">잠시만 기다려주세요</p>
-          <p className="text-3xl flex-grow text-center">동화책을 만들고 있어요</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">잠시만 기다려주세요</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">동화책을 만들고 있어요</p>
         </CardHeader>
         <CardBody className="flex justify-center items-center">
           <Spinner label="로딩중" color="primary" size="lg" />
@@ -155,8 +155,8 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
     return (
       <Card className="w-[70vw] max-h-full mt-10">
         <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center">동화가 완성됐어!</p>
-          <p className="text-3xl flex-grow text-center">그림도 그려서 곧바로 보여줄거야.</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">동화가 완성됐어!</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">그림도 그려서 곧바로 보여줄거야.</p>
         </CardHeader>
         <CardBody>
         <Textarea
@@ -189,8 +189,8 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   return (
     <Card className="w-[70vw] max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
-        <p className="text-3xl flex-grow text-center">오늘 있었던 일들을 적어봐</p>
-        <p className="text-3xl flex-grow text-center">요정이 동화책으로 만들어줄게</p>
+        <p className="text-3xl flex-grow text-center text-[#1E212D]">오늘 있었던 일들을 적어봐</p>
+        <p className="text-3xl flex-grow text-center text-[#1E212D]">요정이 동화책으로 만들어줄게</p>
       </CardHeader>
       <CardBody>
         <Textarea
@@ -208,13 +208,13 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full ">
           <Link href="/writing" passHref>
-            <Button color="primary" variant="light" style = {{fontSize: '1.25rem'}}>
+            <Button  variant="light" style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
               뒤로 가기
             </Button>
           </Link>
 
           <div className="flex flex-row text-center items-center text-middle">
-            <Button color="primary" variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}}>
+            <Button variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
               보내기
             </Button>
           </div>

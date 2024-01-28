@@ -46,6 +46,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
       const finalText = storedPeopleText + storedEventsText + text;
 
       try {
+        console.log("fetch 요청 전");
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/stories', {
           method: 'POST',
           headers: {
@@ -54,8 +55,10 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
           },
           body: JSON.stringify({ message: finalText }),
         });
+        console.log("fetch 요청 후", response);
         if (response.ok) {
           const data = await response.json();
+          console.log("응답 데이터:", data);
           setResponseContent(data.content);
           setIsLoading(false);
           // 두 번째 POST 요청
@@ -88,8 +91,8 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
           alert('제출에 실패했습니다. 다시 시도해주세요.');
         }
       } catch (error) {
+        console.error('비동기 요청 중 에러 발생:', error);
         alert('에러가 발생했습니다. 다시 시도해주세요.');
-        console.error('Error submitting story:', error);
       }
     };
 
@@ -134,7 +137,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
             if (bookData) {
               window.location.href = `/book/${bookData._id}`;
             }
-          }, 1000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
+          }, 2000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
         }, 5000); // 여기에서 5000은 블러 효과를 제거하기 위한 시간입니다.
       }
     }, [isTypingCompleted, imageUrls, bookData]);
@@ -147,8 +150,8 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
       return (
         <Card className="w-[70vw] max-h-full mt-10">
           <CardHeader className="flex flex-col justify-center items-center p-4">
-            <p className="text-3xl flex-grow text-center">잠시만 기다려주세요</p>
-            <p className="text-3xl flex-grow text-center">동화책을 만들고 있어요</p>
+            <p className="text-3xl flex-grow text-center text-[#1E212D]">잠시만 기다려주세요</p>
+            <p className="text-3xl flex-grow text-center text-[#1E212D]">동화책을 만들고 있어요</p>
           </CardHeader>
           <CardBody className="flex justify-center items-center">
             <Spinner label="로딩중" color="primary" size="lg" />
@@ -162,8 +165,8 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
       return (
         <Card className="w-[70vw] max-h-full mt-10">
           <CardHeader className="flex flex-col justify-center items-center p-4">
-            <p className="text-3xl flex-grow text-center">동화가 완성됐어!</p>
-            <p className="text-3xl flex-grow text-center">그림도 그려서 곧바로 보여줄거야.</p>
+            <p className="text-3xl flex-grow text-center text-[#1E212D]">동화가 완성됐어!</p>
+            <p className="text-3xl flex-grow text-center text-[#1E212D]">그림도 그려서 곧바로 보여줄거야.</p>
           </CardHeader>
           <CardBody>
           <Textarea
@@ -195,13 +198,13 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
   return (
     <Card className="w-[70vw] max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
-        <p className="text-3xl">언제,어디에서 있었던 일인지 자세히 적어줘.</p>
-        <p className="text-3xl">보내기 버튼을 누르면 동화책이 만들어질거야!</p>
+        <p className="text-3xl text-[#1E212D]">언제,어디에서 있었던 일인지 자세히 적어줘.</p>
+        <p className="text-3xl text-[#1E212D]">보내기 버튼을 누르면 동화책이 만들어질거야!</p>
       </CardHeader>
       <CardBody>
         <Textarea
           placeholder="언제, 어디에서 그런 일이 있었는 지 설명해줘"
-          className=" w-full h-full"
+          className=" custom-textarea w-full h-full"
           value={text}
           onChange={handleChange}
           variant="bordered"
@@ -215,16 +218,14 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
           <Link href='/writing/complexWriting/events' passHref>
-            <Button color="primary" variant="light" style = {{fontSize: '1.25rem'}}>
+            <Button  variant="light" style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
               뒤로 가기
             </Button>
           </Link>
           <div className="flex flex-row text-center items-center text-middle">
-            <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}}>
+              <Button  variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
                 보내기
               </Button>
-            </Link>
           </div>
         </div>
       </CardFooter>
