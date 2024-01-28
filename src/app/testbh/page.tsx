@@ -24,7 +24,6 @@ import MenuBar from '@/components/menubar/menuBar';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
 import NextUICard from '@/components/objects/cards/simpleWritingForm';
-import StoryChoiceForm from '@/components/forms/choiceForms/storyChoiceForm';
 import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
 
@@ -72,7 +71,6 @@ const TestBH: React.FC = () => {
       </div>
       <div className="h-[100vh] w-full bg-pastelPurple flex flex-col  items-center p-1">
         <h1 className="text-6xl font-bold text-white mb-4">텍스트 3</h1>
-        <StoryChoiceForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
       </div>
       
     </div>
