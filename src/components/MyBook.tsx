@@ -2,24 +2,30 @@
 import React, { useEffect, useState,useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
-import Image from 'next/image';
+import {Image} from "@nextui-org/react";
 import {Button} from '@nextui-org/react';
 const StyledFlipBook = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-
-    .html-flip-book {
-        width: 600px;
-        height: 600px;
-        box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
-    }
+    flex-direction:column;
+    // .html-flip-book {
+    //     width: 600px;
+    //     height: 600px;
+    //     box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
+    // }
 
     .demoPage {
-        outline: 1px solid black;
+        // outline: 1px solid black;
         background-color: white;
         border-radius: 20px;
+        display: flex;
+        justify-content: center;
+    
+        align-items: center;
+        text-align: center;
+    
 
     }
     
@@ -55,6 +61,33 @@ interface MyBookProps {
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     const [page, setPage] = useState<string[]>([]);
     const [title, setTitle] = useState('');
+    const bookRef = useRef<HTMLFlipBookElement>(null);
+    interface HTMLFlipBookElement extends HTMLElement {
+        pageFlip(): PageFlip;
+      }
+      
+      interface PageFlip {
+        flipNext(): void;
+        flipPrev(): void;
+      }
+
+  
+    const goToNextPage = () => {
+        if (bookRef.current && bookRef.current.pageFlip) {
+          const pageFlipInstance = bookRef.current.pageFlip();
+          if (pageFlipInstance) {
+            pageFlipInstance.flipNext();
+          }
+        }
+      };
+      const goToPreviousPage = () => {
+    if (bookRef.current && bookRef.current.pageFlip) {
+        const pageFlipInstance = bookRef.current.pageFlip();
+        if (pageFlipInstance) {
+            pageFlipInstance.flipPrev();
+        }
+    }
+};
 
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`)
@@ -104,25 +137,33 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       
     return (
         <>
-           <div style={{ textAlign: 'right' }}>
-        <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
-                 삭제
-        </Button>  
-        </div>
-              <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
+          <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         paddingTop: '50px', }}>
                                                 {title}
             </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                <Button onClick={goToPreviousPage}>
+                    이전페이지
+                </Button>
+                <Button onClick={goToNextPage}>
+                    다음 페이지
+                </Button>
+        </div>
+                {/* <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
+                 삭제
+        </Button>   */}
+             
             <StyledFlipBook>
                 <HTMLFlipBook
+                    ref={bookRef}
                     width={600} // 너비를 600으로 설정
                     height={600} // 높이를 600으로 설정
                     style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)' }}
                     startPage={0}
                     drawShadow={false}
-                    flippingTime={4}
+                    flippingTime={10}
                     usePortrait={true}
                     startZIndex={0}
                     autoSize={true}
@@ -160,6 +201,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                 >
                                     {isEvenPage ? (
                                         <Image
+                                            isZoomed
                                             width={600}
                                             height={600}
                                             src={item}
@@ -174,18 +216,25 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                         />
                                     ) : (
                                         <div
-                                            style={{
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                textAlign: 'center',
-                                                paddingLeft: '30px',
-                                                paddingRight: '30px',
-                                            }}
-                                        >
-                                          <p style={{ fontSize: '1.5rem', lineHeight: '2.75rem' }}>
-                                                {item}
-                                                </p>
-                                        </div>
+                                        style={{
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center', // 세로 방향 가운데 정렬
+                                          textAlign: 'center',
+                                          height: '100%' // 부모 div 높이를 100%로 설정
+                                        }}
+                                      >
+                                        <p style={{ 
+                                          fontSize: '1.5rem', 
+                                          lineHeight: '2.75rem',
+                                          margin: 'auto', // 모든 방향에서 자동 마진 적용
+                                        //   textAlign: 'center'
+                                        }}>
+                                          {item}
+                                        </p>
+                                      </div>
+                                      
+                                      
                                     )}
                                 </div>
                             </div>
