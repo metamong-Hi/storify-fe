@@ -9,6 +9,7 @@ const StyledFlipBook = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    border-radius:20px;
     flex-direction:column;
     // .html-flip-book {
     //     width: 600px;
@@ -17,15 +18,13 @@ const StyledFlipBook = styled.div`
     // }
 
     .demoPage {
-        // outline: 1px solid black;
+        // outline: 2px solid black;
         background-color: white;
         border-radius: 20px;
-        display: flex;
-        justify-content: center;
-    
+        // display: flex;
+        justify-content: center; 
         align-items: center;
         text-align: center;
-    
 
     }
     
@@ -160,7 +159,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     ref={bookRef}
                     width={600} // 너비를 600으로 설정
                     height={600} // 높이를 600으로 설정
-                    style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)' }}
+                    style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)', borderRadius:'20px' }}
                     startPage={0}
                     drawShadow={false}
                     flippingTime={10}
@@ -189,16 +188,17 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                         const isEvenPage = index % 2 === 0;
 
                         return (
-                            <div className="demoPage" key={index}>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        padding: '30px',
-                    
-                                    }}
-                                >
+                            <div className="demoPage" key={index}
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign:'center',
+                                height: '600px', // 페이지 높이 설정
+                                width: '600px', // 페이지 너비 설정
+                              }}>
+                              
                                     {isEvenPage ? (
                                         <Image
                                             isZoomed
@@ -221,14 +221,16 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                           justifyContent: 'center',
                                           alignItems: 'center', // 세로 방향 가운데 정렬
                                           textAlign: 'center',
-                                          height: '100%' // 부모 div 높이를 100%로 설정
+                                          padding:'20px',
+                                         height:'50vh' // 부모 div 높이를 100%로 설정
                                         }}
                                       >
                                         <p style={{ 
                                           fontSize: '1.5rem', 
                                           lineHeight: '2.75rem',
                                           margin: 'auto', // 모든 방향에서 자동 마진 적용
-                                        //   textAlign: 'center'
+                                        //   textAlign: 'center',
+                                        //   alignItems:'center'
                                         }}>
                                           {item}
                                         </p>
@@ -237,7 +239,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                       
                                     )}
                                 </div>
-                            </div>
+      
                         );
                     })}
                 </HTMLFlipBook>
