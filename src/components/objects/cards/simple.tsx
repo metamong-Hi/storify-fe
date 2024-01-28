@@ -2,12 +2,10 @@
 import React from "react";
 import { Card, CardFooter, Image, Button } from "@nextui-org/react";
 import Link from 'next/link';
-
 const SimpleCard = () => {
   const handleCardClick = () => {
     window.location.href = '/writing/simpleWriting';
   };
-
   return (
     <Card
       isFooterBlurred
@@ -20,7 +18,11 @@ const SimpleCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
+<<<<<<< HEAD
         src="/images/pictures/sample1.png"
+=======
+        src= "https://storify-fe.vercel.app/images/pictures/sample1.png"
+>>>>>>> 18ead74615d6fee0445ded2a9a2142458b6cd702
         width="100%"  
         height="100%"
       />
