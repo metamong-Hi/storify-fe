@@ -37,7 +37,7 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
           variant="bordered"
           color="primary"
           size="lg"
-          minRows={5}
+          minRows={6}
           style={{ fontSize: '1.25rem' }}
         />
       </CardBody>
@@ -45,13 +45,13 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
           <Link href='/writing/complexWriting/people' passHref>
-            <Button color="primary" variant="light">
+            <Button color="primary" variant="light" style = {{fontSize: '1.25rem'}}>
               뒤로 가기
             </Button>
           </Link>
           <div className="flex flex-row text-center items-center text-middle">
             <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
+              <Button color="primary" variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}}>
                 다음으로
               </Button>
             </Link>
