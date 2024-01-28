@@ -3,9 +3,6 @@ import React, { useState, useRef } from 'react';
 import DoubleModal from '@/components/modal/doubleModal';
 import SimpleWritingForm from '@/components/forms/writingForms/simpleWritingForm';
 import Image from 'next/image';
-// import SpeechBubbleV from '@/components/objects/speechBubble/speechBubble2';
-import Eraser from '@/components/objects/eraserAndPencil/eraser';
-import Pencil from '@/components/objects/eraserAndPencil/pencil';
 
 const ParentComponent: React.FC = () => {
   const [formText, setFormText] = useState('');

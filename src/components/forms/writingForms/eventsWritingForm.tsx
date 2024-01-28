@@ -1,12 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import MediumImageButton from '../../buttons/imageButtons/mediumImageButton';
+
 import Link from 'next/link';
 import { Textarea } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from '@nextui-org/react';
-import Pencil from '../../objects/eraserAndPencil/pencil';
-import Eraser from '../../objects/eraserAndPencil/eraser';
 
 interface EventsWritingFormProps {
   destination: string;
@@ -24,9 +22,10 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
   };
 
   return (
-    <Card className="w-[70vw] max-h-full">
-      <CardHeader className="flex justify-around">
-        <p className="text-4xl">그 사람들과 오늘 어떤 일이 있었는지 자세히 적어줘</p>
+    <Card className="w-[70vw] max-h-full mt-10">
+      <CardHeader className="flex flex-col justify-center items-center p-4">
+        <p className="text-3xl">그 사람,동물들과 어떤 일이 있었는지</p>
+        <p className="text-3xl">자세히 적어줘</p>
       </CardHeader>
 
       <CardBody>

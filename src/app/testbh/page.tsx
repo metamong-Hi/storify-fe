@@ -18,12 +18,10 @@ import BackgroundWritingForm from '@/components/forms/writingForms/backgroundWri
 import Card from '@/components/objects/cards/customCards/card';
 import ClusterCard from '@/components/objects/cards/customCards/clusterCard';
 import ClusterCardContainer from '@/components/objects/cards/customCards/clusterCardContainer';
-import Eraser from '@/components/objects/eraserAndPencil/eraser';
-import Pencil from '@/components/objects/eraserAndPencil/pencil';
 import MenuBar from '@/components/menubar/menuBar';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
-import NextUICard from '@/components/objects/cards/simpleWritingForm';
+
 import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
 
