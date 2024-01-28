@@ -15,6 +15,127 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+@font-face {
+  font-family: 'Gulim';
+  src: url('/public/fonts/210Gulim050.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GulimBold';
+  src: url('/public/fonts/210Gulim090.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GulimLight';
+  src: url('/public/fonts/210Gulim010.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NamuGulim';
+  src: url('/public/fonts/210NamuGulimR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NamuGulimBold';
+  src: url('/public/fonts/210NamuGulimB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NamuGulimLight';
+  src: url('/public/fonts/210NamuGulimL.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ModernGulim';
+  src: url('/public/fonts/210ModernGulimR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ModernGulimBold';
+  src: url('/public/fonts/210ModernGulimB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ModernGulimLight';
+  src: url('/public/fonts/210ModernGulimL.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Socks';
+  src: url('/public/fonts/210SocksR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SocksBold';
+  src: url('/public/fonts/210SocksB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SocksLight';
+  src: url('/public/fonts/210SocksL.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kids';
+  src: url('/public/fonts/210KidsR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KidsBold';
+  src: url('/public/fonts/210KidsB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KidsLight';
+  src: url('/public/fonts/210KidsL.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 .page {
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
