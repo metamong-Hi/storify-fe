@@ -207,16 +207,16 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
         />
       </CardBody>
       <CardFooter>
-        <div className="flex flex-row justify-between items-center w-full">
+        <div className="flex flex-row justify-between items-center w-full ">
           <Link href="/writing" passHref>
-            <Button color="primary" variant="light">
+            <Button color="primary" variant="light" style = {{fontSize: '1.25rem'}}>
               뒤로 가기
             </Button>
           </Link>
 
           <div className="flex flex-row text-center items-center text-middle">
-            <Button color="primary" variant="light" onClick={handleButtonClick}>
-              제출 하기
+            <Button color="primary" variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}}>
+              보내기
             </Button>
           </div>
         </div>

@@ -10,8 +10,8 @@ const Events: React.FC = () => {
 
   return (
 
-    <div className="h-[91vh] w-full  flex flex-col  items-center p-1">
-    <h1 className="text-4xl font-bold text-black mb-4">고급 생성(사건)</h1>
+    <div className="h-[91vh] w-full  flex flex-col  items-center p-10">
+    <h1 className="text-4xl font-bold text-black mb-4">자세히 만들기</h1>
     <EventsWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/backgrounds"/>
   </div>
   );
