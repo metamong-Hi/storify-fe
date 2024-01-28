@@ -20,7 +20,7 @@ const SimpleCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
-        src="/images/pictures/sample1.webp"
+        src="/images/pictures/sample1.png"
         width="100%"  
         height="100%"
       />
