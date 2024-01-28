@@ -73,14 +73,16 @@ function LoginPage() {
       }
     });
   }
-  const handleInputChange = async(e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { name, value } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
     setFormData({
       ...formData,
       [name]: value
     });
   };
+  
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ username: formData.username, password: formData.password }))
@@ -103,13 +105,16 @@ function LoginPage() {
     email:'',
     password:''
   });
-  const handleInputChangeSignup=(e)=>{
-    const{name,value}=e.target;
+  const handleInputChangeSignup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
     setFormSignupData({
       ...formSignupData,
-      [name]:value
+      [name]: value
     });
   };
+  
   const handleSignUpSubmit =async (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
     dispatch(signup({username:formSignupData.username, password:formSignupData.password, email:formSignupData.email})).then(()=>{
@@ -121,7 +126,9 @@ function LoginPage() {
 
     console.log("여기까지 옴");
   };
-
+  const handleSelectionChange = (key: string | number) => {
+    setSelected(String(key));
+  };
   return (
     <div className="flex flex-col w-full">
       <Card className="max-w-full w-[340px] h-[400px]">
@@ -131,7 +138,7 @@ function LoginPage() {
             size="md"
             aria-label="Tabs form"
             selectedKey={selected}
-            onSelectionChange={setSelected}
+            onSelectionChange={handleSelectionChange}
           >
             <Tab key="login" title="로그인">
               <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
