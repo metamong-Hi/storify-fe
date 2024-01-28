@@ -93,6 +93,7 @@ const NavbarComponent = () => {
         isBordered
         onMenuOpenChange={setIsMenuOpen}
         className="bg-[#FAF3E0]/80"
+        style={{ fontFamily: 'NamuGulim' }}
       >
         <NavbarContent justify="start">
           <NavbarMenuToggle
