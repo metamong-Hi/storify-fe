@@ -20,9 +20,9 @@ const SimpleCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
-        src="/images/pictures/sample1.png"
-        width="100"  
-        height="100"
+        src= "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b38a5ae074aed077d12d0b-1706265201395-0.png"
+        width="100%"  
+        height="100%" 
       />
 
       <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">

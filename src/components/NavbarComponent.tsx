@@ -157,7 +157,8 @@ const NavbarComponent = () => {
                 {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
                 <Button
                   onClick={onOpen}
-                  className="font-bold text-[#B68973] border-[#B68973] border-2 bg-[#FAF3E0]  hover:bg-[#FAF3E0] hover:text-[#FAF3E0]"
+                  className="font-bold text-[##B68973] border-[##B68973] border-2 bg-[#B68973]  hover:bg-gray-200 "
+
                   variant="flat"
                 >
                   로그인

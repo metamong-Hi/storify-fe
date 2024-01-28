@@ -21,7 +21,7 @@ const ComplexCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
-        src="https://storify-fe.vercel.app/images/pictures/sample3.png"
+        src="https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b3ae00f22246ba2780ccc7-1706274325596-0.png"
         width="100%"   
         height="100%"
 
