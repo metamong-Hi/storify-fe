@@ -24,7 +24,7 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
   return (
     <Card className="w-[70vw] max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
-        <p className="text-3xl text-[#1E212D]">그 사람,동물들과 어떤 일이 있었는지</p>
+        <p className="text-3xl text-[#1E212D]">그 사람 또는 동물들과 어떤 일이 있었는지</p>
         <p className="text-3xl text-[#1E212D]">자세히 적어줘</p>
       </CardHeader>
 

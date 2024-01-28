@@ -199,7 +199,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
     <Card className="w-[70vw] max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
         <p className="text-3xl text-[#1E212D]">언제,어디에서 있었던 일인지 자세히 적어줘.</p>
-        <p className="text-3xl text-[#1E212D]">보내기 버튼을 누르면 동화책이 만들어질거야!</p>
+        <p className="text-3xl text-[#1E212D]">그 다음 보내기 버튼을 눌러줘</p>
       </CardHeader>
       <CardBody>
         <Textarea

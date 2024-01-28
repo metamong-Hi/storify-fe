@@ -22,7 +22,7 @@ const PeopleWritingForm: React.FC<PeopleWritingFormProps> = ({ text, setText, de
   return (
     <Card className="w-[70vw] max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
-        <p className="text-3xl text-[#1E212D]">이야기에 등장하는 사람과 동물을</p>
+        <p className="text-3xl text-[#1E212D]">이야기에 등장하는 사람이나 동물을</p>
         <p className="text-3xl text-[#1E212D]">자세히 적어줘</p>
       </CardHeader>
       <CardBody>
