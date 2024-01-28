@@ -145,9 +145,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
                 <Button onClick={goToPreviousPage}>
                     이전페이지
+                {/* <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ zIndex: 100, position: 'relative' }} /> */}
                 </Button>
                 <Button onClick={goToNextPage}>
-                    다음 페이지
+                    다음페이지
+                {/* <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" /> */}
                 </Button>
         </div>
                 {/* <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
@@ -157,8 +159,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             <StyledFlipBook>
                 <HTMLFlipBook
                     ref={bookRef}
-                    width={600} // 너비를 600으로 설정
-                    height={600} // 높이를 600으로 설정
+                    width={550} // 너비를 600으로 설정
+                    height={550} // 높이를 600으로 설정
                     style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)', borderRadius:'20px' }}
                     startPage={0}
                     drawShadow={false}
@@ -173,9 +175,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     disableFlipByClick={false}
                     size="fixed"
                     minWidth={300}
-                    maxWidth={600}
+                    maxWidth={550}
                     minHeight={300}
-                    maxHeight={600}
+                    maxHeight={550}
                     maxShadowOpacity={0.5}
                     showCover={false}
                     mobileScrollSupport={true}
