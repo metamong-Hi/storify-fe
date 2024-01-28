@@ -75,3 +75,42 @@ body {
 .blur-effect {
   animation: blurFadeOut 5s ease-out forwards;
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.delay-1s {
+  animation-delay: 1s;
+}
+
+.delay-15s {
+  animation-delay: 1.5s;
+}
+
+.delay-2s {
+  animation-delay: 2s;
+}
+
+.delay-25s {
+  animation-delay: 2.5s;
+}
+
+.delay-3s {
+  animation-delay: 3s;
+}
+
+.slide-image {
+  transition: opacity 0.5s ease;
+}

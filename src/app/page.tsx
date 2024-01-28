@@ -1,8 +1,9 @@
 import Link from 'next/link';
-export default function Home() {
-    return (
-        <main className="flex justify-center items-center">
-            <div className="flex justify-center items-center">MAIN</div>
-        </main>
-    );
+import HomeDesign from '@/components/home/home';
+
+export default function Page() {
+    
+    return (<div className="flex items-center ">
+        <HomeDesign/>
+    </div>);
 }

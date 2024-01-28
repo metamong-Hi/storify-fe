@@ -31,7 +31,7 @@ const ComplexCard = () => {
       <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10"
       >
         <span 
-          className="text-black text-xl" 
+          className="text-[#1E212D] text-xl" 
           style={{ fontSize: "1.5rem" }}
         >
           자세히 만들기
