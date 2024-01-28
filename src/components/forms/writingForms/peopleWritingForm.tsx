@@ -20,9 +20,10 @@ const PeopleWritingForm: React.FC<PeopleWritingFormProps> = ({ text, setText, de
 
 
   return (
-    <Card className="w-[70vw] max-h-full">
-      <CardHeader className="flex justify-around">
-        <p className="text-4xl">이야기에 등장하는 인물(사람, 동물)을 자세히 적어줘</p>
+    <Card className="w-[70vw] max-h-full mt-10">
+      <CardHeader className="flex flex-col justify-center items-center p-4">
+        <p className="text-3xl text-[#1E212D]">이야기에 등장하는 사람이나 동물을</p>
+        <p className="text-3xl text-[#1E212D]">자세히 적어줘</p>
       </CardHeader>
       <CardBody>
         <Textarea
@@ -41,14 +42,14 @@ const PeopleWritingForm: React.FC<PeopleWritingFormProps> = ({ text, setText, de
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
           <Link href='/writing' passHref>
-            <Button color="primary" variant="light">
+            <Button  variant="light" style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
               뒤로 가기
             </Button>
           </Link>
 
           <div className="flex flex-row text-center items-center text-middle">
             <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
+              <Button variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
                 다음으로
               </Button>
             </Link>

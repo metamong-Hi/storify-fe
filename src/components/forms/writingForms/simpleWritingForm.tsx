@@ -6,7 +6,6 @@ import { Textarea } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image,Spinner } from '@nextui-org/react';
 
-
 interface SimpleWritingFormProps {
   destination: string;
   text: string;
@@ -28,7 +27,6 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   const [isTypingCompleted, setIsTypingCompleted] = useState(false);
   const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
   const [bookData, setBookData] = useState<BookData | null>(null);
-  
 
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
@@ -116,6 +114,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
       setIsTypingCompleted(true);
     }
   }, [displayedText, responseContent]);
+
   useEffect(() => {
     if (isTypingCompleted && imageUrls.length > 0) {
       // 블러 효과가 있는 이미지를 띄움
@@ -128,7 +127,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
           if (bookData) {
             window.location.href = `/book/${bookData._id}`;
           }
-        }, 1000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
+        }, 2000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
       }, 5000); // 여기에서 5000은 블러 효과를 제거하기 위한 시간입니다.
     }
   }, [isTypingCompleted, imageUrls, bookData]);
@@ -139,13 +138,13 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
 
   if (isLoading) {
     return (
-      <Card className="w-[70vw] bg-white max-h-full mt-10">
+      <Card className="w-[70vw] max-h-full mt-10">
         <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center">잠시만 기다려주세요</p>
-          <p className="text-3xl flex-grow text-center">동화책을 만들고 있어요</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">잠시만 기다려주세요</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">동화책을 만들고 있어요</p>
         </CardHeader>
         <CardBody className="flex justify-center items-center">
-          <Spinner label="Loading..." color="primary" size="lg" />
+          <Spinner label="로딩중" color="primary" size="lg" />
         </CardBody>
       </Card>
     );
@@ -154,19 +153,19 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
 
   if (responseContent) {
     return (
-      <Card className="w-[70vw] bg-white max-h-full mt-10">
+      <Card className="w-[70vw] max-h-full mt-10">
         <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center">동화가 완성됐어!</p>
-          <p className="text-3xl flex-grow text-center">그림도 그려서 곧바로 보여줄거야.</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">동화가 완성됐어!</p>
+          <p className="text-3xl flex-grow text-center text-[#1E212D]">그림도 그려서 곧바로 보여줄거야.</p>
         </CardHeader>
         <CardBody>
         <Textarea
         ref={textAreaRef}
         isReadOnly
-        label="Description"
+        label="동화 스토리"
         variant="bordered"
         labelPlacement="outside"
-        placeholder="Enter your description"
+        placeholder=""
         value={displayedText}
         size="lg"
           minRows={6}
@@ -188,10 +187,10 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   }
 
   return (
-    <Card className="w-[70vw] bg-white max-h-full mt-10">
+    <Card className="w-[70vw] max-h-full mt-10">
       <CardHeader className="flex flex-col justify-center items-center p-4">
-        <p className="text-3xl flex-grow text-center">오늘 있었던 일들을 적어봐</p>
-        <p className="text-3xl flex-grow text-center">요정이 동화책으로 만들어줄게</p>
+        <p className="text-3xl flex-grow text-center text-[#1E212D]">오늘 있었던 일들을 적어봐</p>
+        <p className="text-3xl flex-grow text-center text-[#1E212D]">요정이 동화책으로 만들어줄게</p>
       </CardHeader>
       <CardBody>
         <Textarea
@@ -207,16 +206,16 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
         />
       </CardBody>
       <CardFooter>
-        <div className="flex flex-row justify-between items-center w-full">
+        <div className="flex flex-row justify-between items-center w-full ">
           <Link href="/writing" passHref>
-            <Button color="primary" variant="light">
+            <Button  variant="light" style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
               뒤로 가기
             </Button>
           </Link>
 
           <div className="flex flex-row text-center items-center text-middle">
-            <Button color="primary" variant="light" onClick={handleButtonClick}>
-              제출 하기
+            <Button variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
+              보내기
             </Button>
           </div>
         </div>

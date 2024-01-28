@@ -2,24 +2,29 @@
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
-import Image from 'next/image';
+import { Image } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-
-  .html-flip-book {
-    width: 600px;
-    height: 600px;
-    box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
-  }
+  border-radius: 20px;
+  flex-direction: column;
+  // .html-flip-book {
+  //     width: 600px;
+  //     height: 600px;
+  //     box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
+  // }
 
   .demoPage {
-    outline: 1px solid black;
+    // outline: 2px solid black;
     background-color: white;
     border-radius: 20px;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   // .demoPage {
@@ -53,6 +58,32 @@ if (typeof window !== 'undefined') {
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [page, setPage] = useState<string[]>([]);
   const [title, setTitle] = useState('');
+  const bookRef = useRef<HTMLFlipBookElement>(null);
+  interface HTMLFlipBookElement extends HTMLElement {
+    pageFlip(): PageFlip;
+  }
+
+  interface PageFlip {
+    flipNext(): void;
+    flipPrev(): void;
+  }
+
+  const goToNextPage = () => {
+    if (bookRef.current && bookRef.current.pageFlip) {
+      const pageFlipInstance = bookRef.current.pageFlip();
+      if (pageFlipInstance) {
+        pageFlipInstance.flipNext();
+      }
+    }
+  };
+  const goToPreviousPage = () => {
+    if (bookRef.current && bookRef.current.pageFlip) {
+      const pageFlipInstance = bookRef.current.pageFlip();
+      if (pageFlipInstance) {
+        pageFlipInstance.flipPrev();
+      }
+    }
+  };
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`)
@@ -102,11 +133,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
   return (
     <>
-      <div style={{ textAlign: 'right' }}>
-        <Button color="danger" onClick={handleDelete} style={{ height: '40px', width: '40px' }}>
-          삭제
-        </Button>
-      </div>
       <p
         style={{
           fontSize: '1.875rem',
@@ -119,14 +145,29 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       >
         {title}
       </p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+        <Button onClick={goToPreviousPage}>
+          이전페이지
+          {/* <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ zIndex: 100, position: 'relative' }} /> */}
+        </Button>
+        <Button onClick={goToNextPage}>
+          다음페이지
+          {/* <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" /> */}
+        </Button>
+      </div>
+      {/* <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
+                 삭제
+        </Button>   */}
+
       <StyledFlipBook>
         <HTMLFlipBook
-          width={600} // 너비를 600으로 설정
-          height={600} // 높이를 600으로 설정
-          style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)' }}
+          ref={bookRef}
+          width={550} // 너비를 600으로 설정
+          height={550} // 높이를 600으로 설정
+          style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)', borderRadius: '20px' }}
           startPage={0}
           drawShadow={false}
-          flippingTime={4}
+          flippingTime={10}
           usePortrait={true}
           startZIndex={0}
           autoSize={true}
@@ -137,9 +178,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           disableFlipByClick={false}
           size="fixed"
           minWidth={300}
-          maxWidth={600}
+          maxWidth={550}
           minHeight={300}
-          maxHeight={600}
+          maxHeight={550}
           maxShadowOpacity={0.5}
           showCover={false}
           mobileScrollSupport={true}
@@ -152,50 +193,57 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             const isEvenPage = index % 2 === 0;
 
             return (
-              <div className="demoPage" key={index}>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '30px',
-                  }}
-                >
-                  {isEvenPage ? (
-                    <Image
-                      width={600}
-                      height={600}
-                      src={item}
-                      alt={`Page ${index + 1}`}
+              <div
+                className="demoPage"
+                key={index}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  height: '600px', // 페이지 높이 설정
+                  width: '600px', // 페이지 너비 설정
+                }}
+              >
+                {isEvenPage ? (
+                  <Image
+                    isZoomed
+                    width={600}
+                    height={600}
+                    src={item}
+                    alt={`Page ${index + 1}`}
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '20px',
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center', // 세로 방향 가운데 정렬
+                      textAlign: 'center',
+                      padding: '20px',
+                      height: '50vh', // 부모 div 높이를 100%로 설정
+                    }}
+                  >
+                    <p
                       style={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: '20px',
-                      }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        paddingLeft: '30px',
-                        paddingRight: '30px',
+                        fontSize: '1.5rem',
+                        lineHeight: '2.75rem',
+                        margin: 'auto', // 모든 방향에서 자동 마진 적용
+                        //   textAlign: 'center',
+                        //   alignItems:'center'
                       }}
                     >
-                      <p
-                        style={{
-                          fontFamily: 'Gulim',
-                          fontSize: '1.5rem',
-                          lineHeight: '2.75rem',
-                        }}
-                      >
-                        {item}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                      {item}
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}

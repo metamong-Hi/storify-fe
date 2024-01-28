@@ -1,12 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import MediumImageButton from '../../buttons/imageButtons/mediumImageButton';
+
 import Link from 'next/link';
 import { Textarea } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from '@nextui-org/react';
-import Pencil from '../../objects/eraserAndPencil/pencil';
-import Eraser from '../../objects/eraserAndPencil/eraser';
 
 interface EventsWritingFormProps {
   destination: string;
@@ -24,9 +22,10 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
   };
 
   return (
-    <Card className="w-[70vw] max-h-full">
-      <CardHeader className="flex justify-around">
-        <p className="text-4xl">그 사람들과 오늘 어떤 일이 있었는지 자세히 적어줘</p>
+    <Card className="w-[70vw] max-h-full mt-10">
+      <CardHeader className="flex flex-col justify-center items-center p-4">
+        <p className="text-3xl text-[#1E212D]">그 사람 또는 동물들과 어떤 일이 있었는지</p>
+        <p className="text-3xl text-[#1E212D]">자세히 적어줘</p>
       </CardHeader>
 
       <CardBody>
@@ -38,7 +37,7 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
           variant="bordered"
           color="primary"
           size="lg"
-          minRows={5}
+          minRows={6}
           style={{ fontSize: '1.25rem' }}
         />
       </CardBody>
@@ -46,13 +45,13 @@ const EventsWritingForm: React.FC<EventsWritingFormProps> = ({ text, setText, de
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
           <Link href='/writing/complexWriting/people' passHref>
-            <Button color="primary" variant="light">
+            <Button variant="light" style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
               뒤로 가기
             </Button>
           </Link>
           <div className="flex flex-row text-center items-center text-middle">
             <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
+              <Button variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
                 다음으로
               </Button>
             </Link>

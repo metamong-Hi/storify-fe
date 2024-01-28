@@ -114,7 +114,7 @@ const NavbarComponent = () => {
                 className={`
     ${
       isActive(item.link)
-        ? 'text-[#1E212D] bg-[#EABF9F] border border-transparent rounded-full px-4 py-2 transition transform hover:bg-[#DAA49A] active:bg-[#C98A7E] active:scale-90 shadow-md'
+        ? 'text-[#1E212D] bg-[#EABF9F] border border-transparent rounded-full px-4 py-2 transition transform hover:bg-[#FBE8E7] active:bg-[#FBE8E7] active:scale-90 shadow-md'
         : 'text-[#1E212D] hover:bg-gray-200 active:bg-gray-300 active:scale-95 rounded-full px-4 py-2 transition'
     }`}
                 href={item.link}
@@ -158,7 +158,8 @@ const NavbarComponent = () => {
                 {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
                 <Button
                   onClick={onOpen}
-                  className="font-bold text-[#B68973] border-[#B68973] border-2 bg-[#FAF3E0]  hover:bg-[#B68973] hover:text-[#FAF3E0]"
+                  className="font-bold text-[##B68973] border-[##B68973] border-2 bg-[#B68973]  hover:bg-gray-200 "
+
                   variant="flat"
                 >
                   로그인
@@ -173,7 +174,7 @@ const NavbarComponent = () => {
               <Link
                 color={isActive(item.link) ? 'primary' : 'foreground'}
                 href={item.link}
-                className="text-xl font-bold"
+                className="text-xl "
               >
                 {item.text}
               </Link>
