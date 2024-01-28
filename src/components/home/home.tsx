@@ -23,8 +23,8 @@ const HomeDesign: React.FC = () => {
       setTimeout(() => {
         setCurrentImageIndex((currentImageIndex + 1) % images.length);
         setOpacity(1); // 이미지가 완전히 변경된 후 투명도를 1로 설정
-      }, 500); // 투명도 변경에 걸리는 시간
-    }, 6000); // 이미지 변경 주기
+      }, 300); // 투명도 변경에 걸리는 시간
+    }, 3000); // 이미지 변경 주기
 
     return () => clearInterval(timer);
   }, [currentImageIndex, images.length]);
