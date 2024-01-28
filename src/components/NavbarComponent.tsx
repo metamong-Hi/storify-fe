@@ -92,7 +92,7 @@ const NavbarComponent = () => {
         height="4rem"
         isBordered
         onMenuOpenChange={setIsMenuOpen}
-        className="bg-[#ff4d6d]/80"
+        className="bg-[#FAF3E0]/80"
       >
         <NavbarContent justify="start">
           <NavbarMenuToggle
@@ -101,7 +101,7 @@ const NavbarComponent = () => {
           />
           <NavbarBrand>
             <Link href="/" className="text-4xl  font-bold duration-300 ease-in-out">
-              <span className="text-[#FAF9F6]">STORIFY</span>
+              <span className="text-[#B68973]">STORIFY</span>
             </Link>
           </NavbarBrand>
         </NavbarContent>
@@ -113,7 +113,7 @@ const NavbarComponent = () => {
                 className={`
     ${
       isActive(item.link)
-        ? 'text-[#1E212D] bg-[#FBE8E7] border border-transparent rounded-full px-4 py-2 transition transform hover:bg-[#FBE8E7] active:bg-[#FBE8E7] active:scale-90 shadow-md'
+        ? 'text-[#1E212D] bg-[#EABF9F] border border-transparent rounded-full px-4 py-2 transition transform hover:bg-[#FBE8E7] active:bg-[#FBE8E7] active:scale-90 shadow-md'
         : 'text-[#1E212D] hover:bg-gray-200 active:bg-gray-300 active:scale-95 rounded-full px-4 py-2 transition'
     }`}
                 href={item.link}
@@ -128,7 +128,7 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-                  <span className="text-[#FBE8E7] text-xl font-bold  pr-2">{username}</span>님
+                  <span className="text-[#B68973] text-xl font-bold  pr-2">{username}</span>님
                   환영합니다
                 </span>
               </NavbarItem>
@@ -157,7 +157,7 @@ const NavbarComponent = () => {
                 {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
                 <Button
                   onClick={onOpen}
-                  className="font-bold text-[#FBE8E7] border-[#FBE8E7] border-2 bg-[#ff4d6d]  hover:bg-[#B68973] hover:text-[#FAF3E0]"
+                  className="font-bold text-[##B68973] border-[##B68973] border-2 bg-[#ff4d6d]  hover:bg-[#FAF3E0] hover:text-[#FAF3E0]"
                   variant="flat"
                 >
                   로그인
