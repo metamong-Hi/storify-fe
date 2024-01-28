@@ -21,7 +21,7 @@ const ComplexCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
-        src="/images/pictures/sample3.png"
+        src="/public/images/pictures/sample3.png"
         width="100%"   
         height="100%"
 
