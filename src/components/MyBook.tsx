@@ -17,7 +17,7 @@ const StyledFlipBook = styled.div`
     // }
 
     .demoPage {
-        outline: 1px solid black;
+        // outline: 1px solid black;
         background-color: white;
         border-radius: 20px;
         display: flex;
@@ -61,9 +61,9 @@ interface MyBookProps {
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     const [page, setPage] = useState<string[]>([]);
     const [title, setTitle] = useState('');
-    const bookRef = useRef(null); // FlipBook 참조 생성
+    const bookRef = useRef(null); 
 
-    // 다음 페이지로 넘기는 함수
+  
     const goToNextPage = () => {
         if (bookRef.current && bookRef.current.pageFlip) {
           const pageFlipInstance = bookRef.current.pageFlip();
@@ -72,6 +72,15 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           }
         }
       };
+      const goToPreviousPage = () => {
+    if (bookRef.current && bookRef.current.pageFlip) {
+        const pageFlipInstance = bookRef.current.pageFlip();
+        if (pageFlipInstance) {
+            pageFlipInstance.flipPrev();
+        }
+    }
+};
+
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`)
             .then((response) => {
@@ -120,20 +129,24 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       
     return (
         <>
-           <div style={{ textAlign: 'right' }}>
-        {/* <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
-                 삭제
-        </Button>   */}
-        <Button onClick={goToNextPage} style={{ marginTop: '10px' }}>
-        다음 페이지
-      </Button>
-        </div>
-              <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
+          <p style={{ fontSize: '1.875rem', lineHeight: '2.25rem',display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         paddingTop: '50px', }}>
                                                 {title}
             </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                <Button onClick={goToPreviousPage}>
+                    이전페이지
+                </Button>
+                <Button onClick={goToNextPage}>
+                    다음 페이지
+                </Button>
+        </div>
+                {/* <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
+                 삭제
+        </Button>   */}
+             
             <StyledFlipBook>
                 <HTMLFlipBook
                     ref={bookRef}
@@ -142,7 +155,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)' }}
                     startPage={0}
                     drawShadow={false}
-                    flippingTime={4}
+                    flippingTime={10}
                     usePortrait={true}
                     startZIndex={0}
                     autoSize={true}

@@ -128,7 +128,7 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-                  <span className="text-[#B68973] text-xl font-bold  pr-2">{username}</span>님
+                  <span className="text-[#FBE8E7] text-xl font-bold  pr-2">{username}</span>님
                   환영합니다
                 </span>
               </NavbarItem>
