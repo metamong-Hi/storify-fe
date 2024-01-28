@@ -49,7 +49,7 @@ const PeopleWritingForm: React.FC<PeopleWritingFormProps> = ({ text, setText, de
 
           <div className="flex flex-row text-center items-center text-middle">
             <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
+              <Button color="primary" variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}}>
                 다음으로
               </Button>
             </Link>

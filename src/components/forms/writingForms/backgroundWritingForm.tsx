@@ -30,7 +30,6 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
   const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
   const [bookData, setBookData] = useState<BookData | null>(null);
 
-
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
@@ -38,15 +37,13 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
-
  
     const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
       event?.preventDefault();
       setIsLoading(true);
-        // localStorage의 값을 여기에서 읽어옵니다.
-  const storedPeopleText = localStorage.getItem('peopleText') || '';
-  const storedEventsText = localStorage.getItem('eventsText') || '';
-  const finalText = storedPeopleText + storedEventsText + text;
+      const storedPeopleText = localStorage.getItem('peopleText') || '';
+      const storedEventsText = localStorage.getItem('eventsText') || '';
+      const finalText = storedPeopleText + storedEventsText + text;
 
       try {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/stories', {
@@ -95,8 +92,25 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
         console.error('Error submitting story:', error);
       }
     };
-    useEffect(() => {
 
+
+  useEffect(() => {
+    setDisplayedText(''); 
+    let i = 0;
+    const typingEffect = (currentText: string) => {
+      if (i < responseContent.length) {
+        setDisplayedText(currentText + responseContent[i]);
+        i++;
+        setTimeout(() => typingEffect(currentText + responseContent[i - 1]), 50);
+      }
+    };
+  
+    if (responseContent) {
+      typingEffect('');
+    }
+  }, [responseContent]);
+
+    useEffect(() => {
       if (textAreaRef.current) {
         textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
       }
@@ -107,6 +121,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
         setIsTypingCompleted(true);
       }
     }, [displayedText, responseContent]);
+
     useEffect(() => {
       if (isTypingCompleted && imageUrls.length > 0) {
         // 블러 효과가 있는 이미지를 띄움
@@ -130,13 +145,13 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
 
     if (isLoading) {
       return (
-        <Card className="w-[70vw] bg-white max-h-full mt-10">
+        <Card className="w-[70vw] max-h-full mt-10">
           <CardHeader className="flex flex-col justify-center items-center p-4">
             <p className="text-3xl flex-grow text-center">잠시만 기다려주세요</p>
             <p className="text-3xl flex-grow text-center">동화책을 만들고 있어요</p>
           </CardHeader>
           <CardBody className="flex justify-center items-center">
-            <Spinner label="Loading..." color="primary" size="lg" />
+            <Spinner label="로딩중" color="primary" size="lg" />
           </CardBody>
         </Card>
       );
@@ -145,7 +160,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
   
     if (responseContent) {
       return (
-        <Card className="w-[70vw] bg-white max-h-full mt-10">
+        <Card className="w-[70vw] max-h-full mt-10">
           <CardHeader className="flex flex-col justify-center items-center p-4">
             <p className="text-3xl flex-grow text-center">동화가 완성됐어!</p>
             <p className="text-3xl flex-grow text-center">그림도 그려서 곧바로 보여줄거야.</p>
@@ -154,10 +169,10 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
           <Textarea
           ref={textAreaRef}
           isReadOnly
-          label="Description"
+          label="동화 스토리"
           variant="bordered"
           labelPlacement="outside"
-          placeholder="Enter your description"
+          placeholder=""
           value={displayedText}
           size="lg"
             minRows={6}
@@ -192,7 +207,7 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
           variant="bordered"
           color="primary"
           size="lg"
-          minRows={5}
+          minRows={6}
           style={{ fontSize: '1.25rem' }}
         />
       </CardBody>
@@ -200,14 +215,14 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
       <CardFooter>
         <div className="flex flex-row justify-between items-center w-full">
           <Link href='/writing/complexWriting/events' passHref>
-            <Button color="primary" variant="light">
+            <Button color="primary" variant="light" style = {{fontSize: '1.25rem'}}>
               뒤로 가기
             </Button>
           </Link>
           <div className="flex flex-row text-center items-center text-middle">
             <Link href={destination} passHref>
-              <Button color="primary" variant="light" onClick={handleButtonClick}>
-                제출하기
+              <Button color="primary" variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}}>
+                보내기
               </Button>
             </Link>
           </div>
