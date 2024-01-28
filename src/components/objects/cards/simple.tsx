@@ -7,6 +7,7 @@ const SimpleCard = () => {
   const handleCardClick = () => {
     window.location.href = '/writing/simpleWriting';
   };
+  const imageUrl = "/images/pictures/sample1.png"
 
   return (
     <Card
@@ -20,7 +21,7 @@ const SimpleCard = () => {
         isZoomed
         alt="동화 생성 선택"
         className="object-cover"
-        src="/public/images/pictures/sample1.png"
+        src={imageUrl}
         width="100%"  
         height="100%"
       />
