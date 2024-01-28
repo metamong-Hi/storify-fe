@@ -73,15 +73,14 @@ function LoginPage() {
       }
     });
   }
-  const handleInputChange = (e) => {
+  const handleInputChange = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value
     });
   };
-
-
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ username: formData.username, password: formData.password }))

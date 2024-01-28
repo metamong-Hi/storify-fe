@@ -2,7 +2,7 @@
 import React, { useEffect, useState,useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
-import Image from 'next/image';
+import {Image} from "@nextui-org/react";
 import {Button} from '@nextui-org/react';
 const StyledFlipBook = styled.div`
     display: flex;
@@ -61,7 +61,15 @@ interface MyBookProps {
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     const [page, setPage] = useState<string[]>([]);
     const [title, setTitle] = useState('');
-    const bookRef = useRef(null); 
+    const bookRef = useRef<HTMLFlipBookElement>(null);
+    interface HTMLFlipBookElement extends HTMLElement {
+        pageFlip(): PageFlip;
+      }
+      
+      interface PageFlip {
+        flipNext(): void;
+        flipPrev(): void;
+      }
 
   
     const goToNextPage = () => {
@@ -193,6 +201,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                                 >
                                     {isEvenPage ? (
                                         <Image
+                                            isZoomed
                                             width={600}
                                             height={600}
                                             src={item}

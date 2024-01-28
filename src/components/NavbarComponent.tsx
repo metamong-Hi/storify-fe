@@ -138,7 +138,7 @@ const NavbarComponent = () => {
                     showFallback
                     isBordered
                     color="default"
-                    size="  md"
+                    size="md"
                     src="https://images.unsplash.com/broken"
                     className="mr-2"
                   />
@@ -194,7 +194,7 @@ const NavbarComponent = () => {
       </Navbar>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent className="flex flex-col justify-center items-center p-4">
-          {(onClose) => (
+          {(_onClose: any) => (
             <>
               <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
               <ModalBody className="flex justify-center items-center">

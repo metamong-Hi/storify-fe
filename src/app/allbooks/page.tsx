@@ -34,16 +34,22 @@ const Page = () => {
       <div className="flex flex-col ">
         <BookShelves books={bookShelves} limit={limit} />
         {totalPages ? (
-          <Pagination
-            className="flex justify-center items-center p-10"
-            key={'light'}
-            total={totalPages}
-            initialPage={1}
-            page={currentPage}
-            onChange={(page: number) => {
-              setCurrentPage(page);
-            }}
-          />
+          <span className="flex justify-center items-center">
+            <Pagination
+              classNames={{
+                item: 'w-8 h-8 text-small rounded-none bg-transparent',
+                cursor:
+                  'bg-gradient-to-b shadow-lg from-[#B68973] to-default-800 dark:from-[#B68973] dark:to-default-100 text-white font-bold',
+              }}
+              key={'flat'}
+              total={totalPages}
+              initialPage={1}
+              page={currentPage}
+              onChange={(page: number) => {
+                setCurrentPage(page);
+              }}
+            />
+          </span>
         ) : (
           <PaginationSkeleton />
         )}
