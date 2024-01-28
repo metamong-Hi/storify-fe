@@ -14,7 +14,7 @@ const ComplexCard = () => {
       isFooterBlurred
       isPressable
       radius="lg"
-      className="border-none w-1/3 h-2/3 sm:ml-0 md:ml-4 lg:ml-6"
+      className="border-none w-1/3 h-2/3 sm:ml-0 md:ml-4 lg:ml-6 mt-10"
       onClick={handleCardClick}
     >
       <Image
@@ -30,9 +30,12 @@ const ComplexCard = () => {
 
       <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10"
       >
-        <Button className="text-black" variant="light" color="secondary" radius="lg" size="lg" style={{ fontSize: "1.25rem" }}>
+        <span 
+          className="text-black text-xl" 
+          style={{ fontSize: "1.5rem" }}
+        >
           자세히 만들기
-        </Button>
+          </span>
       </CardFooter>
     </Card>
   );
