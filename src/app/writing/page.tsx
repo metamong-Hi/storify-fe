@@ -9,7 +9,7 @@ const Writing: React.FC = () => {
     
     <div className="h-[91vh] w-full  flex flex-col items-center p-10">
       <h1 className="text-4xl font-bold text-[#1E212D]">AI요정이 생성해 주는 동화</h1>
-      <div className="w-full h-full flex  flex-col sm :flex-col md:flex-row lg:flex-row justify-center items-center ">
+      <div className="w-full h-full flex  flex-col sm :flex-col md:flex-row lg:flex-row justify-center  ">
         <SimpleCard />
         <ComplexCard />
       </div>

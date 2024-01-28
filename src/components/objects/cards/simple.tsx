@@ -13,7 +13,7 @@ const SimpleCard = () => {
       isFooterBlurred
       isPressable
       radius="lg"
-      className="border-[none] w-1/3 h-2/3 sm: mr-0 md:mr-6 lg:mr-6"
+      className="border-[none] w-1/3 h-2/3 sm: mr-0 md:mr-6 lg:mr-6 mt-10"
       onClick={handleCardClick} // Card에 onClick 이벤트 추가
     >
       <Image
@@ -26,16 +26,12 @@ const SimpleCard = () => {
       />
 
       <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-        <Button
-          className="text-tiny text-black"
-          variant="light"
-          color="primary"
-          radius="lg"
-          size="lg"
-          style={{ fontSize: '1.25rem' }}
+      <span 
+          className="text-black text-xl" 
+          style={{ fontSize: "1.5rem" }}
         >
           간단히 만들기
-        </Button>
+          </span>
       </CardFooter>
     </Card>
   );
