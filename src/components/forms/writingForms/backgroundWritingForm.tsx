@@ -79,9 +79,9 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
           const responseData = await bookResponse.json();
           setBookData(responseData);
           setImageUrls([
-            responseData.body[1].imageUrl,
-            responseData.body[2].imageUrl,
-            responseData.body[3].imageUrl,
+            responseData.body["1"].imageUrl,
+            responseData.body["2"].imageUrl,
+            responseData.body["3"].imageUrl,
           ]);
           
         } else {

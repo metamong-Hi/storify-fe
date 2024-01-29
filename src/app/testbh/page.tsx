@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-import DoubleModal from '@/components/modal/doubleModal';
 import MediumImageButton from '@/components/buttons/imageButtons/mediumImageButton';
 import LargeImageButton from '@/components/buttons/imageButtons/largeImageButton';
 import SmallImageButton from '@/components/buttons/imageButtons/smallImageButton';

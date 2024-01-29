@@ -1,13 +1,9 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import MediumImageButton from '../../buttons/imageButtons/mediumImageButton';
 import Link from 'next/link';
-import { Textarea } from '@nextui-org/react';
-import { Button } from '@nextui-org/react';
-import { Card, CardHeader, CardBody, CardFooter, Divider, Image,Spinner } from '@nextui-org/react';
+import Image from 'next/image';
 
 interface SimpleWritingFormProps {
-  destination: string;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -16,7 +12,11 @@ interface BookData {
   _id: string;
 }
 
-const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, destination }) => {
+interface StoryImage {
+  imageUrl : String;
+}
+
+const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText }) => {
 
   let token: string | null;
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
@@ -69,9 +69,9 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
         const responseData = await bookResponse.json();
         setBookData(responseData);
         setImageUrls([
-          responseData.body[1].imageUrl,
-          responseData.body[2].imageUrl,
-          responseData.body[3].imageUrl,
+          responseData.body["1"].imageUrl,
+          responseData.body["2"].imageUrl,
+          responseData.body["3"].imageUrl,
         ]);
         
       } else {
@@ -117,18 +117,15 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
 
   useEffect(() => {
     if (isTypingCompleted && imageUrls.length > 0) {
-      // 블러 효과가 있는 이미지를 띄움
       setIsImageBlurCompleted(false);
-      // 5초 후에 블러 효과 제거
       setTimeout(() => {
         setIsImageBlurCompleted(true);
-        // 블러 효과가 사라진 후 1초 후에 리디렉션
         setTimeout(() => {
           if (bookData) {
             window.location.href = `/book/${bookData._id}`;
           }
-        }, 2000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
-      }, 5000); // 여기에서 5000은 블러 효과를 제거하기 위한 시간입니다.
+        }, 2000);
+      }, 5000); 
     }
   }, [isTypingCompleted, imageUrls, bookData]);
   
@@ -138,89 +135,75 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText, de
 
   if (isLoading) {
     return (
-      <Card className="w-[70vw] max-h-full mt-10">
-        <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center text-[#1E212D]">잠시만 기다려주세요</p>
-          <p className="text-3xl flex-grow text-center text-[#1E212D]">동화책을 만들고 있어요</p>
-        </CardHeader>
-        <CardBody className="flex justify-center items-center">
-          <Spinner label="로딩중" color="primary" size="lg" />
-        </CardBody>
-      </Card>
+      <div className="hero min-h-[60vh] bg-base-200">
+        <div className="hero-content text-center">
+          <div className="w-[60vw]">
+          <h1 className="text-2xl font-bold mb-4">잠시만 기다려 주세요</h1>
+          <h2 className="text-2xl font-bold mb-4">동화책을 만들고 있어요</h2>
+          <span className="loading loading-spinner loading-lg"></span>
+          <span>로딩중</span>
+        </div>
+      </div>
+    </div>
     );
 
   }
 
   if (responseContent) {
     return (
-      <Card className="w-[70vw] max-h-full mt-10">
-        <CardHeader className="flex flex-col justify-center items-center p-4">
-          <p className="text-3xl flex-grow text-center text-[#1E212D]">동화가 완성됐어!</p>
-          <p className="text-3xl flex-grow text-center text-[#1E212D]">그림도 그려서 곧바로 보여줄거야.</p>
-        </CardHeader>
-        <CardBody>
-        <Textarea
-        ref={textAreaRef}
-        isReadOnly
-        label="동화 스토리"
-        variant="bordered"
-        labelPlacement="outside"
-        placeholder=""
-        value={displayedText}
-        size="lg"
-          minRows={6}
-          style={{ fontSize: '1.25rem', borderColor: '#EABF9F'}}
-      />
-        <div className="flex justify-around gap-2 mt-2">
-    {imageUrls.map((url, index) => (
-      <Image
-        key={index}
-        src={url}
-        alt={`Image ${index + 1}`}
-        className={`w-60 h-auto blur-effect`}
-      />
-    ))}
-  </div>
-        </CardBody>
-      </Card>
+      <div className="hero min-h-[60vh] bg-base-200">
+        <div className="hero-content text-center">
+          <div className="w-[60vw]">
+            <h1 className="text-2xl font-bold mb-4">동화가 완성됐어요!</h1>
+            <h2 className="text-2xl font-bold mb-4">그림도 곧바로 보여줄게요</h2>
+            <div className="divider"></div> 
+            <textarea placeholder="여기에 간단히 적어줘" 
+              className="textarea textarea-bordered textarea-lg w-full" 
+              rows={ 6 }
+              ref={ textAreaRef }
+              value={ displayedText }
+              readOnly
+            ></textarea>
+            <div className="divider"></div> 
+            <div className="flex justify-around gap-2">
+            {imageUrls.map((url, index) => (
+              <Image
+                key={ index }
+                src={ url }
+                alt={ `Image ${index + 1}` }
+                width = { 200 }
+                height = { 200 }
+                className="blur-effect"
+              />
+            ))}
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card className="w-[70vw] max-h-full mt-10">
-      <CardHeader className="flex flex-col justify-center items-center p-4">
-        <p className="text-3xl flex-grow text-center text-[#1E212D]">오늘 있었던 일들을 적어봐</p>
-        <p className="text-3xl flex-grow text-center text-[#1E212D]">요정이 동화책으로 만들어줄게</p>
-      </CardHeader>
-      <CardBody>
-        <Textarea
-          placeholder="여기에 자유롭게 적어줘"
-          className=" custom-textarea w-full h-full"
-          value={text}
-          onChange={handleChange}
-          variant="bordered"
-          color="primary"
-          size="lg"
-          minRows={6}
-          style={{ fontSize: '1.25rem', borderColor: '#EABF9F'}}
-        />
-      </CardBody>
-      <CardFooter>
-        <div className="flex flex-row justify-between items-center w-full ">
-          <Link href="/writing" passHref>
-            <Button  variant="light" style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
-              뒤로 가기
-            </Button>
-          </Link>
-
-          <div className="flex flex-row text-center items-center text-middle">
-            <Button variant="light" onClick={handleButtonClick} style = {{fontSize: '1.25rem'}} className = "text-[#1E212D]">
-              보내기
-            </Button>
+    <div className="hero min-h-[60vh] bg-base-200">
+      <div className="hero-content text-center">
+        <div className="w-[60vw]">
+          <h1 className="text-2xl font-bold mb-4">오늘 있었던 일들을 적어봐</h1>
+          <h2 className="text-2xl font-bold mb-4">요정이 동화책으로 만들어줄게</h2>
+          <div className="divider"></div> 
+          <textarea placeholder="여기에 간단히 적어줘" 
+            className="textarea textarea-bordered textarea-lg w-full" 
+            rows={ 6 }
+            value={ text }
+            onChange={handleChange}
+            ></textarea>
+          <div className="divider"></div> 
+          <div className = "flex justify-between">
+            <button className="btn btn-primary">뒤로 가기</button>
+            <button className="btn btn-primary" onClick = { handleButtonClick }>보내기</button>
           </div>
         </div>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 
