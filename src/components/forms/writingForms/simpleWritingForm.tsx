@@ -51,35 +51,36 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText }) 
         const data = await response.json();
         setResponseContent(data.content);
         setIsLoading(false);
-        // 두 번째 POST 요청
         const bookResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/books', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          imageStyle : "cartoon",
-          aiStory: data.content,
-          storyId: data.story._id,
-        }),
-      });
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            imageStyle : "cartoon",
+            aiStory: data.content,
+            storyId: data.story._id,
+          }),
+        });
 
-      if (bookResponse.ok) {
-        const responseData = await bookResponse.json();
-        setBookData(responseData);
-        setImageUrls([
-          responseData.body["1"].imageUrl,
-          responseData.body["2"].imageUrl,
-          responseData.body["3"].imageUrl,
-        ]);
+        if (bookResponse.ok) {
+          const responseData = await bookResponse.json();
+          setBookData(responseData);
+          setImageUrls([
+            responseData.body["1"].imageUrl,
+            responseData.body["2"].imageUrl,
+            responseData.body["3"].imageUrl,
+          ]);
         
-      } else {
+        } else {
         alert('책 제작 요청에 실패했습니다. 다시 시도해주세요.');
-      }
+        }
+
       } else {
         alert('제출에 실패했습니다. 다시 시도해주세요.');
       }
+      
     } catch (error) {
       alert('에러가 발생했습니다. 다시 시도해주세요.');
       console.error('Error submitting story:', error);

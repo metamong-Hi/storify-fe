@@ -11,8 +11,7 @@ const EmailFeedBackPage: React.FC = () => {
       <div>
         <EmailFeedBack text={formText} setText={setFormText} />
       </div>
-    
-  </div>
+    </div>
   );
 };
 
