@@ -3,7 +3,7 @@ import React, { useState, useRef  } from 'react';
 import EventsWritingForm from '@/components/forms/writingForms/eventsWritingForm';
 import Image from 'next/image';
 
-const Events: React.FC = () => {
+const EventsPage: React.FC = () => {
 
   const [formText, setFormText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -17,4 +17,4 @@ const Events: React.FC = () => {
   );
 };
 
-export default Events;
+export default EventsPage;

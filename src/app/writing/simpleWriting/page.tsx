@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import SimpleWritingForm from '@/components/forms/writingForms/simpleWritingForm';
 import Image from 'next/image';
 
-const ParentComponent: React.FC = () => {
+const SimplePage: React.FC = () => {
   const [formText, setFormText] = useState('');
   return (
     <div className="h-[92vh] w-full flex flex-col items-center mt-10">
@@ -16,4 +16,4 @@ const ParentComponent: React.FC = () => {
   );
 };
 
-export default ParentComponent;
+export default SimplePage;

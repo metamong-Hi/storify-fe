@@ -4,7 +4,7 @@ import BackgroundWritingForm from '@/components/forms/writingForms/backgroundWri
 import Image from 'next/image';
 
 
-const Backgrounds: React.FC = () => {
+const BackgroundsPage: React.FC = () => {
 
   const [formText, setFormText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -15,4 +15,4 @@ const Backgrounds: React.FC = () => {
   </div>
   );
 };
-export default Backgrounds;
+export default BackgroundsPage;

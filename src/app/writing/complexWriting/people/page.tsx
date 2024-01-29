@@ -2,7 +2,7 @@
 import React, { useState, useRef  } from 'react';
 import Image from 'next/image';
 import PeopleWritingForm from '@/components/forms/writingForms/peopleWritingForm';
-const People: React.FC = () => {
+const PeoplePage: React.FC = () => {
   const [formText, setFormText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -14,4 +14,4 @@ const People: React.FC = () => {
   );
 };
 
-export default People;
+export default PeoplePage;
