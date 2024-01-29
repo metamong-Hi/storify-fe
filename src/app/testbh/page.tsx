@@ -1,16 +1,8 @@
 "use client"
 import React, { useState } from 'react';
-import DoubleModal from '@/components/modal/doubleModal';
 import MediumImageButton from '@/components/buttons/imageButtons/mediumImageButton';
 import LargeImageButton from '@/components/buttons/imageButtons/largeImageButton';
 import SmallImageButton from '@/components/buttons/imageButtons/smallImageButton';
-import ErrorPage from '@/components/errors/error';
-import LoadingPage from '@/components/loadings/loading';
-import BasicBox from '@/components/objects/boxes/basicBox';
-import SmallBox from '@/components/objects/boxes/smallBox';
-import LargeBox from '@/components/objects/boxes/largeBox';
-import BorderlessBox from '@/components/objects/boxes/BorderlessBox';
-import TransparentBox from '@/components/objects/boxes/transparentBox';
 import SimpleWritingForm from '@/components/forms/writingForms/simpleWritingForm';
 import EventsWritingForm from '@/components/forms/writingForms/eventsWritingForm';
 import PeopleWritingForm from '@/components/forms/writingForms/peopleWritingForm';
@@ -18,7 +10,6 @@ import BackgroundWritingForm from '@/components/forms/writingForms/backgroundWri
 import Card from '@/components/objects/cards/customCards/card';
 import ClusterCard from '@/components/objects/cards/customCards/clusterCard';
 import ClusterCardContainer from '@/components/objects/cards/customCards/clusterCardContainer';
-import MenuBar from '@/components/menubar/menuBar';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
 
@@ -49,7 +40,7 @@ const TestBH: React.FC = () => {
     <div className="w-screen min-h-[1200vh]">
       <div className="h-[100vh] w-full bg-pastelRed flex flex-col items-center pt-1">
         <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
-        
+        <FriendPage/>
       </div>
       <div className="h-[100vh] w-full bg-pastelOrange flex flex-col items-center pt-1">
         <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
