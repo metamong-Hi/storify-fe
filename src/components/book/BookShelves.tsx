@@ -2,19 +2,18 @@ import React from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
 
-import bookCover from '../../../public/images/bookCover.png';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
+import { EyeIcon } from '@/components/icons/EyeIcon';
 import { getAllBooks } from './AllBooks';
 import { set } from 'lodash';
+import { LikeIcon } from '@/components/icons/LikeIcon';
 
 interface BookShelvesProps {
-  currentPage: number;
-  limit: number;
+  books: BooksData[];
   search: string;
-  sortBy: string;
+  limit: number;
 }
 
 interface BookProps {
@@ -25,17 +24,16 @@ interface BookProps {
 const Book = ({ book, index }: BookProps) => {
   const [liked, setLiked] = React.useState(false);
   let imageURL;
-  // console.log(book);
 
   try {
     const body = book.body || null;
-    const noBookImg = body ? body[1].imageUrl : bookCover;
+    const noBookImg = body ? body[1].imageUrl : '/images/bookCover.png';
     const isValidCoverUrl =
       book.coverUrl &&
       (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'));
     imageURL = isValidCoverUrl ? book.coverUrl : noBookImg;
   } catch (error) {
-    imageURL = bookCover;
+    imageURL = '/images/bookCover.png';
   }
 
   let token = '';
@@ -44,7 +42,7 @@ const Book = ({ book, index }: BookProps) => {
   }
 
   const user = {
-    avatar: bookCover, // Replace with actual path to user's avatar
+    avatar: '/images/bookCover.png', // Replace with actual path to user's avatar
     bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
     name: book.userId?.username ?? '', // Replace with actual user's name
   };
@@ -67,7 +65,7 @@ const Book = ({ book, index }: BookProps) => {
 
       <div className="p-4">
         <div className="truncate w-full text-lg md:text-xl lg:text-2xl font-bold">{book.title}</div>
-        <div className="flex justify-between items-center mt-2">
+        <div className="flex justify-between items-center mt-4">
           <Link href={user.bookshelfLink}>
             <div className="flex items-center space-x-2">
               <div className="avatar">
@@ -78,41 +76,34 @@ const Book = ({ book, index }: BookProps) => {
               <span className="text-sm font-semibold">{user.name}</span>
             </div>
           </Link>
-          <button className="btn btn-ghost btn-circle" onClick={() => setLiked(!liked)}>
-            <HeartIcon
-              className={`w-6 h-6 ${liked ? 'fill-current text-red-500' : 'text-gray-500'}`}
-            />
-          </button>
         </div>
 
-        <div className="flex justify-between items-center mt-4">
-          <span className="text-sm">{book.rate} views</span>
-          <span className="text-sm">{book.count} likes</span>
+        <div className="flex justify-end items-center mt-1">
+          <div className="flex items-center space-x-2">
+            <EyeIcon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm">{book.rate}</span>
+          </div>
+          <div className="flex items-center ml-2">
+            <button
+              className={`btn btn-ghost btn-circle btn-sm ${
+                token ? '' : 'hover:bg-transparent hover:text-current'
+              }`}
+              onClick={token ? () => setLiked(!liked) : undefined}
+            >
+              <HeartIcon
+                className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
+              />
+            </button>
+
+            <span className="text-sm">{book.count}</span>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default function BookShelves({ currentPage, limit, search, sortBy }: BookShelvesProps) {
-  const [books, setBooks] = React.useState<BooksData[]>([]);
-
-  React.useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const data = await getAllBooks(currentPage, limit, sortBy, search);
-        console.log(data);
-        setBooks(data.books);
-      } catch (error) {
-        console.error('Failed to fetch books:', error);
-      }
-    };
-
-    fetchBooks();
-  }, [currentPage, limit, sortBy, search]);
-
-  // Fetch books when component mounts or when currentPage, limit, sortBy, or search changes
-
+export default function BookShelves({ books, limit, search }: BookShelvesProps) {
   return (
     <div className="flex justify-center p-5">
       {books.length > 0 ? (
