@@ -9,13 +9,14 @@ interface BooksResponse {
 
 async function GET(url: string): Promise<BooksResponse> {
   try {
-    return (await fetch(url)).json();
+    return (await fetch(url, { cache: 'no-store' })).json();
   } catch (error: any) {
     return error.message;
   }
 }
 
 export async function getAllBooks(page: number, limit: number, sort: string, search: string) {
+  console.log('getAllBooks', page, limit, sort, search);
   const data = await GET(
     `${API_URL}/api/books?page=${page}&limit=${limit}&sort=${sort}&title=${search}`,
   );
