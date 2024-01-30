@@ -81,7 +81,7 @@ const BooksPage = () => {
           </div>
         </div>
 
-        <BookShelves currentPage={currentPage} limit={limit} search={search} sortBy={sortBy} />
+        <BookShelves books={bookShelves} limit={limit} search={search} />
         {totalPages ? (
           <span className="flex justify-center items-center">
             <Pagination
