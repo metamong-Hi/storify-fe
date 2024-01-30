@@ -62,16 +62,22 @@ const BooksPage = () => {
             ))}
           </Tabs>
           <div className="flex justify-end items-center pr-5">
-            <input
-              className="input input-bordered max-w-full sm:max-w-[15rem] h-10 text-small font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20"
-              value={writeSearch}
-              onChange={handleInputChange}
-              placeholder="책 제목을 검색해보세요"
-              type="search"
-            />
-            <button onClick={handleSearch}>
-              <SearchIcon size={18} />
-            </button>
+            <div className="flex items-center border-2 border-gray-300 rounded-full pl-3 pr-2 bg-transparent">
+              <input
+                className="w-full bg-transparent py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none"
+                id="search"
+                type="search"
+                placeholder="검색어를 입력하세요."
+                value={writeSearch}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSearch();
+                }}
+                onChange={handleInputChange}
+              />
+              <button className="p-2 focus:outline-none bg-transparent" onClick={handleSearch}>
+                <SearchIcon size={18} className="text-gray-500" />
+              </button>
+            </div>
           </div>
         </div>
 

@@ -7,8 +7,10 @@ import bookCover from '../../../public/images/bookCover.png';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
+import { EyeIcon } from '@/components/icons/EyeIcon';
 import { getAllBooks } from './AllBooks';
 import { set } from 'lodash';
+import { LikeIcon } from '@/components/icons/LikeIcon';
 
 interface BookShelvesProps {
   currentPage: number;
@@ -67,7 +69,7 @@ const Book = ({ book, index }: BookProps) => {
 
       <div className="p-4">
         <div className="truncate w-full text-lg md:text-xl lg:text-2xl font-bold">{book.title}</div>
-        <div className="flex justify-between items-center mt-2">
+        <div className="flex justify-between items-center mt-4">
           <Link href={user.bookshelfLink}>
             <div className="flex items-center space-x-2">
               <div className="avatar">
@@ -78,16 +80,21 @@ const Book = ({ book, index }: BookProps) => {
               <span className="text-sm font-semibold">{user.name}</span>
             </div>
           </Link>
-          <button className="btn btn-ghost btn-circle" onClick={() => setLiked(!liked)}>
-            <HeartIcon
-              className={`w-6 h-6 ${liked ? 'fill-current text-red-500' : 'text-gray-500'}`}
-            />
-          </button>
         </div>
 
-        <div className="flex justify-between items-center mt-4">
-          <span className="text-sm">{book.rate} views</span>
-          <span className="text-sm">{book.count} likes</span>
+        <div className="flex justify-end items-center mt-1">
+          <div className="flex items-center space-x-2">
+            <EyeIcon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm">{book.rate}</span>
+          </div>
+          <div className="flex items-center">
+            <button className="btn btn-ghost btn-circle btn-sm" onClick={() => setLiked(!liked)}>
+              <HeartIcon
+                className={`w-6 h-6 ${liked ? 'fill-current text-red-500' : 'text-gray-500'}`}
+              />
+            </button>
+            <span className="text-sm">{book.count}</span>
+          </div>
         </div>
       </div>
     </div>
