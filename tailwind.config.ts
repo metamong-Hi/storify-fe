@@ -15,6 +15,24 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
+      spacing: {
+        '1': '8px',
+        '2': '12px',
+        '3': '16px',
+        '4': '24px',
+        '5': '32px',
+        '6': '48px',
+        '7': '64px',
+        '8': '80px',
+      },
+
       borderWidth: {
         '6': '6px',
         '10': '10px',
@@ -32,6 +50,13 @@ const config: Config = {
       borderRadius: {
         '4xl': '2rem',
       },
+      fontSize: {
+        '3xl': '2.25rem',
+        '4xl': '2.75rem',  
+        '5xl': '3.25rem',     
+        '6xl': '4rem',
+        '7xl': '5rem',
+      },
       colors: {
         pastelRed: '#fda5a550',
         pastelOrange: '#fdba7450',
@@ -39,6 +64,11 @@ const config: Config = {
         pastelGreen: '#86efac50',
         pastelBlue: '#93c5fd50',
         pastelPurple: '#c4b5fd50',
+      },
+      width: {
+        '128': '32rem',
+        '144': '40rem',
+        '160': '48rem',
       },
       keyframes: {
         spin: {
