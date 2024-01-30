@@ -23,12 +23,11 @@ async function apiService(endpoint: string, options?: RequestInit) {
         if (response.status === 401) {
             console.log("401 에러 감지됨, 토큰 재발급 시도");
             const refreshAction = await store.dispatch(refreshAccessToken());
-
             if (refreshAccessToken.fulfilled.match(refreshAction)) {
                 const newToken = refreshAction.payload.accessToken;
                 headers['Authorization'] = `Bearer ${newToken}`;
 
-                response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
+                response = await fetch(`${endpoint}`, {
                     ...options,
                     headers,
                 });

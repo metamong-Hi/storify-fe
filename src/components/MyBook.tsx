@@ -169,6 +169,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       }
     } catch (error) {
         console.log(error);
+        showDeleteFailedAlert();
       console.error('삭제 중 오류 발생', error);
     }
   };
