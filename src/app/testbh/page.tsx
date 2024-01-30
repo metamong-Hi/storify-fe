@@ -12,17 +12,17 @@ import ClusterCard from '@/components/objects/cards/customCards/clusterCard';
 import ClusterCardContainer from '@/components/objects/cards/customCards/clusterCardContainer';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
+import HomeDesign from '@/components/home/homeTest';
+import ComplexWritingForm from '@/components/forms/writingForms/complexWritingForm';
 
 import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
 
 
 const TestBH: React.FC = () => {
-  const [formText, setFormText] = useState('');
+  const [text, setText] = useState('');
 
-  const handleEraserClick = () => {
-    setFormText('');
-  };
+
 
   const menuItems = [
     { text: '홈', url: '/' },
@@ -37,31 +37,12 @@ const TestBH: React.FC = () => {
     console.log('클릭');
   };
   return (
-    <div className="w-screen min-h-[1200vh]">
-      <div className="h-[100vh] w-full bg-pastelRed flex flex-col items-center pt-1">
-        <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
-        <FriendPage/>
+    <div className="w-full h-[92vh] w-full flex flex-col items-center mt-10">
+      <h1 className="text-4xl font-bold mb-4">자세히 만들기</h1>
+      <div>
+        <ComplexWritingForm  text={text} setText={setText}/>
       </div>
-      <div className="h-[100vh] w-full bg-pastelOrange flex flex-col items-center pt-1">
-        <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
-  
-      </div>
-      <div className="h-[100vh] w-full bg-pastelYellow flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">고급 생성(등장인물)</h1>
-        <PeopleWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
-      </div>
-      <div className="h-[100vh] w-full bg-pastelGreen flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">고급 생성(사건)</h1>
-        <EventsWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
-      </div>
-      <div className="h-[100vh] w-full bg-pastelBlue flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">고급 생성(시간적, 공간적 배경)</h1>
-        <BackgroundWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
-      </div>
-      <div className="h-[100vh] w-full bg-pastelPurple flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">텍스트 3</h1>
-      </div>
-      
+        
     </div>
   );
 }

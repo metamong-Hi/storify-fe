@@ -11,7 +11,6 @@ const SimplePage: React.FC = () => {
       <div>
         <SimpleWritingForm text={formText} setText={setFormText} />
       </div>
-    
   </div>
   );
 };
