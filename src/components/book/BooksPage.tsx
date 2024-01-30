@@ -15,7 +15,7 @@ const BooksPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [bookShelves, setBookShelves] = useState<BooksData[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(24);
+  const [limit, setLimit] = useState<number>(100);
 
   const [search, setSearch] = useState<string>('');
   const [debouncedSearch, setDebouncedSearch] = useState<string>(search);

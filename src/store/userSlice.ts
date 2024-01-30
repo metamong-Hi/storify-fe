@@ -93,7 +93,7 @@ export const refreshAccessToken = createAsyncThunk(
 export const logout = createAsyncThunk('user/logout', async (_, { getState, rejectWithValue }) => {
     const state = getState() as RootState;
     const token = state.user.token;
-    const refreshToken=state.user.refreshToken;
+
     if (!token) {
         return rejectWithValue('No token found');
     }
@@ -165,10 +165,10 @@ export const userSlice = createSlice({
 
 
 
-            .addCase(signup.pending, (state) => {
+            .addCase(refreshAccessToken.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(signup.fulfilled, (state, action) => {
+            .addCase(refreshAccessToken.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 // state.token = action.payload.accessToken; // 수정된 부분
                 // state.username = action.payload.username;
@@ -176,17 +176,18 @@ export const userSlice = createSlice({
                     // localStorage.setItem('token', action.payload.accessToken);
                     // localStorage.setItem('username', action.payload.username);
 
-                    console.log("회원가입 성공함");
+                    console.log("리프레시 토큰 발급 실패");
                 }
 
-                console.log("회원가입 성공함");
+                console.log("리프레시 토큰 발급 성공+여기다");
             })
-            .addCase(signup.rejected, (state, action) => {
+            .addCase(refreshAccessToken.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload as string;
-                console.log('회원가입 실패:', action.payload);
+                console.log('리프레시 토큰 발급 실패:', action.payload);
                 
-            });
+            })
+
     },
 });
 

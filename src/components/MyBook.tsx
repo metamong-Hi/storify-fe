@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Image } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
+import apiService from '../services/apiService';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -149,14 +150,14 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     try {
       console.log(token + '토큰이다');
       console.log(bookId + '북아이디다');
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
+      const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log("요청보내고 여기로옴")
       if (response.ok) {
         console.log('삭제됨');
         showDeleteSuccessAlert();
@@ -167,6 +168,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         console.error('삭제 실패', response);
       }
     } catch (error) {
+        console.log(error);
       console.error('삭제 중 오류 발생', error);
     }
   };

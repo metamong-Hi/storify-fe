@@ -79,9 +79,9 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
           const responseData = await bookResponse.json();
           setBookData(responseData);
           setImageUrls([
-            responseData.body[1].imageUrl,
-            responseData.body[2].imageUrl,
-            responseData.body[3].imageUrl,
+            responseData.body["1"].imageUrl,
+            responseData.body["2"].imageUrl,
+            responseData.body["3"].imageUrl,
           ]);
           
         } else {
@@ -127,18 +127,15 @@ const BackgroundWritingForm: React.FC<BackgroundWritingFormProps> = ({
 
     useEffect(() => {
       if (isTypingCompleted && imageUrls.length > 0) {
-        // 블러 효과가 있는 이미지를 띄움
         setIsImageBlurCompleted(false);
-        // 5초 후에 블러 효과 제거
         setTimeout(() => {
           setIsImageBlurCompleted(true);
-          // 블러 효과가 사라진 후 1초 후에 리디렉션
           setTimeout(() => {
             if (bookData) {
               window.location.href = `/book/${bookData._id}`;
             }
-          }, 2000); // 여기에서 1000은 이미지가 완전히 나타난 후 리디렉션하기 전 대기 시간입니다.
-        }, 5000); // 여기에서 5000은 블러 효과를 제거하기 위한 시간입니다.
+          }, 2000);
+        }, 5000);
       }
     }, [isTypingCompleted, imageUrls, bookData]);
     
