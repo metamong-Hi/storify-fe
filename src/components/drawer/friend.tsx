@@ -45,6 +45,7 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
         setCurrentFriends(data); 
         console.log('여기까지 왔음');
         console.log(data);
+        console.log("friends"+currentFriends);
       } catch (error) {
         console.error('친구 에러', error);
       }
@@ -52,7 +53,9 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
 
     fetchFriends();
   }, []); 
-  
+  useEffect(() => {
+    console.log("currentFriends 업데이트됨:", currentFriends);
+  }, [currentFriends]);
   return (
     <div
       className={`fixed top-[70px] right-0 w-64 h-full bg-white shadow-lg z-50 transform ease-in-out duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
@@ -86,12 +89,12 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
         <Card className="mb-4 mt-4">
           <h2 className="text-lg font-bold mb-2">현재 친구 목록</h2>
           <ul>
-            {/* {currentFriends.map((friend) => (
+            {currentFriends.map((friend) => (
               <li key={friend} className="py-1 flex justify-between items-center">
                 {friend}
                 <Image src={doorImageUrl} width="30px" height="30px" alt="visit" />
               </li>
-            ))} */}
+            ))}
           </ul>
         </Card>
       </div>
