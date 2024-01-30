@@ -18,7 +18,7 @@
 
 @font-face {
   font-family: 'Gulim';
-  src: url('/public/fonts/GulimR.woff2') format('woff2');
+  src: url('/fonts/GulimR.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -26,7 +26,7 @@
 
 @font-face {
   font-family: 'NamuGulim';
-  src: url('/public/fonts/NamuGulimR.woff2') format('woff2');
+  src: url('/fonts/NamuGulimR.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -34,7 +34,7 @@
 
 @font-face {
   font-family: 'ModernGulim';
-  src: url('/public/fonts/ModernGulimR.woff2') format('woff2');
+  src: url('/fonts/ModernGulimR.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: 'Socks';
-  src: url('/public/fonts/SocksR.woff2') format('woff2');
+  src: url('/fonts/SocksR.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -50,7 +50,7 @@
 
 @font-face {
   font-family: 'Kids';
-  src: url('/public/fonts/KidsR.woff2') format('woff2');
+  src: url('/fonts/KidsR.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -157,5 +157,5 @@ body {
 }
 
 .hover-effect:hover {
-    background-color: #008bff;
+  background-color: #008bff;
 }
