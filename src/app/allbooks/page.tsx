@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 import { getAllBooks } from '@/components/book/AllBooks';
 import { BooksData } from '@/types/books';
-import { Pagination, Input, Tabs, Tab } from '@nextui-org/react';
+import { Input, Tabs, Tab } from '@nextui-org/react';
 import PaginationSkeleton from '@/components/skeleton/PaginationSkeleton';
 
+import Pagination from '@/components/Pagination';
 import { SearchIcon } from '@/components/icons/SearchIcon';
+import Link from 'next/link';
 
 const BooksPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,13 +24,20 @@ const BooksPage = () => {
     { label: '제목순', value: 'title' },
   ];
   const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
+
+  const handleSortBy = (value: string) => {
+    setSortBy(value);
+  };
+
+  const target = document.getElementById('target');
+
   const fetchData = useCallback(
     async (currentPage: number, limit: number, sortBy: string, search: string) => {
       getAllBooks(currentPage, limit, sortBy, search)
         .then((data) => {
-          console.log(data);
           setBookShelves(data.books);
           setTotalItems(data.total);
+          target?.scrollIntoView({ behavior: 'smooth' });
         })
         .catch((error) => {
           console.error('Failed to fetch books:', error);
@@ -48,13 +57,18 @@ const BooksPage = () => {
     fetchData(currentPage, limit, sortBy, search);
   }, [currentPage, limit, sortBy, search, fetchData]);
 
-  const totalPages = useMemo(() => {
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    target?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const totalPage = useMemo(() => {
     return Math.ceil(totalItems / limit);
   }, [totalItems, limit]);
 
   return (
     <div className="container flex justify-center items-center p-5">
-      <div className="flex flex-col w-[100vw] ">
+      <div className="flex flex-col w-[100vw] h-[92vh] ">
         <div className="flex flex-hor justify-between">
           <Tabs key="sortByOptions" className="flex justify-start itmes-center pl-5">
             {sortOptions.map((option) => (
@@ -86,58 +100,10 @@ const BooksPage = () => {
         </div>
 
         <BookShelves books={bookShelves} limit={limit} search={search} />
-        {totalPages ? (
-          <div className="flex justify-center items-center">
-            <div className="btn-group">
-              <button
-                className={`btn btn-sm ${currentPage === 1 ? 'btn-disabled' : ''}`}
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-              >
-                Prev
-              </button>
-
-              <button
-                className={`btn btn-sm ${currentPage === 1 ? 'btn-active' : 'btn-ghost'}`}
-                onClick={() => setCurrentPage(1)}
-              >
-                1
-              </button>
-
-              {currentPage > 3 && <span className="px-2 py-1">...</span>}
-
-              {Array.from({ length: 3 }, (_, i) => currentPage - 1 + i)
-                .filter((pageNumber) => pageNumber > 1 && pageNumber < totalPages)
-                .map((pageNumber) => (
-                  <button
-                    key={pageNumber}
-                    className={`btn btn-sm ${currentPage === pageNumber ? 'btn-active' : 'btn-ghost'}`}
-                    onClick={() => setCurrentPage(pageNumber)}
-                  >
-                    {pageNumber}
-                  </button>
-                ))}
-
-              {currentPage < totalPages - 2 && <span className="px-2 py-1">...</span>}
-
-              {totalPages > 1 && (
-                <button
-                  className={`btn btn-sm ${currentPage === totalPages ? 'btn-active' : 'btn-ghost'}`}
-                  onClick={() => setCurrentPage(totalPages)}
-                >
-                  {totalPages}
-                </button>
-              )}
-
-              <button
-                className={`btn btn-sm ${currentPage === totalPages ? 'btn-disabled' : ''}`}
-                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
-            </div>
-          </div>
+        {totalItems ? (
+          <span id="target">
+            <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
+          </span>
         ) : search ? null : (
           <PaginationSkeleton />
         )}
