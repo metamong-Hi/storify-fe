@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -63,32 +64,17 @@
   /* 기타 스타일링 */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
-    rgb(var(--background-start-rgb));
+/* globals.css */
+html, body {
+  height: 100%;
+  min-height: 100%;
+  background-color: #FAF3E0; /* 원하는 배경색 */
+  margin: 0; /* 기본 마진 제거 */
 }
+
 
 .flip-horizontal {
   transform: scaleX(-1);
-}
-.pastel-background {
-  background-image: linear-gradient(
-    to bottom,
-    #fda5a550 0%,
-    #fda5a550 16.666%,
-    #fdbb7450 16.666%,
-    #fdbb7450 33.333%,
-    #fcd34d50 33.333%,
-    #fcd34d50 50%,
-    #86efac50 50%,
-    #86efac50 66.666%,
-    #93c5fd50 66.666%,
-    #93c5fd50 83.333%,
-    #c4b5fd50 83.333%,
-    #c4b5fd50 100%
-  );
 }
 
 .custom-textarea {
@@ -100,25 +86,25 @@ body {
     filter: blur(20px);
   }
   10% {
-    filter: blur(18px);
+    filter: blur(10px);
   }
   20% {
     filter: blur(16px);
   }
   30% {
-    filter: blur(14px);
+    filter: blur(8px);
   }
   40% {
     filter: blur(12px);
   }
   50% {
-    filter: blur(10px);
+    filter: blur(6px);
   }
   60% {
     filter: blur(8px);
   }
   70% {
-    filter: blur(6px);
+    filter: blur(4px);
   }
   80% {
     filter: blur(4px);
@@ -201,4 +187,8 @@ body {
 .imageHover:hover {
   transform: scale(1.05); /* 이미지를 5% 확대 */
   transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과 */
+}
+
+.textWithShadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }

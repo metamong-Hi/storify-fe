@@ -128,7 +128,7 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-                  <span className="text-[#B68973] text-xl font-bold  pr-2">{username}</span>님
+                  <span className="text-[#B68973] text-xl font-semibold  pr-0">{username}</span>님
                   환영합니다
                 </span>
               </NavbarItem>
@@ -139,7 +139,7 @@ const NavbarComponent = () => {
                     isBordered
                     color="default"
                     size="md"
-                    src="https://images.unsplash.com/broken"
+                    src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
                     className="mr-2"
                   />
                 </DropdownTrigger>
