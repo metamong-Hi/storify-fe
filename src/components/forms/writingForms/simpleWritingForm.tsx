@@ -208,7 +208,7 @@ const SimpleWritingForm: React.FC<SimpleWritingFormProps> = ({ text, setText }) 
   }
 
   return (
-    <div className="hero min-h-[60vh] bg-base-200">
+    <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
       <div className="hero-content text-center">
         <div className="w-[60vw]">
           <h1 className="text-2xl font-bold mb-4">오늘 있었던 일들을 적어봐</h1>

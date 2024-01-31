@@ -14,6 +14,7 @@ import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
 import HomeDesign from '@/components/home/homeTest';
 import ComplexWritingForm from '@/components/forms/writingForms/complexWritingForm';
+import TextareaForm from '@/components/forms/sampleform';
 
 import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
@@ -36,15 +37,16 @@ const TestBH: React.FC = () => {
   const handleCardClick = () => {
     console.log('클릭');
   };
+
   return (
-    <div className="w-full h-[92vh] w-full flex flex-col items-center mt-10">
-      <h1 className="text-4xl font-bold mb-4">자세히 만들기</h1>
-      <div>
-        <ComplexWritingForm  text={text} setText={setText}/>
+    <div className="bg-white min-h-screen flex flex-col justify-center items-center text-center">
+      <div className="container mx-auto p-4">
+        <h1 className="text-3xl font-semibold mb-4 text-gray-800">Textarea 입력 폼</h1>
+        <TextareaForm />
       </div>
-        
     </div>
   );
-}
+};
+
 
 export default TestBH;
