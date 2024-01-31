@@ -11,7 +11,7 @@ import Pagination from '@/components/Pagination';
 import { SearchIcon } from '@/components/icons/SearchIcon';
 import Link from 'next/link';
 
-const BooksPage = () => {
+const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [bookShelves, setBookShelves] = useState<BooksData[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -29,15 +29,12 @@ const BooksPage = () => {
     setSortBy(value);
   };
 
-  const target = document.getElementById('target');
-
   const fetchData = useCallback(
     async (currentPage: number, limit: number, sortBy: string, search: string) => {
       getAllBooks(currentPage, limit, sortBy, search)
         .then((data) => {
           setBookShelves(data.books);
           setTotalItems(data.total);
-          target?.scrollIntoView({ behavior: 'smooth' });
         })
         .catch((error) => {
           console.error('Failed to fetch books:', error);
@@ -59,7 +56,6 @@ const BooksPage = () => {
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-    target?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const totalPage = useMemo(() => {
@@ -101,9 +97,7 @@ const BooksPage = () => {
 
         <BookShelves books={bookShelves} limit={limit} search={search} />
         {totalItems ? (
-          <span id="target">
-            <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
-          </span>
+          <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
         ) : search ? null : (
           <PaginationSkeleton />
         )}
@@ -112,4 +106,4 @@ const BooksPage = () => {
   );
 };
 
-export default BooksPage;
+export default Page;
