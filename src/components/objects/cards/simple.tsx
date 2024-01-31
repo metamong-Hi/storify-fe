@@ -13,18 +13,20 @@ const SimpleCard = () => {
   const tiltRef = useRef<TiltNode>(null);
 
   useEffect(() => {
-    if (tiltRef.current) {
-      VanillaTilt.init(tiltRef.current, {
+    const currentTilt = tiltRef.current;
+  
+    if (currentTilt) {
+      VanillaTilt.init(currentTilt, {
         max: 10,
         speed: 400,
         glare: true,
         "max-glare": 0.5,
       });
     }
-
+  
     return () => {
-      if (tiltRef.current && tiltRef.current.vanillaTilt) {
-        tiltRef.current.vanillaTilt.destroy();
+      if (currentTilt && currentTilt.vanillaTilt) {
+        currentTilt.vanillaTilt.destroy();
       }
     };
   }, []);
@@ -42,8 +44,8 @@ const SimpleCard = () => {
           />
         </figure>
         <div className="card-body items-center text-center">
-          <h1 className="card-title">간단히 만들기</h1>
-          <h2>혼자서 동화를 만들어볼래요?</h2>
+          <h1 className="card-title">혼자서 쓸래요</h1>
+          <h2>글쓰기에 자신 있다면 혼자서 글을 써 보세요</h2>
         </div>
       </div>
     </Link>

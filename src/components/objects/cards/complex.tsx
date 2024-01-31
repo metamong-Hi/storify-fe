@@ -13,18 +13,20 @@ const ComplexCard = () => {
   const tiltRef = useRef<TiltNode>(null);
 
   useEffect(() => {
-    if (tiltRef.current) {
-      VanillaTilt.init(tiltRef.current, {
+    const currentTilt = tiltRef.current;
+  
+    if (currentTilt) {
+      VanillaTilt.init(currentTilt, {
         max: 10,
         speed: 400,
         glare: true,
         "max-glare": 0.5,
       });
     }
-
+  
     return () => {
-      if (tiltRef.current && tiltRef.current.vanillaTilt) {
-        tiltRef.current.vanillaTilt.destroy();
+      if (currentTilt && currentTilt.vanillaTilt) {
+        currentTilt.vanillaTilt.destroy();
       }
     };
   }, []);
@@ -41,8 +43,8 @@ const ComplexCard = () => {
           />
         </figure>
         <div className="card-body items-center text-center">
-          <h2 className="card-title">자세히 만들기</h2>
-          <p>요정과 함께 동화를 만들어볼까요?</p>
+          <h2 className="card-title">요정과 함께 쓸래요</h2>
+          <p>글쓰기가 어렵다면 요정이 글쓰기를 도와줄 거예요</p>
         </div>
       </div>
     </Link>
