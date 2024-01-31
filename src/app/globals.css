@@ -100,25 +100,25 @@ body {
     filter: blur(20px);
   }
   10% {
-    filter: blur(18px);
+    filter: blur(10px);
   }
   20% {
     filter: blur(16px);
   }
   30% {
-    filter: blur(14px);
+    filter: blur(8px);
   }
   40% {
     filter: blur(12px);
   }
   50% {
-    filter: blur(10px);
+    filter: blur(6px);
   }
   60% {
     filter: blur(8px);
   }
   70% {
-    filter: blur(6px);
+    filter: blur(4px);
   }
   80% {
     filter: blur(4px);
@@ -201,4 +201,8 @@ body {
 .imageHover:hover {
   transform: scale(1.05); /* 이미지를 5% 확대 */
   transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과 */
+}
+
+.textWithShadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }

@@ -32,12 +32,13 @@ interface Exchange {
     "요정이 글을 읽고 있어요.",
     "요정이 어떤 동화로 바꿀 지 생각하고 있어요.",
     "곧 요정이 동화를 써 줄 거예요.",
-
-    "요정이 동화책을 만들고 있어요.",
-    "잠시만 기다려 주세요.",
   ];
 
-  
+  const placeholderImages = [
+    'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9d5aef20c56218c80e6e2-1706677692729-1.png', 
+    'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9b294dc18773bfb2c5eb1-1706668707969-4.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/65b9f5c38118efce9c1878d2-1706685907715-1.png',
+  ];
 
 const ComplexWritingForm  = () => {
   let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -270,15 +271,16 @@ const ComplexWritingForm  = () => {
       <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
         <div className="hero-content text-center">
           <div className="w-[60vw]">
-            <h1 className="text-3xl font-semibold mb-2">동화가 완성됐어요!</h1>
-            <h2 className="text-3xl font-semibold mb-2">그림도 곧바로 보여줄게요</h2>
+            <h1 className="text-3xl font-semibold mb-2">요정이 동화책을 만들고 있어요.</h1>
+            <h2 className="text-3xl font-semibold mb-2">잠시만 기다려 주세요.</h2>
             <div className="divider"></div> 
-            <textarea placeholder="여기에 간단히 적어줘" 
+            <textarea placeholder="" 
               className="textarea textarea-bordered textarea-lg w-full" 
               rows={ 6 }
               ref={ textAreaRef }
               value={ displayedText }
               readOnly
+
             ></textarea>
             <div className="divider"></div> 
             <div className="flex justify-around gap-2">
@@ -287,6 +289,7 @@ const ComplexWritingForm  = () => {
                 key={ index }
                 src={ url }
                 alt={ `Image ${index + 1}` }
+                layout="responsive"
                 width = { 200 }
                 height = { 200 }
                 className="realImagesLoaded ? 'blur-effect1' : 'blur-effect2'"
@@ -353,7 +356,7 @@ const ComplexWritingForm  = () => {
               value={text}
               onChange={handleChange}
               autoFocus
-              placeholder="여기에 적어주세요"
+              placeholder=""
               onKeyUp={(event) => {
                 if (event.key === 'Enter' && !event.shiftKey && !isSending) {
                   event.preventDefault();
