@@ -38,8 +38,8 @@ const SimpleCard = () => {
         <figure>
           <Image src="https://s3.ap-northeast-2.amazonaws.com/storify/public/solowriting-1706712930779.jpeg"
             alt="동화 생성 선택" 
-            width={4000} 
-            height={4000}
+            width={500} 
+            height={500}
             layout="responsive"
           />
         </figure>
