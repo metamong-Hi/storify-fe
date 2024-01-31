@@ -37,8 +37,8 @@ const ComplexCard = () => {
         <figure>
           <Image src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairywriting-1706712965583.jpeg"
             alt="동화 생성 선택" 
-            width={4000} 
-            height={4000}
+            width={500} 
+            height={500}
             layout="responsive"
           />
         </figure>

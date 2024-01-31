@@ -10,7 +10,7 @@ import NavbarComponent from '@/components/NavbarComponent';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="kr">
+    <html lang="kr" data-theme="cupcake">
       <body className='bg-[#FAF3E0]'>
         <Provider store={store}>
           <Providers>

@@ -427,7 +427,7 @@ const ComplexWritingForm  = () => {
       <div className="chat chat-start">
         <div className="chat-image avatar">
                 <div className="w-16 rounded-full">
-                    <Image alt="Tailwind CSS chat bubble component" src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg" width={1024} height={1024}/>
+                    <Image alt="Tailwind CSS chat bubble component" src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg" width={30} height={30}/>
                 </div>
             </div>
         {isQuestionLoading && index === conversation.length-1? (
