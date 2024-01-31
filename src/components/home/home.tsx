@@ -9,13 +9,13 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 const HomeDesign: React.FC = () => {
   const images = [
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b4e1bd7f45b987a17dd7b4-1706353098878-1.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b62cd0a215ffe433c275a5-1706437858702-3.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/storybook-1705904614133-0.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/storybook-1705666336148-0.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/storybook-1705651912837-0.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b7a54ccfc99e51b05a12bf-1706534242440-1.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b60863786ccd58c5a6deda-1706428528891-2.png",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai4-1706699657952.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai5-1706699671535.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai7-1706699697628.jpeg",
   ];
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
