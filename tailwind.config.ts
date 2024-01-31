@@ -48,6 +48,8 @@ const config: Config = {
         '4/5': '80%',
       },
       borderRadius: {
+        '2xl' : '1.5rem',
+        '3xl' : '1.75rem',
         '4xl': '2rem',
       },
       fontSize: {
