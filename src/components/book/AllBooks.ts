@@ -20,5 +20,6 @@ export async function getAllBooks(page: number, limit: number, sort: string, sea
   const data = await GET(
     `${API_URL}/api/books?page=${page}&limit=${limit}&sort=${sort}&title=${search}`,
   );
+  console.log(data);
   return data;
 }
