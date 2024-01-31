@@ -147,8 +147,8 @@ function LoginPage() {
               <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
                 <Input
                   isRequired
-                  label="이름"
-                  placeholder="이름을 입력하세요"
+                  label="아이디"
+                  placeholder="아이디를 입력하세요"
                   type="text"
                   name="username"
                   value={formData.username}
@@ -184,8 +184,8 @@ function LoginPage() {
               <form className="flex flex-col gap-4 h-[300px]" onSubmit={handleSignUpSubmit}>
                 <Input
                   isRequired
-                  label="이름"
-                  placeholder="이름을 입력하세요"
+                  label="아이디"
+                  placeholder="아이디를 입력하세요"
                   type="text"
                   name="username"
                   value={formSignupData.username}
