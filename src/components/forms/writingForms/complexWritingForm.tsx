@@ -8,12 +8,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay} from 'swiper/modules';
 
-
-interface ComplexWritingFormProps {
-  text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
-}
-
 interface BookData {
   _id: string;
 }
@@ -24,10 +18,7 @@ interface Exchange {
   }
   
 
-const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
-  text,
-  setText,
-}) => {
+const ComplexWritingForm  = () => {
   let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
@@ -40,12 +31,28 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
   const [bookData, setBookData] = useState<BookData | null>(null);
   const [conversation, setConversation] = useState<Exchange[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
-
-  const [responseMessage, setResponseMessage] = useState(""); // 서버 응답 메시지를 저장할 상태 변수
+  const [isSending, setIsSending] = useState(false);
+  const [text,setText] = useState("");
+  const [showNavigateButton, setShowNavigateButton] = useState(false);
+  const [displayedMessages, setDisplayedMessages] = useState<string[]>([]);
+  const [responseMessage, setResponseMessage] = useState(""); 
   const loadingTexts = [
-    "요정이 글을 잘 받았어요",
-    "열심히 글을 읽고 있어요",
-    "동화책처럼 만들고 있어요"
+    "와, 멋진 글이네요!",
+    "요정에게 글을 보낼게요.",
+    "글이 요정에게 전달되고 있어요.",
+    "요정이 글을 받았어요.",
+    "요정이 글을 읽고 있어요.",
+    "요정이 어떤 동화로 바꿀 지 생각하고 있어요.",
+    "곧 요정이 동화를 써 줄 거예요.",
+
+    "요정이 동화책을 만들고 있어요.",
+    "잠시만 기다려 주세요.",
+  ];
+  const messages = [
+    "안녕, 만나서 반가워.",
+    "난 글쓰기를 도와 줄 요정이야.",
+    "대답은 자세하게 할 수록 좋아.",
+    "언제, 어디에서, 누가, 무슨 일이 있었는지 알려 줄래?"
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,12 +111,21 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
   };
 
   const handleSendButtonClick = async () => {
+    if (isSending) return;
+
+    setIsSending(true);
     setIsQuestionLoading(true);
-        const updatedConversation = [...conversation, { question: text, answer: "" }];
-      setConversation([...conversation, { question: text, answer: "" }]);
-        // 모든 유저 메시지를 하나의 문자열로 결합
-  const combinedMessages = updatedConversation.map(item => item.question).join(' ');
-  if (currentStep < 3) {
+
+    // text 값을 복사하여 저장합니다.
+  const currentText = text;
+  setText("");
+  // 복사된 text 값을 사용하여 conversation을 업데이트합니다.
+  const updatedConversation = [...conversation, { question: currentText, answer: "" }];
+  setConversation(updatedConversation);
+    const combinedMessages = updatedConversation.map(item => item.question).join(' ');
+  // text 상태를 먼저 비웁니다.
+
+    if (currentStep < 4) {
       try {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/question', {
           method: 'POST',
@@ -128,7 +144,6 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
               idx === convo.length - 1 ? { ...item, answer: responseText } : item
             )
           );
-          setText('');
           setCurrentStep(currentStep + 1);
         } else {
           console.error('Failed to send message');
@@ -140,7 +155,7 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
         // 마지막 단계에서 handleSubmit 호출
         handleSubmit(combinedMessages);
       }
-
+      setIsSending(false);
     setIsQuestionLoading(false);
   };
 
@@ -180,16 +195,31 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
         setIsImageBlurCompleted(true);
         setTimeout(() => {
           if (bookData) {
-            window.location.href = `/book/${bookData._id}`;
+            setShowNavigateButton(true);
           }
         }, 2000);
       }, 5000); 
     }
   }, [isTypingCompleted, imageUrls, bookData]);
 
+  useEffect(() => {
+    // Use a local variable to store timeouts
+    const timeouts = messages.map((message, index) => {
+      return setTimeout(() => {
+        setDisplayedMessages(prev => [...prev, message]);
+      }, 1000 * index);
+    });
+
+    // Clear timeouts on component unmount
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout));
+    };
+  }, []); 
+
+
   if (isSubmitLoading) {
     return (
-      <div className="hero min-h-[60vh] bg-base-200">
+      <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
         <div className="hero-content text-center">
           <div className="w-[60vw] h-[20vh]">
           <Swiper
@@ -218,11 +248,11 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
 
   if (responseContent) {
     return (
-      <div className="hero min-h-[60vh] bg-base-200">
+      <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
         <div className="hero-content text-center">
           <div className="w-[60vw]">
-            <h1 className="text-2xl font-bold mb-4">동화가 완성됐어요!</h1>
-            <h2 className="text-2xl font-bold mb-4">그림도 곧바로 보여줄게요</h2>
+            <h1 className="text-3xl font-semibold mb-2">동화가 완성됐어요!</h1>
+            <h2 className="text-3xl font-semibold mb-2">그림도 곧바로 보여줄게요</h2>
             <div className="divider"></div> 
             <textarea placeholder="여기에 간단히 적어줘" 
               className="textarea textarea-bordered textarea-lg w-full" 
@@ -244,6 +274,13 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
               />
             ))}
             </div>
+            {showNavigateButton && (
+              <Link href={`/book/${bookData?._id}`} passHref>
+                <button className="btn btn-primary mt-4">
+                  책 보러 가기
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -252,20 +289,23 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
 
 
   return (
-    <div className="hero min-h-[60vh] bg-base-200">
+    <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
       <div className="hero-content text-center">
         <div className="w-[60vw]">
-          <h1 className="text-2xl font-bold mb-4">요정과 대화하면서</h1>
-          <h1 className="text-2xl font-bold mb-4">동화책을 같이 만들어보자</h1>
+          <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
+          <h1 className="text-3xl font-semibold mb-2">다섯 번만 대답하면 요정이 동화책을 만들어 줄 거예요.</h1>
           <div className="divider"></div> 
-          <div className="chat chat-start">
+          {displayedMessages.map((message, index) => (
+          <div key={index} className="chat chat-start mb-2">
             <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                    <Image alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" width={30} height={30}/>
-                </div>
+              <div className="w-10 rounded-full">
+                <Image alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" width={30} height={30}/>
+              </div>
             </div>
-            <div className="chat-bubble">언제, 누구랑, 무슨 일이 있었니?</div>
+            <div className="chat-bubble">{message}</div>
           </div>
+        ))}
+
 
           {conversation.map((exchange, index) => (
     <div key={index}>
@@ -287,17 +327,26 @@ const ComplexWritingForm: React.FC<ComplexWritingFormProps> = ({
     </div>
   ))}
           <div className="divider"></div> 
-          {currentStep < 4 && (
+          {currentStep < 5 && (
             <>
             <input
               className="input input-bordered w-full"
               value={text}
               onChange={handleChange}
-              placeholder="여기에 적어줘"
+              autoFocus
+              placeholder="여기에 적어주세요"
+              onKeyUp={(event) => {
+                if (event.key === 'Enter' && !event.shiftKey && !isSending) {
+                  event.preventDefault();
+                  handleSendButtonClick();
+                }
+              }}
               />
-              <div className="flex justify-between">
-                <button className="btn btn-primary">뒤로가기</button>
-                <button className="btn btn-primary" onClick={handleSendButtonClick}>보내기</button>
+              <div className="flex justify-between mt-4">
+                <Link href={`/writing`} passHref>
+                  <button className="btn btn-primary">뒤로가기</button>
+                </Link>
+                <button className="btn btn-primary" onClick={ handleSendButtonClick } disabled={isSending}>보내기</button>
               </div>
             </>
           )}

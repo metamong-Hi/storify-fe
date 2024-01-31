@@ -99,22 +99,42 @@ body {
   0% {
     filter: blur(20px);
   }
-  25% {
-    filter: blur(15px);
+  10% {
+    filter: blur(18px);
+  }
+  20% {
+    filter: blur(16px);
+  }
+  30% {
+    filter: blur(14px);
+  }
+  40% {
+    filter: blur(12px);
   }
   50% {
     filter: blur(10px);
   }
-  75% {
-    filter: blur(5px);
+  60% {
+    filter: blur(8px);
+  }
+  70% {
+    filter: blur(6px);
+  }
+  80% {
+    filter: blur(4px);
+  }
+  90% {
+    filter: blur(2px);
   }
   100% {
     filter: blur(0px);
   }
 }
-
-.blur-effect {
+.blur-effect1 {
   animation: blurFadeOut 5s ease-out forwards;
+}
+.blur-effect2 {
+  filter: blur(20px);
 }
 
 @keyframes fadeInUp {

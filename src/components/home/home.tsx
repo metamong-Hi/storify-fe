@@ -61,12 +61,12 @@ const HomeDesign: React.FC = () => {
       </Swiper>
       <div style={{ position: 'absolute', top: '10%', left: '6%', zIndex: 1 }}>
         <div style={{ marginBottom: '3rem', fontWeight: 'bold' }}>
-          <h1 className="text-white opacity-0 animate-fadeInUp delay-1s text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl: text-6xl mb-5">여러분의 평범한 일상을</h1>
-          <h1 className="text-white opacity-0 animate-fadeInUp delay-15s text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl: text-6xl mb-0">동화책으로 만들어 드려요</h1>
+          <h1 className="text-white opacity-0 animate-fadeInUp delay-1s text-xl sm:text-3xl md:text-4xl lg:text-5xl xl: text-6xl mb-5">여러분이 주인공인</h1>
+          <h1 className="text-white opacity-0 animate-fadeInUp delay-15s text-xl sm:text-3xl md:text-4xl lg:text-5xl xl: text-6xl mb-0">동화 세계가 펼쳐집니다!</h1>
         </div>
         <div style={{ marginBottom: '2rem' }}>
-          <h2 className="text-gray-200 opacity-0 animate-fadeInUp delay-2s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl mb-3">저희에게 평범한 일상을 공유해 주세요</h2>
-          <h2 className="text-gray-200 opacity-0 animate-fadeInUp delay-25s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl mb-3">AI가 글과 그림을 만들어 줄 거에요</h2>
+          <h2 className="text-gray-200 opacity-0 animate-fadeInUp delay-2s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl mb-3">이야기를 흥미진진한 동화책으로</h2>
+          <h2 className="text-gray-200 opacity-0 animate-fadeInUp delay-25s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl mb-3">생생한 그림으로 살아나게 해줄 거예요</h2>
         </div>
         <button style={{ padding: '1rem', fontSize: '2rem', opacity: 0, cursor: 'pointer'}}
          className="text-green-400 opacity-0 animate-fadeInUp delay-3s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl"
