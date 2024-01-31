@@ -2,52 +2,51 @@
 import React, { useState, useEffect, useRef  } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay} from 'swiper/modules';
-
 interface BookData {
   _id: string;
 }
 
 interface Exchange {
-    question: string;
-    answer: string;
-  }
+  question: string;
+  answer: string;
+}
 
-  const messages = [
-    "안녕, 만나서 반가워.",
-    "난 글쓰기를 도와 줄 요정이야.",
-    "대답은 자세하게 할 수록 좋아.",
-    "언제, 어디에서, 누가, 무슨 일이 있었는지 알려 줄래?",
-  ];
+const messages = [
+  "안녕, 만나서 반가워.",
+  "난 글쓰기를 도와 줄 요정이야.",
+  "대답은 자세하게 할 수록 좋아.",
+  "언제, 어디에서, 누가, 무슨 일이 있었는지 알려 줄래?",
+];
 
-  const loadingTexts = [
-    "와, 멋진 글이네요!",
-    "요정에게 글을 보낼게요.",
-    "글이 요정에게 전달되고 있어요.",
-    "요정이 글을 받았어요.",
-    "요정이 글을 읽고 있어요.",
-    "요정이 어떤 동화로 바꿀 지 생각하고 있어요.",
-    "곧 요정이 동화를 써 줄 거예요.",
-  ];
+const loadingTexts = [
+  "와, 멋진 글이네요!",
+  "요정에게 글을 보낼게요.",
+  "글이 요정에게 전달되고 있어요.",
+  "요정이 글을 받았어요.",
+  "요정이 글을 읽고 있어요.",
+  "요정이 어떤 동화로 바꿀 지 생각하고 있어요.",
+  "곧 요정이 동화를 써 줄 거예요.",
+];
 
-  const placeholderImages = [
-    'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9d5aef20c56218c80e6e2-1706677692729-1.png', 
-    'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9b294dc18773bfb2c5eb1-1706668707969-4.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/65b9f5c38118efce9c1878d2-1706685907715-1.png',
-  ];
+const placeholderImages = [
+  'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9d5aef20c56218c80e6e2-1706677692729-1.png', 
+  'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9b294dc18773bfb2c5eb1-1706668707969-4.png',
+  'https://s3.ap-northeast-2.amazonaws.com/storify/65b9f5c38118efce9c1878d2-1706685907715-1.png',
+];
 
 const ComplexWritingForm  = () => {
   let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const [audioSrc, setAudioSrc] = useState(''); // 오디오 소스
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [responseContent, setResponseContent] = useState('');
   const [displayedText, setDisplayedText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>(placeholderImages);
   const [isTypingCompleted, setIsTypingCompleted] = useState(false);
   const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
   const [bookData, setBookData] = useState<BookData | null>(null);
@@ -59,13 +58,69 @@ const ComplexWritingForm  = () => {
   const [displayedMessages, setDisplayedMessages] = useState<string[]>([]);
   const [responseMessage, setResponseMessage] = useState(""); 
   const [realImagesLoaded, setRealImagesLoaded] = useState(false);
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
+
+  const Skeleton = () => {
+    return (
+      <div className="skeleton w-64 h-64"></div>
+    );
+  };
+
+  const playKeypressSound = () => {
+    if (currentAudio) {
+      currentAudio.pause();
+    }
+  
+    const newAudio = new Audio('https://s3.ap-northeast-2.amazonaws.com/storify/public/chat-1706736584014.mp3'); // 여기에 실제 사운드 파일 경로를 적어주세요.
+    newAudio.play();
+
+    setCurrentAudio(newAudio);
+  };
 
 
+  // 오디오 재생 함수
+  const playAudio = async () => {
+    try {
+      const textToSpeak = messages.join(' ');
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message: textToSpeak }),
+      });
+
+      if (!response.ok) {
+        throw new Error('TTS 요청 실패');
+      }
+
+      const data = await response.text();
+
+      if (currentAudio) {
+        currentAudio.pause();
+      }
+      const newAudioSrc = `data:audio/mp3;base64,${data}`;
+      setAudioSrc(newAudioSrc);
+
+      const audio = new Audio(newAudioSrc);
+      await audio.play();
+      setCurrentAudio(audio);
+    } catch (error) {
+      console.error('TTS 요청 중 에러 발생:', error);
+    }
+  };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
 
+  const handleClick = () => {
+    playKeypressSound();
+    handleSendButtonClick();
+  };
+
   const handleSubmit = async ( combinedMessages:String ) => {
+    
     setIsSubmitLoading(true);
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/stories', {
@@ -121,16 +176,11 @@ const ComplexWritingForm  = () => {
 
     setIsSending(true);
     setIsQuestionLoading(true);
-
-    // text 값을 복사하여 저장합니다.
   const currentText = text;
   setText("");
-  // 복사된 text 값을 사용하여 conversation을 업데이트합니다.
   const updatedConversation = [...conversation, { question: currentText, answer: "" }];
   setConversation(updatedConversation);
     const combinedMessages = updatedConversation.map(item => item.question).join(' ');
-  // text 상태를 먼저 비웁니다.
-
     if (currentStep < 4) {
       try {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/question', {
@@ -143,8 +193,27 @@ const ComplexWritingForm  = () => {
         });
   
         if (response.ok) {
-          const responseText = await response.text();
-          // 서버 응답을 대화 목록에 추가
+          
+    const responseText = await response.text();
+
+    // TTS 요청
+    const ttsResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/tts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ message: responseText }),
+    });
+
+    if (ttsResponse.ok) {
+      const ttsData = await ttsResponse.text();
+      const audioSrc = `data:audio/mp3;base64,${ ttsData }`;
+      const audio = new Audio(audioSrc);
+      audio.play();
+    } else {
+      console.error('TTS 요청 실패');
+    }
           setConversation(convo => 
             convo.map((item, idx) => 
               idx === convo.length - 1 ? { ...item, answer: responseText } : item
@@ -158,7 +227,6 @@ const ComplexWritingForm  = () => {
         console.error('Error:', error);
       }
       } else {
-        // 마지막 단계에서 handleSubmit 호출
         handleSubmit(combinedMessages);
       }
       setIsSending(false);
@@ -239,7 +307,7 @@ const ComplexWritingForm  = () => {
 
   if (isSubmitLoading) {
     return (
-      <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
+      <div className="hero min-h-[60vh] rounded-2xl shadow-lg p-4 glass">
         <div className="hero-content text-center">
           <div className="w-[60vw] h-[20vh]">
           <Swiper
@@ -258,7 +326,7 @@ const ComplexWritingForm  = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          <span className="loading loading-spinner loading-lg"></span>
+          <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
         </div>
       </div>
     </div>
@@ -268,14 +336,14 @@ const ComplexWritingForm  = () => {
 
   if (responseContent) {
     return (
-      <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
+      <div className="hero min-h-[60vh] rounded-2xl shadow-lg p-4 glass">
         <div className="hero-content text-center">
           <div className="w-[60vw]">
             <h1 className="text-3xl font-semibold mb-2">요정이 동화책을 만들고 있어요.</h1>
             <h2 className="text-3xl font-semibold mb-2">잠시만 기다려 주세요.</h2>
             <div className="divider"></div> 
             <textarea placeholder="" 
-              className="textarea textarea-bordered textarea-lg w-full" 
+              className="textarea textarea-bordered textarea-success textarea-lg w-full" 
               rows={ 6 }
               ref={ textAreaRef }
               value={ displayedText }
@@ -284,21 +352,30 @@ const ComplexWritingForm  = () => {
             ></textarea>
             <div className="divider"></div> 
             <div className="flex justify-around gap-2">
-            {imageUrls.map((url, index) => (
-              <Image
-                key={ index }
-                src={ url }
-                alt={ `Image ${index + 1}` }
-                layout="responsive"
-                width = { 200 }
-                height = { 200 }
-                className="realImagesLoaded ? 'blur-effect1' : 'blur-effect2'"
-              />
-            ))}
+            {
+  realImagesLoaded ? (
+    imageUrls.map((url, index) => (
+      <Image
+        key={index}
+        src={url}
+        alt={`Image ${index + 1}`}
+        width={256}
+        height={256}
+        className="rounded-md blur-effect1"
+      />
+    ))
+  ) : (
+    <>
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+    </>
+  )
+}
             </div>
             {showNavigateButton && (
               <Link href={`/book/${bookData?._id}`} passHref>
-                <button className="btn btn-primary mt-4">
+                <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg mt-4">
                   책 보러 가기
                 </button>
               </Link>
@@ -311,37 +388,50 @@ const ComplexWritingForm  = () => {
 
 
   return (
-    <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
+    <div className="hero min-h-[60vh] rounded-2xl shadow-lg p-4 glass">
       <div className="hero-content text-center">
         <div className="w-[60vw]">
           <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
           <h1 className="text-3xl font-semibold mb-2">다섯 번만 대답하면 요정이 동화책을 만들어 줄 거예요.</h1>
           <div className="divider"></div> 
-          {displayedMessages.map((message, index) => (
-          <div key={index} className="chat chat-start mb-2">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <Image alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" width={30} height={30}/>
-              </div>
-            </div>
-            <div className="chat-bubble">{message}</div>
-          </div>
-        ))}
-
-
+          {
+  displayedMessages.map((message, index) => (
+    <div key={index} className="chat chat-start mb-2">
+      <div className="chat-image avatar">
+        <div className="w-16 rounded-full">
+          <Image alt="Tailwind CSS chat bubble component" src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg" width={4000} height={4000}/>
+        </div>
+      </div>
+      <div className="flex"> 
+        <div className="chat-bubble">{message}</div>
+        {index === 0 && (
+          <button onClick={playAudio} className="btn btn-circle btn-outline ml-2">
+            <Image src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png" width = {30} height = {30} alt="play audio" /> 
+          </button>
+        )}
+      </div>
+    </div>
+  ))
+}
           {conversation.map((exchange, index) => (
     <div key={index}>
+      
       <div className="chat chat-end ">
-        <div className="chat-bubble ">{exchange.question}</div>
+      <div className="chat-image avatar">
+        <div className="w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
+          <Image alt="Tailwind CSS chat bubble component" src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png" width={30} height={30}/>
+        </div>
+      </div>
+        <div className="chat-bubble chat-bubble-success">{exchange.question}</div>
       </div>
       <div className="chat chat-start">
         <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                    <Image alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" width={30} height={30}/>
+                <div className="w-16 rounded-full">
+                    <Image alt="Tailwind CSS chat bubble component" src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg" width={1024} height={1024}/>
                 </div>
             </div>
         {isQuestionLoading && index === conversation.length-1? (
-          <div className="chat-bubble"><span className="loading loading-spinner"></span></div>
+          <div className="chat-bubble"><span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span></div>
         ) : (
           <div className="chat-bubble">{exchange.answer}</div>
         )}
@@ -352,7 +442,7 @@ const ComplexWritingForm  = () => {
           {currentStep < 5 && (
             <>
             <input
-              className="input input-bordered w-full"
+              className="input input-success input-bordered w-full"
               value={text}
               onChange={handleChange}
               autoFocus
@@ -360,15 +450,16 @@ const ComplexWritingForm  = () => {
               onKeyUp={(event) => {
                 if (event.key === 'Enter' && !event.shiftKey && !isSending) {
                   event.preventDefault();
+                  playKeypressSound();
                   handleSendButtonClick();
                 }
               }}
               />
               <div className="flex justify-between mt-4">
                 <Link href={`/writing`} passHref>
-                  <button className="btn btn-primary">뒤로가기</button>
+                  <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg">뒤로가기</button>
                 </Link>
-                <button className="btn btn-primary" onClick={ handleSendButtonClick } disabled={isSending}>보내기</button>
+                <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg" onClick={handleClick}  disabled={isSending}>보내기</button>
               </div>
             </>
           )}

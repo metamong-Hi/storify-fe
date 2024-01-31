@@ -1,16 +1,15 @@
 "use client"
-import React, { useState, useRef } from 'react';
-import SimpleWritingForm from '@/components/forms/writingForms/simpleWritingForm';
+import React, { useState, useRef, useEffect } from 'react';
+import SimpleWritingForm from '@/components/forms/writingForms/simple/simpleWritingForm';
 import Image from 'next/image';
 
 const SimplePage: React.FC = () => {
-  const [formText, setFormText] = useState('');
   return (
-    <div className="h-[92vh] w-full flex flex-col items-center mt-10">
-      <div>
-        <SimpleWritingForm/>
+    <div className="flex flex-col items-center w-full  min-h-screen  bg-[#FAF3E0]">
+      <div className="mt-5">
+        <SimpleWritingForm />
       </div>
-  </div>
+    </div>
   );
 };
 
