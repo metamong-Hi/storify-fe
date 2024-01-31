@@ -74,8 +74,12 @@ const BooksPage = () => {
                 }}
                 onChange={handleInputChange}
               />
-              <button className="p-2 focus:outline-none bg-transparent" onClick={handleSearch}>
-                <SearchIcon size={18} className="text-gray-500" />
+              <button
+                className="p-2 btn btn-ghost btn-circle btn-sm hover:bg-black/5 dark:hover:text-white"
+                type="button"
+                onClick={handleSearch}
+              >
+                <SearchIcon size={18} className="text-gray-500 transition-colors duration-200 " />
               </button>
             </div>
           </div>
@@ -83,22 +87,57 @@ const BooksPage = () => {
 
         <BookShelves books={bookShelves} limit={limit} search={search} />
         {totalPages ? (
-          <span className="flex justify-center items-center">
-            <Pagination
-              classNames={{
-                item: 'w-8 h-8 text-small rounded-none bg-transparent',
-                cursor:
-                  'bg-gradient-to-b shadow-lg from-default to-default-800 dark:from-default dark:to-default-100 text-white font-bold',
-              }}
-              key={'flat'}
-              total={totalPages}
-              initialPage={1}
-              page={currentPage}
-              onChange={(page: number) => {
-                setCurrentPage(page);
-              }}
-            />
-          </span>
+          <div className="flex justify-center items-center">
+            <div className="btn-group">
+              <button
+                className={`btn btn-sm ${currentPage === 1 ? 'btn-disabled' : ''}`}
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+              >
+                Prev
+              </button>
+
+              <button
+                className={`btn btn-sm ${currentPage === 1 ? 'btn-active' : 'btn-ghost'}`}
+                onClick={() => setCurrentPage(1)}
+              >
+                1
+              </button>
+
+              {currentPage > 3 && <span className="px-2 py-1">...</span>}
+
+              {Array.from({ length: 3 }, (_, i) => currentPage - 1 + i)
+                .filter((pageNumber) => pageNumber > 1 && pageNumber < totalPages)
+                .map((pageNumber) => (
+                  <button
+                    key={pageNumber}
+                    className={`btn btn-sm ${currentPage === pageNumber ? 'btn-active' : 'btn-ghost'}`}
+                    onClick={() => setCurrentPage(pageNumber)}
+                  >
+                    {pageNumber}
+                  </button>
+                ))}
+
+              {currentPage < totalPages - 2 && <span className="px-2 py-1">...</span>}
+
+              {totalPages > 1 && (
+                <button
+                  className={`btn btn-sm ${currentPage === totalPages ? 'btn-active' : 'btn-ghost'}`}
+                  onClick={() => setCurrentPage(totalPages)}
+                >
+                  {totalPages}
+                </button>
+              )}
+
+              <button
+                className={`btn btn-sm ${currentPage === totalPages ? 'btn-disabled' : ''}`}
+                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         ) : search ? null : (
           <PaginationSkeleton />
         )}

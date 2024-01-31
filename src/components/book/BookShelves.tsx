@@ -65,12 +65,12 @@ const Book = ({ book, index }: BookProps) => {
 
       <div className="p-4">
         <div className="truncate w-full text-lg md:text-xl lg:text-2xl font-bold">{book.title}</div>
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex justify-between items-center mt-4 ">
           <Link href={user.bookshelfLink}>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center rounded-4xl space-x-2 hover:bg-black/10">
               <div className="avatar">
                 <div className="w-8 h-8 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} />
+                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={10} height={10} />
                 </div>
               </div>
               <span className="text-sm font-semibold">{user.name}</span>
