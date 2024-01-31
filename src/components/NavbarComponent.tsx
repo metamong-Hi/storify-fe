@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
-import LoginPage from '@/components/login/login';
+import LoginPage from '@/components/login/realLogin';
 import { store } from '@/store/index';
 import Link from 'next/link';
 import {
@@ -93,7 +93,6 @@ const NavbarComponent = () => {
         isBordered
         onMenuOpenChange={setIsMenuOpen}
         className="bg-[#FAF3E0]/80"
-        style={{ fontFamily: 'NamuGulim' }}
       >
         <NavbarContent justify="start">
           <NavbarMenuToggle
@@ -194,25 +193,36 @@ const NavbarComponent = () => {
           <NavbarMenuItem></NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent className="flex flex-col justify-center items-center p-4">
-          {(_onClose: any) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
-              <ModalBody className="flex justify-center items-center">
-                <LoginPage />
-              </ModalBody>
-              <ModalFooter>
-                {/* <Button color="danger" variant='light' onPress={onClose}>
-                닫기
-              </Button> */}
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      {/* <dialog id="my_modal_3" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      {/* if there is a button in form, it will close the modal */}
+      {/*</><button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      <LoginPage/>
+    </form>
+    <h3 className="font-bold text-lg">Hello!</h3>
+    <p className="py-4">Press ESC key or click on ✕ button to close</p> */}
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <ModalContent className="flex flex-col justify-center items-center p-4">
+      {(_onClose: any) => (
+        <>
+        <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
+        <ModalBody className="flex justify-center items-center">
+         <LoginPage />
+        </ModalBody>
+        <ModalFooter>
+          {/* <Button color="danger" variant='light' onPress={onClose}>
+          닫기
+        </Button> */}
+       </ModalFooter>
+      </>
+    )}
+  </ModalContent>
+  </Modal>
     </>
   );
 };
 
 export default NavbarComponent;
+
+

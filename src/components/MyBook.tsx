@@ -4,6 +4,8 @@ import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import { Image } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
+import Swal from 'sweetalert2';
+import apiService from '../services/apiService';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -67,7 +69,42 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     flipNext(): void;
     flipPrev(): void;
   }
-
+  const showDeleteAlert=()=>{
+    Swal.fire({
+        title:'삭제',
+        text:'정말 삭제하실건가요?',
+        icon:'question',
+        confirmButtonText:'OK',
+    }).then((result)=>{
+        if(result.value){
+            handleDelete();
+        }
+    })
+  }
+  const showDeleteFailedAlert=()=>{
+    Swal.fire({
+        title:'삭제실패',
+        text:'본인 글만 삭제할 수 있어요',
+        icon:'warning',
+        confirmButtonText:'OK',
+    }).then((result)=>{
+        // if(result.value){
+        //     handleDelete();
+        // }
+    })
+  }
+  const showDeleteSuccessAlert=()=>{
+    Swal.fire({
+        title:'삭제성공',
+        text:'삭제했어요~~',
+        icon:'success',
+        confirmButtonText:'OK',
+    }).then((result)=>{
+        // if(result.value){
+        //     handleDelete();
+        // }
+    })
+  }
   const goToNextPage = () => {
     if (bookRef.current && bookRef.current.pageFlip) {
       const pageFlipInstance = bookRef.current.pageFlip();
@@ -113,20 +150,26 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     try {
       console.log(token + '토큰이다');
       console.log(bookId + '북아이디다');
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
+      const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log("요청보내고 여기로옴")
       if (response.ok) {
         console.log('삭제됨');
+        showDeleteSuccessAlert();
+        window.location.href='/allbooks';
       } else {
+        showDeleteFailedAlert();
+
         console.error('삭제 실패', response);
       }
     } catch (error) {
+        console.log(error);
+        showDeleteFailedAlert();
       console.error('삭제 중 오류 발생', error);
     }
   };
@@ -155,9 +198,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           {/* <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" /> */}
         </Button>
       </div>
-      {/* <Button color="danger" onClick={handleDelete} style={{height:'40px',width:'40px'}}>
+      <Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
                  삭제
-        </Button>   */}
+        </Button>  
 
       <StyledFlipBook>
         <HTMLFlipBook
