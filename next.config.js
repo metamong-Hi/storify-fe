@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-
+const withPlugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: true,
-  openAnalyzer: true,
+  enabled: process.env.ANALYZE === 'true',
 });
 
 const nextConfig = {
@@ -18,7 +17,4 @@ const nextConfig = {
   },
 };
 
-module.exports = {
-  withBundleAnalyzer,
-  nextConfig,
-};
+module.exports = withPlugins([withBundleAnalyzer], nextConfig);
