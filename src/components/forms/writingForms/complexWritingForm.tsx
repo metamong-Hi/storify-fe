@@ -36,6 +36,7 @@ const ComplexWritingForm  = () => {
   const [showNavigateButton, setShowNavigateButton] = useState(false);
   const [displayedMessages, setDisplayedMessages] = useState<string[]>([]);
   const [responseMessage, setResponseMessage] = useState(""); 
+  const [realImagesLoaded, setRealImagesLoaded] = useState(false);
   const loadingTexts = [
     "와, 멋진 글이네요!",
     "요정에게 글을 보낼게요.",
@@ -95,7 +96,7 @@ const ComplexWritingForm  = () => {
             responseData.body["2"].imageUrl,
             responseData.body["3"].imageUrl,
           ]);
-        
+          setRealImagesLoaded(true);
         } else {
         alert('책 제작 요청에 실패했습니다. 다시 시도해주세요.');
         }
@@ -216,6 +217,20 @@ const ComplexWritingForm  = () => {
     };
   }, []); 
 
+  useEffect(() => {
+    const scrollToBottom = () => {
+      window.scrollTo({
+        left: 0,
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    };
+  
+    if (conversation.length > 0 || displayedMessages.length > 0 || realImagesLoaded || showNavigateButton) {
+      scrollToBottom();
+    }
+  }, [conversation, displayedMessages, realImagesLoaded, showNavigateButton]);
+
 
   if (isSubmitLoading) {
     return (
@@ -270,7 +285,7 @@ const ComplexWritingForm  = () => {
                 alt={ `Image ${index + 1}` }
                 width = { 200 }
                 height = { 200 }
-                className="blur-effect"
+                className="realImagesLoaded ? 'blur-effect1' : 'blur-effect2'"
               />
             ))}
             </div>

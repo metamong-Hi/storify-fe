@@ -153,11 +153,25 @@ const SimpleWritingForm = () => {
     handleSubmit();
   };
 
+  useEffect(() => {
+    const scrollToBottom = () => {
+      window.scrollTo({
+        left: 0,
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    };
+  
+    if (realImagesLoaded || showNavigateButton) {
+      scrollToBottom();
+    }
+  }, [realImagesLoaded, showNavigateButton]);
+
 
   
   if (isLoading) {
     return (
-      <div className="hero min-h-[60vh] ">
+      <div className="hero min-h-[60vh] bg-white rounded-2xl shadow-lg p-4 glass">
         <div className="hero-content text-center">
           <div className="w-[60vw] h-[20vh]">
           <Swiper
