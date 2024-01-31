@@ -74,8 +74,12 @@ const BooksPage = () => {
                 }}
                 onChange={handleInputChange}
               />
-              <button className="p-2 focus:outline-none bg-transparent" onClick={handleSearch}>
-                <SearchIcon size={18} className="text-gray-500" />
+              <button
+                className="p-2 btn btn-ghost btn-circle btn-sm hover:bg-black/5 dark:hover:text-white"
+                type="button"
+                onClick={handleSearch}
+              >
+                <SearchIcon size={18} className="text-gray-500 transition-colors duration-200 " />
               </button>
             </div>
           </div>
