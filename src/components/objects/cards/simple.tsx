@@ -13,18 +13,20 @@ const SimpleCard = () => {
   const tiltRef = useRef<TiltNode>(null);
 
   useEffect(() => {
-    if (tiltRef.current) {
-      VanillaTilt.init(tiltRef.current, {
+    const currentTilt = tiltRef.current;
+  
+    if (currentTilt) {
+      VanillaTilt.init(currentTilt, {
         max: 10,
         speed: 400,
         glare: true,
         "max-glare": 0.5,
       });
     }
-
+  
     return () => {
-      if (tiltRef.current && tiltRef.current.vanillaTilt) {
-        tiltRef.current.vanillaTilt.destroy();
+      if (currentTilt && currentTilt.vanillaTilt) {
+        currentTilt.vanillaTilt.destroy();
       }
     };
   }, []);

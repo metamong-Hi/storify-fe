@@ -16,6 +16,27 @@ interface Exchange {
     question: string;
     answer: string;
   }
+
+  const messages = [
+    "안녕, 만나서 반가워.",
+    "난 글쓰기를 도와 줄 요정이야.",
+    "대답은 자세하게 할 수록 좋아.",
+    "언제, 어디에서, 누가, 무슨 일이 있었는지 알려 줄래?",
+  ];
+
+  const loadingTexts = [
+    "와, 멋진 글이네요!",
+    "요정에게 글을 보낼게요.",
+    "글이 요정에게 전달되고 있어요.",
+    "요정이 글을 받았어요.",
+    "요정이 글을 읽고 있어요.",
+    "요정이 어떤 동화로 바꿀 지 생각하고 있어요.",
+    "곧 요정이 동화를 써 줄 거예요.",
+
+    "요정이 동화책을 만들고 있어요.",
+    "잠시만 기다려 주세요.",
+  ];
+
   
 
 const ComplexWritingForm  = () => {
@@ -37,24 +58,7 @@ const ComplexWritingForm  = () => {
   const [displayedMessages, setDisplayedMessages] = useState<string[]>([]);
   const [responseMessage, setResponseMessage] = useState(""); 
   const [realImagesLoaded, setRealImagesLoaded] = useState(false);
-  const loadingTexts = [
-    "와, 멋진 글이네요!",
-    "요정에게 글을 보낼게요.",
-    "글이 요정에게 전달되고 있어요.",
-    "요정이 글을 받았어요.",
-    "요정이 글을 읽고 있어요.",
-    "요정이 어떤 동화로 바꿀 지 생각하고 있어요.",
-    "곧 요정이 동화를 써 줄 거예요.",
 
-    "요정이 동화책을 만들고 있어요.",
-    "잠시만 기다려 주세요.",
-  ];
-  const messages = [
-    "안녕, 만나서 반가워.",
-    "난 글쓰기를 도와 줄 요정이야.",
-    "대답은 자세하게 할 수록 좋아.",
-    "언제, 어디에서, 누가, 무슨 일이 있었는지 알려 줄래?"
-  ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);

@@ -17,13 +17,23 @@ interface StoryImage {
   imageUrl : String;
 }
 
+const placeholderImages = [
+  '/path/to/placeholder/image1.jpg', // Replace with your placeholder image URL
+  '/path/to/placeholder/image2.jpg',
+  '/path/to/placeholder/image3.jpg',
+];
+
+const loadingTexts = [
+  "당신의 글이 잘 전송되었어요",
+  "요정이 글을 잘 받았어요",
+  "열심히 글을 읽고 있어요",
+  "동화책으로 만들고 있어요",
+  "잠시만 기다려 주세요",
+];
+
 const SimpleWritingForm = () => {
 
-  const placeholderImages = [
-    '/path/to/placeholder/image1.jpg', // Replace with your placeholder image URL
-    '/path/to/placeholder/image2.jpg',
-    '/path/to/placeholder/image3.jpg',
-  ];
+
 
   let token: string | null;
   const [isLoading, setIsLoading] = useState(false);
@@ -142,13 +152,7 @@ const SimpleWritingForm = () => {
     }
   }, [isTypingCompleted, imageUrls, bookData]);
 
-  const loadingTexts = [
-    "당신의 글이 잘 전송되었어요",
-    "요정이 글을 잘 받았어요",
-    "열심히 글을 읽고 있어요",
-    "동화책으로 만들고 있어요",
-    "잠시만 기다려 주세요",
-  ];
+
   const handleButtonClick = () => {
     handleSubmit();
   };
