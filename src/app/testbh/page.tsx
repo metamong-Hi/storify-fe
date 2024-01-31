@@ -12,17 +12,18 @@ import ClusterCard from '@/components/objects/cards/customCards/clusterCard';
 import ClusterCardContainer from '@/components/objects/cards/customCards/clusterCardContainer';
 import SimpleCard from '@/components/objects/cards/simple';
 import ComplexCard from '@/components/objects/cards/complex';
+import HomeDesign from '@/components/home/homeTest';
+import ComplexWritingForm from '@/components/forms/writingForms/complexWritingForm';
+import TextareaForm from '@/components/forms/sampleform';
 
 import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
 
 
 const TestBH: React.FC = () => {
-  const [formText, setFormText] = useState('');
+  const [text, setText] = useState('');
 
-  const handleEraserClick = () => {
-    setFormText('');
-  };
+
 
   const menuItems = [
     { text: '홈', url: '/' },
@@ -36,34 +37,16 @@ const TestBH: React.FC = () => {
   const handleCardClick = () => {
     console.log('클릭');
   };
+
   return (
-    <div className="w-screen min-h-[1200vh]">
-      <div className="h-[100vh] w-full bg-pastelRed flex flex-col items-center pt-1">
-        <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
-        <FriendPage/>
+    <div className="bg-white min-h-screen flex flex-col justify-center items-center text-center">
+      <div className="container mx-auto p-4">
+        <h1 className="text-3xl font-semibold mb-4 text-gray-800">Textarea 입력 폼</h1>
+        <TextareaForm />
       </div>
-      <div className="h-[100vh] w-full bg-pastelOrange flex flex-col items-center pt-1">
-        <h1 className="text-6xl font-bold text-white mb-4">친구 탭</h1>
-  
-      </div>
-      <div className="h-[100vh] w-full bg-pastelYellow flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">고급 생성(등장인물)</h1>
-        <PeopleWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
-      </div>
-      <div className="h-[100vh] w-full bg-pastelGreen flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">고급 생성(사건)</h1>
-        <EventsWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
-      </div>
-      <div className="h-[100vh] w-full bg-pastelBlue flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">고급 생성(시간적, 공간적 배경)</h1>
-        <BackgroundWritingForm text={formText} setText={setFormText} destination="/writing/complexWriting/people"/>
-      </div>
-      <div className="h-[100vh] w-full bg-pastelPurple flex flex-col  items-center p-1">
-        <h1 className="text-6xl font-bold text-white mb-4">텍스트 3</h1>
-      </div>
-      
     </div>
   );
-}
+};
+
 
 export default TestBH;

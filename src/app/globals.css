@@ -157,5 +157,28 @@ body {
 }
 
 .hover-effect:hover {
-  background-color: #008bff;
+    background-color: #008bff;
+}
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+.imageHover:hover {
+  transform: scale(1.05); /* 이미지를 5% 확대 */
+  transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과 */
 }
