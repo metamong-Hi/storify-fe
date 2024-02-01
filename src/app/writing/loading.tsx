@@ -1,5 +1,5 @@
-import SimpleCardSkeleton from '@/components/skeleton/simpleCardSkeleton';
-import ComplexCardSkeleton from '@/components/skeleton/complexCardSkeleton';
+import SimpleCardSkeleton from '@/components/skeleton/SimpleCard';
+import ComplexCardSkeleton from '@/components/skeleton/ComplexCard';
 
 export default function Loading() {
   return (

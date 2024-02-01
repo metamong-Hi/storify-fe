@@ -31,7 +31,7 @@ const SimpleCard = () => {
   }, []);
 
   return (
-    <Link href="/writing/simpleWriting" passHref>
+    <Link href="/writing/simple" passHref>
       <div
         ref={tiltRef}
         className="card w-full sm:w-48 md:w-64 lg:w-80 xl:w-96 2xl:w-128 glass mr-0 sm:mr-1 md:mr-2 lg:mr-3 xl:mr-4 2xl:mr-6 mt-10 cursor-pointer "

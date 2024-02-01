@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, useEffect } from 'react';
-import ComplexWritingForm from '@/components/forms/writing/complex/complexWritingForm';
+import ComplexWritingForm from '@/components/forms/writing/complex/Complex';
 
 const ComplexWritingPage: React.FC = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);

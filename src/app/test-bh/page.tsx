@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import SimpleWritingForm from '@/components/forms/writing/simple/simpleWritingForm';
-import SimpleCard from '@/components/objects/cards/simple';
-import ComplexCard from '@/components/objects/cards/complex';
-import ComplexWritingForm from '@/components/forms/writing/complex/complexWritingForm';
+import SimpleWritingForm from '@/components/forms/writing/simple/Simple';
+import SimpleCard from '@/components/objects/cards/Simple';
+import ComplexCard from '@/components/objects/cards/Complex';
+import ComplexWritingForm from '@/components/forms/writing/complex/Complex';
 import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
 

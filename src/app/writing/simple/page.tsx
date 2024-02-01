@@ -1,8 +1,8 @@
 'use client';
 import React, { useRef, useEffect } from 'react';
-import SimpleWritingForm from '@/components/forms/writing/simple/simpleWritingForm';
+import SimpleWritingForm from '@/components/forms/writing/simple/Simple';
 
-const SimplePage: React.FC = () => {
+const SimpleWritingPage: React.FC = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustBackgroundHeight = () => {
@@ -29,4 +29,4 @@ const SimplePage: React.FC = () => {
   );
 };
 
-export default SimplePage;
+export default SimpleWritingPage;

@@ -31,7 +31,7 @@ const ComplexCard = () => {
   }, []);
 
   return (
-    <Link href="/writing/complexWriting" passHref>
+    <Link href="/writing/complex" passHref>
       <div
         ref={tiltRef}
         className="card w-full sm:w-48 md:w-64 lg:w-80 xl:w-96 2xl:w-128 glass ml-0 sm:ml-1 md:ml-2 lg:ml-3 xl:ml-4 2xl:ml-6 mt-10 cursor-pointer"
