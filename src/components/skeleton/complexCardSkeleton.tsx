@@ -7,7 +7,7 @@ const ComplexCardSkeleton = () => {
         <div className="h-full skeleton"></div>
       </div>
       <div className="card-body items-center text-center">
-        <h2 className="h-6 bg-base-300 skeleton w-3/4 mb-1"></h2>
+        <h2 className="h-6 bg-base-300 skeleton w-3/4 mb-2"></h2>
         <p className="h-4 bg-base-300 skeleton w-1/2 mb-2"></p>
         <p className="h-4 bg-base-300 skeleton w-1/2"></p>
       </div>
