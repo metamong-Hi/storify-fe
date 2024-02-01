@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import SimpleCard from '@/components/objects/cards/Simple';
 import ComplexCard from '@/components/objects/cards/Complex';
