@@ -42,7 +42,8 @@ const Book = ({ book, index }: BookProps) => {
   }
 
   const user = {
-    avatar: '/images/bookCover.png', // Replace with actual path to user's avatar
+    avatar:
+      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
     bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
     name: book.userId?.username ?? '', // Replace with actual user's name
   };
@@ -50,7 +51,7 @@ const Book = ({ book, index }: BookProps) => {
   return (
     <div
       key={index}
-      className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-2xl"
+      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-2xl"
     >
       <div className="transition-transform duration-500 hover:scale-105">
         <Link href={`/book/${encodeURIComponent(book?._id ?? '')}`}>
@@ -69,8 +70,8 @@ const Book = ({ book, index }: BookProps) => {
           <Link href={user.bookshelfLink}>
             <div className="flex items-center rounded-4xl space-x-2 hover:bg-black/10">
               <div className="avatar">
-                <div className="w-8 h-8 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={10} height={10} />
+                <div className="w-4 h-4 rounded-full">
+                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} />
                 </div>
               </div>
               <span className="text-sm font-semibold">{user.name}</span>
