@@ -9,13 +9,13 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 const HomeDesign: React.FC = () => {
   const images = [
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b4e1bd7f45b987a17dd7b4-1706353098878-1.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b62cd0a215ffe433c275a5-1706437858702-3.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/storybook-1705904614133-0.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/storybook-1705666336148-0.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/storybook-1705651912837-0.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b7a54ccfc99e51b05a12bf-1706534242440-1.png",
-    "https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b60863786ccd58c5a6deda-1706428528891-2.png",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai4-1706699657952.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai5-1706699671535.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg",
+    "https://s3.ap-northeast-2.amazonaws.com/storify/public/ai7-1706699697628.jpeg",
   ];
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,7 +34,7 @@ const HomeDesign: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+    <div className="relative w-full h-full">
       <Swiper
         slidesPerView={1}
         spaceBetween={0}
@@ -46,10 +46,10 @@ const HomeDesign: React.FC = () => {
         }}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100vh' }}
       >
         {images.map((src, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} style={{ height: '100vh' }}>
             <Image
               src={src}
               alt={`Slide ${index}`}
@@ -59,18 +59,20 @@ const HomeDesign: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div style={{ position: 'absolute', top: '10%', left: '6%', zIndex: 1 }}>
-        <div style={{ marginBottom: '3rem', fontWeight: 'bold' }}>
-          <h1 className="text-white opacity-0 animate-fadeInUp delay-1s text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl: text-6xl mb-5">여러분의 평범한 일상을</h1>
-          <h1 className="text-white opacity-0 animate-fadeInUp delay-15s text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl: text-6xl mb-0">동화책으로 만들어 드려요</h1>
+      <div className="absolute top-[10%] left-[6%] z-10">
+        <div className="mb-12 font-bold">
+        <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6 opacity-0 animate-fadeInUp delay-1s textWithShadow">여러분이 주인공인</h1>
+          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-0 opacity-0 animate-fadeInUp delay-15s textWithShadow">동화 세계가 펼쳐집니다!</h1>
         </div>
-        <div style={{ marginBottom: '2rem' }}>
-          <h2 className="text-gray-200 opacity-0 animate-fadeInUp delay-2s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl mb-3">저희에게 평범한 일상을 공유해 주세요</h2>
-          <h2 className="text-gray-200 opacity-0 animate-fadeInUp delay-25s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl mb-3">AI가 글과 그림을 만들어 줄 거에요</h2>
+        <div className="mb-6">
+        <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-3 opacity-0 animate-fadeInUp delay-2s textWithShadow">이야기를 흥미진진한 동화책으로</h2>
+          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-3 opacity-0 animate-fadeInUp delay-25s textWithShadow">생생한 그림으로 살아나게 해줄 거예요</h2>
         </div>
-        <button style={{ padding: '1rem', fontSize: '2rem', opacity: 0, cursor: 'pointer'}}
-         className="text-green-400 opacity-0 animate-fadeInUp delay-3s text-lg sm:text-xl md:text-2xl lg:text-3xl xl: text-4xl"
-         onClick={handleStoryButtonClick}>스토리 만들기</button>
+        <button 
+  className="p-2 text-2xl font-bold cursor-pointer hover:text-[#B68973] border rounded-xl border-[#B68973] opacity-0 bg-[#B68973] hover:bg-transparent text-white transition-all duration-300 ease-in-out transform hover:scale-150 animate-fadeInUp delay-3s text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl textWithShadow"
+  onClick={handleStoryButtonClick}>
+  스토리 만들기
+</button>
       </div>
     </div>
   );

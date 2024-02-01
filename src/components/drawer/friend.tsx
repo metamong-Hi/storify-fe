@@ -52,7 +52,7 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
     };
 
     fetchFriends();
-  }, []); 
+  }, [currentFriends]); 
   useEffect(() => {
     console.log("currentFriends 업데이트됨:", currentFriends);
   }, [currentFriends]);

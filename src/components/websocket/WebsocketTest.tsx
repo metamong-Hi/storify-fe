@@ -15,7 +15,6 @@ const WebSocketTest: React.FC = () => {
     console.log("여기가 토큰임"+token);
     newSocket.onopen = () => {
       console.log('WebSocket 연결됨');
-      // 토큰을 보내는 로직을 여기에 추가 (필요한 경우)
       const token = localStorage.getItem('token');
       console.log("여기가 토큰임"+token);
     newSocket.send(JSON.stringify({ event: 'connection', token }));
@@ -40,9 +39,8 @@ const WebSocketTest: React.FC = () => {
 
   const sendFriendRequest = () => {
     if (socket) {
-      // 'friendRequest' 이벤트에 맞는 데이터 형식
       const messageData = {
-        senderId: 'yourSenderId', // 여기에 실제 senderId를 넣으세요
+        senderId: 'yourSenderId',
         receiverId: input
       };
       socket.send(JSON.stringify({ event: 'friendRequest', data: messageData }));
