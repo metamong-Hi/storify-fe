@@ -1,3 +1,4 @@
+
 "use client"
 import React, { useState, useEffect } from 'react';
 
@@ -7,11 +8,17 @@ const WebSocketTest: React.FC = () => {
   const [input, setInput] = useState('');
 
   useEffect(() => {
-
-    const newSocket = new WebSocket('ws://');
-
+    const newSocket = new WebSocket(`ws://storify-be.fly.dev:3000`);
+    console.log(newSocket);
+    console.log("야 여기다");
+    const token = localStorage.getItem('token');
+    console.log("여기가 토큰임"+token);
     newSocket.onopen = () => {
       console.log('WebSocket 연결됨');
+      // 토큰을 보내는 로직을 여기에 추가 (필요한 경우)
+      const token = localStorage.getItem('token');
+      console.log("여기가 토큰임"+token);
+    newSocket.send(JSON.stringify({ event: 'connection', token }));
     };
 
     newSocket.onmessage = (event) => {
@@ -21,7 +28,9 @@ const WebSocketTest: React.FC = () => {
     newSocket.onclose = () => {
       console.log('WebSocket 연결 종료됨');
     };
-
+    newSocket.onerror = (event) => {
+      console.error('WebSocket 오류 발생:', event);
+    };
     setSocket(newSocket);
 
     return () => {
@@ -29,9 +38,14 @@ const WebSocketTest: React.FC = () => {
     };
   }, []);
 
-  const sendMessage = () => {
+  const sendFriendRequest = () => {
     if (socket) {
-      socket.send(input);
+      // 'friendRequest' 이벤트에 맞는 데이터 형식
+      const messageData = {
+        senderId: 'yourSenderId', // 여기에 실제 senderId를 넣으세요
+        receiverId: input
+      };
+      socket.send(JSON.stringify({ event: 'friendRequest', data: messageData }));
       setInput('');
     }
   };
@@ -43,7 +57,7 @@ const WebSocketTest: React.FC = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={sendMessage}>메시지 보내기</button>
+      <button onClick={sendFriendRequest}>친구 요청 보내기</button>
 
       <div>
         <h2>수신된 메시지:</h2>
