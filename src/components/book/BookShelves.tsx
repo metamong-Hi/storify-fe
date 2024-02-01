@@ -51,7 +51,7 @@ const Book = ({ book, index }: BookProps) => {
   return (
     <div
       key={index}
-      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-2xl"
+      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
       <div className="transition-transform duration-500 hover:scale-105">
         <Link href={`/book/${encodeURIComponent(book?._id ?? '')}`}>
