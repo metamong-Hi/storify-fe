@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-} 전체 페이지에 적용되는 css- 여기 확인함 1/17*/
-
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -61,24 +54,13 @@
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  /* 기타 스타일링 */
 }
 
-/* globals.css */
 html, body {
   height: 100%;
   min-height: 100%;
-  background-color: #FAF3E0; /* 원하는 배경색 */
-  margin: 0; /* 기본 마진 제거 */
-}
-
-
-.flip-horizontal {
-  transform: scaleX(-1);
-}
-
-.custom-textarea {
-  font-size: 3rem;
+  background-color: #FAF3E0; 
+  margin: 0; 
 }
 
 @keyframes blurFadeOut {
@@ -118,9 +100,6 @@ html, body {
 }
 .blur-effect1 {
   animation: blurFadeOut 5s ease-out forwards;
-}
-.blur-effect2 {
-  filter: blur(20px);
 }
 
 @keyframes fadeInUp {
@@ -162,10 +141,6 @@ html, body {
   transition: opacity 0.3s ease;
 }
 
-.hover-effect:hover {
-    background-color: #008bff;
-}
-
 .swiper {
   width: 100%;
   padding-top: 50px;
@@ -182,11 +157,6 @@ html, body {
 .swiper-slide img {
   display: block;
   width: 100%;
-}
-
-.imageHover:hover {
-  transform: scale(1.05); /* 이미지를 5% 확대 */
-  transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과 */
 }
 
 .textWithShadow {

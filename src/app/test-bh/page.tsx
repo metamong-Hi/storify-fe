@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import SimpleWritingForm from '@/components/forms/writing/simple/simpleWritingForm';
 import SimpleCard from '@/components/objects/cards/simple';
@@ -8,7 +8,6 @@ import Drawer from '@/components/drawer/friend';
 import FriendPage from '@/components/drawer/friendPage';
 
 const TestBH: React.FC = () => {
-
   return (
     <div className="bg-white min-h-screen flex flex-col justify-center items-center text-center">
       <div className="container mx-auto p-4">
@@ -17,6 +16,5 @@ const TestBH: React.FC = () => {
     </div>
   );
 };
-
 
 export default TestBH;

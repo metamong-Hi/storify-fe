@@ -65,13 +65,12 @@ const ComplexWritingForm = () => {
 
     const newAudio = new Audio(
       'https://s3.ap-northeast-2.amazonaws.com/storify/public/chat-1706736584014.mp3',
-    ); // 여기에 실제 사운드 파일 경로를 적어주세요.
+    );
     newAudio.play();
 
     setCurrentAudio(newAudio);
   };
 
-  // 오디오 재생 함수
   const playAudio = async () => {
     try {
       const textToSpeak = messages.join(' ');
@@ -265,14 +264,12 @@ const ComplexWritingForm = () => {
   }, [isTypingCompleted, imageUrls, bookData]);
 
   useEffect(() => {
-    // Use a local variable to store timeouts
     const timeouts = messages.map((message, index) => {
       return setTimeout(() => {
         setDisplayedMessages((prev) => [...prev, message]);
       }, 1000 * index);
     });
 
-    // Clear timeouts on component unmount
     return () => {
       timeouts.forEach((timeout) => clearTimeout(timeout));
     };

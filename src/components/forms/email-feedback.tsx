@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface EmailFeedBackProps {
   text: string;
@@ -33,7 +32,6 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
         body: JSON.stringify({ feedback: text }),
       });
       if (response.status === 201) {
-        // 성공 메시지를 표시하고 로딩 상태를 종료합니다.
         setIsSubmitted(true);
         setIsLoading(false);
       } else {

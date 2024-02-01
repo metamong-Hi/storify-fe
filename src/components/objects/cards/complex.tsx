@@ -1,6 +1,6 @@
-"use client"
-import React, { useEffect, useRef } from "react";
-import Image from "next/image";
+'use client';
+import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import VanillaTilt from 'vanilla-tilt';
 
@@ -9,21 +9,20 @@ interface TiltNode extends HTMLDivElement {
 }
 
 const ComplexCard = () => {
-
   const tiltRef = useRef<TiltNode>(null);
 
   useEffect(() => {
     const currentTilt = tiltRef.current;
-  
+
     if (currentTilt) {
       VanillaTilt.init(currentTilt, {
         max: 10,
         speed: 400,
         glare: true,
-        "max-glare": 0.5,
+        'max-glare': 0.5,
       });
     }
-  
+
     return () => {
       if (currentTilt && currentTilt.vanillaTilt) {
         currentTilt.vanillaTilt.destroy();
@@ -33,11 +32,15 @@ const ComplexCard = () => {
 
   return (
     <Link href="/writing/complexWriting" passHref>
-      <div ref={tiltRef} className="card w-full sm:w-48 md:w-64 lg:w-80 xl:w-96 2xl:w-128 glass ml-0 sm:ml-1 md:ml-2 lg:ml-3 xl:ml-4 2xl:ml-6 mt-10 cursor-pointer">
+      <div
+        ref={tiltRef}
+        className="card w-full sm:w-48 md:w-64 lg:w-80 xl:w-96 2xl:w-128 glass ml-0 sm:ml-1 md:ml-2 lg:ml-3 xl:ml-4 2xl:ml-6 mt-10 cursor-pointer"
+      >
         <figure>
-          <Image src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairywriting-1706712965583.jpeg"
-            alt="동화 생성 선택" 
-            width={500} 
+          <Image
+            src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairywriting-1706712965583.jpeg"
+            alt="동화 생성 선택"
+            width={500}
             height={500}
             layout="responsive"
           />
@@ -53,4 +56,3 @@ const ComplexCard = () => {
 };
 
 export default ComplexCard;
-
