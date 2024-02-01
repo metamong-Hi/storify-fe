@@ -85,7 +85,7 @@ const Page = () => {
                 onChange={handleInputChange}
               />
               <button
-                className="p-2 btn btn-ghost btn-circle btn-sm hover:bg-black/5 dark:hover:text-white"
+                className="btn btn-ghost btn-circle btn-sm hover:bg-black/5 dark:hover:text-white"
                 type="button"
                 onClick={handleSearch}
               >
