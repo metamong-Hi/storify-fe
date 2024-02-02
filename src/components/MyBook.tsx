@@ -67,7 +67,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [isImageEditorOpen, setIsImageEditorOpen] = useState(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState('');
   const [editedImageUrl, setEditedImageUrl] = useState('');
-  const [currentPageIndex,setCurrentPageIndex]=useState(0);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const openImageEditor = (imageUrl: string) => {
     setSelectedImageUrl(imageUrl);
     setIsImageEditorOpen(true);
@@ -208,11 +208,10 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       console.error('삭제 중 오류 발생', error);
     }
   };
-
   return (
     <>
        {isImageEditorOpen && (
-        <ImageEditorDrawer isOpen={isImageEditorOpen} onClose={closeImageEditor} onImageDrop={handleImageDrop} />
+        <ImageEditorDrawer isOpen={isImageEditorOpen} onClose={closeImageEditor} onImageDrop={handleImageDrop} hellopage={parseInt(currentPageIndex, 10)} bookId={bookId} />
       )}
 
 

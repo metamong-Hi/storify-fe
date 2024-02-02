@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Image from 'next/image';
 
-const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop }) => {
+const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) => {
   const [editedImageUrl, setEditedImageUrl] = useState('');
   // const [imageList, setImageList] = useState(Array(4).fill(null));
   const [imageUrls, setImageUrls] = useState([
@@ -35,7 +35,8 @@ const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop }) => {
   const handleDragStart = (e, imageUrl) => {
     e.dataTransfer.setData('text/plain', imageUrl);
   };
-
+  console.log(hellopage+"여기 페이지 넘어왔다");
+  console.log("북아이디다"+bookId);
   return (
     <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}>
       <List>
