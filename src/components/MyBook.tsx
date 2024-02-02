@@ -2,10 +2,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
-import { Image } from '@nextui-org/react';
+import { Image,Modal } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
 import apiService from '../services/apiService';
+import ImageEditorDrawer from './ImageEditorDrawer';
+import ImageDroppable from './ImageDroppable';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -62,6 +64,38 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [page, setPage] = useState<string[]>([]);
   const [title, setTitle] = useState('');
   const bookRef = useRef<HTMLFlipBookElement>(null);
+  const [isImageEditorOpen, setIsImageEditorOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState('');
+  const [editedImageUrl, setEditedImageUrl] = useState('');
+  const [currentPageIndex,setCurrentPageIndex]=useState(0);
+  const openImageEditor = (imageUrl: string) => {
+    setSelectedImageUrl(imageUrl);
+    setIsImageEditorOpen(true);
+  };
+
+  const closeImageEditor = () => {
+    setIsImageEditorOpen(false);
+    setSelectedImageUrl('');
+    setEditedImageUrl('');
+  };
+  const handleFlip = (pageIndex) => {
+    console.log(pageIndex + "pageIndex임");
+    setCurrentPageIndex(pageIndex.data);
+  };
+  
+  useEffect(() => {
+    console.log(currentPageIndex + "페이지임");
+  }, [currentPageIndex]);
+  const handleImageDrop = (droppedImageUrl) => {
+    
+    const updatedPage = [...page]; 
+     updatedPage[currentPageIndex] = droppedImageUrl; 
+    setPage(updatedPage); 
+
+
+  closeImageEditor();
+  };
+
   interface HTMLFlipBookElement extends HTMLElement {
     pageFlip(): PageFlip;
   }
@@ -177,6 +211,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
   return (
     <>
+       {isImageEditorOpen && (
+        <ImageEditorDrawer isOpen={isImageEditorOpen} onClose={closeImageEditor} onImageDrop={handleImageDrop} />
+      )}
+
+
       <p
         style={{
           fontSize: '1.875rem',
@@ -203,6 +242,10 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                  삭제
         </Button>  
 
+      {/* 페이지 편집 버튼 */}
+      {/* {selectedImageUrl && ( */}
+        <Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
+      {/* )} */}
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
@@ -228,7 +271,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           maxShadowOpacity={0.5}
           showCover={false}
           mobileScrollSupport={true}
-          onFlip={() => {}}
+          onFlip={handleFlip}
           onChangeOrientation={() => {}}
           onChangeState={() => {}}
           className="hi"
@@ -250,20 +293,24 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   width: '600px', // 페이지 너비 설정
                 }}
               >
-                {isEvenPage ? (
-                  <Image
-                    isZoomed
-                    width={600}
-                    height={600}
-                    src={item}
-                    alt={`Page ${index + 1}`}
-                    style={{
-                      objectFit: 'cover',
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: '20px',
-                    }}
-                  />
+               {isEvenPage ? (
+                  <ImageDroppable onDrop={handleImageDrop}>
+                    <Image
+                      isZoomed
+                      width={600}
+                      height={600}
+                      src={item}
+                      alt={`Page ${index + 1}`}
+                      style={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '20px',
+                      }}
+                      // draggable
+                      // onDragStart={(e) => handleDragStart(e, item)}
+                    />
+                  </ImageDroppable>
                 ) : (
                   <div
                     style={{

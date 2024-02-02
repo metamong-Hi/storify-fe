@@ -134,11 +134,11 @@ function LoginPage() {
   };
   return (
     <div className="flex flex-col w-full" style={{ fontFamily: 'ModernGulim' }}>
-      <Card className="max-w-full w-[340px] h-[500px]">
-        <CardBody className="overflow-hidden">
+      {/* <Card className="max-w-full w-[340px] h-[400px]">
+        <CardBody className="overflow-hidden"> */}
           <Tabs
             fullWidth
-            size="md"
+            size="sm"
             aria-label="Tabs form"
             selectedKey={selected}
             onSelectionChange={handleSelectionChange}
@@ -223,8 +223,8 @@ function LoginPage() {
               </form>
             </Tab>
           </Tabs>
-        </CardBody>
-      </Card>
+        {/* </CardBody>
+      </Card> */}
     </div>
   );
 }

@@ -64,13 +64,6 @@
   /* 기타 스타일링 */
 }
 
-/* globals.css */
-html, body {
-  height: 100%;
-  min-height: 100%;
-  background-color: #FAF3E0; /* 원하는 배경색 */
-  margin: 0; /* 기본 마진 제거 */
-}
 
 
 .flip-horizontal {
