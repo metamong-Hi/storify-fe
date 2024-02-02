@@ -33,7 +33,7 @@ const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) =>
           Authorization: `Bearer ${token}`,
         }
       });
-      console.log(`api/ai/books/${bookId}/${hellopage}/new-images`);
+      console.log(`api/ai/books/${bookId}/${realPageNumber}/new-images`);
       console.log("요청은 보냈음");
       if (!response.ok) {
         throw new Error('이미지 못사져옴');
@@ -78,10 +78,8 @@ fetchedImageUrls.forEach((imageUrl, index) => {
         style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}
       >
         {imageUrls.length === 0 ? (
-        // 이미지 데이터가 아직 로딩 중일 때
         <div>Loading...</div>
       ) : (
-        // 이미지 데이터가 로딩되면 매핑
         imageUrls.map((imageUrl, index) => (
           <div
             key={index}
