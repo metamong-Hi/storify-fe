@@ -15,7 +15,8 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
+    // token = localStorage.getItem('token');
+    token=sessionStorage.getItem('token');
   }
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);

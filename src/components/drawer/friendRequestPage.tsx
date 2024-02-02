@@ -19,7 +19,8 @@ function FriendRequest(){
   
     const handleFriendRequestSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       alert('여기까지 왔다 친구신청');
-      const token=localStorage.getItem('token')
+      // const token=localStorage.getItem('token')
+      const token=sessionStorage.getItem('token');
       const name=formRequestData.receiver;
       console.log(name);
       console.log(token);

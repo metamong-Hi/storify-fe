@@ -55,7 +55,8 @@ interface MyBookProps {
 
 let token: string | null;
 if (typeof window !== 'undefined') {
-  token = localStorage.getItem('token');
+  // token = localStorage.getItem('token');
+  token=sessionStorage.getItem('token');
 }
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [page, setPage] = useState<string[]>([]);

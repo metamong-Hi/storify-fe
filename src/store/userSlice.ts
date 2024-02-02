@@ -135,12 +135,16 @@ export const userSlice = createSlice({
                 state.username = action.payload.username;
                 state.refreshToken=action.payload.refreshToken;
                 if (typeof window !== 'undefined') {
-                    localStorage.setItem('token', action.payload.accessToken);
-                    localStorage.setItem('username', action.payload.username);
-                    localStorage.setItem('refreshToken',action.payload.refreshToken);
-                    console.log(localStorage.getItem('token'));
-                    console.log(localStorage.getItem('username'));
-                    console.log(localStorage.getItem('refreshToken'));
+                    // localStorage.setItem('token', action.payload.accessToken);
+                    // localStorage.setItem('username', action.payload.username);
+                    // localStorage.setItem('refreshToken',action.payload.refreshToken);
+                    sessionStorage.setItem('token', action.payload.accessToken);
+                    sessionStorage.setItem('username',action.payload.username);
+                    sessionStorage.setItem('refreshToken',action.payload.refreshToken);
+
+                    console.log(sessionStorage.getItem('token'));
+                    console.log(sessionStorage.getItem('username'));
+                    console.log(sessionStorage.getItem('refreshToken'));
                 }
 
                 console.log('로그인 성공:', action.payload);
@@ -153,11 +157,14 @@ export const userSlice = createSlice({
             .addCase(logout.fulfilled, (state, action) => {
                 state.status = 'idle';
                 if (typeof window !== 'undefined') {
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('username');
-                    localStorage.removeItem('refreshToken');
-                    console.log(localStorage.getItem('token'));
-                    console.log(localStorage.getItem('refreshToken'));
+                    // localStorage.removeItem('token');
+                    // localStorage.removeItem('username');
+                    // localStorage.removeItem('refreshToken');
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('username');
+                    sessionStorage.removeItem('refreshToken');
+                    console.log(sessionStorage.getItem('token'));
+                    console.log(sessionStorage.getItem('refreshToken'));
                 }
                 state.token = null;
                 state.refreshToken=null;
@@ -175,7 +182,7 @@ export const userSlice = createSlice({
                 if (typeof window !== 'undefined') {
                     // localStorage.setItem('token', action.payload.accessToken);
                     // localStorage.setItem('username', action.payload.username);
-
+               
                     console.log("리프레시 토큰 발급 실패");
                 }
 

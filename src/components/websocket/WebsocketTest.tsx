@@ -11,11 +11,13 @@ const WebSocketTest: React.FC = () => {
     const newSocket = new WebSocket(`ws://storify-be.fly.dev:3000`);
     console.log(newSocket);
     console.log("야 여기다");
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
+    const token=sessionStorage.getItem('token');
     console.log("여기가 토큰임"+token);
     newSocket.onopen = () => {
       console.log('WebSocket 연결됨');
-      const token = localStorage.getItem('token');
+      // const token = localStorage.getItem('token');
+      const token=sessionStorage.getItem('token');
       console.log("여기가 토큰임"+token);
     newSocket.send(JSON.stringify({ event: 'connection', token }));
     };

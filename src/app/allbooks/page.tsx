@@ -64,7 +64,7 @@ const Page = () => {
 
   return (
     <div className="container flex justify-center items-center p-5">
-      <div className="flex flex-col w-[100vw] h-[92vh] ">
+      <div className="flex flex-col ">
         <div className="flex flex-hor justify-between">
           <Tabs key="sortByOptions" className="flex justify-start itmes-center pl-5">
             {sortOptions.map((option) => (
@@ -85,7 +85,7 @@ const Page = () => {
                 onChange={handleInputChange}
               />
               <button
-                className="p-2 btn btn-ghost btn-circle btn-sm hover:bg-black/5 dark:hover:text-white"
+                className="btn btn-ghost btn-circle btn-sm hover:bg-black/5 dark:hover:text-white"
                 type="button"
                 onClick={handleSearch}
               >

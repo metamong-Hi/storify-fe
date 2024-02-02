@@ -39,7 +39,7 @@ const placeholderImages = [
 ];
 
 const ComplexWritingForm  = () => {
-  let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  let token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [audioSrc, setAudioSrc] = useState(''); // 오디오 소스
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);

@@ -134,7 +134,7 @@ function LoginPage() {
   };
   return (
     <div className="flex flex-col w-full" style={{ fontFamily: 'ModernGulim' }}>
-      <Card className="max-w-full w-[340px] h-[400px]">
+      <Card className="max-w-full w-[340px] h-[500px]">
         <CardBody className="overflow-hidden">
           <Tabs
             fullWidth

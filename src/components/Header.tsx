@@ -22,8 +22,9 @@ const Header: React.FC<HeaderProps> = (props) => {
     console.log(realToken);
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const token = localStorage.getItem('token');
-            setUsername(localStorage.getItem('username') || '');
+            // const token = localStorage.getItem('token');
+            const token=sessionStorage.getItem('token');
+            setUsername(sessionStorage.getItem('username') || '');
             // setUsername(hihi);
             setIsLoggedIn(!!token);
         }
@@ -40,7 +41,8 @@ const Header: React.FC<HeaderProps> = (props) => {
     const handleClickLogout = () => {
         dispatch(logout())
             .then(() => {
-                localStorage.removeItem('token');
+                // localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
                 setIsLoggedIn(false);
                 console.log('로그아웃 성공함');
             })
