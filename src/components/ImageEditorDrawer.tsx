@@ -15,16 +15,18 @@ const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) =>
     // 'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg',
     // 'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg',
   //]);
+
+  // 0 1 2 2 4 3 6 4 8 5 10 6 
+  // 1 1 3 2 5 3 7 4 9 5 11 6
+  // 2 1 4 2 6 3 8 4 10 5
   const [imageUrls, setImageUrls] = useState([]);
   const token=sessionStorage.getItem('token');
-  const realPageNumber=hellopage/2;
-  console.log(realPageNumber);
-  console.log(hellopage+"헬로페이지다")
-  console.log(bookId+"북아이디 넘어왔다고")
-  console.log("토큰이 문제인가"+token);
+  const realPageNumber=(hellopage+2)/2;
+  console.log("내가 제대로 계산한게 맞나"+realPageNumber);
+
   const fetchImages = async () => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/ai/books/${bookId}/${hellopage}/new-images`,{
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/ai/books/${bookId}/${realPageNumber}/new-images`,{
         method:'GET',
         headers:{
           'Content-Type': 'application/json',
