@@ -1,10 +1,9 @@
 "use client"
-import React, { useState } from 'react';
-import SimpleCard from '@/components/objects/cards/simple';
-import ComplexCard from '@/components/objects/cards/complex';
+import React from 'react';
+import SimpleCard from '@/components/objects/cards/Simple';
+import ComplexCard from '@/components/objects/cards/Complex';
 
-const Writing: React.FC = () => {
-
+const WritingPage: React.FC = () => {
   return (
     <>
       <SimpleCard />
@@ -13,5 +12,4 @@ const Writing: React.FC = () => {
   );
 };
 
-export default Writing;
-
+export default WritingPage;

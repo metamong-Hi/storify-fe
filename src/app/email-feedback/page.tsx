@@ -1,8 +1,6 @@
 "use client"
 import React, { useState, useRef } from 'react';
-import EmailFeedBack from '@/components/forms/emailFeedBack';
-import Image from 'next/image';
-
+import EmailFeedBack from '@/components/forms/email-feedback';
 const EmailFeedBackPage: React.FC = () => {
   const [formText, setFormText] = useState('');
   return (
