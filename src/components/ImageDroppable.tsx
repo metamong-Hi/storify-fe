@@ -4,7 +4,7 @@ const ImageDroppable = ({ onDrop, children }) => {
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedImageUrl = e.dataTransfer.getData('text/plain');
-    onDrop(droppedImageUrl);
+    onDrop(`data:image/jpeg;base64,${droppedImageUrl}`);
   };
 
   const handleDragOver = (e) => {
