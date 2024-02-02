@@ -53,7 +53,7 @@ const config: Config = {
         '4xl': '2rem',
       },
       fontSize: {
-        '2xl': '2rem',
+        '2xl': '1.75rem',
         '3xl': '2.25rem',
         '4xl': '2.75rem',  
         '5xl': '3.25rem',     
