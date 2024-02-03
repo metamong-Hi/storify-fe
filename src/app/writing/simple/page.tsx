@@ -18,16 +18,25 @@ const SimpleWritingPage: React.FC = () => {
   
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
-    recognition.interimResults = true; 
+    recognition.interimResults = true;
     recognition.lang = 'ko-KR';
   
+    let finalTranscript = '';
+
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const currentTranscript = Array.from(event.results)
-        .map(result => result[0].transcript)
-        .join('');
-      setText(currentText => currentText + currentTranscript); // 기존 텍스트에 추가
-      dispatch(setReduxText(currentTranscript)); // Redux 스토어를 업데이트할 때는 현재 전송된 텍스트만을 사용
+      let interimTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const transcriptionPiece = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcriptionPiece;
+        } else {
+          interimTranscript += transcriptionPiece;
+        }
+      }
+      setText(finalTranscript + interimTranscript);
+      dispatch(setReduxText(finalTranscript + interimTranscript));
     };
+
     if (isListening) {
       recognition.start();
     } else {
@@ -42,7 +51,7 @@ const SimpleWritingPage: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
     setText(newValue);
-    dispatch(setReduxText(newValue)); // 여기서 직접 값을 전달합니다.
+    dispatch(setReduxText(newValue));
   };
 
   return (
