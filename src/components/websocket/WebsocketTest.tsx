@@ -1,72 +1,73 @@
-
 "use client"
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { io } from 'socket.io-client';
 
-const WebSocketTest: React.FC = () => {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [messages, setMessages] = useState<string[]>([]);
-  const [input, setInput] = useState('');
-
+const WebSocketPage = () => {
   useEffect(() => {
-    const newSocket = new WebSocket(`ws://storify-be.fly.dev:3000`);
-    console.log(newSocket);
-    console.log("야 여기다");
-    // const token = localStorage.getItem('token');
-    const token=sessionStorage.getItem('token');
-    console.log("여기가 토큰임"+token);
-    newSocket.onopen = () => {
-      console.log('WebSocket 연결됨');
-      // const token = localStorage.getItem('token');
-      const token=sessionStorage.getItem('token');
-      console.log("여기가 토큰임"+token);
-    newSocket.send(JSON.stringify({ event: 'connection', token }));
-    };
+    const serverUrl = 'http://storify-be.fly.dev:3000'; 
+    const token = sessionStorage.getItem('token'); 
+    console.log("토큰이다"+token);
+    // const socket = io(serverUrl, {
+    //   extraHeaders: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   withCredentials: true,
+    // });
+    // const socket = io(serverUrl, {
+    //   transports:[Websocket]
+    //   auth: {
+    //     token: `Bearer ${token}`,
+    //   },
+    //   withCredentials: true,
+    // });
+  //   const socket = io(serverUrl, {
+  //   transports: ["websocket"],
+  //   extraHeaders: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  //   withCredentials:true,
+  // });
+    // const socket = io(serverUrl, {
+    //   withCredentials: true, // CORS 시 크로스 도메인 쿠키를 지원하기 위해 true 설정
+    //   transportOptions: {
+    //     polling: {
+    //       extraHeaders: {
+    //         'Authorization': `Bearer${token}` // 필요한 경우 인증 토큰을 설정
+    //       }
+    //     }
+    //   } 
+    // });
+    const socket = io(serverUrl, {
+      transports: ['websocket'] ,
+      extraHeaders: {
+        Authorization: `Bearer ${token}`
+      },
+      withCredentials:true
+    });
+    socket.on('connect', () => {
+      console.log('Connected to the server');
 
-    newSocket.onmessage = (event) => {
-      setMessages(prev => [...prev, event.data]);
-    };
+      // const friendRequestData = {
+      //   senderId: 'user1',
+      //   receiverId: 'user2',
+      // };
+      // socket.emit('friendRequest', friendRequestData);
+    });
 
-    newSocket.onclose = () => {
-      console.log('WebSocket 연결 종료됨');
-    };
-    newSocket.onerror = (event) => {
-      console.error('WebSocket 오류 발생:', event);
-    };
-    setSocket(newSocket);
+    socket.on('friendRequest', (data) => {
+      console.log('Friend request received', data);
+    });
 
     return () => {
-      newSocket.close();
+      socket.disconnect();
     };
   }, []);
 
-  const sendFriendRequest = () => {
-    if (socket) {
-      const messageData = {
-        senderId: 'yourSenderId',
-        receiverId: input
-      };
-      socket.send(JSON.stringify({ event: 'friendRequest', data: messageData }));
-      setInput('');
-    }
-  };
-
   return (
     <div>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={sendFriendRequest}>친구 요청 보내기</button>
-
-      <div>
-        <h2>수신된 메시지:</h2>
-        {messages.map((msg, idx) => (
-          <p key={idx}>{msg}</p>
-        ))}
-      </div>
+      <h1>WebSocket Page</h1>
     </div>
   );
 };
 
-export default WebSocketTest;
+export default WebSocketPage;
