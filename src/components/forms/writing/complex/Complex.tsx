@@ -32,8 +32,19 @@ const loadingTexts = [
   '곧 요정이 동화를 써 줄 거예요.',
 ];
 
+<<<<<<< HEAD:src/components/forms/writingForms/complex/complexWritingForm.tsx
+const placeholderImages = [
+  'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9d5aef20c56218c80e6e2-1706677692729-1.png', 
+  'https://s3.ap-northeast-2.amazonaws.com/storifybucket/65b9b294dc18773bfb2c5eb1-1706668707969-4.png',
+  'https://s3.ap-northeast-2.amazonaws.com/storify/65b9f5c38118efce9c1878d2-1706685907715-1.png',
+];
+
+const ComplexWritingForm  = () => {
+  let token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+=======
 const ComplexWritingForm = () => {
   let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+>>>>>>> 1b421194ee497d1d24e4cd7a03089d65f28a99e7:src/components/forms/writing/complex/Complex.tsx
   const [audioSrc, setAudioSrc] = useState(''); // 오디오 소스
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);

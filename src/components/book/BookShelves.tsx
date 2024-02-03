@@ -104,6 +104,12 @@ const Book = ({ book, index }: BookComponentProps) => {
     imageURL = '/images/bookCover.png';
   }
 
+  let token = '';
+  if (typeof window !== 'undefined') {
+    // token = localStorage.getItem('token') ?? '';
+    token = sessionStorage.getItem('token') ?? '';
+  }
+
   const user = {
     _id: book.userId?._id,
     avatar:
