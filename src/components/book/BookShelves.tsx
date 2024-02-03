@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use, useCallback, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
 
@@ -10,38 +10,102 @@ import { getAllBooks } from './AllBooks';
 import { set } from 'lodash';
 import { LikeIcon } from '@/components/icons/LikeIcon';
 
-interface BookShelvesProps {
-  books: BooksData[];
-  search: string;
-  limit: number;
+import { jwtDecode } from 'jwt-decode';
+import { error } from 'console';
+
+import debounce from 'lodash/debounce';
+import PropTypes from 'prop-types';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+interface User {
+  _id: string;
+  avatar: string;
+  bookshelfLink: string;
+  name: string;
+}
+interface userData extends BooksData {
+  userId?: User;
 }
 
-interface BookProps {
+BookShelves.propTypes = {
+  books: PropTypes.array.isRequired,
+  // ... other props
+};
+interface BookShelvesProps {
+  books: Array<BooksData>;
+  limit: number;
+  search: string;
+}
+
+interface BookComponentProps {
   book: BooksData;
   index: number;
 }
 
-const Book = ({ book, index }: BookProps) => {
-  const [liked, setLiked] = React.useState(false);
+const Book = ({ book, index }: BookComponentProps) => {
+  let token = '';
+
+  if (typeof window !== 'undefined') {
+    const storedToken = localStorage.getItem('token');
+    token = storedToken && storedToken !== 'undefined' ? storedToken : '';
+  }
+
+  const whoIsLoggedIn = token ? jwtDecode(token) : null;
+  const isInitiallyLiked = book.likes?.some((like) => like === whoIsLoggedIn?.sub);
+  const [liked, setLiked] = useState<boolean>(isInitiallyLiked ?? false);
+  const [likeCount, setLikeCount] = useState<number>(book.likes?.length || 0);
+
+  const sendLikeRequestToServer = async (likeStatus: boolean) => {
+    const method = likeStatus ? 'POST' : 'DELETE';
+    const response = await fetch(`${API_URL}/api/books/${book._id}/likes`, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send like request to server');
+    }
+
+    return response.json();
+  };
+
+  const debouncedFunction = debounce(async (prevLiked: boolean) => {
+    setLiked((prevLiked) => !prevLiked);
+    setLikeCount((prevCount) => (prevLiked ? prevCount + 1 : prevCount - 1));
+
+    try {
+      await sendLikeRequestToServer(prevLiked);
+    } catch (error) {
+      // Revert state if the request fails
+      setLiked((prevLiked) => !prevLiked);
+      setLikeCount((prevCount) => (prevLiked ? prevCount + 1 : prevCount - 1));
+      console.error('Failed to like/unlike the book:', error);
+    }
+  }, 300);
+
+  const debouncedHandleLike = useCallback(() => {
+    // Call the debounced function with the new like status
+    debouncedFunction(!liked);
+  }, [debouncedFunction, liked]);
+
   let imageURL;
 
   try {
-    const body = book.body || null;
-    const noBookImg = body ? body[1].imageUrl : '/images/bookCover.png';
-    const isValidCoverUrl =
-      book.coverUrl &&
-      (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'));
-    imageURL = isValidCoverUrl ? book.coverUrl : noBookImg;
+    const noBookImg =
+      book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
+        ? book.coverUrl
+        : '/images/bookCover.png';
+    imageURL = book.thumbnail ? book.thumbnail : noBookImg;
   } catch (error) {
     imageURL = '/images/bookCover.png';
   }
 
-  let token = '';
-  if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token') ?? '';
-  }
-
   const user = {
+    _id: book.userId?._id,
     avatar:
       'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
     bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
@@ -53,13 +117,16 @@ const Book = ({ book, index }: BookProps) => {
       key={index}
       className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
-      <div className="transition-transform duration-500 hover:scale-105">
-        <Link href={`/book/${encodeURIComponent(book?._id ?? '')}`}>
+      <div className="object-center transition-transform duration-500 hover:scale-105">
+        <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
           <Image
-            src={imageURL ?? ''}
+            src={imageURL}
+            priority={true}
             alt="Book Cover Image"
-            height={400} // Adjust the height to match your design
-            width={400} // Adjust the width to match your design
+            className="object-contain w-full h-full "
+            height={200}
+            width={200}
+            quality={90} // 품질 설정
           />
         </Link>
       </div>
@@ -89,14 +156,13 @@ const Book = ({ book, index }: BookProps) => {
               className={`btn btn-ghost btn-circle btn-sm ${
                 token ? '' : 'hover:bg-transparent hover:text-current'
               }`}
-              onClick={token ? () => setLiked(!liked) : undefined}
+              onClick={token ? debouncedHandleLike : undefined}
             >
               <HeartIcon
                 className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
               />
             </button>
-
-            <span className="text-sm">{book.count}</span>
+            <span className="text-sm">{likeCount}</span>
           </div>
         </div>
       </div>
@@ -104,10 +170,10 @@ const Book = ({ book, index }: BookProps) => {
   );
 };
 
-export default function BookShelves({ books, limit, search }: BookShelvesProps) {
+export default function BookShelves({ books = [], limit, search }: BookShelvesProps) {
   return (
     <div className="flex justify-center p-5">
-      {books.length > 0 ? (
+      {books?.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {books.map((book, index) => (
             <Book key={index} book={book} index={index} />

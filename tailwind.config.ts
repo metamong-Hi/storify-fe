@@ -16,10 +16,10 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       screens: {
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
         '2xl': '1536px',
       },
       spacing: {
@@ -48,15 +48,15 @@ const config: Config = {
         '4/5': '80%',
       },
       borderRadius: {
-        '2xl' : '1.5rem',
-        '3xl' : '1.75rem',
+        '2xl': '1.5rem',
+        '3xl': '1.75rem',
         '4xl': '2rem',
       },
       fontSize: {
         '2xl': '1.75rem',
         '3xl': '2.25rem',
-        '4xl': '2.75rem',  
-        '5xl': '3.25rem',     
+        '4xl': '2.75rem',
+        '5xl': '3.25rem',
         '6xl': '4rem',
         '7xl': '5rem',
       },
@@ -74,6 +74,11 @@ const config: Config = {
         '160': '48rem',
       },
       keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+
         spin: {
           '0%': { transform: 'rotateY(0deg)' },
           '100%': { transform: 'rotateY(360deg)' },
@@ -101,6 +106,7 @@ const config: Config = {
         'spin-slow': 'spin 5s linear infinite',
         wiggle: 'wiggle 2s ease-in-out infinite',
         ottogi: 'ottogi 2s ease-in-out infinite',
+        shake: 'shake 0.5s ease-in-out infinite',
       },
     },
   },
