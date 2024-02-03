@@ -16,6 +16,10 @@ export interface BooksData {
   _id?: string;
   storyId?: string;
   coverUrl?: string;
+  thumbnail?: string;
+  isPrivate?: boolean;
+  likes?: [];
+  dislikes?: [];
   createdAt?: string;
   imageStyle?: string;
   status?: string;
