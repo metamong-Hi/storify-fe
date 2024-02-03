@@ -14,6 +14,9 @@ interface BookResponseData {
 interface ImageItem {
   imageUrl: string;
 }
+const Skeleton = () => {
+  return <div className="skeleton w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"></div>;
+};
 
 const SimpleResultPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,9 +31,7 @@ const SimpleResultPage: React.FC = () => {
   const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
   const [showNavigateButton, setShowNavigateButton] = useState(false);
 
-  const Skeleton = () => {
-    return <div className="skeleton w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"></div>;
-  };
+
 
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
