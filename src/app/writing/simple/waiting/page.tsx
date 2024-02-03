@@ -5,19 +5,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/index'; // 경로는 프로젝트 설정에 맞게 조정하세요.
-import { setBookContent, setBookId } from '@/store/bookSlice'; // 경로는 프로젝트 설정에 맞게 조정하세요.
+import { RootState } from '@/store/index';
+import { setBookContent, setBookId } from '@/store/bookSlice'; 
 import Link from 'next/link';
-
-// API 응답 데이터 구조에 대한 인터페이스 정의
-interface BookResponseData {
-  _id: string;
-  body: Record<string, ImageItem>;
-}
-
-interface ImageItem {
-  imageUrl: string;
-}
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -41,6 +31,9 @@ const SimpleWaitingPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+
+      if (isSuccess) return;
+
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/stories`, {
           method: 'POST',
@@ -65,7 +58,7 @@ const SimpleWaitingPage: React.FC = () => {
     };
 
     fetchData();
-  }, [text, dispatch, token]);
+  }, [text,isSuccess, dispatch, token]);
 
   return (
     <div className="w-[60vw] h-[20vh]">
@@ -85,14 +78,14 @@ const SimpleWaitingPage: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
-      {isSuccess && (
+      {isSuccess?
+       (
         <div className="flex justify-center mt-4">
           <Link href="/writing/simple/result">
-            <button>결과 보러 가기</button>
+            <button className="btn btn-outline btn-success">결과 보러 가기</button>
           </Link>
         </div>
-      )}
+      ) : (<span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>)}
     </div>
   );
 };

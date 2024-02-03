@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
-import { setBookContent, setBookId, setImageUrls } from '@/store/bookSlice';
+import { setBookId, setImageUrls } from '@/store/bookSlice';
 
 interface BookResponseData {
   _id: string;
@@ -19,16 +19,14 @@ const SimpleResultPage: React.FC = () => {
   const dispatch = useDispatch();
   let token: string | null = null;
   const bookContent = useSelector((state: RootState) => state.book.content);
-
   const bookId = useSelector((state: RootState) => state.book.bookId);
-  const [responseContent, setResponseContent] = useState('');
+  const imageUrls = useSelector((state: RootState) => state.book.imageUrls);
   const [displayedText, setDisplayedText] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [realImagesLoaded, setRealImagesLoaded] = useState(false);
   const [isTypingCompleted, setIsTypingCompleted] = useState(false);
   const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
   const [showNavigateButton, setShowNavigateButton] = useState(false);
-  const [newImageUrls, setNewImageUrls] = useState<string[]>([]);
 
   const Skeleton = () => {
     return <div className="skeleton w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"></div>;
@@ -39,13 +37,10 @@ const SimpleResultPage: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(bookContent, bookId, newImageUrls);
-  }, [bookContent, bookId, newImageUrls]);
-
-  useEffect(() => {
-    // POST 요청을 보내는 함수를 정의합니다.
+    if (realImagesLoaded || !bookContent || !bookId) {
+      return;
+    }
     const sendBookData = async () => {
-      if (bookContent && bookId) {
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/books`, {
             method: 'POST',
@@ -55,28 +50,32 @@ const SimpleResultPage: React.FC = () => {
             },
             body: JSON.stringify({
               imageStyle: 'cartoon',
-              content: bookContent,
-              id: bookId,
+              aiStory: bookContent,
+              storyId: bookId,
             }),
           });
           if (response.ok) {
             const responseData = (await response.json()) as BookResponseData;
-            console.log("API Response Data:", responseData); // 응답 데이터 로깅
+            dispatch(setBookId(responseData._id));
             const imageUrls = Object.values(responseData.body).map(
               (item: ImageItem) => item.imageUrl,
             );
-            dispatch(setBookId(responseData._id));
             dispatch(setImageUrls(imageUrls));
-            setNewImageUrls(imageUrls);
+            setRealImagesLoaded(true);
           }
         } catch (error) {
           console.error('Error:', error);
         }
-      }
     };
 
     sendBookData();
-  }, [bookContent, bookId, token, dispatch]); // 의존성 배열에 포함
+  }, [bookContent, bookId, realImagesLoaded, token, dispatch]); 
+
+    useEffect(() => {
+      if (imageUrls.length > 0 && !realImagesLoaded) {
+        setRealImagesLoaded(true);
+      }
+    }, [imageUrls, realImagesLoaded]);
 
   useEffect(() => {
     setDisplayedText('');
@@ -107,7 +106,7 @@ const SimpleResultPage: React.FC = () => {
   }, [displayedText, bookContent]);
 
   useEffect(() => {
-    if (isTypingCompleted && newImageUrls.length > 0) {
+    if (isTypingCompleted) {
       setIsImageBlurCompleted(false);
       setTimeout(() => {
         setIsImageBlurCompleted(true);
@@ -118,7 +117,7 @@ const SimpleResultPage: React.FC = () => {
         }, 2000);
       }, 5000);
     }
-  }, [isTypingCompleted, newImageUrls, bookId]);
+  }, [isTypingCompleted, bookId]);
 
   useEffect(() => {
     const scrollToBottom = () => {
@@ -149,24 +148,23 @@ const SimpleResultPage: React.FC = () => {
       ></textarea>
       <div className="divider"></div>
       <div className="flex justify-around gap-2">
-        {realImagesLoaded ? (
-          newImageUrls.map((url, index) => (
-            <Image
-              key={index}
-              src={url}
-              alt={`Image ${index + 1}`}
-              width={256}
-              height={256}
-              className="rounded-md blur-effect1 w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"
-            />
-          ))
-        ) : (
-          <>
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </>
-        )}
+      { realImagesLoaded ? (
+        imageUrls.map((url, index) => (
+          <Image
+            key={index}
+            src={url}
+            alt={`Image ${index + 1}`}
+            width={256}
+            height={256}
+            className="rounded-md blur-effect1 w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"
+          />
+        ))
+      ) : (
+        Array.from({ length: imageUrls.length || 3 }, (_, index) => (
+          <Skeleton key={index} />
+        ))
+      )}
+
       </div>
       {showNavigateButton && (
         <Link href={`/book/${bookId}`} passHref>
