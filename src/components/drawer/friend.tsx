@@ -29,7 +29,8 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     const fetchFriends = async () => {
       console.log("여기까지 들어옴 친구")
-      const token=localStorage.getItem('token')
+      // const token=localStorage.getItem('token')
+      const token=sessionStorage.getItem('token');
       try {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL +`/api/friends/${token}`,{
           method: 'GET',

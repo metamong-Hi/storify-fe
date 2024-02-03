@@ -49,8 +49,9 @@ const NavbarComponent = () => {
   console.log(realToken);
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
-      setUsername(localStorage.getItem('username') || '');
+      // const token = localStorage.getItem('token');
+      const token=sessionStorage.getItem('token');
+      setUsername(sessionStorage.getItem('username') || '');
       setIsLoggedIn(!!token);
     }
   }, []);
@@ -66,7 +67,8 @@ const NavbarComponent = () => {
   const handleClickLogout = () => {
     dispatch(logout())
       .then(() => {
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         setIsLoggedIn(false);
         alert('로그아웃');
       })
@@ -128,7 +130,7 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-                  <span className="text-[#B68973] text-xl font-semibold  pr-0">{username}</span>님
+                  <span className="text-[#B68973] text-xl font-bold  pr-2">{username}</span>님
                   환영합니다
                 </span>
               </NavbarItem>
@@ -139,7 +141,7 @@ const NavbarComponent = () => {
                     isBordered
                     color="default"
                     size="md"
-                    src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
+                    src="https://images.unsplash.com/broken"
                     className="mr-2"
                   />
                 </DropdownTrigger>
@@ -193,6 +195,7 @@ const NavbarComponent = () => {
           <NavbarMenuItem></NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
+      {/*daisyUI 합의*/}
       {/* <dialog id="my_modal_3" className="modal">
   <div className="modal-box">
     <form method="dialog">

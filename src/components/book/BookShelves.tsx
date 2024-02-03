@@ -45,10 +45,9 @@ interface BookComponentProps {
 
 const Book = ({ book, index }: BookComponentProps) => {
   let token = '';
-
   if (typeof window !== 'undefined') {
-    const storedToken = localStorage.getItem('token');
-    token = storedToken && storedToken !== 'undefined' ? storedToken : '';
+    // token = localStorage.getItem('token') ?? '';
+    token = sessionStorage.getItem('token') ?? '';
   }
 
   const whoIsLoggedIn = token ? jwtDecode(token) : null;
