@@ -1,4 +1,4 @@
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function WritingLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
       <div className="min-h-[100vh] bg-[#FAF3E0] w-full flex flex-col items-center  ">
