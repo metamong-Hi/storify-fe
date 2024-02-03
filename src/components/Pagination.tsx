@@ -67,8 +67,8 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
               <li key={number}>
                 <button
                   onClick={() => handleClick(number)}
-                  className={`text-xs font-semibold flex w-full p-4 border-t border-b border-l border-gray-200 bg-white text-gray-800 ${
-                    currentPage === number ? 'bg-gray-300' : ''
+                  className={`text-xs font-semibold flex w-full p-4 border-t border-b border-l border-gray-200 ${
+                    currentPage === number ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'
                   }`}
                 >
                   {number}
