@@ -20,7 +20,7 @@ interface Exchange {
 const ComplexWritingPage: React.FC = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
-  let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  let token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [audioSrc, setAudioSrc] = useState('');
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);

@@ -26,12 +26,11 @@ const ComplexWaitingPage: React.FC = () => {
   let token: string | null = null;
 
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
+    token = sessionStorage.getItem('token');
   }
 
   useEffect(() => {
     const combinedText = texts.join(' ');
-    console.log(combinedText);
     const fetchData = async () => {
       if (isSuccess) return;
 
@@ -83,7 +82,7 @@ const ComplexWaitingPage: React.FC = () => {
       </Swiper>
       {isSuccess ? (
         <div className="flex justify-center mt-4">
-          <Link href="/writing/simple/result">
+          <Link href="/writing/complex/result">
             <button className="btn btn-outline btn-success">결과 보러 가기</button>
           </Link>
         </div>

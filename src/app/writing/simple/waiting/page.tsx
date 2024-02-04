@@ -26,7 +26,7 @@ const SimpleWaitingPage: React.FC = () => {
   let token: string | null = null;
 
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
+    token = sessionStorage.getItem('token');
   }
 
   useEffect(() => {
