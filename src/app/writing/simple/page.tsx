@@ -8,6 +8,7 @@ const SimpleWritingPage: React.FC = () => {
   const [text, setText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const dispatch = useDispatch();
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -20,23 +21,21 @@ const SimpleWritingPage: React.FC = () => {
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'ko-KR';
-  
-    let finalTranscript = '';
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      let interimTranscript = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        const transcriptionPiece = event.results[i][0].transcript;
-        if (event.results[i].isFinal) {
-          finalTranscript += transcriptionPiece;
-        } else {
-          interimTranscript += transcriptionPiece;
-        }
-      }
-      setText(finalTranscript + interimTranscript);
-      dispatch(setReduxText(finalTranscript + interimTranscript));
+      const speechEvent = event as SpeechRecognitionEvent;
+      const transcript = Array.from(speechEvent.results)
+        .map(result => result[0].transcript)
+        .join('');
+      setText(transcript);
+      dispatch(setReduxText(transcript));
     };
 
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      setError('Speech recognition error: ' + event.error);
+    };
+
+  
     if (isListening) {
       recognition.start();
     } else {
@@ -70,7 +69,7 @@ const SimpleWritingPage: React.FC = () => {
             뒤로 가기
           </button>
         </Link>
-        <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-primary">
+        <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg">
           {isListening ? '마이크 끄기' : '마이크 켜기'}
         </button>
         <Link href={`/writing/simple/waiting`} passHref>

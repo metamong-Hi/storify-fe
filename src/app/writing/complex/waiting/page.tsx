@@ -31,6 +31,7 @@ const ComplexWaitingPage: React.FC = () => {
 
   useEffect(() => {
     const combinedText = texts.join(' ');
+    console.log(combinedText);
     const fetchData = async () => {
       if (isSuccess) return;
 
