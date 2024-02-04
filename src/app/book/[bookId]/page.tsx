@@ -8,7 +8,8 @@ export default function Page({ params }: { params: { bookId: string } }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); // 로그인 토큰 확인
+        // const token = localStorage.getItem('token'); // 로그인 토큰 확인
+        const token=sessionStorage.getItem('token');
         setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 간주
     }, []);
 

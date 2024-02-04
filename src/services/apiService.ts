@@ -6,7 +6,8 @@ async function apiService(endpoint: string, options?: RequestInit) {
     try {
         console.log("API 서비스 호출됨");
         
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
+        const token=sessionStorage.getItem('token');
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,

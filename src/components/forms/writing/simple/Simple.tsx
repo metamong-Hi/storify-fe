@@ -24,7 +24,8 @@ const SimpleWritingForm = () => {
   };
 
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
+    // token = localStorage.getItem('token');
+    token=sessionStorage.getItem('token');
   }
 
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
