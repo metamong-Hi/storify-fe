@@ -15,6 +15,7 @@ interface ImageEditorDrawerProps {
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
 }
 interface ImageData {
+  url:string;
 }
 
 
@@ -45,8 +46,8 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       const data: ImageData[] = await response.json(); 
       console.log(data);
       
-      // const fetchedImageUrls = data.map((imageData: ImageData) => imageData);
-      setImageUrls(data); 
+      const fetchedImageUrls = data.map((imageData: ImageData) => imageData.url);
+      setImageUrls(fetchedImageUrls);  
 
 
 
@@ -92,7 +93,6 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
             style={{
               width: 'calc(25% - 10px)',
               height: '200px',
-              border: '2px dashed #ddd',
               borderRadius: '20px',
             }}
           >
