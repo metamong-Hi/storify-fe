@@ -7,6 +7,13 @@ interface BooksResponse {
   books: BooksData[];
 }
 
+export interface GetParams {
+  page: number;
+  limit: number;
+  sort: string;
+  search: string;
+}
+
 async function GET(url: string): Promise<BooksResponse> {
   try {
     return (await fetch(url, { cache: 'no-store' })).json();
@@ -15,11 +22,16 @@ async function GET(url: string): Promise<BooksResponse> {
   }
 }
 
-export async function getAllBooks(page: number, limit: number, sort: string, search: string) {
+export async function getUserBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
+  console.log('getUserBooks', page, limit, sort, search);
+  const data = await GET(`${API_URL}/api/books?page=${page}&limit=${limit}&userId=${id}`);
+  console.log(data);
+  return data;
+}
+
+export async function getAllBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
   console.log('getAllBooks', page, limit, sort, search);
-  const data = await GET(
-    `${API_URL}/api/books?page=${page}&limit=${limit}&sort=${sort}&title=${search}`,
-  );
+  const data = await GET(`${API_URL}/api/books?page=${page}&limit=${limit}&title=${search}`);
   console.log(data);
   return data;
 }
