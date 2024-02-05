@@ -35,10 +35,14 @@ import {
   useDisclosure,
 } from '@nextui-org/react';
 
+import { jwtDecode } from 'jwt-decode';
+import { set } from 'lodash';
+
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
   const pathName = usePathname();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -50,8 +54,13 @@ const NavbarComponent = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // const token = localStorage.getItem('token');
-      const token=sessionStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       setUsername(sessionStorage.getItem('username') || '');
+      if (token) {
+        const id = jwtDecode(token);
+        setUserId(id.sub || '');
+      }
+
       setIsLoggedIn(!!token);
     }
   }, []);
@@ -94,7 +103,7 @@ const NavbarComponent = () => {
         height="4rem"
         isBordered
         onMenuOpenChange={setIsMenuOpen}
-        className="bg-[#FAF3E0]/80"
+        className="bg-[#FAF3E0]/80 font-NamuGulim"
       >
         <NavbarContent justify="start">
           <NavbarMenuToggle
@@ -108,7 +117,7 @@ const NavbarComponent = () => {
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent className="text-2xl font-bold hidden sm:flex gap-6" justify="center">
+        <NavbarContent className="text-2xl font-bold hidden sm:flex g-6" justify="center">
           {menuItems.map((item) => (
             <NavbarItem key={item.link}>
               <Link
@@ -146,8 +155,18 @@ const NavbarComponent = () => {
                   />
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem key="mypage">마이페이지</DropdownItem>
-                  <DropdownItem key="logout" onAction={() => handleClickLogout()} color="danger">
+                  <DropdownItem key="mypage" href={`/user/${userId}/bookshelf`} className="p-2">
+                    내 책장
+                  </DropdownItem>
+                  <DropdownItem key="mypage" href={`/user/${userId}/profile`} className="p-2">
+                    프로필
+                  </DropdownItem>
+                  <DropdownItem
+                    key="logout"
+                    className="p-2"
+                    onClick={() => handleClickLogout()}
+                    color="danger"
+                  >
                     로그아웃
                   </DropdownItem>
                 </DropdownMenu>
@@ -160,7 +179,6 @@ const NavbarComponent = () => {
                 <Button
                   onClick={onOpen}
                   className="font-bold text-[##B68973] border-[##B68973] border-2 bg-[#B68973]  hover:bg-gray-200 "
-
                   variant="flat"
                 >
                   로그인
@@ -171,7 +189,7 @@ const NavbarComponent = () => {
         </NavbarContent>
         <NavbarMenu>
           {menuItems.map((item, index) => (
-            <NavbarMenuItem key={index}>
+            <NavbarMenuItem key={index} className="p-1">
               <Link
                 color={isActive(item.link) ? 'primary' : 'foreground'}
                 href={item.link}
@@ -183,10 +201,10 @@ const NavbarComponent = () => {
           ))}
           {isLoggedIn ? null : (
             <>
-              <NavbarMenuItem>
+              <NavbarMenuItem className="p-1">
                 <Link href="/login">로그인</Link>
               </NavbarMenuItem>
-              <NavbarMenuItem>
+              <NavbarMenuItem className="p-1">
                 <Link href="/signup">회원가입</Link>
               </NavbarMenuItem>
             </>
@@ -205,27 +223,25 @@ const NavbarComponent = () => {
     </form>
     <h3 className="font-bold text-lg">Hello!</h3>
     <p className="py-4">Press ESC key or click on ✕ button to close</p> */}
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-    <ModalContent className="flex flex-col justify-center items-center p-4">
-      {(_onClose: any) => (
-        <>
-        <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
-        <ModalBody className="flex justify-center items-center">
-         <LoginPage />
-        </ModalBody>
-        <ModalFooter>
-          {/* <Button color="danger" variant='light' onPress={onClose}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent className="flex flex-col justify-center items-center p-4">
+          {(_onClose: any) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
+              <ModalBody className="flex justify-center items-center">
+                <LoginPage />
+              </ModalBody>
+              <ModalFooter>
+                {/* <Button color="danger" variant='light' onPress={onClose}>
           닫기
         </Button> */}
-       </ModalFooter>
-      </>
-    )}
-  </ModalContent>
-  </Modal>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 };
 
 export default NavbarComponent;
-
-

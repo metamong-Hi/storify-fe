@@ -2,45 +2,59 @@
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import BookShelves from '@/components/book/BookShelves';
-import { getAllBooks } from '@/components/book/AllBooks';
+import { GetParams, getAllBooks } from '@/components/book/AllBooks';
 import { BooksData } from '@/types/books';
 import { Tabs, Tab } from '@nextui-org/react';
 import PaginationSkeleton from '@/components/skeleton/PaginationSkeleton';
 
 import Pagination from '@/components/Pagination';
 import { SearchIcon } from '@/components/icons/SearchIcon';
+import useBooksData from '@/hooks/useBooksData';
+import usePagination from '@/hooks/usePagination';
 
-const BooksPage = () => {
+interface UseBooksDataProps {
+  getBooks: (
+    page: number,
+    limit: number,
+    sort: string,
+    search: string,
+    id: string,
+  ) => Promise<{ books: BooksData[]; total: number }>;
+  userId: string;
+}
+
+const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookShelves, setBookShelves] = useState<BooksData[]>([]);
-  const [totalItems, setTotalItems] = useState<number>(0);
   const [limit, setLimit] = useState<number>(24);
   const [writeSearch, setWriteSearch] = useState<string>('');
   const [search, setSearch] = useState<string>('');
+  const [sortBy, setSortBy] = useState<string>('');
+
+  const { bookShelves, totalItems, isLoading } = useBooksData({
+    getBooksFunction: getBooks,
+    currentPage,
+    limit,
+    sortBy,
+    search,
+    userId: userId, // Provide a value or initializer for the 'id' shorthand property
+  });
+
+  const { totalPage, paginate } = usePagination({
+    totalItems,
+    itemsPerPage: limit,
+    // 현재 페이지 상태를 usePagination으로 넘겨줍니다.
+    onPageChange: setCurrentPage, // 페이지 변경 시 호출할 함수를 넘겨줍니다.
+  });
   const sortOptions = [
     { label: '최신순', value: 'date' },
     { label: '인기순', value: 'likes' },
     { label: '제목순', value: 'title' },
   ];
-  const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
 
   const handleSortBy = (value: string) => {
     setSortBy(value);
   };
 
-  const fetchData = useCallback(
-    async (currentPage: number, limit: number, sortBy: string, search: string) => {
-      getAllBooks(currentPage, limit, sortBy, search)
-        .then((data) => {
-          setBookShelves(data.books);
-          setTotalItems(data.total);
-        })
-        .catch((error) => {
-          console.error('Failed to fetch books:', error);
-        });
-    },
-    [],
-  );
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWriteSearch(e.target.value);
   };
@@ -48,18 +62,6 @@ const BooksPage = () => {
   const handleSearch = () => {
     setSearch(writeSearch);
   };
-
-  useEffect(() => {
-    fetchData(currentPage, limit, sortBy, search);
-  }, [currentPage, limit, sortBy, search, fetchData]);
-
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const totalPage = useMemo(() => {
-    return Math.ceil(totalItems / limit);
-  }, [totalItems, limit]);
 
   return (
     <>
@@ -95,11 +97,7 @@ const BooksPage = () => {
         </div>
 
         <BookShelves books={bookShelves} limit={limit} search={search} />
-        {totalItems ? (
-          <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
-        ) : search ? null : (
-          <PaginationSkeleton />
-        )}
+        <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
       </div>
     </>
   );

@@ -27,6 +27,9 @@ const ComplexResultPage: React.FC = () => {
   const [isTypingCompleted, setIsTypingCompleted] = useState(false);
   const [isImageBlurCompleted, setIsImageBlurCompleted] = useState(false);
   const [showNavigateButton, setShowNavigateButton] = useState(false);
+  const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
 
   const Skeleton = () => {
     return <div className="skeleton w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"></div>;
@@ -120,16 +123,28 @@ const ComplexResultPage: React.FC = () => {
   }, [isTypingCompleted, bookId]);
 
   useEffect(() => {
-    const scrollToBottom = () => {
-      window.scrollTo({
-        left: 0,
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
+    const adjustScrollForElements = () => {
+      let totalHeight = 0;
+      imageRefs.current.forEach((img) => {
+        if (img) {
+          totalHeight += img.offsetHeight + 10; // 이미지 높이 + 마진
+        }
       });
+
+      if (buttonRef.current) {
+        totalHeight += buttonRef.current.offsetHeight + 10; // 버튼 높이 + 마진
+      }
+
+      if (totalHeight > 0) {
+        window.scrollBy({
+          top: totalHeight,
+          behavior: 'smooth',
+        });
+      }
     };
 
     if (realImagesLoaded || showNavigateButton) {
-      scrollToBottom();
+      adjustScrollForElements();
     }
   }, [realImagesLoaded, showNavigateButton]);
 
@@ -157,6 +172,7 @@ const ComplexResultPage: React.FC = () => {
             width={256}
             height={256}
             className="rounded-md blur-effect1 w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"
+            ref={(el) => (imageRefs.current[index] = el)}
           />
         ))
       ) : (
@@ -168,7 +184,9 @@ const ComplexResultPage: React.FC = () => {
       </div>
       {showNavigateButton && (
         <Link href={`/book/${bookId}`} passHref>
-          <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg mt-4">
+          <button 
+          ref={buttonRef}
+          className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg mt-4">
             책 보러 가기
           </button>
         </Link>
