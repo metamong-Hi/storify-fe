@@ -199,13 +199,38 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     };
   }, []); // 의존성 배열을 빈 배열로 설정하여 마운트시에만 효과 실행
 
+  const inputRef = useRef<HTMLDivElement>(null); // 입력창을 위한 ref
+
   useEffect(() => {
-    // 대화가 추가되어 화면에 표시될 때마다 실행
-    window.scrollTo({
-      top: document.documentElement.scrollHeight, // 페이지의 맨 아래로 스크롤
-      behavior: 'smooth' // 스크롤이 부드럽게 이동
-    });
-  }, [conversation]); // 대화 상태가 변경될 때마다 useEffect가 실행됩니다.
+    // 입력창의 높이에 따라 스크롤 조정
+    const adjustScroll = () => {
+      if (inputRef.current) {
+        const inputHeight = inputRef.current.offsetHeight; // 입력창의 높이
+        const screenHeight = window.innerHeight; // 화면의 높이
+        const scrollPosition = window.scrollY; // 현재 스크롤 위치
+        const bottomPosition = inputRef.current.getBoundingClientRect().bottom; // 입력창의 화면 내 위치
+
+        // 입력창이 화면 하단에 위치하도록 스크롤 조정
+        if (bottomPosition > screenHeight) {
+          window.scrollTo({
+            top: scrollPosition + (bottomPosition - screenHeight),
+            behavior: 'smooth',
+          });
+        }
+      }
+    };
+
+    // 초기 로드 및 입력창 높이 변경 시 스크롤 조정
+    adjustScroll();
+
+    // 대화가 업데이트될 때마다 스크롤 조정
+    const observer = new MutationObserver(adjustScroll);
+    if (inputRef.current) {
+      observer.observe(inputRef.current, { childList: true });
+    }
+
+    return () => observer.disconnect();
+  }, [conversation]); // 대화 상태가 변경될 때마다 실행됩니다.
 
   return (
         <div className="w-[60vw]">
@@ -279,7 +304,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           ))}
           <div className="divider"></div>
           {currentStep < 3 && (
-            <>
+            <div ref={inputRef}>
               <input
                 className="input input-success input-bordered w-full"
                 value={text}
@@ -322,7 +347,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           </Link>
         )}
               </div>
-            </>
+            </div>
           )}
         </div>
   );
