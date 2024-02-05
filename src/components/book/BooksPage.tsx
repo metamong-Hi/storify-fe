@@ -97,11 +97,7 @@ const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
         </div>
 
         <BookShelves books={bookShelves} limit={limit} search={search} />
-        {totalItems ? (
-          <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
-        ) : search ? null : (
-          <PaginationSkeleton />
-        )}
+        <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
       </div>
     </>
   );
