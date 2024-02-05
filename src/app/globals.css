@@ -56,22 +56,12 @@
   border-radius: 5px;
 }
 
-<<<<<<< HEAD
-
-
 .flip-horizontal {
   transform: scaleX(-1);
 }
 
 .custom-textarea {
   font-size: 3rem;
-=======
-html, body {
-  height: 100%;
-  min-height: 100%;
-  background-color: #FAF3E0; 
-  margin: 0; 
->>>>>>> 1b421194ee497d1d24e4cd7a03089d65f28a99e7
 }
 
 @keyframes blurFadeOut {

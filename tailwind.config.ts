@@ -10,6 +10,13 @@ const config: Config = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    fontFamily: {
+      Gulim: ['Gulim'],
+      NamuGulim: ['NamuGulim'],
+      ModernGulim: ['ModernGulim'],
+      Kids: ['Kids'],
+      Socks: ['Socks'],
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
