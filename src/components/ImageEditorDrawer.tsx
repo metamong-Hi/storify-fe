@@ -39,9 +39,12 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       if (!response.ok) {
         throw new Error('이미지 못사져옴');
       }
+
     
       const data: string[] = await response.json();
       setImageUrls(data); 
+
+      
 
 
     } catch (error) {

@@ -212,7 +212,15 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   return (
     <>
        {isImageEditorOpen && (
-        <ImageEditorDrawer isOpen={isImageEditorOpen} onClose={closeImageEditor} hellopage={parseInt(currentPageIndex.toString(), 10)} bookId={bookId} />
+        <ImageEditorDrawer
+        isOpen={isImageEditorOpen}
+        onClose={closeImageEditor}
+        hellopage={parseInt(currentPageIndex.toString(), 10)}
+        bookId={bookId}
+        imageUrls={[]} 
+        handleDragOver={(e) => e.preventDefault()} 
+        handleDragStart={(e, imageUrl) => console.log(imageUrl)} 
+      />
       )}
 
 
