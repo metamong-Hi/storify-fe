@@ -31,7 +31,9 @@ export async function getUserBooks(page = 1, limit = 24, sort = '', search = '',
 
 export async function getAllBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
   console.log('getAllBooks', page, limit, sort, search);
-  const data = await GET(`${API_URL}/api/books?page=${page}&limit=${limit}&title=${search}`);
+  const data = await GET(
+    `${API_URL}/api/books?page=${page}&limit=${limit}&title=${search}&sort=${sort}&userId=${id}`,
+  );
   console.log(data);
   return data;
 }
