@@ -115,12 +115,40 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   useEffect(() => {
     console.log(currentPageIndex + "페이지임");
   }, [currentPageIndex]);
-  const handleImageDrop = (droppedImageUrl:string) => {
+  const handleImageDrop = async(droppedImageUrl:string) => {
     
     const updatedPage = [...page]; 
      updatedPage[currentPageIndex] = droppedImageUrl; 
     setPage(updatedPage); 
 
+    const token=sessionStorage.getItem('token')
+    try {
+      const realPageNumber=(Number(currentPageIndex)+2)/2;
+      const realImage = droppedImageUrl.replace("data:image/jpeg;base64,", "");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/books/${bookId}/${realPageNumber}/new-images`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+
+          'Authorization':`Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          base64: realImage
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('이미지 감', result);
+        console.log(`${realImage}`)
+        console.log(`${bookId}`)
+        // onDrop(`data:image/jpeg;base64,${droppedImageUrl}`); 
+      } else {
+        console.error('망함', response.statusText);
+      }
+    } catch (error) {
+      console.error('업로드안됨:', error);
+    }
 
   closeImageEditor();
   };
@@ -363,11 +391,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <Button onClick={goToPreviousPage}style={{ marginRight: '10px' }}>
           이전페이지
-          <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }} />
+          {/* <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }} /> */}
         </Button>
         <Button onClick={goToNextPage}style={{ marginLeft: '10px' }}>
           다음페이지
-          <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }}/>
+          {/* <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }}/> */}
         </Button>
       </div>
    
