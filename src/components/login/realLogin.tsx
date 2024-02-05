@@ -87,7 +87,7 @@ function LoginPage() {
    
       if (action.meta.requestStatus === 'fulfilled') {
         console.log('로그인 성공');
-        showLoginSuccessAlert();
+        // showLoginSuccessAlert();
       } else {
         throw new Error('로그인 실패');
       }
