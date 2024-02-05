@@ -1,3 +1,9 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <div className="flex justify-center items-center bg-[#FAF3E0]/80">{children}</div>;
+  return (
+    <section>
+      <div className="flex justify-center items-center bg-[#FAF3E0]/80 font-NamuGulim">
+        {children}
+      </div>
+    </section>
+  );
 }
