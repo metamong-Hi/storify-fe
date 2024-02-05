@@ -5,8 +5,24 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Image from 'next/image';
+interface ImageEditorDrawerProps {
+  isOpen: boolean;
+  onClose: () => void; 
+  onImageDrop: (files: File[]) => void; 
+  hellopage: string | number;
+  bookId: string | number; 
+  imageUrls: string[];
+  handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
+}
 
-const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) => {
+interface ImageData {
+  base64: string; 
+}
+
+
+const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, onImageDrop, hellopage, bookId }) => {
+
   const [editedImageUrl, setEditedImageUrl] = useState('');
   // const [imageList, setImageList] = useState(Array(4).fill(null));
   //const [imageUrls, setImageUrls] = useState([
@@ -38,11 +54,13 @@ const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) =>
       if (!response.ok) {
         throw new Error('이미지 못사져옴');
       }
+      
       const data = await response.json();
       console.log(data);
+      
       const fetchedImageUrls = data.map(imageData => imageData); // 이미지 데이터에서 base64 추출
-fetchedImageUrls.forEach((imageUrl, index) => {
-  console.log(`이미지 ${index + 1}의 base64 문자열: ${imageUrl}`);
+      fetchedImageUrls.forEach((imageUrl, index) => {
+          console.log(`이미지 ${index + 1}의 base64 문자열: ${imageUrl}`);
 });
       setImageUrls(fetchedImageUrls);
 
@@ -56,12 +74,11 @@ fetchedImageUrls.forEach((imageUrl, index) => {
   useEffect(() => {
     fetchImages();
   }, [hellopage, bookId]);
-
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
   };
-  const handleDragStart = (e, imageUrl) => {
-    e.dataTransfer.setData('text/plain', imageUrl);
+  const handleDragStart = (e: DragEvent, imageUrl: string) => {
+    e.dataTransfer?.setData('text/plain', imageUrl);
   };
   console.log(hellopage+"여기 페이지 넘어왔다");
   console.log("북아이디다"+bookId);
