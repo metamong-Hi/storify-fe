@@ -54,6 +54,10 @@ interface PageItem {
 interface MyBookProps {
   bookId: string;
 }
+interface PageIndexData {
+  data: number;
+}
+
 
 let token: string | null;
 if (typeof window !== 'undefined') {
@@ -64,10 +68,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [page, setPage] = useState<string[]>([]);
   const [title, setTitle] = useState('');
   const bookRef = useRef<HTMLFlipBookElement>(null);
-  const [isImageEditorOpen, setIsImageEditorOpen] = useState(false);
+  const [isImageEditorOpen, setIsImageEditorOpen] = useState<boolean>(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState('');
   const [editedImageUrl, setEditedImageUrl] = useState('');
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
+  
   const openImageEditor = (imageUrl: string) => {
     setSelectedImageUrl(imageUrl);
     setIsImageEditorOpen(true);
@@ -78,7 +83,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     setSelectedImageUrl('');
     setEditedImageUrl('');
   };
-  const handleFlip = (pageIndex) => {
+  const handleFlip = (pageIndex:PageIndexData) => {
     console.log(pageIndex + "pageIndex임");
     setCurrentPageIndex(pageIndex.data);
   };
@@ -86,7 +91,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   useEffect(() => {
     console.log(currentPageIndex + "페이지임");
   }, [currentPageIndex]);
-  const handleImageDrop = (droppedImageUrl) => {
+  const handleImageDrop = (droppedImageUrl:string) => {
     
     const updatedPage = [...page]; 
      updatedPage[currentPageIndex] = droppedImageUrl; 
@@ -167,10 +172,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       })
       .then((data) => {
         setTitle(data.title);
-        // const pagesArray = Object.values(data.body);
-        // const newPages = pagesArray.flatMap(item => [item.imageUrl, item.text]);
-
-        // setPage(newPages);
         const pagesArray = Object.values(data.body) as PageItem[];
         const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
 
@@ -211,7 +212,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   return (
     <>
        {isImageEditorOpen && (
-        <ImageEditorDrawer isOpen={isImageEditorOpen} onClose={closeImageEditor} onImageDrop={handleImageDrop} hellopage={parseInt(currentPageIndex, 10)} bookId={bookId} />
+        <ImageEditorDrawer isOpen={isImageEditorOpen} onClose={closeImageEditor} hellopage={parseInt(currentPageIndex.toString(), 10)} bookId={bookId} />
       )}
 
 
