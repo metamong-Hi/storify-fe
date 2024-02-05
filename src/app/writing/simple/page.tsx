@@ -8,6 +8,7 @@ const SimpleWritingPage: React.FC = () => {
   const [text, setText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const dispatch = useDispatch();
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -18,16 +19,23 @@ const SimpleWritingPage: React.FC = () => {
   
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
-    recognition.interimResults = true; 
+    recognition.interimResults = true;
     recognition.lang = 'ko-KR';
-  
+
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const currentTranscript = Array.from(event.results)
+      const speechEvent = event as SpeechRecognitionEvent;
+      const transcript = Array.from(speechEvent.results)
         .map(result => result[0].transcript)
         .join('');
-      setText(currentText => currentText + currentTranscript); // 기존 텍스트에 추가
-      dispatch(setReduxText(currentTranscript)); // Redux 스토어를 업데이트할 때는 현재 전송된 텍스트만을 사용
+      setText(transcript);
+      dispatch(setReduxText(transcript));
     };
+
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      setError('Speech recognition error: ' + event.error);
+    };
+
+  
     if (isListening) {
       recognition.start();
     } else {
@@ -42,7 +50,7 @@ const SimpleWritingPage: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
     setText(newValue);
-    dispatch(setReduxText(newValue)); // 여기서 직접 값을 전달합니다.
+    dispatch(setReduxText(newValue));
   };
 
   return (
@@ -61,7 +69,7 @@ const SimpleWritingPage: React.FC = () => {
             뒤로 가기
           </button>
         </Link>
-        <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-primary">
+        <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg">
           {isListening ? '마이크 끄기' : '마이크 켜기'}
         </button>
         <Link href={`/writing/simple/waiting`} passHref>

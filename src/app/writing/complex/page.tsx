@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setText as setReduxText, addText } from '@/store/textSlice';
+import { addText } from '@/store/textSlice';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -20,7 +20,7 @@ interface Exchange {
 const ComplexWritingPage: React.FC = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
-  let token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  let token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [audioSrc, setAudioSrc] = useState('');
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
@@ -28,6 +28,46 @@ const ComplexWritingPage: React.FC = () => {
   const [conversation, setConversation] = useState<Exchange[]>([]);
   const [isSending, setIsSending] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isListening, setIsListening] = useState(false);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Your browser does not support Speech API. Please try Google Chrome.');
+      return;
+    }
+  
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'ko-KR';
+
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const speechEvent = event as SpeechRecognitionEvent;
+      const transcript = Array.from(speechEvent.results)
+        .map(result => result[0].transcript)
+        .join('');
+      setText(transcript);
+      console.log(transcript);
+    };
+
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      setError(`Speech recognition error: ${event.error}`);
+      console.error(`Speech recognition error: ${event.error}`);
+    };
+
+  
+    if (isListening) {
+      recognition.start();
+    } else {
+      recognition.stop();
+    }
+  
+    return () => {
+      recognition.stop();
+    };
+  }, [isListening, dispatch]);
 
   const playKeypressSound = () => {
     if (currentAudio) {
@@ -260,18 +300,21 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                     뒤로가기
                   </button>
                 </Link>
+                <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+                  {isListening ? '마이크 끄기' : '마이크 켜기'}
+                </button>
                 {currentStep < 2 ? (
           <button
-            className="btn btn-outline btn-success"
+            className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
             onClick={handleClick}
             disabled={isSending}
           >
             보내기
           </button>
         ) : (
-          <Link href={`/writing/simple/waiting`} passHref>
+          <Link href={`/writing/complex/waiting`} passHref>
             <button
-              className="btn btn-success"
+              className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
               disabled={isSending}
             >
               동화책 만들기
