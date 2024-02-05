@@ -23,7 +23,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const token=sessionStorage.getItem('token');
   const realPageNumber=(Number(hellopage)+2)/2;
-  console.log("내가 제대로 계산한게 맞나"+realPageNumber);
+  console.log("내가 제대로 계산한게 맞나"+realPageNumber); //맞음
 
   const fetchImages = async () => {
     try {
