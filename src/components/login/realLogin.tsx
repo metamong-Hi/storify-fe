@@ -8,6 +8,7 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { login } from '@/store/userSlice';
 import { signup } from '@/store/userSlice';
 import Swal from 'sweetalert2';
+import { showSignupModal } from '../signup/SignupModal';
 
 function LoginPage() {
   const [selected, setSelected] = useState('login');
@@ -102,7 +103,6 @@ function LoginPage() {
 
   const [formSignupData, setFormSignupData] = useState({
     username: '',
-    email: '',
     password: '',
   });
   const handleInputChangeSignup = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,12 +121,17 @@ function LoginPage() {
       signup({
         username: formSignupData.username,
         password: formSignupData.password,
-        email: formSignupData.email,
       }),
     )
-      .then(() => {
+    .then((action) => {
+   
+      if (action.meta.requestStatus === 'fulfilled') {
+        console.log('회원가입 성공');
         showSignupSuccessAlert();
-      })
+      } else {
+        throw new Error('회원가입 실패');
+      }
+    })
       .catch((error) => {
         console.log('회원가입 실패: ********* ', error);
         showSignupFailedAlert();
@@ -205,15 +210,7 @@ function LoginPage() {
                   value={formSignupData.password}
                   onChange={handleInputChangeSignup}
                 />
-                <Input
-                  isRequired
-                  label="이메일"
-                  placeholder="이메일을 입력하세요"
-                  type="email"
-                  name="email"
-                  value={formSignupData.email}
-                  onChange={handleInputChangeSignup}
-                />
+       
                 <p className="text-center text-small">
                   이미 계정이 있으신가요?{' '}
                   <Link size="sm" style={{ color: '#FFC4D0' }} onPress={() => setSelected('login')}>
