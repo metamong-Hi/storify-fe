@@ -22,7 +22,7 @@ const BooksPage = () => {
     { label: '인기순', value: 'likes' },
     { label: '제목순', value: 'title' },
   ];
-  const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
+  const [sortBy, setSortBy] = useState<string>('');
 
   const handleSortBy = (value: string) => {
     setSortBy(value);
