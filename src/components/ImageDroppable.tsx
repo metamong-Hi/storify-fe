@@ -1,13 +1,17 @@
-import React from 'react';
+import React,{ReactNode} from 'react';
+interface ImageDroppableProps {
+  onDrop: (droppedImageUrl: string) => void; 
+  children?: ReactNode; 
+}
 
-const ImageDroppable = ({ onDrop, children }) => {
-  const handleDrop = (e) => {
+const ImageDroppable: React.FC<ImageDroppableProps> = ({ onDrop, children }) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const droppedImageUrl = e.dataTransfer.getData('text/plain');
     onDrop(`data:image/jpeg;base64,${droppedImageUrl}`);
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
@@ -15,7 +19,7 @@ const ImageDroppable = ({ onDrop, children }) => {
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      style={{ width: '100%', height: '100%', border: '2px dashed #ddd', borderRadius: '20px' }}
+      style={{ width: '100%', height: '100%', borderRadius: '20px' }}
     >
       {children}
     </div>
