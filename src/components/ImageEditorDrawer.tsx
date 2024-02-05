@@ -8,7 +8,6 @@ import Image from 'next/image';
 interface ImageEditorDrawerProps {
   isOpen: boolean;
   onClose: () => void; 
-  onImageDrop: (files: File[]) => void; 
   hellopage: string | number;
   bookId: string | number; 
   imageUrls: string[];
@@ -16,7 +15,6 @@ interface ImageEditorDrawerProps {
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
 }
 interface ImageData {
-  base64: string;
 }
 
 
@@ -47,8 +45,8 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       const data: ImageData[] = await response.json(); 
       console.log(data);
       
-      const fetchedImageUrls = data.map((imageData: ImageData) => imageData.base64);
-      setImageUrls(fetchedImageUrls); 
+      // const fetchedImageUrls = data.map((imageData: ImageData) => imageData);
+      setImageUrls(data); 
 
 
 

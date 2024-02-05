@@ -19,7 +19,7 @@ const ImageDroppable: React.FC<ImageDroppableProps> = ({ onDrop, children }) => 
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      style={{ width: '100%', height: '100%', border: '2px dashed #ddd', borderRadius: '20px' }}
+      style={{ width: '100%', height: '100%', borderRadius: '20px' }}
     >
       {children}
     </div>
