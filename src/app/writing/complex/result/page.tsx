@@ -33,7 +33,7 @@ const ComplexResultPage: React.FC = () => {
   };
 
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
+    token = sessionStorage.getItem('token');
   }
 
   useEffect(() => {
