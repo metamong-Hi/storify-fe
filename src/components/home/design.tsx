@@ -21,7 +21,8 @@ const HomeDesign: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
+    const token=sessionStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, []);
 

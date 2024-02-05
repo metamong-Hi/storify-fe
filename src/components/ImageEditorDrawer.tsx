@@ -5,24 +5,25 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Image from 'next/image';
+interface ImageEditorDrawerProps {
+  isOpen: boolean;
+  onClose: () => void; 
+  hellopage: string | number;
+  bookId: string | number; 
+  imageUrls: string[];
+  handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
+}
 
-const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) => {
+
+const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose,  hellopage, bookId }) => {
+
   const [editedImageUrl, setEditedImageUrl] = useState('');
-  // const [imageList, setImageList] = useState(Array(4).fill(null));
-  //const [imageUrls, setImageUrls] = useState([
-    // 'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
-    // 'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg',
-    // 'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg',
-    // 'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg',
-  //]);
 
-  // 0 1 2 2 4 3 6 4 8 5 10 6 
-  // 1 1 3 2 5 3 7 4 9 5 11 6
-  // 2 1 4 2 6 3 8 4 10 5
-  const [imageUrls, setImageUrls] = useState([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const token=sessionStorage.getItem('token');
-  const realPageNumber=(hellopage+2)/2;
-  console.log("내가 제대로 계산한게 맞나"+realPageNumber);
+  const realPageNumber=(Number(hellopage)+2)/2;
+  console.log("내가 제대로 계산한게 맞나"+realPageNumber); //맞음
 
   const fetchImages = async () => {
     try {
@@ -38,14 +39,12 @@ const ImageEditorDrawer = ({ isOpen, onClose, onImageDrop ,hellopage,bookId}) =>
       if (!response.ok) {
         throw new Error('이미지 못사져옴');
       }
-      const data = await response.json();
-      console.log(data);
-      const fetchedImageUrls = data.map(imageData => imageData); // 이미지 데이터에서 base64 추출
-fetchedImageUrls.forEach((imageUrl, index) => {
-  console.log(`이미지 ${index + 1}의 base64 문자열: ${imageUrl}`);
-});
-      setImageUrls(fetchedImageUrls);
 
+    
+      const data: string[] = await response.json();
+      setImageUrls(data); 
+
+      
 
 
     } catch (error) {
@@ -57,11 +56,12 @@ fetchedImageUrls.forEach((imageUrl, index) => {
     fetchImages();
   }, [hellopage, bookId]);
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-  const handleDragStart = (e, imageUrl) => {
-    e.dataTransfer.setData('text/plain', imageUrl);
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => {
+    e.dataTransfer?.setData('text/plain', imageUrl);
   };
   console.log(hellopage+"여기 페이지 넘어왔다");
   console.log("북아이디다"+bookId);
@@ -89,7 +89,6 @@ fetchedImageUrls.forEach((imageUrl, index) => {
             style={{
               width: 'calc(25% - 10px)',
               height: '200px',
-              border: '2px dashed #ddd',
               borderRadius: '20px',
             }}
           >

@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import SimpleCard from '@/components/objects/cards/Simple';
-import ComplexCard from '@/components/objects/cards/Complex';
-import Drawer from '@/components/drawer/friend';
-import FriendPage from '@/components/drawer/friendPage';
+// import SimpleCard from '@/components/objects/cards/Simple';
+// import ComplexCard from '@/components/objects/cards/Complex';
+// import Drawer from '@/components/drawer/friend';
+// import FriendPage from '@/components/drawer/friendPage';
 import SpeechToText from '@/components/speech/SpeechToText';
 import Intro1 from '@/components/home/Intro1';
 
