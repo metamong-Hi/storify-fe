@@ -56,8 +56,11 @@ const NavbarComponent = () => {
       // const token = localStorage.getItem('token');
       const token = sessionStorage.getItem('token');
       setUsername(sessionStorage.getItem('username') || '');
-      const id = jwtDecode(token);
-      setUserId(id.sub || '');
+      if (token) {
+        const id = jwtDecode(token);
+        setUserId(id.sub || '');
+      }
+
       setIsLoggedIn(!!token);
     }
   }, []);
