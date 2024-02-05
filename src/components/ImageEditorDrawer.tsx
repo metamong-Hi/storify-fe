@@ -14,8 +14,6 @@ interface ImageEditorDrawerProps {
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
 }
-interface ImageData {
-}
 
 
 const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose,  hellopage, bookId }) => {
@@ -41,13 +39,9 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       if (!response.ok) {
         throw new Error('이미지 못사져옴');
       }
-      
-      const data: ImageData[] = await response.json(); 
-      console.log(data);
-      
-      // const fetchedImageUrls = data.map((imageData: ImageData) => imageData);
+    
+      const data: string[] = await response.json();
       setImageUrls(data); 
-
 
 
     } catch (error) {
@@ -92,7 +86,6 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
             style={{
               width: 'calc(25% - 10px)',
               height: '200px',
-              border: '2px dashed #ddd',
               borderRadius: '20px',
             }}
           >
