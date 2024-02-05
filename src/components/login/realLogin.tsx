@@ -133,7 +133,7 @@ function LoginPage() {
     setSelected(String(key));
   };
   return (
-    <div className="flex flex-col w-full" style={{ fontFamily: 'ModernGulim' }}>
+    <div className=" max-w-full w-[340px] h-[400px]" style={{ fontFamily: 'ModernGulim' }}>
       {/* <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden"> */}
           <Tabs
