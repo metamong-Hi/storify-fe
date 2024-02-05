@@ -84,10 +84,15 @@ function LoginPage() {
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ username: formData.username, password: formData.password }))
-      .then(() => {
+    .then((action) => {
+   
+      if (action.meta.requestStatus === 'fulfilled') {
         console.log('로그인 성공');
         showLoginSuccessAlert();
-      })
+      } else {
+        throw new Error('로그인 실패');
+      }
+    })
       .catch((error) => {
         console.error('로그인 실패: ', error);
         showLoginFailedAlert();
