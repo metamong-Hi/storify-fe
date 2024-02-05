@@ -5,10 +5,14 @@ interface ImageDroppableProps {
 }
 
 const ImageDroppable: React.FC<ImageDroppableProps> = ({ onDrop, children }) => {
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+
+    
     const droppedImageUrl = e.dataTransfer.getData('text/plain');
     onDrop(`data:image/jpeg;base64,${droppedImageUrl}`);
+   
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
