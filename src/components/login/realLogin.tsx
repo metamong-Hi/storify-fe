@@ -15,8 +15,6 @@ function LoginPage() {
 
   // const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
   const dispatch = useAppDispatch();
-  const loginStatus = useAppSelector((state) => state.user.status);
-  const loginError = useAppSelector((state) => state.user.error);
 
   const [formData, setFormData] = useState({
     username: '',

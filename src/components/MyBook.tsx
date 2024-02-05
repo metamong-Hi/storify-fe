@@ -20,7 +20,10 @@ const StyledFlipBook = styled.div`
   //     height: 600px;
   //     box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
   // }
-
+  @media (max-width: 768px) {
+    height: auto; 
+    padding: 20px; 
+  }
   .demoPage {
     // outline: 2px solid black;
     background-color: white;
@@ -29,6 +32,10 @@ const StyledFlipBook = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
+    @media (max-width: 768px) {
+      height: 400px;
+      width: 100%; 
+    }
   }
 
   // .demoPage {
@@ -38,6 +45,19 @@ const StyledFlipBook = styled.div`
   //     color: #5C4033; /* A warm, dark brown color for the text to give it a storybook feel */
   //     position: relative; /* For positioning the pseudo-elements */
   //   }
+`;
+
+
+const ResponsiveText = styled.p`
+  font-size: 1.5rem; // 기본 폰트 사이즈
+  line-height: 2.75rem; // 기본 줄 간격
+  margin: auto; // 자동 마진으로 가운데 정렬
+
+  // 화면 너비가 768px 미만일 때 적용될 스타일
+  @media (max-width: 768px) {
+    font-size: 1.0rem; // 모바일 화면에서 줄어든 폰트 사이즈
+    line-height: 2rem; // 모바일 화면에서 줄어든 줄 간격
+  }
 `;
 
 const StyledImage = styled.img`
@@ -57,7 +77,10 @@ interface MyBookProps {
 interface PageIndexData {
   data: number;
 }
-
+interface WindowSize {
+  width: number | undefined;
+  height: number | undefined;
+}
 
 let token: string | null;
 if (typeof window !== 'undefined') {
@@ -87,7 +110,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     console.log(pageIndex + "pageIndex임");
     setCurrentPageIndex(pageIndex.data);
   };
-  
+
+
   useEffect(() => {
     console.log(currentPageIndex + "페이지임");
   }, [currentPageIndex]);
@@ -226,7 +250,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
       <p
         style={{
-          fontSize: '1.875rem',
+          fontSize: '1.5rem',
           lineHeight: '2.25rem',
           display: 'flex',
           justifyContent: 'center',
@@ -237,15 +261,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         {title}
       </p>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-        <Button onClick={goToPreviousPage}>
-          이전페이지
-          {/* <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ zIndex: 100, position: 'relative' }} /> */}
-        </Button>
-        <Button onClick={goToNextPage}>
-          다음페이지
-          {/* <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" /> */}
-        </Button>
-      </div>
       <Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
                  삭제
         </Button>  
@@ -254,11 +269,12 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       {/* {selectedImageUrl && ( */}
         <Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
       {/* )} */}
+      </div>
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
-          width={550} // 너비를 600으로 설정
-          height={550} // 높이를 600으로 설정
+          width={550} 
+          height={550}
           style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)', borderRadius: '20px' }}
           startPage={0}
           drawShadow={false}
@@ -271,12 +287,12 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           swipeDistance={4}
           showPageCorners={true}
           disableFlipByClick={false}
-          size="fixed"
-          minWidth={300}
+          size="stretch"
+          minWidth={200}
           maxWidth={550}
           minHeight={300}
           maxHeight={550}
-          maxShadowOpacity={0.5}
+          maxShadowOpacity={0.3}   
           showCover={false}
           mobileScrollSupport={true}
           onFlip={handleFlip}
@@ -330,17 +346,13 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                       height: '50vh', // 부모 div 높이를 100%로 설정
                     }}
                   >
+                    <ResponsiveText>
                     <p
-                      style={{
-                        fontSize: '1.5rem',
-                        lineHeight: '2.75rem',
-                        margin: 'auto', // 모든 방향에서 자동 마진 적용
-                        //   textAlign: 'center',
-                        //   alignItems:'center'
-                      }}
+               
                     >
                       {item}
                     </p>
+                    </ResponsiveText>
                   </div>
                 )}
               </div>
@@ -348,6 +360,17 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           })}
         </HTMLFlipBook>
       </StyledFlipBook>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+        <Button onClick={goToPreviousPage}style={{ marginRight: '10px' }}>
+          이전페이지
+          <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }} />
+        </Button>
+        <Button onClick={goToNextPage}style={{ marginLeft: '10px' }}>
+          다음페이지
+          <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }}/>
+        </Button>
+      </div>
+   
     </>
   );
 };
