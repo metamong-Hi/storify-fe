@@ -11,6 +11,8 @@ interface ImageEditorDrawerProps {
   hellopage: string | number;
   bookId: string | number; 
   imageUrls: string[];
+  onEdit:()=>void;
+  onDelete:()=>void;
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
 }
