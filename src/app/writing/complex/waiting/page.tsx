@@ -5,9 +5,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation'; 
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
-import Link from 'next/link';
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -23,6 +23,7 @@ const ComplexWaitingPage: React.FC = () => {
   const dispatch = useDispatch();
   const texts = useSelector((state: RootState) => state.text.texts);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const router = useRouter();
   let token: string | null = null;
 
   if (typeof window !== 'undefined') {
@@ -60,6 +61,12 @@ const ComplexWaitingPage: React.FC = () => {
     fetchData();
   }, [texts, isSuccess, dispatch, token]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(`/writing/simple/result`);
+    }
+  }, [isSuccess, router]);
+
   return (
     <div className="w-[60vw] h-[20vh]">
       <Swiper
@@ -80,13 +87,7 @@ const ComplexWaitingPage: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      {isSuccess ? (
-        <div className="flex justify-center mt-4">
-          <Link href="/writing/complex/result">
-            <button className="btn btn-outline btn-success">결과 보러 가기</button>
-          </Link>
-        </div>
-      ) : (
+      {!isSuccess && (
         <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
       )}
     </div>

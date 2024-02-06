@@ -34,7 +34,7 @@ const ComplexCard = () => {
     <Link href="/writing/complex" passHref>
       <div
         ref={tiltRef}
-        className="card w-full sm:w-48 md:w-64 lg:w-80 xl:w-96 2xl:w-128 glass ml-0 sm:ml-1 md:ml-2 lg:ml-3 xl:ml-4 2xl:ml-6 mt-10 cursor-pointer"
+        className="card w-44 sm:w-52 md:w-60 lg:w-80 xl:w-96 2xl:w-112 glass ml-1 sm:ml-2 md:ml-3 lg:ml-4 xl:ml-5 2xl:ml-6 mt-10 cursor-pointer"
       >
         <figure>
           <Image
@@ -46,9 +46,9 @@ const ComplexCard = () => {
           />
         </figure>
         <div className="card-body items-center text-center">
-          <h2 className="card-title text-2xl mb-1">요정과 함께 쓸래요</h2>
-          <p className="text-xl text-gray-500">글쓰기가 어렵다면</p>
-          <p className="text-xl text-gray-500">요정이 글쓰기를 도와줄 거예요</p>
+          <h2 className="card-title text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1">요정과 쓸래요</h2>
+          <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-gray-500">글쓰기가 어렵다면</p>
+          <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-gray-500">요정이 도와줄 거예요</p>
         </div>
       </div>
     </Link>

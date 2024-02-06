@@ -24,21 +24,18 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       screens: {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
         '2xl': '1536px',
       },
       spacing: {
-        '1': '8px',
-        '2': '12px',
-        '3': '16px',
-        '4': '24px',
-        '5': '32px',
-        '6': '48px',
-        '7': '64px',
-        '8': '80px',
+        sm: '8px',
+        md: '9.6px',
+        lg: '12.8px',
+        xl: '16px',
+        '2xl': '19.2px',
       },
 
       borderWidth: {
@@ -56,17 +53,40 @@ const config: Config = {
         '4/5': '80%',
       },
       borderRadius: {
-        '2xl': '1.5rem',
-        '3xl': '1.75rem',
         '4xl': '2rem',
       },
       fontSize: {
-        '2xl': '1.75rem',
-        '3xl': '2.25rem',
-        '4xl': '2.75rem',
-        '5xl': '3.25rem',
-        '6xl': '4rem',
-        '7xl': '5rem',
+        '2xs': '0.5rem',
+        '2xl': ['1.5rem', {
+          lineHeight: '2rem',
+          letterSpacing: '-0.01em',
+          fontWeight: '500',
+        }],
+        '3xl': ['2rem', {
+          lineHeight: '2.25rem',
+          letterSpacing: '-0.02em',
+          fontWeight: '550',
+        }],
+        '4xl': ['2.5rem', {
+          lineHeight: '2.75rem',
+          letterSpacing: '-0.03em',
+          fontWeight: '600',
+        }],
+        '5xl': ['3rem', {
+          lineHeight: '3rem',
+          letterSpacing: '-0.04em',
+          fontWeight: '650',
+        }],
+        '6xl': ['3.5rem', {
+          lineHeight: '3.5rem',
+          letterSpacing: '-0.05em',
+          fontWeight: '700',
+        }],
+        '7xl': ['4rem', {
+          lineHeight: '4rem',
+          letterSpacing: '-0.06em',
+          fontWeight: '750',
+        }],
       },
       colors: {
         pastelRed: '#fda5a550',
@@ -77,9 +97,10 @@ const config: Config = {
         pastelPurple: '#c4b5fd50',
       },
       width: {
+        '112': '28rem',
         '128': '32rem',
-        '144': '40rem',
-        '160': '48rem',
+        '144': '36rem',
+        '160': '40rem',
       },
       keyframes: {
         shake: {
