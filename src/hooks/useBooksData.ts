@@ -19,8 +19,8 @@ const useBooksData = ({ currentPage, limit, sortBy, search, userId }: UseBooksDa
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        console.log('fetchData', currentPage, limit, sortBy, search, userId);
         const data = await getAllBooks(currentPage, limit, sortBy, search, userId);
+        console.log(data);
         setBookShelves(data.books);
         setTotalItems(data.total);
       } catch (error) {
