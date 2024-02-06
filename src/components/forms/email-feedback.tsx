@@ -24,7 +24,7 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
     event?.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/mail/feedback', {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/mail/feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

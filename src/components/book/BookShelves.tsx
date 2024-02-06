@@ -57,7 +57,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     const method = likeStatus ? 'POST' : 'DELETE';
-    const response = await fetch(`${API_URL}/api/books/${book._id}/likes`, {
+    const response = await fetch(`${API_URL}/books/${book._id}/likes`, {
       method: method,
       headers: {
         'Content-Type': 'application/json',

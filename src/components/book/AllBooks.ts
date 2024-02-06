@@ -24,7 +24,7 @@ async function GET(url: string): Promise<BooksResponse> {
 
 export async function getUserBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
   console.log('getUserBooks', page, limit, sort, search);
-  const data = await GET(`${API_URL}/api/books?page=${page}&limit=${limit}&userId=${id}`);
+  const data = await GET(`${API_URL}/books?page=${page}&limit=${limit}&userId=${id}`);
   console.log(data);
   return data;
 }
@@ -32,7 +32,7 @@ export async function getUserBooks(page = 1, limit = 24, sort = '', search = '',
 export async function getAllBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
   console.log('getAllBooks', page, limit, sort, search);
   const data = await GET(
-    `${API_URL}/api/books?page=${page}&limit=${limit}&title=${search}&sort=${sort}&userId=${id}`,
+    `${API_URL}/books?page=${page}&limit=${limit}&title=${search}&sort=${sort}&userId=${id}`,
   );
   console.log(data);
   return data;

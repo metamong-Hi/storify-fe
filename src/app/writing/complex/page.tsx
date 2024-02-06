@@ -83,7 +83,7 @@ const ComplexWritingPage: React.FC = () => {
   const playAudio = async () => {
     try {
       const textToSpeak = messages.join(' ');
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/tts', {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/ai/tts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ const ComplexWritingPage: React.FC = () => {
     const combinedMessages = updatedConversation.map((item) => item.question).join(' ');
     if (currentStep < 2) {
       try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/question', {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/ai/question', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ const ComplexWritingPage: React.FC = () => {
         if (response.ok) {
           const responseText = await response.text();
 
-          const ttsResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/tts', {
+          const ttsResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/ai/tts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

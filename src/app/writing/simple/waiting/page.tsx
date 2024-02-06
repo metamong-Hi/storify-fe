@@ -35,7 +35,7 @@ const SimpleWaitingPage: React.FC = () => {
       if (isSuccess || !text) return;
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/stories`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/stories`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

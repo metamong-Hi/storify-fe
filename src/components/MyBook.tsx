@@ -226,7 +226,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     try {
       const realPageNumber=(Number(currentPageIndex)+2)/2;
       const realImage = droppedImageUrl.replace("data:image/jpeg;base64,", "");
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/books/${bookId}/${realPageNumber}/new-images`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books/${bookId}/${realPageNumber}/new-images`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -281,7 +281,7 @@ const handleimsiDelete = () => {
 
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`)
+    fetch(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -307,7 +307,7 @@ const handleimsiDelete = () => {
     try {
       console.log(token + '토큰이다');
       console.log(bookId + '북아이디다');
-      const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`, {
+      const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

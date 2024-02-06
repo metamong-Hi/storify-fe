@@ -46,7 +46,7 @@ const SimpleResultPage: React.FC = () => {
     }
     const sendBookData = async () => {
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/books`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
