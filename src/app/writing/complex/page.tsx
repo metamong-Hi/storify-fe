@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addText } from '@/store/textSlice';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 
 const messages = [
   '안녕, 만나서 반가워.',
@@ -20,7 +20,7 @@ interface Exchange {
 const ComplexWritingPage: React.FC = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
-  const router = useRouter(); 
+  const router = useRouter();
   let token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [audioSrc, setAudioSrc] = useState('');
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);

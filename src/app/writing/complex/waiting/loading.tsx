@@ -1,9 +1,9 @@
-import SimpleWaitingPageSkeleton from "@/components/skeleton/writing/SimpleWaitingPageSkeleton";
+import SimpleWaitingPageSkeleton from '@/components/skeleton/writing/SimpleWaitingPageSkeleton';
 
 export default function Loading() {
   return (
     <>
-      <SimpleWaitingPageSkeleton/>
+      <SimpleWaitingPageSkeleton />
     </>
   );
 }

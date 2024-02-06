@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
 
