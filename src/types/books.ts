@@ -8,7 +8,7 @@ interface bodyData {
 
 interface userData {
   _id?: string;
-  username?: string;
+  userId?: string;
 }
 
 export interface BooksData {

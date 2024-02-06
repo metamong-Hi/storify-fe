@@ -108,7 +108,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     avatar:
       'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
     bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
-    name: book.userId?.username ?? '', // Replace with actual user's name
+    name: book.userId?.userId ?? '', // Replace with actual user's name
   };
 
   return (
