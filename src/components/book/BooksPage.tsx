@@ -13,17 +13,10 @@ import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 
 interface UseBooksDataProps {
-  getBooks: (
-    page: number,
-    limit: number,
-    sort: string,
-    search: string,
-    id: string,
-  ) => Promise<{ books: BooksData[]; total: number }>;
   userId: string;
 }
 
-const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
+const BooksPage = ({ userId }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
@@ -37,7 +30,6 @@ const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
   const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
 
   const { bookShelves, totalItems, isLoading } = useBooksData({
-    getBooksFunction: getBooks,
     currentPage,
     limit,
     sortBy,
@@ -104,8 +96,11 @@ const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
             </div>
           </div>
         </div>
-
-        <BookShelves books={bookShelves} limit={limit} search={search} />
+        <div className="flex justify-center p-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            <BookShelves books={bookShelves} limit={limit} search={search} />
+          </div>
+        </div>
         <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
       </div>
     </>

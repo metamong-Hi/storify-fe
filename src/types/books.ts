@@ -19,7 +19,9 @@ export interface BooksData {
   thumbnail?: string;
   isPrivate?: boolean;
   likes?: [];
+  likesCount?: number;
   dislikes?: [];
+  dislikesCount?: number;
   createdAt?: string;
   imageStyle?: string;
   status?: string;

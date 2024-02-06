@@ -131,7 +131,11 @@ export const Book = ({ book, index }: BookComponentProps) => {
       </div>
 
       <div className="p-4">
-        <div className="truncate w-full text-lg md:text-xl lg:text-2xl font-bold">{book.title}</div>
+        <div className="truncate text-align-center">
+          <div className="text-lg md:text-xl lg:text-2xl font-bold w-full">
+            <div className="justif-flex-start">{book.title}</div>
+          </div>
+        </div>
         <div className="flex justify-between items-center mt-4 ">
           <Link href={user.bookshelfLink}>
             <div className="flex items-center rounded-4xl space-x-2 hover:bg-black/10">
@@ -143,25 +147,24 @@ export const Book = ({ book, index }: BookComponentProps) => {
               <span className="text-sm font-semibold">{user.name}</span>
             </div>
           </Link>
-        </div>
-
-        <div className="flex justify-end items-center mt-1">
-          <div className="flex items-center space-x-2">
-            <EyeIcon className="w-4 h-4 text-gray-500" />
-            <span className="text-sm">{book.count}</span>
-          </div>
-          <div className="flex items-center ml-2">
-            <button
-              className={`btn btn-ghost btn-circle btn-sm ${
-                token ? '' : 'hover:bg-transparent hover:text-current'
-              }`}
-              onClick={token ? debouncedHandleLike : undefined}
-            >
-              <HeartIcon
-                className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
-              />
-            </button>
-            <span className="text-sm">{likeCount}</span>
+          <div className="flex justify-end items-center mt-1">
+            <div className="flex items-center space-x-2">
+              <EyeIcon className="w-4 h-4 text-gray-500" />
+              <span className="text-sm">{book.count}</span>
+            </div>
+            <div className="flex items-center ml-2">
+              <button
+                className={`btn btn-ghost btn-circle btn-sm ${
+                  token ? '' : 'hover:bg-transparent hover:text-current'
+                }`}
+                onClick={token ? debouncedHandleLike : undefined}
+              >
+                <HeartIcon
+                  className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
+                />
+              </button>
+              <span className="text-sm">{likeCount}</span>
+            </div>
           </div>
         </div>
       </div>
