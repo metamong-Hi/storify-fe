@@ -13,25 +13,23 @@ import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 
 interface UseBooksDataProps {
-  getBooks: (
-    page: number,
-    limit: number,
-    sort: string,
-    search: string,
-    id: string,
-  ) => Promise<{ books: BooksData[]; total: number }>;
   userId: string;
 }
 
-const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
+const BooksPage = ({ userId }: UseBooksDataProps) => {
+  const sortOptions = [
+    { label: '최신순', value: 'recent' },
+    { label: '좋아요순', value: 'like' },
+    { label: '조회순', value: 'count' },
+  ];
+
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
   const [writeSearch, setWriteSearch] = useState<string>('');
   const [search, setSearch] = useState<string>('');
-  const [sortBy, setSortBy] = useState<string>('');
+  const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
 
   const { bookShelves, totalItems, isLoading } = useBooksData({
-    getBooksFunction: getBooks,
     currentPage,
     limit,
     sortBy,
@@ -45,11 +43,6 @@ const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
     // 현재 페이지 상태를 usePagination으로 넘겨줍니다.
     onPageChange: setCurrentPage, // 페이지 변경 시 호출할 함수를 넘겨줍니다.
   });
-  const sortOptions = [
-    { label: '최신순', value: 'date' },
-    { label: '인기순', value: 'likes' },
-    { label: '제목순', value: 'title' },
-  ];
 
   const handleSortBy = (value: string) => {
     setSortBy(value);
@@ -67,11 +60,19 @@ const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
     <>
       <div className="flex flex-col ">
         <div className="flex flex-hor justify-between">
-          <Tabs key="sortByOptions" className="flex justify-start itmes-center pl-5">
+          <div role="tablist" className="tabs tabs-bordered flex justify-start itmes-center pl-5">
             {sortOptions.map((option) => (
-              <Tab key={option.value} value={option.value} title={option.label} />
+              <a
+                key={option.value}
+                role="tab"
+                className={`tab tab-lifted ${sortBy === option.value ? 'tab-active' : ''}`}
+                onClick={() => handleSortBy(option.value)}
+              >
+                {option.label}
+              </a>
             ))}
-          </Tabs>
+          </div>
+
           <div className="flex justify-end items-center pr-5">
             <div className="flex items-center border-2 border-gray-300 rounded-full pl-3 pr-2 bg-transparent">
               <input
@@ -95,8 +96,11 @@ const BooksPage = ({ getBooks, userId }: UseBooksDataProps) => {
             </div>
           </div>
         </div>
-
-        <BookShelves books={bookShelves} limit={limit} search={search} />
+        <div className="flex justify-center p-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            <BookShelves books={bookShelves} limit={limit} search={search} />
+          </div>
+        </div>
         <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
       </div>
     </>
