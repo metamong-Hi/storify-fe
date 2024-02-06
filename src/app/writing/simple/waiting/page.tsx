@@ -1,13 +1,13 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router'; 
 import { RootState } from '@/store/index';
-import { setBookContent, setBookId } from '@/store/bookSlice'; 
-import Link from 'next/link';
+import { setBookContent, setBookId } from '@/store/bookSlice';
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -23,6 +23,7 @@ const SimpleWaitingPage: React.FC = () => {
   const dispatch = useDispatch();
   const text = useSelector((state: RootState) => state.text.value);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const router = useRouter(); 
   let token: string | null = null;
 
   if (typeof window !== 'undefined') {
@@ -31,7 +32,6 @@ const SimpleWaitingPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       if (isSuccess) return;
 
       try {
@@ -49,6 +49,7 @@ const SimpleWaitingPage: React.FC = () => {
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
           setIsSuccess(true);
+          router.push(`/writing/simple/result`);
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
         }
@@ -58,7 +59,7 @@ const SimpleWaitingPage: React.FC = () => {
     };
 
     fetchData();
-  }, [text,isSuccess, dispatch, token]);
+  }, [text, isSuccess, dispatch, token, router]);
 
   return (
     <div className="w-[60vw] h-[20vh]">
@@ -74,18 +75,13 @@ const SimpleWaitingPage: React.FC = () => {
       >
         {loadingTexts.map((loadingText, index) => (
           <SwiperSlide key={index}>
-            <h1 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-bold">{loadingText}</h1>
+            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold">{loadingText}</h1>
           </SwiperSlide>
         ))}
       </Swiper>
-      {isSuccess?
-       (
-        <div className="flex justify-center mt-4">
-          <Link href="/writing/simple/result">
-            <button className="btn btn-outline btn-success">결과 보러 가기</button>
-          </Link>
-        </div>
-      ) : (<span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>)}
+      {!isSuccess && (
+        <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
+      )}
     </div>
   );
 };

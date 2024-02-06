@@ -55,25 +55,29 @@ const SimpleWritingPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
-      <h1 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold mb-2">동화로 만들고 싶은 이야기를 적어 주세요.</h1>
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">동화로 만들고 싶은</h1>
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">이야기를 적어 주세요.</h1>
+
+      <div className="divider"></div>
       <textarea
         placeholder="여기에 이야기를 적어주세요"
-        className="textarea textarea-bordered textarea-success textarea-lg w-full"
+        className="textarea textarea-bordered textarea-lg w-full"
         rows={6}
         value={text}
         onChange={handleChange}
       ></textarea>
+      <div className="divider"></div>
       <div className="flex justify-between items-center">
         <Link href={`/writing`} passHref>
-          <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+          <button className="btn btn-outline btn-xs sm:btn-sm md:btn-md lg:btn-lg">
             뒤로 가기
           </button>
         </Link>
-        <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+        <button onClick={() => setIsListening((prevState) => !prevState)} className={`btn btn-outline btn-xs sm:btn-sm md:btn-md lg:btn-lg ${isListening ? 'btn-error' : 'btn-primary'}`}>
           {isListening ? '마이크 끄기' : '마이크 켜기'}
         </button>
         <Link href={`/writing/simple/waiting`} passHref>
-          <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+          <button className="btn btn-outline btn-xs sm:btn-sm md:btn-md lg:btn-lg">
             동화책 만들기
           </button>
         </Link>

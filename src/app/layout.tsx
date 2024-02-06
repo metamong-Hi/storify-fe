@@ -11,8 +11,8 @@ import Footer from '@/components/home/footer/Footer';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="kr" data-theme="cupcake">
-      <body className="bg-[#FAF3E0]">
+    <html lang="kr" data-theme="fantasy">
+      <body className="">
         <Provider store={store}>
           <Providers>
             <NavigationBar />

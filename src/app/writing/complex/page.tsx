@@ -8,7 +8,6 @@ import Image from 'next/image';
 const messages = [
   '안녕, 만나서 반가워.',
   '난 글쓰기를 도와 줄 요정이야.',
-  '대답은 자세하게 할 수록 좋아.',
   '언제, 어디에서, 누가, 무슨 일이 있었는지 알려 줄래?',
 ];
 
@@ -37,7 +36,7 @@ const ComplexWritingPage: React.FC = () => {
       alert('Your browser does not support Speech API. Please try Google Chrome.');
       return;
     }
-  
+
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -46,7 +45,7 @@ const ComplexWritingPage: React.FC = () => {
     recognition.onresult = (event: SpeechRecognitionEvent) => {
       const speechEvent = event as SpeechRecognitionEvent;
       const transcript = Array.from(speechEvent.results)
-        .map(result => result[0].transcript)
+        .map((result) => result[0].transcript)
         .join('');
       setText(transcript);
       console.log(transcript);
@@ -57,13 +56,12 @@ const ComplexWritingPage: React.FC = () => {
       console.error(`Speech recognition error: ${event.error}`);
     };
 
-  
     if (isListening) {
       recognition.start();
     } else {
       recognition.stop();
     }
-  
+
     return () => {
       recognition.stop();
     };
@@ -114,23 +112,22 @@ const ComplexWritingPage: React.FC = () => {
     }
   };
 
-// handleChange 함수도 업데이트하여 입력 필드의 상태를 직접 업데이트합니다.
-const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setText(event.target.value); // 입력 필드의 상태를 직접 업데이트
-};
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
   const handleClick = () => {
     playKeypressSound();
     handleSendButtonClick();
   };
 
   const handleSendButtonClick = async () => {
-    if (isSending || text.trim() === '') return; // 입력된 텍스트가 없거나 이미 전송 중인 경우 더 이상 진행하지 않음
+    if (isSending || text.trim() === '') return;
 
     setIsSending(true);
     setIsQuestionLoading(true);
-  
-    dispatch(addText(text)); // 사용자가 입력한 텍스트를 전역 상태에 추가
-    setText(''); // 입력 필드를 초기화
+
+    dispatch(addText(text));
+    setText('');
     const updatedConversation = [...conversation, { question: text, answer: '' }];
     setConversation(updatedConversation);
     const combinedMessages = updatedConversation.map((item) => item.question).join(' ');
@@ -148,7 +145,6 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (response.ok) {
           const responseText = await response.text();
 
-          // TTS 요청
           const ttsResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ai/tts', {
             method: 'POST',
             headers: {
@@ -184,7 +180,6 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   };
 
   useEffect(() => {
-    // 이 효과는 초기에 표시된 메시지를 설정하기 위해 한 번만 실행되어야 합니다.
     let timeoutIds: NodeJS.Timeout[] = [];
     messages.forEach((message, index) => {
       const id = setTimeout(() => {
@@ -193,24 +188,21 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       timeoutIds.push(id);
     });
 
-    // 컴포넌트가 언마운트될 때 타임아웃을 클리어하는 정리 함수
     return () => {
       timeoutIds.forEach(clearTimeout);
     };
-  }, []); // 의존성 배열을 빈 배열로 설정하여 마운트시에만 효과 실행
+  }, []);
 
-  const inputRef = useRef<HTMLDivElement>(null); // 입력창을 위한 ref
+  const inputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // 입력창의 높이에 따라 스크롤 조정
     const adjustScroll = () => {
       if (inputRef.current) {
-        const inputHeight = inputRef.current.offsetHeight; // 입력창의 높이
-        const screenHeight = window.innerHeight; // 화면의 높이
-        const scrollPosition = window.scrollY; // 현재 스크롤 위치
+        const inputHeight = inputRef.current.offsetHeight;
+        const screenHeight = window.innerHeight;
+        const scrollPosition = window.scrollY;
         const bottomPosition = inputRef.current.getBoundingClientRect().bottom; // 입력창의 화면 내 위치
 
-        // 입력창이 화면 하단에 위치하도록 스크롤 조정
         if (bottomPosition > screenHeight) {
           window.scrollTo({
             top: scrollPosition + (bottomPosition - screenHeight),
@@ -219,137 +211,137 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         }
       }
     };
-
-    // 초기 로드 및 입력창 높이 변경 시 스크롤 조정
     adjustScroll();
 
-    // 대화가 업데이트될 때마다 스크롤 조정
     const observer = new MutationObserver(adjustScroll);
     if (inputRef.current) {
       observer.observe(inputRef.current, { childList: true });
     }
 
     return () => observer.disconnect();
-  }, [conversation]); // 대화 상태가 변경될 때마다 실행됩니다.
+  }, [conversation]);
 
   return (
-        <div className="w-[60vw]">
-          <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
-          <h1 className="text-3xl font-semibold mb-2">
-            세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.
-          </h1>
-          <div className="divider"></div>
-          {displayedMessages.map((message, index) => (
-            <div key={index} className="chat chat-start mb-2">
-              <div className="chat-image avatar">
-                <div className="w-16 rounded-full">
-                  <Image
-                    alt="Tailwind CSS chat bubble component"
-                    src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                    width={4000}
-                    height={4000}
-                  />
-                </div>
-              </div>
-              <div className="flex">
-                <div className="chat-bubble">{message}</div>
-                {index === 0 && (
-                  <button onClick={playAudio} className="btn btn-circle btn-outline ml-2">
-                    <Image
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
-                      width={30}
-                      height={30}
-                      alt="play audio"
-                    />
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
-          {conversation.map((exchange, index) => (
-            <div key={index}>
-              <div className="chat chat-end ">
-                <div className="chat-image avatar">
-                  <div className="w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
-                    <Image
-                      alt="Tailwind CSS chat bubble component"
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                </div>
-                <div className="chat-bubble chat-bubble-success">{exchange.question}</div>
-              </div>
-              <div className="chat chat-start">
-                <div className="chat-image avatar">
-                  <div className="w-16 rounded-full">
-                    <Image
-                      alt="Tailwind CSS chat bubble component"
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                </div>
-                {isQuestionLoading && index === conversation.length - 1 ? (
-                  <div className="chat-bubble">
-                    <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
-                  </div>
-                ) : (
-                  <div className="chat-bubble">{exchange.answer}</div>
-                )}
-              </div>
-            </div>
-          ))}
-          <div className="divider"></div>
-          {currentStep < 3 && (
-            <div ref={inputRef}>
-              <input
-                className="input input-success input-bordered w-full"
-                value={text}
-                onChange={handleChange}
-                autoFocus
-                placeholder=""
-                onKeyUp={(event) => {
-                  if (event.key === 'Enter' && !event.shiftKey && !isSending) {
-                    event.preventDefault();
-                    playKeypressSound();
-                    handleSendButtonClick();
-                  }
-                }}
+    <div className="w-[60vw]">
+      <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
+      <h1 className="text-3xl font-semibold mb-2">
+        세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.
+      </h1>
+      <div className="divider"></div>
+      {displayedMessages.map((message, index) => (
+        <div key={index} className="chat chat-start mb-2">
+          <div className="chat-image avatar">
+            <div className="w-16 rounded-full">
+              <Image
+                alt="Tailwind CSS chat bubble component"
+                src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
+                width={4000}
+                height={4000}
               />
-              <div className="flex justify-between mt-4">
-                <Link href={`/writing`} passHref>
-                  <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg">
-                    뒤로가기
-                  </button>
-                </Link>
-                <button onClick={() => setIsListening((prevState) => !prevState)} className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg">
-                  {isListening ? '마이크 끄기' : '마이크 켜기'}
-                </button>
-                {currentStep < 2 ? (
-          <button
-            className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
-            onClick={handleClick}
-            disabled={isSending}
-          >
-            보내기
-          </button>
-        ) : (
-          <Link href={`/writing/complex/waiting`} passHref>
-            <button
-              className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
-              disabled={isSending}
-            >
-              동화책 만들기
-            </button>
-          </Link>
-        )}
+            </div>
+          </div>
+          <div className="flex">
+            <div className="chat-bubble">{message}</div>
+            {index === 0 && (
+              <button onClick={playAudio} className="btn btn-circle btn-outline ml-2">
+                <Image
+                  src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
+                  width={30}
+                  height={30}
+                  alt="play audio"
+                />
+              </button>
+            )}
+          </div>
+        </div>
+      ))}
+      {conversation.map((exchange, index) => (
+        <div key={index}>
+          <div className="chat chat-end ">
+            <div className="chat-image avatar">
+              <div className="w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
+                <Image
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
+                  width={30}
+                  height={30}
+                />
               </div>
             </div>
-          )}
+            <div className="chat-bubble chat-bubble-success">{exchange.question}</div>
+          </div>
+          <div className="chat chat-start">
+            <div className="chat-image avatar">
+              <div className="w-16 rounded-full">
+                <Image
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
+                  width={30}
+                  height={30}
+                />
+              </div>
+            </div>
+            {isQuestionLoading && index === conversation.length - 1 ? (
+              <div className="chat-bubble">
+                <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
+              </div>
+            ) : (
+              <div className="chat-bubble">{exchange.answer}</div>
+            )}
+          </div>
         </div>
+      ))}
+      <div className="divider"></div>
+      {currentStep < 3 && (
+        <div ref={inputRef}>
+          <input
+            className="input input-success input-bordered w-full"
+            value={text}
+            onChange={handleChange}
+            autoFocus
+            placeholder=""
+            onKeyUp={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey && !isSending) {
+                event.preventDefault();
+                playKeypressSound();
+                handleSendButtonClick();
+              }
+            }}
+          />
+          <div className="flex justify-between mt-4">
+            <Link href={`/writing`} passHref>
+              <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg">
+                뒤로가기
+              </button>
+            </Link>
+            <button
+              onClick={() => setIsListening((prevState) => !prevState)}
+              className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+            >
+              {isListening ? '마이크 끄기' : '마이크 켜기'}
+            </button>
+            {currentStep < 2 ? (
+              <button
+                className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
+                onClick={handleClick}
+                disabled={isSending}
+              >
+                보내기
+              </button>
+            ) : (
+              <Link href={`/writing/complex/waiting`} passHref>
+                <button
+                  className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
+                  disabled={isSending}
+                >
+                  동화책 만들기
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
