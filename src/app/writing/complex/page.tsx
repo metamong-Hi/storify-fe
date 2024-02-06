@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addText } from '@/store/textSlice';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'; 
 
 const messages = [
   '안녕, 만나서 반가워.',
@@ -19,6 +20,7 @@ interface Exchange {
 const ComplexWritingPage: React.FC = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+  const router = useRouter(); 
   let token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [audioSrc, setAudioSrc] = useState('');
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
@@ -175,6 +177,9 @@ const ComplexWritingPage: React.FC = () => {
         console.error('Error:', error);
       }
     }
+    if (currentStep >= 2) {
+      router.push('/writing/complex/waiting');
+    }
     setIsSending(false);
     setIsQuestionLoading(false);
   };
@@ -235,8 +240,8 @@ const ComplexWritingPage: React.FC = () => {
               <Image
                 alt="Tailwind CSS chat bubble component"
                 src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                width={4000}
-                height={4000}
+                width={500}
+                height={500}
               />
             </div>
           </div>
@@ -246,8 +251,8 @@ const ComplexWritingPage: React.FC = () => {
               <button onClick={playAudio} className="btn btn-circle btn-outline ml-2">
                 <Image
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
-                  width={30}
-                  height={30}
+                  width={500}
+                  height={500}
                   alt="play audio"
                 />
               </button>
@@ -263,8 +268,8 @@ const ComplexWritingPage: React.FC = () => {
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                  width={30}
-                  height={30}
+                  width={500}
+                  height={500}
                 />
               </div>
             </div>
@@ -276,8 +281,8 @@ const ComplexWritingPage: React.FC = () => {
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                  width={30}
-                  height={30}
+                  width={500}
+                  height={500}
                 />
               </div>
             </div>

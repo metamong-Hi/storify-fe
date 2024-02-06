@@ -15,6 +15,10 @@ interface ImageItem {
   imageUrl: string;
 }
 
+const Skeleton = () => {
+  return <div className="skeleton w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-36 lg:h-36 xl:w-48 xl:h-48 2xl:w-60 2xl:h-60 "></div>;
+};
+
 const ComplexResultPage: React.FC = () => {
   const dispatch = useDispatch();
   let token: string | null = null;
@@ -29,11 +33,11 @@ const ComplexResultPage: React.FC = () => {
   const [showNavigateButton, setShowNavigateButton] = useState(false);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
 
 
-  const Skeleton = () => {
-    return <div className="skeleton w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"></div>;
-  };
+
+
 
   if (typeof window !== 'undefined') {
     token = sessionStorage.getItem('token');
@@ -117,8 +121,8 @@ const ComplexResultPage: React.FC = () => {
           if (bookId) {
             setShowNavigateButton(true);
           }
-        }, 2000);
-      }, 5000);
+        }, 0);
+      }, 2000);
     }
   }, [isTypingCompleted, bookId]);
 
@@ -150,8 +154,8 @@ const ComplexResultPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
-      <h1 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl  font-bold mb-4">요정이 동화책을 만들고 있어요.</h1>
-      <h2 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold mb-4">잠시만 기다려 주세요.</h2>
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">요정이 동화책을 만들고 있어요.</h1>
+      <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">잠시만 기다려 주세요.</h2>
       <div className="divider"></div>
       <textarea
         placeholder="여기에 간단히 적어줘"
@@ -186,7 +190,7 @@ const ComplexResultPage: React.FC = () => {
         <Link href={`/book/${bookId}`} passHref>
           <button 
           ref={buttonRef}
-          className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg mt-4">
+          className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg mt-4">
             책 보러 가기
           </button>
         </Link>

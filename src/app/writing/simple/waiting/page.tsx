@@ -67,7 +67,7 @@ const SimpleWaitingPage: React.FC = () => {
   }, [isSuccess, router]);
 
   return (
-    <div className="w-[60vw] h-[20vh]">
+    <div className="w-[60vw] min-h-[20vh]">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}

@@ -10,16 +10,16 @@ const Footer: React.FC = () => {
         <Link href="/">
           <span className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 font-bold text-[#B68973]" >STORIFY</span>
         </Link>
-        <p className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg">
+        <p className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg">
           Krafton Jungle Season 3. <br />
           Development since January 11th, 2024
         </p>
-        <p className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-lg">jungle.storify@gmail.com</p>
+        <p className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg">jungle.storify@gmail.com</p>
       </aside>
       <nav>
         <h6 className="footer-title">Social</h6>
         <div className="grid grid-flow-col gap-4">
-          <Link href="https://github.com/classbinu/storify-fe" aria-label="GitHub">
+          <Link href="https://github.com/classbinu/storify-fe" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <Image
               src="https://s3.ap-northeast-2.amazonaws.com/storify/public/GitHubIcon-1707114011024.png"
               alt="프론트 엔드"
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               height="40"
             />
           </Link>
-          <Link href="https://velog.io/@classbinu/" aria-label="Velog">
+          <Link href="https://velog.io/@classbinu/" target="_blank" rel="noopener noreferrer" aria-label="Velog">
             <Image
               src="https://s3.ap-northeast-2.amazonaws.com/storify/public/velogIcon-1707114361278.png"
               alt="팀장 개발자 블로그"
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
               height="40"
             />
           </Link>
-          <Link href="https://github.com/classbinu/storify-be" aria-label="GitHub">
+          <Link href="https://github.com/classbinu/storify-be" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <Image
               src="https://s3.ap-northeast-2.amazonaws.com/storify/public/GitHubIcon-1707114011024.png"
               alt="백 엔드"
