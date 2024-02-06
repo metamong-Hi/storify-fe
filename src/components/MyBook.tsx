@@ -147,6 +147,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
   useEffect(() => {
     console.log(currentPageIndex + "페이지임");
+      closeImageEditor();
   }, [currentPageIndex]);
   const handleImageDrop = async(droppedImageUrl:string) => {
     
@@ -183,7 +184,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       console.error('업로드안됨:', error);
     }
 
-  closeImageEditor();
+  // closeImageEditor();
   };
 
   interface HTMLFlipBookElement extends HTMLElement {
