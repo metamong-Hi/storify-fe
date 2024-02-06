@@ -154,7 +154,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     const updatedPage = [...page]; 
      updatedPage[currentPageIndex] = droppedImageUrl; 
     setPage(updatedPage); 
-
+    setSelectedImageUrl(droppedImageUrl);
   };
 
   interface HTMLFlipBookElement extends HTMLElement {
@@ -217,9 +217,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       }
     }
   };
-  const showEditsAlert=()=>{
+  // const showEditsAlert=()=>{
   
-  }
+  // }
   const handleEdit= async(droppedImageUrl:string) => {
 
     const token=sessionStorage.getItem('token')
@@ -239,6 +239,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       });
 
       if (response.ok) {
+        console.log(realImage);
         const result = await response.json();
         console.log('이미지 감', result);
         console.log(`${realImage}`)
@@ -263,13 +264,19 @@ const handleimsiEdit = () => {
 }).then((result)=>{
     if(result.value){
         handleEdit(selectedImageUrl);
+        Swal.fire({
+          title:'수정완료!',
+          text:'수정이 완료되었어요!',
+          icon:'success',
+          confirmButtonText:'OK',
+      })
     }
 })
 };
 
 const handleimsiDelete = () => {
   console.log("삭제 버튼이 클릭되었습니다.");
-  // 삭제 관련 로직 처리
+  closeImageEditor();
 };
 
 

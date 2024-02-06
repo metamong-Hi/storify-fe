@@ -71,7 +71,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
         <ListItem>
           <ListItemText primary="이미지 편집" />
           <button onClick={onEdit}>편집</button>
-      <button onClick={onDelete}>삭제</button>
+      <button onClick={onDelete}>닫기</button>
         </ListItem>
       </List>
         <div
