@@ -155,36 +155,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
      updatedPage[currentPageIndex] = droppedImageUrl; 
     setPage(updatedPage); 
 
-    const token=sessionStorage.getItem('token')
-    try {
-      const realPageNumber=(Number(currentPageIndex)+2)/2;
-      const realImage = droppedImageUrl.replace("data:image/jpeg;base64,", "");
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/books/${bookId}/${realPageNumber}/new-images`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-
-          'Authorization':`Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          base64: realImage
-        }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log('이미지 감', result);
-        console.log(`${realImage}`)
-        console.log(`${bookId}`)
-        // onDrop(`data:image/jpeg;base64,${droppedImageUrl}`); 
-      } else {
-        console.error('망함', response.statusText);
-      }
-    } catch (error) {
-      console.error('업로드안됨:', error);
-    }
-
-  // closeImageEditor();
   };
 
   interface HTMLFlipBookElement extends HTMLElement {
@@ -247,6 +217,61 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       }
     }
   };
+  const showEditsAlert=()=>{
+  
+  }
+  const handleEdit= async(droppedImageUrl:string) => {
+
+    const token=sessionStorage.getItem('token')
+    try {
+      const realPageNumber=(Number(currentPageIndex)+2)/2;
+      const realImage = droppedImageUrl.replace("data:image/jpeg;base64,", "");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/books/${bookId}/${realPageNumber}/new-images`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+
+          'Authorization':`Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          base64: realImage
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('이미지 감', result);
+        console.log(`${realImage}`)
+        console.log(`${bookId}`)
+        // onDrop(`data:image/jpeg;base64,${droppedImageUrl}`); 
+      } else {
+        console.error('망함', response.statusText);
+      }
+    } catch (error) {
+      console.error('업로드안됨:', error);
+    }
+
+  closeImageEditor();
+  }
+const handleimsiEdit = () => {
+  console.log("편집 버튼이 클릭되었습니다.");
+  Swal.fire({
+    title:'이미지를 편집하시나요?',
+    text:'한 번 편집하면 되돌릴 수 없어요!',
+    icon:'question',
+    confirmButtonText:'OK',
+}).then((result)=>{
+    if(result.value){
+        handleEdit(selectedImageUrl);
+    }
+})
+};
+
+const handleimsiDelete = () => {
+  console.log("삭제 버튼이 클릭되었습니다.");
+  // 삭제 관련 로직 처리
+};
+
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL + `/api/books/${bookId}`)
@@ -310,6 +335,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         imageUrls={[]} 
         handleDragOver={(e) => e.preventDefault()} 
         handleDragStart={(e, imageUrl) => console.log(imageUrl)} 
+        onEdit={handleimsiEdit}
+        onDelete={handleimsiDelete}
       />
       )}
 

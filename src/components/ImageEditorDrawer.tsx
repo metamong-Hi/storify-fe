@@ -16,7 +16,7 @@ interface ImageEditorDrawerProps {
 }
 
 
-const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose,  hellopage, bookId }) => {
+const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose,  hellopage, bookId,onEdit,onDelete }) => {
 
   const [editedImageUrl, setEditedImageUrl] = useState('');
 
@@ -70,6 +70,8 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       <List>
         <ListItem>
           <ListItemText primary="이미지 편집" />
+          <button onClick={onEdit}>편집</button>
+      <button onClick={onDelete}>삭제</button>
         </ListItem>
       </List>
         <div
