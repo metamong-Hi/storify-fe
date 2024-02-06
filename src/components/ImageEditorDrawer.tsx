@@ -11,12 +11,14 @@ interface ImageEditorDrawerProps {
   hellopage: string | number;
   bookId: string | number; 
   imageUrls: string[];
+  onEdit:()=>void;
+  onDelete:()=>void;
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => void;
 }
 
 
-const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose,  hellopage, bookId }) => {
+const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose,  hellopage, bookId,onEdit,onDelete }) => {
 
   const [editedImageUrl, setEditedImageUrl] = useState('');
 
@@ -70,6 +72,8 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       <List>
         <ListItem>
           <ListItemText primary="이미지 편집" />
+          <button onClick={onEdit}>편집</button>
+      <button onClick={onDelete}>닫기</button>
         </ListItem>
       </List>
         <div
