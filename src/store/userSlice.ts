@@ -23,7 +23,7 @@ export const signup = createAsyncThunk(
     'user/signup',
     async ({ username, password }: { username: string; password: string; }, { rejectWithValue }) => {
         try {
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/auth/register`, {
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export const login = createAsyncThunk(
     'user/login',
     async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
         try {
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/auth/login`, {
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const refreshAccessToken = createAsyncThunk(
         const refreshToken = state.user.refreshToken; // 리프레시 토큰을 상태에서 가져옴
 
         try {
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/auth/refresh`, {
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/auth/refresh`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export const logout = createAsyncThunk('user/logout', async (_, { getState, reje
     }
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

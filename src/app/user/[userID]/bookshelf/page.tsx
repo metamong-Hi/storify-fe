@@ -9,7 +9,7 @@ const Page = ({ params }: { params: { userID: string } }) => {
 
   return (
     <div className="container flex justify-center items-center p-5">
-      <BooksPage getBooks={getUserBooks} userId={userId} />
+      <BooksPage userId={userId} />
     </div>
   );
 };

@@ -11,6 +11,14 @@
 }
 
 @font-face {
+  font-family: 'KyoboHand';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Gulim';
   src: url('/fonts/GulimR.woff2') format('woff2');
   font-weight: normal;
@@ -51,7 +59,6 @@
 }
 
 .page {
-  background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
@@ -60,8 +67,8 @@ html,
 body {
   height: 100%;
   min-height: 100%;
-  background-color: #faf3e0;
   margin: 0;
+  padding: 0;
 }
 
 @keyframes blurFadeOut {
@@ -101,41 +108,6 @@ body {
 }
 .blur-effect1 {
   animation: blurFadeOut 5s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 1s ease-out forwards;
-}
-
-.delay-1s {
-  animation-delay: 1s;
-}
-
-.delay-15s {
-  animation-delay: 1.5s;
-}
-
-.delay-2s {
-  animation-delay: 2s;
-}
-
-.delay-25s {
-  animation-delay: 2.5s;
-}
-
-.delay-3s {
-  animation-delay: 3s;
 }
 
 .slide-image {

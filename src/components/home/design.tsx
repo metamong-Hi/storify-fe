@@ -7,7 +7,17 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+
 const HomeDesign: React.FC = () => {
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, 
+    });
+  }, []);
+
   const images = [
     'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
     'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg',
@@ -21,7 +31,6 @@ const HomeDesign: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // const token = localStorage.getItem('token');
     const token=sessionStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, []);
@@ -56,24 +65,25 @@ const HomeDesign: React.FC = () => {
         ))}
       </Swiper>
       <div className="absolute top-[10%] left-[6%] z-10">
-        <div className="mb-12 font-bold">
-          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6 opacity-0 animate-fadeInUp delay-1s textWithShadow">
+        <div className="mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-6 2xl:mb-8 font-bold">
+          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 textWithShadow" data-aos="fade-up">
             여러분이 주인공인
           </h1>
-          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-0 opacity-0 animate-fadeInUp delay-15s textWithShadow">
+          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl textWithShadow" data-aos="fade-up" data-aos-delay="300">
             동화 세계가 펼쳐집니다!
           </h1>
         </div>
-        <div className="mb-6">
-          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-3 opacity-0 animate-fadeInUp delay-2s textWithShadow">
+        <div className="mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5">
+          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-0 sm:mb-0.5 md:mb-1 lg:mb-2 xl:mb-3 2xl:mb-4 textWithShadow" data-aos="fade-up" data-aos-delay="600">
             이야기를 흥미진진한 동화책으로
           </h2>
-          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-3 opacity-0 animate-fadeInUp delay-25s textWithShadow">
+          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-0 sm:mb-0.5 md:mb-1 lg:mb-2 xl:mb-3 2xl:mb-4 textWithShadow" data-aos="fade-up" data-aos-delay="900">
             생생한 그림으로 살아나게 해줄 거예요
           </h2>
         </div>
         <button
-          className="p-2 text-2xl font-bold cursor-pointer hover:text-[#B68973] border rounded-xl border-[#B68973] opacity-0 bg-[#B68973] hover:bg-transparent text-white transition-all duration-300 ease-in-out transform hover:scale-150 animate-fadeInUp delay-3s text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl textWithShadow"
+          className="p-1 sm:p-1.5 md:p-2 lg:p-3 xl:p-4 2xl:p-5 font-bold cursor-pointer hover:text-black text-white opacity-0 duration-300 ease-in-out transform -md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
+          data-aos="fade-up" data-aos-delay="1200"
           onClick={handleStoryButtonClick}
         >
           스토리 만들기

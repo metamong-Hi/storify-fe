@@ -29,14 +29,14 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/ai/books/${bookId}/${realPageNumber}/new-images`,{
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/ai/books/${bookId}/${realPageNumber}/new-images`,{
         method:'GET',
         headers:{
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         }
       });
-      console.log(`api/ai/books/${bookId}/${realPageNumber}/new-images`);
+      console.log(`ai/books/${bookId}/${realPageNumber}/new-images`);
       console.log("요청은 보냈음");
       if (!response.ok) {
         throw new Error('이미지 못사져옴');

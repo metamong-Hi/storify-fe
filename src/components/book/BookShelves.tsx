@@ -43,7 +43,7 @@ interface BookComponentProps {
   index: number;
 }
 
-const Book = ({ book, index }: BookComponentProps) => {
+export const Book = ({ book, index }: BookComponentProps) => {
   let token = '';
   if (typeof window !== 'undefined') {
     // token = localStorage.getItem('token') ?? '';
@@ -53,11 +53,11 @@ const Book = ({ book, index }: BookComponentProps) => {
   const whoIsLoggedIn = token ? jwtDecode(token) : null;
   const isInitiallyLiked = book.likes?.some((like) => like === whoIsLoggedIn?.sub);
   const [liked, setLiked] = useState<boolean>(isInitiallyLiked ?? false);
-  const [likeCount, setLikeCount] = useState<number>(book.likes?.length || 0);
+  const [likeCount, setLikeCount] = useState<number>(book.likesCount || 0);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     const method = likeStatus ? 'POST' : 'DELETE';
-    const response = await fetch(`${API_URL}/api/books/${book._id}/likes`, {
+    const response = await fetch(`${API_URL}/books/${book._id}/likes`, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
@@ -131,7 +131,11 @@ const Book = ({ book, index }: BookComponentProps) => {
       </div>
 
       <div className="p-4">
-        <div className="truncate w-full text-lg md:text-xl lg:text-2xl font-bold">{book.title}</div>
+        <div className="truncate text-align-center">
+          <div className="text-lg md:text-xl lg:text-2xl font-bold w-full">
+            <div className="justif-flex-start">{book.title}</div>
+          </div>
+        </div>
         <div className="flex justify-between items-center mt-4 ">
           <Link href={user.bookshelfLink}>
             <div className="flex items-center rounded-4xl space-x-2 hover:bg-black/10">
@@ -143,25 +147,24 @@ const Book = ({ book, index }: BookComponentProps) => {
               <span className="text-sm font-semibold">{user.name}</span>
             </div>
           </Link>
-        </div>
-
-        <div className="flex justify-end items-center mt-1">
-          <div className="flex items-center space-x-2">
-            <EyeIcon className="w-4 h-4 text-gray-500" />
-            <span className="text-sm">{book.rate}</span>
-          </div>
-          <div className="flex items-center ml-2">
-            <button
-              className={`btn btn-ghost btn-circle btn-sm ${
-                token ? '' : 'hover:bg-transparent hover:text-current'
-              }`}
-              onClick={token ? debouncedHandleLike : undefined}
-            >
-              <HeartIcon
-                className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
-              />
-            </button>
-            <span className="text-sm">{likeCount}</span>
+          <div className="flex justify-end items-center mt-1">
+            <div className="flex items-center space-x-2">
+              <EyeIcon className="w-4 h-4 text-gray-500" />
+              <span className="text-sm">{book.count}</span>
+            </div>
+            <div className="flex items-center ml-2">
+              <button
+                className={`btn btn-ghost btn-circle btn-sm ${
+                  token ? '' : 'hover:bg-transparent hover:text-current'
+                }`}
+                onClick={token ? debouncedHandleLike : undefined}
+              >
+                <HeartIcon
+                  className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
+                />
+              </button>
+              <span className="text-sm">{likeCount}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -171,12 +174,10 @@ const Book = ({ book, index }: BookComponentProps) => {
 
 export default function BookShelves({ books = [], limit, search }: BookShelvesProps) {
   return (
-    <div className="flex justify-center p-5">
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {books.map((book, index) => (
-          <Book key={index} book={book} index={index} />
-        ))}
-      </div>
-    </div>
+    <>
+      {books.map((book, index) => (
+        <Book key={index} book={book} index={index} />
+      ))}
+    </>
   );
 }
