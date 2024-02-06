@@ -11,7 +11,7 @@ import Footer from '@/components/home/footer/Footer';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="kr" data-theme="fantasy">
+    <html lang="kr" data-theme="valentine">
       <body className="">
         <Provider store={store}>
           <Providers>
