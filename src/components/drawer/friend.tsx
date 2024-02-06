@@ -32,7 +32,7 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
       // const token=localStorage.getItem('token')
       const token=sessionStorage.getItem('token');
       try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL +`/api/friends/${token}`,{
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL +`/friends/${token}`,{
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

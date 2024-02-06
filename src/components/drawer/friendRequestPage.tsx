@@ -27,7 +27,7 @@ function FriendRequest(){
       const status="대기";
     try {
         
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/friendsReqs`, {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/friendsReqs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
