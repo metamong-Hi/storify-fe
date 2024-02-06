@@ -46,7 +46,7 @@ interface SimpleWritingFormProps {
 }
 const LoginPage: React.FC = () => {
 
-  const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
+  const [formData, setFormData] = useState<LoginData>({ userId: '', password: '' });
   const dispatch = useAppDispatch();
   const loginStatus = useAppSelector(state => state.user.status);
   const loginError = useAppSelector(state => state.user.error);
@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login({ username: formData.username, password: formData.password })) .then(() => {
+    dispatch(login({ userId: formData.userId, password: formData.password })) .then(() => {
       window.location.reload(); 
     })
     .catch((error) => {
@@ -93,7 +93,7 @@ const LoginPage: React.FC = () => {
         type="text"
         name="username"
         placeholder="이름"
-        value={formData.username}
+        value={formData.userId}
         onChange={handleChange}
         className="shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       />

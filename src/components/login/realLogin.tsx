@@ -17,7 +17,7 @@ function LoginPage() {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
-    username: '',
+    userId: '',
     password: '',
   });
   const showLoginSuccessAlert = () => {
@@ -82,7 +82,7 @@ function LoginPage() {
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login({ username: formData.username, password: formData.password }))
+    dispatch(login({ userId: formData.userId, password: formData.password }))
     .then((action) => {
    
       if (action.meta.requestStatus === 'fulfilled') {
@@ -101,7 +101,7 @@ function LoginPage() {
   };
 
   const [formSignupData, setFormSignupData] = useState({
-    username: '',
+    userId: '',
     password: '',
   });
   const handleInputChangeSignup = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +118,7 @@ function LoginPage() {
     e.preventDefault();
     dispatch(
       signup({
-        username: formSignupData.username,
+        userId: formSignupData.userId,
         password: formSignupData.password,
       }),
     )
@@ -159,8 +159,8 @@ function LoginPage() {
                   label="아이디"
                   placeholder="아이디를 입력하세요"
                   type="text"
-                  name="username"
-                  value={formData.username}
+                  name="userId"
+                  value={formData.userId}
                   onChange={handleInputChange}
                 />
                 <Input
@@ -196,8 +196,8 @@ function LoginPage() {
                   label="아이디"
                   placeholder="아이디를 입력하세요"
                   type="text"
-                  name="username"
-                  value={formSignupData.username}
+                  name="userId"
+                  value={formSignupData.userId}
                   onChange={handleInputChangeSignup}
                 />
                 <Input

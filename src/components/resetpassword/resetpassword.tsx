@@ -18,7 +18,7 @@ function ResetPasswordPage() {
   const loginError = useAppSelector((state) => state.user.error);
 
   const [formData, setFormData] = useState({
-    username: '',
+    userId: '',
     password: '',
   });
   const showLoginSuccessAlert = () => {
@@ -83,7 +83,7 @@ function ResetPasswordPage() {
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login({ username: formData.username, password: formData.password }))
+    dispatch(login({ userId: formData.userId, password: formData.password }))
       .then(() => {
         console.log('로그인 성공');
         showLoginSuccessAlert();
@@ -96,7 +96,7 @@ function ResetPasswordPage() {
   };
 
   const [formSignupData, setFormSignupData] = useState({
-    username: '',
+    userId: '',
     email: '',
     password: '',
   });
@@ -114,7 +114,7 @@ function ResetPasswordPage() {
     e.preventDefault();
     dispatch(
       signup({
-        username: formSignupData.username,
+        userId: formSignupData.userId,
         password: formSignupData.password,
       }),
     )
@@ -143,7 +143,7 @@ function ResetPasswordPage() {
                   placeholder="현재 비밀번호를 입력하세요"
                   type="text"
                   name="username"
-                  value={formData.username}
+                  value={formData.userId}
                   onChange={handleInputChange}
                 />
                 <Input
@@ -179,7 +179,7 @@ function ResetPasswordPage() {
                   placeholder="이름을 입력하세요"
                   type="text"
                   name="username"
-                  value={formSignupData.username}
+                  value={formSignupData.userId}
                   onChange={handleInputChangeSignup}
                 />
                 <Input
