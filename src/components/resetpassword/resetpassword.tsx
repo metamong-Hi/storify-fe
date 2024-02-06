@@ -116,7 +116,6 @@ function ResetPasswordPage() {
       signup({
         username: formSignupData.username,
         password: formSignupData.password,
-        email: formSignupData.email,
       }),
     )
       .then(() => {

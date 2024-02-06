@@ -21,14 +21,14 @@ const initialState: UserState = {
 };
 export const signup = createAsyncThunk(
     'user/signup',
-    async ({ username, password,email }: { username: string; password: string; email:string }, { rejectWithValue }) => {
+    async ({ username, password }: { username: string; password: string; }, { rejectWithValue }) => {
         try {
             const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password,email }),
+                body: JSON.stringify({ username, password }),
             });
             if (!response.ok) throw new Error('회원가입 망함');
             const data = await response.json();
@@ -53,7 +53,7 @@ export const login = createAsyncThunk(
                 },
                 body: JSON.stringify({ username, password }),
             });
-            // if (!response.ok) throw new Error('로그인 망함');
+            if (!response.ok) throw new Error('로그인 망함');
             const data = await response.json();
             return { accessToken: data.accessToken, username: data.username ,refreshToken:data.refreshToken}; // 예시, 실제 응답 구조에 따라 다를 수 있음
         } catch (error) {

@@ -8,14 +8,13 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { login } from '@/store/userSlice';
 import { signup } from '@/store/userSlice';
 import Swal from 'sweetalert2';
+import { showSignupModal } from '../signup/SignupModal';
 
 function LoginPage() {
   const [selected, setSelected] = useState('login');
 
   // const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
   const dispatch = useAppDispatch();
-  const loginStatus = useAppSelector((state) => state.user.status);
-  const loginError = useAppSelector((state) => state.user.error);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -84,10 +83,15 @@ function LoginPage() {
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ username: formData.username, password: formData.password }))
-      .then(() => {
+    .then((action) => {
+   
+      if (action.meta.requestStatus === 'fulfilled') {
         console.log('로그인 성공');
-        showLoginSuccessAlert();
-      })
+        // showLoginSuccessAlert();
+      } else {
+        throw new Error('로그인 실패');
+      }
+    })
       .catch((error) => {
         console.error('로그인 실패: ', error);
         showLoginFailedAlert();
@@ -97,7 +101,6 @@ function LoginPage() {
 
   const [formSignupData, setFormSignupData] = useState({
     username: '',
-    email: '',
     password: '',
   });
   const handleInputChangeSignup = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,12 +119,17 @@ function LoginPage() {
       signup({
         username: formSignupData.username,
         password: formSignupData.password,
-        email: formSignupData.email,
       }),
     )
-      .then(() => {
+    .then((action) => {
+   
+      if (action.meta.requestStatus === 'fulfilled') {
+        console.log('회원가입 성공');
         showSignupSuccessAlert();
-      })
+      } else {
+        throw new Error('회원가입 실패');
+      }
+    })
       .catch((error) => {
         console.log('회원가입 실패: ********* ', error);
         showSignupFailedAlert();
@@ -133,7 +141,7 @@ function LoginPage() {
     setSelected(String(key));
   };
   return (
-    <div className="flex flex-col w-full" style={{ fontFamily: 'ModernGulim' }}>
+    <div className=" max-w-full w-[340px] h-[400px]" style={{ fontFamily: 'ModernGulim' }}>
       {/* <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden"> */}
           <Tabs
@@ -200,15 +208,7 @@ function LoginPage() {
                   value={formSignupData.password}
                   onChange={handleInputChangeSignup}
                 />
-                <Input
-                  isRequired
-                  label="이메일"
-                  placeholder="이메일을 입력하세요"
-                  type="email"
-                  name="email"
-                  value={formSignupData.email}
-                  onChange={handleInputChangeSignup}
-                />
+       
                 <p className="text-center text-small">
                   이미 계정이 있으신가요?{' '}
                   <Link size="sm" style={{ color: '#FFC4D0' }} onPress={() => setSelected('login')}>
