@@ -43,7 +43,7 @@ interface BookComponentProps {
   index: number;
 }
 
-const Book = ({ book, index }: BookComponentProps) => {
+export const Book = ({ book, index }: BookComponentProps) => {
   let token = '';
   if (typeof window !== 'undefined') {
     // token = localStorage.getItem('token') ?? '';
@@ -53,7 +53,7 @@ const Book = ({ book, index }: BookComponentProps) => {
   const whoIsLoggedIn = token ? jwtDecode(token) : null;
   const isInitiallyLiked = book.likes?.some((like) => like === whoIsLoggedIn?.sub);
   const [liked, setLiked] = useState<boolean>(isInitiallyLiked ?? false);
-  const [likeCount, setLikeCount] = useState<number>(book.likes?.length || 0);
+  const [likeCount, setLikeCount] = useState<number>(book.likesCount || 0);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     const method = likeStatus ? 'POST' : 'DELETE';
@@ -148,7 +148,7 @@ const Book = ({ book, index }: BookComponentProps) => {
         <div className="flex justify-end items-center mt-1">
           <div className="flex items-center space-x-2">
             <EyeIcon className="w-4 h-4 text-gray-500" />
-            <span className="text-sm">{book.rate}</span>
+            <span className="text-sm">{book.count}</span>
           </div>
           <div className="flex items-center ml-2">
             <button
@@ -171,12 +171,10 @@ const Book = ({ book, index }: BookComponentProps) => {
 
 export default function BookShelves({ books = [], limit, search }: BookShelvesProps) {
   return (
-    <div className="flex justify-center p-5">
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {books.map((book, index) => (
-          <Book key={index} book={book} index={index} />
-        ))}
-      </div>
-    </div>
+    <>
+      {books.map((book, index) => (
+        <Book key={index} book={book} index={index} />
+      ))}
+    </>
   );
 }
