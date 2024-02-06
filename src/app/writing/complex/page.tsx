@@ -322,7 +322,7 @@ const ComplexWritingPage: React.FC = () => {
             </button>
             {currentStep < 2 ? (
               <button
-                className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
+                className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg"
                 onClick={handleClick}
                 disabled={isSending}
               >
@@ -331,7 +331,7 @@ const ComplexWritingPage: React.FC = () => {
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
                 <button
-                  className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg"
+                  className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg"
                   disabled={isSending}
                 >
                   동화책 만들기

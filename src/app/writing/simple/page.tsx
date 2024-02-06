@@ -69,7 +69,7 @@ const SimpleWritingPage: React.FC = () => {
       <div className="divider"></div>
       <div className="flex justify-between items-center">
         <Link href={`/writing`} passHref>
-          <button className="btn btn-outline btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+          <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
             뒤로 가기
           </button>
         </Link>
@@ -77,7 +77,7 @@ const SimpleWritingPage: React.FC = () => {
           {isListening ? '마이크 끄기' : '마이크 켜기'}
         </button>
         <Link href={`/writing/simple/waiting`} passHref>
-          <button className="btn btn-outline btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+          <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
             동화책 만들기
           </button>
         </Link>

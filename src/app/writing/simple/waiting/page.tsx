@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router'; 
+import { useRouter } from 'next/navigation'; 
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
 
@@ -48,7 +48,7 @@ const SimpleWaitingPage: React.FC = () => {
           const data = await response.json();
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
-          setIsSuccess(true); // Ensure success state is set before navigating
+          setIsSuccess(true); 
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
         }
@@ -61,7 +61,7 @@ const SimpleWaitingPage: React.FC = () => {
   }, [text, isSuccess, dispatch, token, router]);
 
   useEffect(() => {
-    if (isSuccess && router.isReady) {
+    if (isSuccess) {
       router.push(`/writing/simple/result`);
     }
   }, [isSuccess, router]);
