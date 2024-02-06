@@ -1,13 +1,16 @@
-import HomeDesign from '@/components/home/design';
-import Intro1 from '@/components/home/intro/Intro1';
+'use client';
 
-const HomePage = () => {
+import { getAllBooks } from '@/components/book/AllBooks';
+import BookList from '@/components/book/BookList';
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <HomeDesign />
-      <Intro1 />
+    <div className="flex flex-col">
+      <div className=" p-20">
+        <BookList userId="" />
+        <BookList userId="" />
+        <BookList userId="" />
+      </div>
     </div>
   );
-};
-
-export default HomePage;
+}

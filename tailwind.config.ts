@@ -11,6 +11,7 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
+      KyoboHand: ['KyoboHand'],
       Gulim: ['Gulim'],
       NamuGulim: ['NamuGulim'],
       ModernGulim: ['ModernGulim'],

@@ -10,7 +10,7 @@ import Loading from './loading';
 const Page = () => {
   return (
     <div className="container flex justify-center items-center p-5">
-      <BooksPage getBooks={getAllBooks} userId="" />
+      <BooksPage userId="" />
     </div>
   );
 };

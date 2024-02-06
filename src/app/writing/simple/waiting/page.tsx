@@ -23,7 +23,7 @@ const SimpleWaitingPage: React.FC = () => {
   const dispatch = useDispatch();
   const text = useSelector((state: RootState) => state.text.value);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const router = useRouter(); 
+  const router = useRouter();
   let token: string | null = null;
 
   if (typeof window !== 'undefined') {
@@ -32,7 +32,7 @@ const SimpleWaitingPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isSuccess) return;
+      if (isSuccess || !text) return;
 
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/stories`, {
@@ -48,8 +48,7 @@ const SimpleWaitingPage: React.FC = () => {
           const data = await response.json();
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
-          setIsSuccess(true);
-          router.push(`/writing/simple/result`);
+          setIsSuccess(true); // Ensure success state is set before navigating
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
         }
@@ -60,6 +59,12 @@ const SimpleWaitingPage: React.FC = () => {
 
     fetchData();
   }, [text, isSuccess, dispatch, token, router]);
+
+  useEffect(() => {
+    if (isSuccess && router.isReady) {
+      router.push(`/writing/simple/result`);
+    }
+  }, [isSuccess, router]);
 
   return (
     <div className="w-[60vw] h-[20vh]">
