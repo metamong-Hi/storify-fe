@@ -9,7 +9,7 @@ const WebSocketPage = () => {
     console.log("토큰이다"+token);
  
     const socket = io(serverUrl, {
-      transports: ['websocket'] ,
+  
       extraHeaders: {
         Authorization: `Bearer ${token}`
       },
