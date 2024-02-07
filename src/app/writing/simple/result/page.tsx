@@ -185,7 +185,7 @@ const SimpleResultPage: React.FC = () => {
         <Link href={`/book/${bookId}`} passHref>
           <button
             ref={buttonRef}
-            className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg mt-4"
+            className="btn font-bold border-2 mt-4"
           >
             책 보러 가기
           </button>

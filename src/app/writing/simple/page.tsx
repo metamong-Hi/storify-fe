@@ -54,6 +54,26 @@ const SimpleWritingPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
+      {isListening && (
+        <div className="alert alert-error text-center mx-auto w-full sm:w-48 mb-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg">
+            마이크가 켜져있어요
+          </span>
+        </div>
+      )}
       <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
         동화로 만들고 싶은
       </h1>
@@ -72,20 +92,16 @@ const SimpleWritingPage: React.FC = () => {
       <div className="divider"></div>
       <div className="flex justify-between items-center">
         <Link href={`/writing`} passHref>
-          <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
-            뒤로 가기
-          </button>
+          <button className="btn font-bold border-2">뒤로 가기</button>
         </Link>
         <button
           onClick={() => setIsListening((prevState) => !prevState)}
-          className={`btn btn-outline btn-xs sm:btn-sm md:btn-md lg:btn-lg ${isListening ? 'btn-error' : 'btn-primary'}`}
+          className={`btn font-bold border-2 btn-error ${isListening ? '' : 'btn-outline'}`}
         >
           {isListening ? '마이크 끄기' : '마이크 켜기'}
         </button>
         <Link href={`/writing/simple/waiting`} passHref>
-          <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
-            동화책 만들기
-          </button>
+          <button className="btn font-bold border-2">동화책 만들기</button>
         </Link>
       </div>
     </div>
