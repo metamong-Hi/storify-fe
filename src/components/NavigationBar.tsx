@@ -59,7 +59,7 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 p-5">
+      <div className="navbar bg-base-100 p-2">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -83,36 +83,36 @@ const NavbarComponent = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
-                <li key={index} className="p-4 text-xl xl:text-2xl font-bold">
-                  <Link href={item.link}>
-                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item `}>
+                <Link key={index} href={item.link}>
+                  <li className=" text-xl p-2 xl:text-2xl font-bold">
+                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
                       {item.text}
                     </span>
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>
-          <div className=" pl-15">
-            <Link href="/" className=" xl:text-4xl  font-bold ">
+          <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
+            <Link href="/" className="text-xl lg:text-3xl font-bold">
               <span>STORIFY</span>
             </Link>
           </div>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
             {menuItems.map((item, index) => (
-              <li key={index}>
-                <Link href={item.link}>
-                  <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item`}>
+              <Link key={index} href={item.link}>
+                <li className="block lg:inline-block text-lg lg:mx-2">
+                  <span className={` ${isActive(item.link) ? 'bg-base-200' : ''}`}>
                     {item.text}
                   </span>
-                </Link>
-              </li>
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
           {isLoggedIn ? (
             <>
               <span className="">
@@ -131,20 +131,20 @@ const NavbarComponent = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link href={`/user/${userId}/bookshelf`} className="p-2">
+                    <Link href={`/user/${userId}/bookshelf`} className="p-4">
                       내 책장
                     </Link>
                   </li>
-                  <li>
-                    <Link href={`/user/${userId}/profile`} className="p-2">
+                  {/* <li>
+                    <Link href={`/user/${userId}/profile`} className="p-4">
                       프로필
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
-                    <div className="bg-danger" onClick={() => handleClickLogout()}>
+                    <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
                   </li>
@@ -177,7 +177,9 @@ const NavbarComponent = () => {
                         </button>
                       </form>
                     </div>
-                    <LoginPage />
+                    <div className="flex justify-center item-center">
+                      <LoginPage />
+                    </div>
                   </div>
                 </dialog>
               </div>

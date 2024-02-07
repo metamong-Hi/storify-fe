@@ -4,16 +4,36 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import BookShelves from '@/components/book/BookShelves';
 import { GetParams, getAllBooks } from '@/components/book/AllBooks';
 import { BooksData } from '@/types/books';
-import { Tabs, Tab } from '@nextui-org/react';
+import { Tabs, Tab, user } from '@nextui-org/react';
 import PaginationSkeleton from '@/components/skeleton/PaginationSkeleton';
 
 import Pagination from '@/components/Pagination';
 import { SearchIcon } from '@/components/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
+import { jwtDecode } from 'jwt-decode';
 
 interface UseBooksDataProps {
   userId: string;
+}
+
+interface userIDProps {
+  _id: string;
+  nickname: string;
+  userId: string;
+}
+
+async function GET(url: string): Promise<userIDProps> {
+  try {
+    return (await fetch(url, { cache: 'no-store' })).json();
+  } catch (error: any) {
+    return error.message;
+  }
+}
+
+async function getOtherUserId(userId: string) {
+  const response = await GET(process.env.NEXT_PUBLIC_API_URL + `/users/${userId}`);
+  return response;
 }
 
 const BooksPage = ({ userId }: UseBooksDataProps) => {
@@ -22,6 +42,21 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     { label: '좋아요순', value: 'like' },
     { label: '조회순', value: 'count' },
   ];
+
+  let nickname = '';
+  let id = '';
+  const [otherNickname, setOtherNickname] = useState('');
+
+  if (typeof window !== 'undefined' && userId) {
+    id = jwtDecode(sessionStorage.getItem('token') || '')?.sub as string;
+    const getDatas = async () => {
+      const data = await getOtherUserId(userId);
+      setOtherNickname(data.nickname);
+    };
+    getDatas(); // Await the promise to resolve
+    nickname = sessionStorage.getItem('nickname') || '';
+    console.log('nickname', otherNickname);
+  }
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
@@ -34,14 +69,13 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     limit,
     sortBy,
     search,
-    userId: userId, // Provide a value or initializer for the 'id' shorthand property
+    userId: userId,
   });
 
   const { totalPage, paginate } = usePagination({
     totalItems,
     itemsPerPage: limit,
-    // 현재 페이지 상태를 usePagination으로 넘겨줍니다.
-    onPageChange: setCurrentPage, // 페이지 변경 시 호출할 함수를 넘겨줍니다.
+    onPageChange: setCurrentPage,
   });
 
   const handleSortBy = (value: string) => {
@@ -58,24 +92,29 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
 
   return (
     <>
-      <div className="flex flex-col ">
-        <div className="flex justify-between">
-          <div className="flex justify-start pl-5 space-x-2">
+      <div className="flex flex-col">
+        <div className="flex justify-between items-center mb-4">
+          <div
+            role="tablist"
+            className="tabs tabs-lifted flex justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32"
+          >
             {sortOptions.map((option) => (
-              <button
+              <a
+                role="tab"
                 key={option.value}
-                className={`px-4 py-2 text-sm font-medium leading-5 text-gray-700 rounded-lg focus:outline-none focus:shadow-outline ${
-                  sortBy === option.value ? 'bg-blue-500 text-white' : 'bg-gray-100'
-                }`}
+                className={`tab ${sortBy === option.value ? 'tab-active' : ''}`}
                 onClick={() => handleSortBy(option.value)}
               >
                 {option.label}
-              </button>
+              </a>
             ))}
           </div>
+          <div className="flex justify-center p-5">
+            {userId ? (userId === id ? '내 책장' : `${otherNickname} 님의 책장`) : ''}{' '}
+          </div>
 
-          <div className="flex items-center pr-5">
-            <div className="flex border-2 border-gray-300 bg-white rounded-full pl-3 pr-2">
+          <div className="flex justify-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
+            <div className="flex border-2 rounded-full pl-3 pr-2">
               <input
                 className="form-input w-full bg-transparent py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none"
                 id="search"
@@ -96,14 +135,14 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
             </div>
           </div>
         </div>
-
-        <div className="flex justify-center p-5">
-          <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex justify-center">
+          <div className="flex flex-wrap justify-center gap-4 px-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
             <BookShelves books={bookShelves} limit={limit} search={search} />
           </div>
         </div>
-
-        <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
+        <div className="pt-8">
+          <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
+        </div>
       </div>
     </>
   );

@@ -9,16 +9,14 @@ interface IProps {
 }
 
 function Pagination({ totalPage, paginate, currentPage }: IProps) {
-  // useMemo should return the array of page numbers, and it needs to depend on maxPageNum
   const pageNumbers = useMemo(() => {
     const numbers = [];
     for (let i = 1; i <= totalPage; i++) {
       numbers.push(i);
     }
     return numbers;
-  }, [totalPage]); // Depend on totalPage, as it's the source of truth for maxPageNum
+  }, [totalPage]);
 
-  // visiblePageNumbers should depend on currentPage and pageNumbers
   const visiblePageNumbers = useMemo(() => {
     let startPage = currentPage - 2 > 0 ? currentPage - 2 : 1;
     let endPage = startPage + 4 <= totalPage ? startPage + 4 : totalPage;
@@ -36,11 +34,11 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
   return (
     <div className="flex justify-center items-center">
       <nav className="block">
-        <ul className="flex pl-0 rounded list-none flex-wrap">
+        <ul className="flex join pl-0 rounded list-none flex-wrap sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row">
           <li>
             <button
               onClick={() => paginate(1)}
-              className={`first:ml-0 text-xs font-semibold flex w-full p-4 border-t border-b border-l rounded-l-lg border-gray-200 bg-white text-gray-800 ${
+              className={`first:ml-0 text-xs join-item font-semibold flex w-full p-4 border-t border-b border-l rounded-l-lg ${
                 currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
@@ -50,7 +48,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(Math.max(1, currentPage - 1))}
-              className={`text-xs font-semibold flex w-full p-4 border-t border-b border-l border-gray-200 bg-white text-gray-800 ${
+              className={`text-xs join-item font-semibold flex w-full p-4 border-t border-b border-l  ${
                 currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
@@ -62,9 +60,9 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
               <li key={number}>
                 <button
                   onClick={() => paginate(number)}
-                  className={`text-xs font-semibold flex w-full p-4 border-t border-b border-l border-gray-200 ${
-                    currentPage === number ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'
-                  }`}
+                  className={`text-xs join-item btn font-semibold flex w-full p-4 ${
+                    currentPage === number ? 'btn-active' : ''
+                  } `}
                 >
                   {number}
                 </button>
@@ -74,7 +72,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(Math.min(totalPage, currentPage + 1))}
-              className={`text-xs font-semibold flex w-full p-4 border-t border-b border-l border-gray-200 bg-white text-gray-800 ${
+              className={`text-xs join-item btn font-semibold flex w-full p-4 border-t border-b border-l  ${
                 currentPage === totalPage ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
@@ -84,7 +82,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(totalPage)}
-              className={`last:mr-0 text-xs font-semibold flex w-full p-4 border-t border-b border-l border-r rounded-r-lg border-gray-200 bg-white text-gray-800 ${
+              className={`last:mr-0 text-xs join-item btn font-semibold flex w-full p-4 border-t border-b border-l border-r rounded-r-lg  ${
                 currentPage === totalPage ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
