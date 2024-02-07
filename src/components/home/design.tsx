@@ -82,11 +82,11 @@ const HomeDesign: React.FC = () => {
           </h2>
         </div>
         <button
-          className="p-1 sm:p-1.5 md:p-2 lg:p-3 xl:p-4 2xl:p-5 font-bold cursor-pointer hover:text-black text-white opacity-0 duration-300 ease-in-out transform -md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
+          className="p-1 border-2 rounded-lg border-white sm:p-1.5 md:p-2 lg:p-3 xl:p-4 2xl:p-5 font-bold cursor-pointer hover:text-black hover:border-black text-white opacity-0 duration-300 ease-in-out transform -md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
           data-aos="fade-up" data-aos-delay="1200"
           onClick={handleStoryButtonClick}
         >
-          스토리 만들기
+          동화 만들기
         </button>
       </div>
     </div>
