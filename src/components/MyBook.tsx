@@ -375,7 +375,7 @@ useEffect(() => {
 
       <p
         style={{
-          fontSize: '1.75rem',
+          fontSize: '3rem',
           lineHeight: '2.25rem',
           display: 'flex',
           justifyContent: 'center',
@@ -483,7 +483,7 @@ useEffect(() => {
        
         </Button>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px', gap: '10px', marginRight:'20px'}}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px', gap: '10px', marginRight:'20px', marginBottom:'20px'}}>
   
   
       {isUser && (

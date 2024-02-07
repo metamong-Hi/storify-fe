@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Image from 'next/image';
-import Button from '@mui/material/Button';
+import {Button} from '@nextui-org/react';
 interface ImageEditorDrawerProps {
   isOpen: boolean;
   onClose: () => void; 
@@ -69,12 +69,18 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
   console.log(hellopage+"여기 페이지 넘어왔다");
   console.log("북아이디다"+bookId);
   return (
-    <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}>
+    <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}  sx={{
+      '& .MuiDrawer-paper': { padding:'20px' }, // Drawer 바닥에 여백 추가
+    }}>
       <List>
         <ListItem>
           <ListItemText primary="이미지 편집" />
-          <Button onClick={onEdit}>편집</Button>
-      <Button onClick={onDelete}>닫기</Button>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginRight:'20px'}}>
+  
+  
+          <Button onClick={onEdit}>저장</Button>
+          <Button onClick={onDelete}>취소</Button>
+          </div>
         </ListItem>
       </List>
         <div
@@ -83,7 +89,15 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
         style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}
       >
         {imageUrls.length === 0 ? (
-        <div>Loading...</div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: '1.75rem',
+          gap: '20px', 
+          width: '100%',
+          margin: 'auto',
+        }}><span className="loading loading-dots loading-lg"></span></div>
       ) : (
         imageUrls.map((imageUrl, index) => (
           <div
