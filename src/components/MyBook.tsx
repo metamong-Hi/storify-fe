@@ -385,18 +385,7 @@ useEffect(() => {
       >
         {title}
       </p>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-      
-      {isUser && (
-    <Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
-      삭제
-    </Button>  
-  )}
-
-  {isUser && (
-    <Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
-  )}
-      </div>
+    
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
@@ -494,6 +483,20 @@ useEffect(() => {
        
         </Button>
       </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px', gap: '10px', marginRight:'20px'}}>
+  
+  
+      {isUser && (
+<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
+)} 
+  {isUser && (
+<Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
+  삭제
+</Button>  
+)}
+
+
+  </div>
    
     </>
   );
