@@ -97,7 +97,7 @@ const NavbarComponent = () => {
             >
               {menuItems.map((item, index) => (
                 <Link key={index} href={isLoggedIn ? item.link : '#'}>
-                  <li className=" text-xl p-2 xl:text-2xl font-bold">
+                  <li className=" text-xl p-1 xl:text-2xl font-bold">
                     <div
                       onClick={item.onClick}
                       className={` p-4 ${isActive(item.link) ? 'bg-base-200' : ''}`}
@@ -150,17 +150,17 @@ const NavbarComponent = () => {
                   tabIndex={0}
                   className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
-                  <li>
+                  <li className="p-1">
                     <Link href={`/user/${userId}/bookshelf`} className="p-4">
                       내 책장
                     </Link>
                   </li>
-                  {/* <li>
+                  {/* <li className="p-1">
                     <Link href={`/user/${userId}/profile`} className="p-4">
                       프로필
                     </Link>
                   </li> */}
-                  <li>
+                  <li className="p-1">
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
