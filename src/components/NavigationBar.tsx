@@ -41,7 +41,7 @@ import { set } from 'lodash';
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+  const [nickname, setNickname] = useState('');
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
 
@@ -55,7 +55,7 @@ const NavbarComponent = () => {
     if (typeof window !== 'undefined') {
       // const token = localStorage.getItem('token');
       const token = sessionStorage.getItem('token');
-      setUsername(sessionStorage.getItem('username') || '');
+      setNickname(sessionStorage.getItem('nickname') || '');
       if (token) {
         const id = jwtDecode(token);
         setUserId(id.sub || '');
@@ -91,7 +91,7 @@ const NavbarComponent = () => {
   };
 
   const menuItems = [
-    { link: '/home', text: '홈' },
+
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
   ];
@@ -133,7 +133,7 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-                  <span className="text- text-xl font-bold  pr-2">{username}</span>님 환영합니다
+                  <span className=" text-xl font-bold  pr-2">{nickname}</span>님 환영합니다
                 </span>
               </NavbarItem>
               <Dropdown placement="bottom-end">

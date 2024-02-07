@@ -45,7 +45,7 @@ async function apiService(endpoint: string, options?: RequestInit) {
         return response;
     } catch (error) {
         console.error("API 서비스 오류: ", error);
-        throw error; // 함수를 호출한 곳으로 에러를 전파
+        throw error; 
     }
 }
 
