@@ -23,7 +23,7 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
     event?.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/telegram', {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/telegram', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
             </h2>
             <div className="divider"></div>
             <Link href="/" passHref>
-              <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+              <button className="btn font-bold border-2">
                 홈으로 가기
               </button>
             </Link>
@@ -95,14 +95,11 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
       <div className="hero-content text-center">
         <div className="w-[60vw]">
           <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
-            이용하면서 좋았던 점, 나빴던 점들
+            이용하면서 좋았던 점, 아쉬웠던 점을 알려주세요
           </h1>
-          <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
-            피드백 주시면 감사드리겠습니다
-          </h2>
           <div className="divider"></div>
           <textarea
-            placeholder="저희에게 발송됩니다."
+            placeholder="여러분의 의견을 적극 반영하겠습니다."
             className="textarea textarea-bordered textarea-lg w-full"
             rows={6}
             value={text}
@@ -111,12 +108,12 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
           <div className="divider"></div>
           <div className="flex justify-between">
             <Link href="/" passHref>
-              <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+              <button className="btn font-bold border-2">
                 뒤로 가기
               </button>
             </Link>
             <button
-              className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+              className="btn btn-primary font-bold border-2"
               onClick={handleButtonClick}
             >
               보내기
