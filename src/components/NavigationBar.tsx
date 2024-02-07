@@ -37,6 +37,7 @@ import {
 
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
+import SettingsComponent from './Setting/Settings';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

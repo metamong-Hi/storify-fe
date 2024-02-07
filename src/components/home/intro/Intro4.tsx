@@ -98,7 +98,7 @@ const Intro4: React.FC = () => {
         {cardInfo.map((card, index) => (
           <div
             key={index}
-            ref={applyTiltEffect}
+            ref={(node) => node && applyTiltEffect(node)}
             className="card w-full sm:w-52 md:w-60 lg:w-80 xl:w-96 2xl:w-112 glass shadow-xl"
             data-aos="fade-up"
             data-aos-delay={`${index < 2 ? '600' : '900'}`}
