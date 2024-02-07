@@ -98,13 +98,7 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <Navbar
-        maxWidth="2xl"
-        height="4rem"
-        isBordered
-        onMenuOpenChange={setIsMenuOpen}
-        className="bg-[#FAF3E0]/80 font-NamuGulim"
-      >
+      <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen} className="">
         <NavbarContent justify="start">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -112,7 +106,7 @@ const NavbarComponent = () => {
           />
           <NavbarBrand>
             <Link href="/" className="text-4xl  font-bold duration-300 ease-in-out">
-              <span className="text-[#B68973]">STORIFY</span>
+              <span className="">STORIFY</span>
             </Link>
           </NavbarBrand>
         </NavbarContent>
@@ -124,8 +118,8 @@ const NavbarComponent = () => {
                 className={`
     ${
       isActive(item.link)
-        ? 'text-[#1E212D] bg-[#EABF9F] border border-transparent rounded-full px-4 py-2 transition transform hover:bg-[#FBE8E7] active:bg-[#FBE8E7] active:scale-90 shadow-md'
-        : 'text-[#1E212D] hover:bg-gray-200 active:bg-gray-300 active:scale-95 rounded-full px-4 py-2 transition'
+        ? ' border border-transparent rounded-full px-4 py-2 transition transform hover: active: active:scale-90 shadow-md'
+        : ' hover: active: active:scale-95 rounded-full px-4 py-2 transition'
     }`}
                 href={item.link}
               >
@@ -139,8 +133,9 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-                  <span className="text-[#B68973] text-xl font-bold  pr-2">{nickname}</span>님
-                  환영합니다
+
+                  <span className="text- text-xl font-bold  pr-2">{username}</span>님 환영합니다
+
                 </span>
               </NavbarItem>
               <Dropdown placement="bottom-end">
@@ -175,12 +170,7 @@ const NavbarComponent = () => {
           ) : (
             <>
               <NavbarItem>
-                {/* <Button as={Link} color="primary" href="/login" variant="flat" size="lg"> */}
-                <Button
-                  onClick={onOpen}
-                  className="font-bold text-[##B68973] border-[##B68973] border-2 bg-[#B68973]  hover:bg-gray-200 "
-                  variant="flat"
-                >
+                <Button onClick={onOpen} className="font-bold border-2  hover: " variant="flat">
                   로그인
                 </Button>
               </NavbarItem>
@@ -190,11 +180,7 @@ const NavbarComponent = () => {
         <NavbarMenu>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={index} className="p-1">
-              <Link
-                color={isActive(item.link) ? 'primary' : 'foreground'}
-                href={item.link}
-                className="text-xl "
-              >
+              <Link color={isActive(item.link) ? '' : ''} href={item.link} className="text-xl ">
                 {item.text}
               </Link>
             </NavbarMenuItem>
@@ -213,16 +199,6 @@ const NavbarComponent = () => {
           <NavbarMenuItem></NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
-      {/*daisyUI 합의*/}
-      {/* <dialog id="my_modal_3" className="modal">
-  <div className="modal-box">
-    <form method="dialog">
-      {/* if there is a button in form, it will close the modal */}
-      {/*</><button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      <LoginPage/>
-    </form>
-    <h3 className="font-bold text-lg">Hello!</h3>
-    <p className="py-4">Press ESC key or click on ✕ button to close</p> */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent className="flex flex-col justify-center items-center p-4">
           {(_onClose: any) => (
@@ -231,11 +207,7 @@ const NavbarComponent = () => {
               <ModalBody className="flex justify-center items-center">
                 <LoginPage />
               </ModalBody>
-              <ModalFooter>
-                {/* <Button color="danger" variant='light' onPress={onClose}>
-          닫기
-        </Button> */}
-              </ModalFooter>
+              <ModalFooter></ModalFooter>
             </>
           )}
         </ModalContent>

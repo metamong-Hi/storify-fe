@@ -132,7 +132,7 @@ function ResetPasswordPage() {
     setSelected(String(key));
   };
   return (
-    <div className="flex flex-col w-full" style={{ fontFamily: 'ModernGulim' }}>
+    <div className="flex flex-col w-full">
       <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden">
                 <p>비밀번호 재설정</p>
@@ -213,6 +213,7 @@ function ResetPasswordPage() {
                 </div>
               </form>
         
+
         </CardBody>
       </Card>
     </div>
