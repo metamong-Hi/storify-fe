@@ -55,7 +55,6 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     };
     getDatas(); // Await the promise to resolve
     nickname = sessionStorage.getItem('nickname') || '';
-    console.log('nickname', otherNickname);
   }
 
   const [currentPage, setCurrentPage] = useState(1);

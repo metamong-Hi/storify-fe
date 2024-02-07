@@ -20,7 +20,6 @@ const useBooksData = ({ currentPage, limit, sortBy, search, userId }: UseBooksDa
       setIsLoading(true);
       try {
         const data = await getAllBooks(currentPage, limit, sortBy, search, userId);
-        console.log(data);
         setBookShelves(data.books);
         setTotalItems(data.total);
       } catch (error) {

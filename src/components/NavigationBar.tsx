@@ -21,7 +21,6 @@ const NavbarComponent = () => {
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
-  console.log(realToken);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = sessionStorage.getItem('token');
@@ -40,10 +39,9 @@ const NavbarComponent = () => {
       .then(() => {
         sessionStorage.removeItem('token');
         setIsLoggedIn(false);
-
       })
       .catch((error) => {
-        console.log('로그아웃 망함' + error);
+        console.error(error);
       });
   };
 
@@ -51,11 +49,23 @@ const NavbarComponent = () => {
     return pathName === pathname;
   };
 
-  const menuItems = [
-    // { link: '/home', text: '홈' },
-    { link: '/allbooks', text: '책장' },
-    { link: '/writing', text: '책 만들기' },
-  ];
+  const openLoginModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+      const modalElement = document.getElementById('authModal') as HTMLDialogElement;
+      modalElement.showModal();
+    }
+  };
+
+  let menuItems = [];
+  if (isLoggedIn) {
+    menuItems = [
+      { link: '/allbooks', text: '책장' },
+      { link: '/writing', text: '책 만들기' },
+    ];
+  } else {
+    menuItems = [{ link: '/allbooks', text: '책장' }];
+  }
 
   return (
     <>
