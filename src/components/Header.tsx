@@ -14,7 +14,7 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [nickname, setNickname] = useState('');
+    const [username, setUsername] = useState('');
 
     const dispatch = useAppDispatch();
     // const username = useAppSelector(state => state.user.username);
@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = (props) => {
         if (typeof window !== 'undefined') {
             // const token = localStorage.getItem('token');
             const token=sessionStorage.getItem('token');
-            setNickname(sessionStorage.getItem('nickname') || '');
+            setUsername(sessionStorage.getItem('username') || '');
             // setUsername(hihi);
             setIsLoggedIn(!!token);
         }
@@ -113,7 +113,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                             <>
                                 {!isMenuOpen && (
                                     <h5 className="hidden sm:block md:block">
-                                        {nickname}님 환영합니다
+                                        {username}님 환영합니다
                                     </h5>
                                 )}
                                 <li
