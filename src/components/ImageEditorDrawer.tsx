@@ -5,6 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Image from 'next/image';
+import Button from '@mui/material/Button';
 interface ImageEditorDrawerProps {
   isOpen: boolean;
   onClose: () => void; 
@@ -72,8 +73,8 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
       <List>
         <ListItem>
           <ListItemText primary="이미지 편집" />
-          <button onClick={onEdit}>편집</button>
-      <button onClick={onDelete}>닫기</button>
+          <Button onClick={onEdit}>편집</Button>
+      <Button onClick={onDelete}>닫기</Button>
         </ListItem>
       </List>
         <div
