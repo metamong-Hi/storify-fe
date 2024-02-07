@@ -375,7 +375,7 @@ useEffect(() => {
 
       <p
         style={{
-          fontSize: '1.5rem',
+          fontSize: '1.75rem',
           lineHeight: '2.25rem',
           display: 'flex',
           justifyContent: 'center',
