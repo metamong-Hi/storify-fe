@@ -228,6 +228,26 @@ const ComplexWritingPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
+      {isListening && (
+        <div className="alert alert-error text-center mx-auto w-full sm:w-48 mb-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg">
+            마이크가 켜져있어요
+          </span>
+        </div>
+      )}
       <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
       <h1 className="text-3xl font-semibold mb-2">
         세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.
@@ -236,7 +256,7 @@ const ComplexWritingPage: React.FC = () => {
       {displayedMessages.map((message, index) => (
         <div key={index} className="chat chat-start mb-2">
           <div className="chat-image avatar">
-            <div className="w-16 rounded-full">
+            <div className="w-12 rounded-full">
               <Image
                 alt="Tailwind CSS chat bubble component"
                 src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
@@ -248,13 +268,16 @@ const ComplexWritingPage: React.FC = () => {
           <div className="flex">
             <div className="chat-bubble">{message}</div>
             {index === 0 && (
-              <button onClick={playAudio} className="btn btn-circle btn-outline ml-2">
-                <Image
-                  src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
-                  width={500}
-                  height={500}
-                  alt="play audio"
-                />
+              <button onClick={playAudio} className="btn btn-circle btn-outline ml-4">
+                <div className="w-8 h-8 relative">
+                  <Image
+                    src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
+                    width={500}
+                    height={500}
+                    objectFit="scale-down"
+                    alt="play audio"
+                  />
+                </div>
               </button>
             )}
           </div>
@@ -300,7 +323,7 @@ const ComplexWritingPage: React.FC = () => {
       {currentStep < 3 && (
         <div ref={inputRef}>
           <input
-            className="input input-success input-bordered w-full"
+            className="input input-default input-bordered w-full"
             value={text}
             onChange={handleChange}
             autoFocus
@@ -315,30 +338,21 @@ const ComplexWritingPage: React.FC = () => {
           />
           <div className="flex justify-between mt-4">
             <Link href={`/writing`} passHref>
-              <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg">
-                뒤로가기
-              </button>
+              <button className="btn font-bold border-2">뒤로가기</button>
             </Link>
             <button
               onClick={() => setIsListening((prevState) => !prevState)}
-              className="btn btn-outline btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+              className={`btn font-bold border-2 btn-error ${isListening ? '' : 'btn-outline'}`}
             >
               {isListening ? '마이크 끄기' : '마이크 켜기'}
             </button>
             {currentStep < 2 ? (
-              <button
-                className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg"
-                onClick={handleClick}
-                disabled={isSending}
-              >
+              <button className="btn font-bold border-2" onClick={handleClick} disabled={isSending}>
                 보내기
               </button>
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
-                <button
-                  className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg"
-                  disabled={isSending}
-                >
+                <button className="btn font-bold border-2" disabled={isSending}>
                   동화책 만들기
                 </button>
               </Link>
