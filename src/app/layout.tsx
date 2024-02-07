@@ -18,7 +18,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Providers>
             <NavigationBar />
             <Banner />
-            {children}
+            <main className="pb-20">
+              {children}
+            </main>
             <Footer />
           </Providers>
         </Provider>
