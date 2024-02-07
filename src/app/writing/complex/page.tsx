@@ -327,12 +327,12 @@ const ComplexWritingPage: React.FC = () => {
               {isListening ? '마이크 끄기' : '마이크 켜기'}
             </button>
             {currentStep < 2 ? (
-              <button className="btn font-bold border-2" onClick={handleClick} disabled={isSending}>
+              <button className="btn btn-primary font-bold border-2" onClick={handleClick} disabled={isSending}>
                 보내기
               </button>
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
-                <button className="btn font-bold border-2" disabled={isSending}>
+                <button className="btn btn-primary font-bold border-2" disabled={isSending}>
                   동화책 만들기
                 </button>
               </Link>

@@ -83,7 +83,7 @@ const SimpleWritingPage: React.FC = () => {
           {isListening ? '마이크 끄기' : '마이크 켜기'}
         </button>
         <Link href={`/writing/simple/waiting`} passHref>
-          <button className="btn font-bold border-2">동화책 만들기</button>
+          <button className="btn btn-primary font-bold border-2">동화책 만들기</button>
         </Link>
       </div>
     </div>
