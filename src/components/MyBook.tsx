@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import styled,{ keyframes } from 'styled-components';
+import styled,{ keyframes} from 'styled-components';
 import { Image,Modal } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
@@ -62,66 +62,96 @@ const ResponsiveText = styled.p`
     line-height: 2rem; // 모바일 화면에서 줄어든 줄 간격
   }
 `;
-const zoomInOut = keyframes`
-  0%, 100% {
-    transform: scale(1); // 원래 크기
-  }
-  50% {
-    transform: scale(1.2); // 10% 확대
-  }
-`;
+// const zoomInOut = keyframes`
+//   0%, 100% {
+//     transform: scale(1); // 원래 크기
+//   }
+//   50% {
+//     transform: scale(1.2); // 10% 확대
+//   }
+// `;
 
 
-const moveLeft = keyframes`
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-10%);
-  }
-`;
+// const moveLeft = keyframes`
+//   from {
+//     transform: translateX(0%);
+//   }
+//   to {
+//     transform: translateX(-10%);
+//   }
+// `;
 
-const moveRight = keyframes`
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(10%);
-  }
-`;
+// const moveRight = keyframes`
+//   from {
+//     transform: translateX(0%);
+//   }
+//   to {
+//     transform: translateX(10%);
+//   }
+// `;
 
-const moveUp = keyframes`
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(-10%);
-  }
-`;
+// const moveUp = keyframes`
+//   from {
+//     transform: translateY(0%);
+//   }
+//   to {
+//     transform: translateY(-10%);
+//   }
+// `;
 
-const moveDown = keyframes`
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(10%);
-  }
-`;
+// const moveDown = keyframes`
+//   from {
+//     transform: translateY(0%);
+//   }
+//   to {
+//     transform: translateY(10%);
+//   }
+// `;
+const generateAnimation = () => {
+  // 여러 애니메이션 중 하나를 랜덤으로 선택
+  const animations = [
+    `
+      @keyframes animation {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+    `,
+    `
+      @keyframes animation {
+        from { transform: translateX(0%) scale(1.2); }
+        to { transform: translateX(-10%) scale(1.2); }
+      }
+    `,
+    `
+      @keyframes animation {
+        from { transform: translateX(0%) scale(1.2); }
+        to { transform: translateX(10%) scale(1.2); }
+      }
+    `,
+    `
+      @keyframes animation {
+        from { transform: translateY(0%) scale(1.2); }
+        to { transform: translateY(-10%) scale(1.2); }
+      }
+    `,
+    `
+      @keyframes animation {
+        from { transform: translateY(0%) scale(1.2); }
+        to { transform: translateY(10%) scale(1.2); }
+      }
+    `
+  ];
 
-const animations = [zoomInOut, moveLeft, moveRight, moveUp, moveDown];
-
-// 랜덤 애니메이션 선택 함수
-const getRandomAnimation = () => {
   const randomIndex = Math.floor(Math.random() * animations.length);
   return animations[randomIndex];
 };
-
-const AnimatedImage = styled.img`
+const AnimatedImage = styled.img<{ animationCss: string }>`
   object-fit: cover;
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  animation: ${zoomInOut} 3s ease-in-out infinite; // 3초 지속, 부드러운 시작과 끝, 무한 반복
+  ${props => props.animationCss}
+  animation: animation 3s ease-in-out infinite;
 `;
 const StyledImage = styled.img`
   width: 100%;
@@ -161,6 +191,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
   const [helloUserId, setHelloUserId]=useState('');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [animationCss, setAnimationCss] = useState('');
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -212,6 +243,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     console.log(currentPageIndex + "페이지임");
       closeImageEditor();
       setIsLoaded(true);
+      setAnimationCss(generateAnimation());
   }, [currentPageIndex]);
   const handleImageDrop = async(droppedImageUrl:string) => {
     
@@ -485,7 +517,7 @@ const handleimsiDelete = () => {
                   <ImageDroppable onDrop={handleImageDrop}>
                     <AnimatedImage
                           // className={`image ${isLoaded ? 'animate' : ''}`}
-                      className="image-zoom-in-out"
+                      animationCss={animationCss}
                       // isZoomed
                       width={600}
                       height={600}
