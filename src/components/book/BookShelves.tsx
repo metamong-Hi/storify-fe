@@ -125,7 +125,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
             className="object-contain w-full h-full "
             height={200}
             width={200}
-            loading="lazy"
             quality={90} // 품질 설정
           />
         </Link>
