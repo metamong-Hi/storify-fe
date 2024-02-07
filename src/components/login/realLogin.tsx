@@ -17,7 +17,7 @@ function LoginPage() {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
-    username: '',
+    userId: '',
     password: '',
   });
   const showLoginSuccessAlert = () => {
@@ -82,16 +82,19 @@ function LoginPage() {
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login({ username: formData.username, password: formData.password }))
-      .then((action) => {
-        if (action.meta.requestStatus === 'fulfilled') {
-          console.log('로그인 성공');
-          // showLoginSuccessAlert();
-          window.location.reload();
-        } else {
-          throw new Error('로그인 실패');
-        }
-      })
+
+    dispatch(login({ userId: formData.userId, password: formData.password }))
+    .then((action) => {
+   
+      if (action.meta.requestStatus === 'fulfilled') {
+        console.log('로그인 성공');
+        // showLoginSuccessAlert();
+        window.location.reload();
+      } else {
+        throw new Error('로그인 실패');
+      }
+    })
+
       .catch((error) => {
         console.error('로그인 실패: ', error);
         showLoginFailedAlert();
@@ -100,7 +103,7 @@ function LoginPage() {
   };
 
   const [formSignupData, setFormSignupData] = useState({
-    username: '',
+    userId: '',
     password: '',
   });
   const handleInputChangeSignup = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +120,7 @@ function LoginPage() {
     e.preventDefault();
     dispatch(
       signup({
-        username: formSignupData.username,
+        userId: formSignupData.userId,
         password: formSignupData.password,
       }),
     )
@@ -143,6 +146,7 @@ function LoginPage() {
     <div className=" max-w-full w-[340px] h-[400px]">
       {/* <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden"> */}
+
       <Tabs
         fullWidth
         size="sm"
