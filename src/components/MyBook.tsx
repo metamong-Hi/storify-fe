@@ -101,7 +101,7 @@ const generateAnimation = () => {
   ];
 
   const randomIndex = Math.floor(Math.random() * animations.length);
-  return animations[randomIndex];
+  return animations[0];
 };
 
 
@@ -111,7 +111,7 @@ const AnimatedImage = styled.img<{ animationCss: string }>`
   height: 100%;
   border-radius: 20px;
   ${props => props.animationCss}
-  animation: animation 6s ease-in-out infinite;
+  animation: animation 5s ease-in-out infinite;
 `;
 
 interface PageItem {
@@ -202,17 +202,19 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     flipNext(): void;
     flipPrev(): void;
   }
-  const showDeleteAlert=()=>{
+  const showDeleteAlert = () => {
     Swal.fire({
-        title:'삭제',
-        text:'정말 삭제하실건가요?',
-        icon:'question',
-        confirmButtonText:'OK',
-    }).then((result)=>{
-        if(result.value){
-            handleDelete();
-        }
-    })
+      title: '삭제',
+      text: '정말 삭제하실건가요?',
+      icon: 'question',
+      confirmButtonText: '네, 삭제할게요',
+      showCancelButton: true, // 닫기 버튼을 표시합니다.
+      cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
+    }).then((result) => {
+      if (result.isConfirmed) { // 'result.value' 대신 'result.isConfirmed'를 사용합니다.
+        handleDelete();
+      }
+    });
   }
   const showDeleteFailedAlert=()=>{
     Swal.fire({
@@ -280,26 +282,28 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
   closeImageEditor();
   }
-const handleimsiEdit = () => {
-  console.log("편집 버튼이 클릭되었습니다.");
-  Swal.fire({
-    title:'이미지를 편집하시나요?',
-    text:'한 번 편집하면 되돌릴 수 없어요!',
-    icon:'question',
-    confirmButtonText:'OK',
-}).then((result)=>{
-    if(result.value){
+  const handleimsiEdit = () => {
+    console.log("편집 버튼이 클릭되었습니다.");
+    Swal.fire({
+      title: '이미지를 저장하시나요?',
+      text: '한 번 저장하면 되돌릴 수 없어요!',
+      icon: 'question',
+      confirmButtonText: '네, 저장할게요',
+      showCancelButton: true, // 닫기 버튼을 추가합니다.
+      cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
+    }).then((result) => {
+      if (result.isConfirmed) { // 확인 버튼이 클릭되었는지 확인합니다.
         handleEdit(selectedImageUrl);
         Swal.fire({
-          title:'수정완료!',
-          text:'수정이 완료되었어요!',
-          icon:'success',
-          confirmButtonText:'OK',
-      })
-    }
-})
-};
-
+          title: '수정완료!',
+          text: '수정이 완료되었어요!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+      }
+    });
+  };
+  
 const handleimsiDelete = () => {
   closeImageEditor();
 };
@@ -483,14 +487,14 @@ useEffect(() => {
        
         </Button>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px', gap: '10px', marginRight:'20px', marginBottom:'20px'}}>
+      <div style={{ display: 'flex', justifyContent:  'center', marginTop: '10px', gap: '10px', marginRight:'20px', marginBottom:'20px'}}>
   
   
       {isUser && (
-<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
+<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px', backgroundColor:'transparent', color:'blue'}}>편집</Button>
 )} 
   {isUser && (
-<Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
+<Button  onClick={showDeleteAlert} style={{height:'40px',width:'40px', backgroundColor:'transparent',color:'red'}}>
   삭제
 </Button>  
 )}

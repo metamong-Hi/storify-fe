@@ -69,16 +69,13 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
   console.log(hellopage+"여기 페이지 넘어왔다");
   console.log("북아이디다"+bookId);
   return (
-    <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}  sx={{
-      '& .MuiDrawer-paper': { padding:'20px' }, // Drawer 바닥에 여백 추가
-    }}>
+    <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}  >
       <List>
         <ListItem>
           <ListItemText primary="이미지 편집" />
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginRight:'20px'}}>
-  
-  
-          <Button onClick={onEdit}>저장</Button>
+
+          <Button onClick={onEdit} style={{backgroundColor: '#ABD6A8' }}>저장</Button>
           <Button onClick={onDelete}>취소</Button>
           </div>
         </ListItem>
@@ -97,7 +94,26 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
           gap: '20px', 
           width: '100%',
           margin: 'auto',
-        }}><span className="loading loading-dots loading-lg"></span></div>
+          
+        }}>
+          <div>
+            <p>잠시만 기다려주세요!</p>
+            <div className="mx-auto">
+            <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: '1.75rem',
+          gap: '20px', 
+          width: '100%',
+          margin: 'auto',
+          
+        }}>
+              <span className="loading loading-dots loading-lg"></span>
+              </div>
+            </div>
+        </div>
+        </div>
       ) : (
         imageUrls.map((imageUrl, index) => (
           <div
