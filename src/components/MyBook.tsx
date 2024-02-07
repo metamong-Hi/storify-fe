@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import styled from 'styled-components';
+import styled,{ keyframes } from 'styled-components';
 import { Image,Modal } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
@@ -15,6 +15,7 @@ const StyledFlipBook = styled.div`
   align-items: center;
   height: 100vh;
   border-radius: 20px;
+  overflow:hidden;
   flex-direction: column;
   // .html-flip-book {
   //     width: 600px;
@@ -29,6 +30,7 @@ const StyledFlipBook = styled.div`
     // outline: 2px solid black;
     background-color: white;
     border-radius: 20px;
+    overflow:hidden;
     // display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +62,67 @@ const ResponsiveText = styled.p`
     line-height: 2rem; // 모바일 화면에서 줄어든 줄 간격
   }
 `;
+const zoomInOut = keyframes`
+  0%, 100% {
+    transform: scale(1); // 원래 크기
+  }
+  50% {
+    transform: scale(1.2); // 10% 확대
+  }
+`;
 
+
+const moveLeft = keyframes`
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-10%);
+  }
+`;
+
+const moveRight = keyframes`
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(10%);
+  }
+`;
+
+const moveUp = keyframes`
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-10%);
+  }
+`;
+
+const moveDown = keyframes`
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(10%);
+  }
+`;
+
+const animations = [zoomInOut, moveLeft, moveRight, moveUp, moveDown];
+
+// 랜덤 애니메이션 선택 함수
+const getRandomAnimation = () => {
+  const randomIndex = Math.floor(Math.random() * animations.length);
+  return animations[randomIndex];
+};
+
+const AnimatedImage = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  animation: ${zoomInOut} 3s ease-in-out infinite; // 3초 지속, 부드러운 시작과 끝, 무한 반복
+`;
 const StyledImage = styled.img`
   width: 100%;
   height: 100%;
@@ -415,29 +477,21 @@ const handleimsiDelete = () => {
                   textAlign: 'center',
                   height: '600px', // 페이지 높이 설정
                   width: '600px', // 페이지 너비 설정
+                  
+                  overflow:'hidden'
                 }}
               >
                {isEvenPage ? (
                   <ImageDroppable onDrop={handleImageDrop}>
-                    <Image
+                    <AnimatedImage
                           // className={`image ${isLoaded ? 'animate' : ''}`}
-
-                      isZoomed
+                      className="image-zoom-in-out"
+                      // isZoomed
                       width={600}
                       height={600}
                       src={item}
                       alt={`Page ${index + 1}`}
-                      style={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: '20px',
-                        // transition: 'transform 0.5s ease',
-                        // transform: isLoaded ? 'scale(1.1)' : 'scale(1)',
-                      }}
-                
-                      // draggable
-                      // onDragStart={(e) => handleDragStart(e, item)}
+                    
                     />
                   </ImageDroppable>
                 ) : (
