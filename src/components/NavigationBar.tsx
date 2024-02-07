@@ -80,7 +80,7 @@ const NavbarComponent = () => {
         // localStorage.removeItem('token');
         sessionStorage.removeItem('token');
         setIsLoggedIn(false);
-        alert('로그아웃');
+
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
