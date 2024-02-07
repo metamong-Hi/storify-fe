@@ -420,6 +420,8 @@ const handleimsiDelete = () => {
                {isEvenPage ? (
                   <ImageDroppable onDrop={handleImageDrop}>
                     <Image
+                          // className={`image ${isLoaded ? 'animate' : ''}`}
+
                       isZoomed
                       width={600}
                       height={600}
@@ -430,12 +432,11 @@ const handleimsiDelete = () => {
                         width: '100%',
                         height: '100%',
                         borderRadius: '20px',
-                        transition: 'transform 0.5s ease',
-                        transform: isLoaded ? 'scale(1.1)' : 'scale(1)',
+                        // transition: 'transform 0.5s ease',
+                        // transform: isLoaded ? 'scale(1.1)' : 'scale(1)',
                       }}
-                      className={`image ${isLoaded ? 'animate' : ''}`}
-                  
-                      draggable
+                
+                      // draggable
                       // onDragStart={(e) => handleDragStart(e, item)}
                     />
                   </ImageDroppable>

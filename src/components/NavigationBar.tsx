@@ -91,7 +91,7 @@ const NavbarComponent = () => {
   };
 
   const menuItems = [
-    { link: '/home', text: '홈' },
+
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
   ];
