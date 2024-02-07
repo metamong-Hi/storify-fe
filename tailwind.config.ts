@@ -30,13 +30,13 @@ const config: Config = {
         'xl': '1280px',
         '2xl': '1536px',
       },
-      // spacing: {
-      //   sm: '8px',
-      //   md: '9.6px',
-      //   lg: '12.8px',
-      //   xl: '16px',
-      //   '2xl': '19.2px',
-      // },
+      spacing: {
+        sm: '8px',
+        md: '9.6px',
+        lg: '12.8px',
+        xl: '16px',
+        '2xl': '19.2px',
+      },
 
       borderWidth: {
         '6': '6px',
