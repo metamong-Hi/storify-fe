@@ -490,7 +490,7 @@ useEffect(() => {
         
         </Button>
         <Button onClick={goToNextPage}style={{ marginLeft: '10px' }}>
-          다음페이지
+          다음페이지 
        
         </Button>
       </div>
