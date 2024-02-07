@@ -133,12 +133,7 @@ const NavbarComponent = () => {
             <>
               <NavbarItem>
                 <span className="">
-<<<<<<< HEAD
-                  <span className="text-[#B68973] text-xl font-bold  pr-2">{nickname}</span>님
-                  환영합니다
-=======
-                  <span className="text- text-xl font-bold  pr-2">{username}</span>님 환영합니다
->>>>>>> 228ecfa864efb3f5c8bb3db4d3ba6dddf38b2d4f
+                  <span className=" text-xl font-bold  pr-2">{nickname}</span>님 환영합니다
                 </span>
               </NavbarItem>
               <Dropdown placement="bottom-end">
