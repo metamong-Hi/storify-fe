@@ -102,6 +102,12 @@ const config: Config = {
         '144': '36rem',
         '160': '40rem',
       },
+      height: {
+        '112': '28rem',
+        '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+      },
       keyframes: {
         shake: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
