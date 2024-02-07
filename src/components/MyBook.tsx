@@ -118,26 +118,31 @@ const generateAnimation = () => {
     `,
     `
       @keyframes animation {
-        from { transform: translateX(0%) scale(1.2); }
-        to { transform: translateX(-10%) scale(1.2); }
+        0%, 100% { transform: translateX(0%) scale(1.4); }
+        50% { transform: translateX(-20%) scale(1.4); }
+  
       }
     `,
     `
       @keyframes animation {
-        from { transform: translateX(0%) scale(1.2); }
-        to { transform: translateX(10%) scale(1.2); }
+        0%, 100% { transform: translateX(0%) scale(1.4); }
+        50% { transform: translateX(20%) scale(1.4); }
+  
       }
     `,
     `
       @keyframes animation {
-        from { transform: translateY(0%) scale(1.2); }
-        to { transform: translateY(-10%) scale(1.2); }
+        0%, 100% { transform: translateY(0%) scale(1.4); }
+        50% { transform: translateY(-20%) scale(1.4); }
+  
+
       }
     `,
     `
       @keyframes animation {
-        from { transform: translateY(0%) scale(1.2); }
-        to { transform: translateY(10%) scale(1.2); }
+        0%, 100% { transform: translateY(0%) scale(1.4); }
+        50% { transform: translateY(20%) scale(1.4); }
+  
       }
     `
   ];
@@ -151,7 +156,7 @@ const AnimatedImage = styled.img<{ animationCss: string }>`
   height: 100%;
   border-radius: 20px;
   ${props => props.animationCss}
-  animation: animation 3s ease-in-out infinite;
+  animation: animation 6s ease-in-out infinite;
 `;
 const StyledImage = styled.img`
   width: 100%;
