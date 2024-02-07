@@ -1,11 +1,11 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
 
@@ -48,7 +48,7 @@ const SimpleWaitingPage: React.FC = () => {
           const data = await response.json();
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
-          setIsSuccess(true); 
+          setIsSuccess(true);
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
         }
@@ -67,7 +67,7 @@ const SimpleWaitingPage: React.FC = () => {
   }, [isSuccess, router]);
 
   return (
-    <div className="w-[60vw] h-[20vh]">
+    <div className="w-[60vw] min-h-[20vh]">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -80,7 +80,9 @@ const SimpleWaitingPage: React.FC = () => {
       >
         {loadingTexts.map((loadingText, index) => (
           <SwiperSlide key={index}>
-            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold">{loadingText}</h1>
+            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold">
+              {loadingText}
+            </h1>
           </SwiperSlide>
         ))}
       </Swiper>

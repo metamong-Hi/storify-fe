@@ -15,6 +15,12 @@ interface ImageItem {
   imageUrl: string;
 }
 
+const Skeleton = () => {
+  return (
+    <div className="skeleton w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-36 lg:h-36 xl:w-48 xl:h-48 2xl:w-60 2xl:h-60 "></div>
+  );
+};
+
 const ComplexResultPage: React.FC = () => {
   const dispatch = useDispatch();
   let token: string | null = null;
@@ -29,11 +35,7 @@ const ComplexResultPage: React.FC = () => {
   const [showNavigateButton, setShowNavigateButton] = useState(false);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-
-  const Skeleton = () => {
-    return <div className="skeleton w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"></div>;
-  };
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
 
   if (typeof window !== 'undefined') {
     token = sessionStorage.getItem('token');
@@ -44,41 +46,41 @@ const ComplexResultPage: React.FC = () => {
       return;
     }
     const sendBookData = async () => {
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`, // token은 적절히 설정해야 합니다.
-            },
-            body: JSON.stringify({
-              imageStyle: 'cartoon',
-              aiStory: bookContent,
-              storyId: bookId,
-            }),
-          });
-          if (response.ok) {
-            const responseData = (await response.json()) as BookResponseData;
-            dispatch(setBookId(responseData._id));
-            const imageUrls = Object.values(responseData.body).map(
-              (item: ImageItem) => item.imageUrl,
-            );
-            dispatch(setImageUrls(imageUrls));
-            setRealImagesLoaded(true);
-          }
-        } catch (error) {
-          console.error('Error:', error);
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            imageStyle: 'cartoon',
+            aiStory: bookContent,
+            storyId: bookId,
+          }),
+        });
+        if (response.ok) {
+          const responseData = (await response.json()) as BookResponseData;
+          dispatch(setBookId(responseData._id));
+          const imageUrls = Object.values(responseData.body).map(
+            (item: ImageItem) => item.imageUrl,
+          );
+          dispatch(setImageUrls(imageUrls));
+          setRealImagesLoaded(true);
         }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     };
 
     sendBookData();
-  }, [bookContent, bookId, realImagesLoaded, token, dispatch]); 
+  }, [bookContent, bookId, realImagesLoaded, token, dispatch]);
 
-    useEffect(() => {
-      if (imageUrls.length > 0 && !realImagesLoaded) {
-        setRealImagesLoaded(true);
-      }
-    }, [imageUrls, realImagesLoaded]);
+  useEffect(() => {
+    if (imageUrls.length > 0 && !realImagesLoaded) {
+      setRealImagesLoaded(true);
+    }
+  }, [imageUrls, realImagesLoaded]);
 
   useEffect(() => {
     setDisplayedText('');
@@ -117,8 +119,8 @@ const ComplexResultPage: React.FC = () => {
           if (bookId) {
             setShowNavigateButton(true);
           }
-        }, 2000);
-      }, 5000);
+        }, 0);
+      }, 2000);
     }
   }, [isTypingCompleted, bookId]);
 
@@ -127,12 +129,12 @@ const ComplexResultPage: React.FC = () => {
       let totalHeight = 0;
       imageRefs.current.forEach((img) => {
         if (img) {
-          totalHeight += img.offsetHeight + 10; // 이미지 높이 + 마진
+          totalHeight += img.offsetHeight + 10;
         }
       });
 
       if (buttonRef.current) {
-        totalHeight += buttonRef.current.offsetHeight + 10; // 버튼 높이 + 마진
+        totalHeight += buttonRef.current.offsetHeight + 10;
       }
 
       if (totalHeight > 0) {
@@ -150,8 +152,12 @@ const ComplexResultPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
-      <h1 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl  font-bold mb-4">요정이 동화책을 만들고 있어요.</h1>
-      <h2 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold mb-4">잠시만 기다려 주세요.</h2>
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+        요정이 동화책을 만들고 있어요.
+      </h1>
+      <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+        잠시만 기다려 주세요.
+      </h2>
       <div className="divider"></div>
       <textarea
         placeholder="여기에 간단히 적어줘"
@@ -163,30 +169,26 @@ const ComplexResultPage: React.FC = () => {
       ></textarea>
       <div className="divider"></div>
       <div className="flex justify-around gap-2">
-      { realImagesLoaded ? (
-        imageUrls.map((url, index) => (
-          <Image
-            key={index}
-            src={url}
-            alt={`Image ${index + 1}`}
-            width={256}
-            height={256}
-            className="rounded-md blur-effect1 w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"
-            ref={(el) => (imageRefs.current[index] = el)}
-          />
-        ))
-      ) : (
-        Array.from({ length: imageUrls.length || 3 }, (_, index) => (
-          <Skeleton key={index} />
-        ))
-      )}
-
+        {realImagesLoaded
+          ? imageUrls.map((url, index) => (
+              <Image
+                key={index}
+                src={url}
+                alt={`Image ${index + 1}`}
+                width={256}
+                height={256}
+                className="rounded-md blur-effect1 w-16 sm:w-20 md:w-24 lg:w-36 xl:w-48 2xl:w-60"
+                ref={(el) => (imageRefs.current[index] = el)}
+              />
+            ))
+          : Array.from({ length: imageUrls.length || 3 }, (_, index) => <Skeleton key={index} />)}
       </div>
       {showNavigateButton && (
         <Link href={`/book/${bookId}`} passHref>
-          <button 
-          ref={buttonRef}
-          className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg mt-4">
+          <button
+            ref={buttonRef}
+            className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg mt-4"
+          >
             책 보러 가기
           </button>
         </Link>

@@ -12,7 +12,7 @@ import Footer from '@/components/home/footer/Footer';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="kr" data-theme="fantasy">
-      <body className="">
+      <body className="font-KyoboHand">
         <Provider store={store}>
           <Providers>
             <NavigationBar />

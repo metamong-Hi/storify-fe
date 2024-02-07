@@ -108,7 +108,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     avatar:
       'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
     bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
-    name: book.userId?.username ?? '', // Replace with actual user's name
+    name: book.userId?.userId ?? '', // Replace with actual user's name
   };
 
   return (
@@ -116,7 +116,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
       key={index}
       className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
-      <div className="object-center transition-transform duration-500 hover:scale-105">
+      <div className="object-center transition-transform duration-500 hover:scale-105 w-[280px] h-[280px]">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
           <Image
             src={imageURL}
@@ -131,9 +131,9 @@ export const Book = ({ book, index }: BookComponentProps) => {
       </div>
 
       <div className="p-4">
-        <div className="truncate text-align-center">
-          <div className="text-lg md:text-xl lg:text-2xl font-bold w-full">
-            <div className="justif-flex-start">{book.title}</div>
+        <div className="flex truncate justify-center text-align-center">
+          <div className="flex justify-center text-lg md:text-xl lg:text-2xl font-bold">
+            <div className="text-center w-[250px]">{book.title}</div>
           </div>
         </div>
         <div className="flex justify-between items-center mt-4 ">

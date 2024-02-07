@@ -1,4 +1,4 @@
-import SimpleResultPageSkeleton from "@/components/skeleton/SimpleResultPageSkeleton";
+import SimpleResultPageSkeleton from "@/components/skeleton/writing/SimpleResultPageSkeleton";
 
 export default function Loading() {
   return (

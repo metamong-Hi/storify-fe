@@ -122,15 +122,14 @@ function LoginPage() {
         password: formSignupData.password,
       }),
     )
-    .then((action) => {
-   
-      if (action.meta.requestStatus === 'fulfilled') {
-        console.log('회원가입 성공');
-        showSignupSuccessAlert();
-      } else {
-        throw new Error('회원가입 실패');
-      }
-    })
+      .then((action) => {
+        if (action.meta.requestStatus === 'fulfilled') {
+          console.log('회원가입 성공');
+          showSignupSuccessAlert();
+        } else {
+          throw new Error('회원가입 실패');
+        }
+      })
       .catch((error) => {
         console.log('회원가입 실패: ********* ', error);
         showSignupFailedAlert();
@@ -142,7 +141,7 @@ function LoginPage() {
     setSelected(String(key));
   };
   return (
-    <div className=" max-w-full w-[340px] h-[400px]" style={{ fontFamily: 'ModernGulim' }}>
+    <div className=" max-w-full w-[340px] h-[400px]">
       {/* <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden"> */}
           <Tabs

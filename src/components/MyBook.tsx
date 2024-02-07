@@ -98,6 +98,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [editedImageUrl, setEditedImageUrl] = useState('');
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
   const [helloUserId, setHelloUserId]=useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -148,6 +149,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   useEffect(() => {
     console.log(currentPageIndex + "페이지임");
       closeImageEditor();
+      setIsLoaded(true);
   }, [currentPageIndex]);
   const handleImageDrop = async(droppedImageUrl:string) => {
     
@@ -278,8 +280,6 @@ const handleimsiDelete = () => {
   console.log("삭제 버튼이 클릭되었습니다.");
   closeImageEditor();
 };
-
-
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`)
       .then((response) => {
@@ -430,8 +430,12 @@ const handleimsiDelete = () => {
                         width: '100%',
                         height: '100%',
                         borderRadius: '20px',
+                        transition: 'transform 0.5s ease',
+                        transform: isLoaded ? 'scale(1.1)' : 'scale(1)',
                       }}
-                      // draggable
+                      className={`image ${isLoaded ? 'animate' : ''}`}
+                  
+                      draggable
                       // onDragStart={(e) => handleDragStart(e, item)}
                     />
                   </ImageDroppable>

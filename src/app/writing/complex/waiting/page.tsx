@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
 
@@ -68,7 +68,7 @@ const ComplexWaitingPage: React.FC = () => {
   }, [isSuccess, router]);
 
   return (
-    <div className="w-[60vw] h-[20vh]">
+    <div className="w-[60vw] min-h-[20vh]">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -81,7 +81,7 @@ const ComplexWaitingPage: React.FC = () => {
       >
         {loadingTexts.map((loadingText, index) => (
           <SwiperSlide key={index}>
-            <h1 className="text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-bold">
+            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold">
               {loadingText}
             </h1>
           </SwiperSlide>
