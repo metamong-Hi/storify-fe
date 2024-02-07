@@ -9,7 +9,15 @@ import { login } from '@/store/userSlice';
 import { signup } from '@/store/userSlice';
 import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
+import styled from 'styled-components';
 
+const StyledLink = styled(Link)`
+  color: '#FFC4D0';
+  cursor: pointer; 
+
+  &:hover {
+  }
+`;
 function LoginPage() {
   const [selected, setSelected] = useState('login');
 
@@ -141,18 +149,18 @@ function LoginPage() {
     setSelected(String(key));
   };
   return (
-    <div className=" max-w-full w-[340px] h-[400px]">
+    <div className=" max-w-full w-[340px] h-[360px] gap-10">
       {/* <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden"> */}
           <Tabs
             fullWidth
-            size="sm"
+            size="lg"
             aria-label="Tabs form"
             selectedKey={selected}
             onSelectionChange={handleSelectionChange}
           >
             <Tab key="login" title="로그인">
-              <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
+              <form className="flex flex-col gap-6" onSubmit={handleLoginSubmit}>
                 <Input
                   isRequired
                   label="아이디"
@@ -173,15 +181,12 @@ function LoginPage() {
                 />
                 <p className="text-center text-small">
                   계정이 없으신가요?{' '}
-                  <Link
-                    size="sm"
-                    style={{ color: '#FFC4D0' }}
-                    onPress={() => setSelected('sign-up')}
-                  >
-                    회원가입
-                  </Link>
+             
+                  <StyledLink size="lg" onPress={() => setSelected('sign-up')}>
+                  회원가입
+                  </StyledLink>
                 </p>
-                <div className="flex gap-2 justify-end">
+                <div className="flex gap-6 justify-end">
                   <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
                     로그인
                   </Button>
@@ -189,7 +194,7 @@ function LoginPage() {
               </form>
             </Tab>
             <Tab key="sign-up" title="회원가입">
-              <form className="flex flex-col gap-4 h-[300px]" onSubmit={handleSignUpSubmit}>
+              <form className="flex flex-col gap-6 h-[300px]" onSubmit={handleSignUpSubmit}>
                 <Input
                   isRequired
                   label="아이디"
@@ -211,11 +216,11 @@ function LoginPage() {
        
                 <p className="text-center text-small">
                   이미 계정이 있으신가요?{' '}
-                  <Link size="sm" style={{ color: '#FFC4D0' }} onPress={() => setSelected('login')}>
+                  <StyledLink size="lg" onPress={() => setSelected('login')}>
                     로그인
-                  </Link>
+                  </StyledLink>
                 </p>
-                <div className="flex gap-2 justify-end">
+                <div className="flex gap-6 justify-end">
                   <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
                     회원가입
                   </Button>

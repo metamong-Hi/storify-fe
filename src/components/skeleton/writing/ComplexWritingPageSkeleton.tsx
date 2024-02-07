@@ -10,8 +10,8 @@ const ComplexWritingPageSkeleton: React.FC = () => {
     <div className="w-[60vw]">
       <SkeletonElement className="h-8 w-3/4 mb-4" />
       <div className="space-y-2">
-        {Array(4).fill(null).map((_, index) => (
-          <SkeletonElement key={index} className="h-6 w-5/6 mb-2" />
+        {Array(1).fill(null).map((_, index) => (
+          <SkeletonElement key={index} className="h-6 w-1/3 mb-2" />
         ))}
       </div>
       <div className="space-y-4 my-4">

@@ -8,6 +8,7 @@ import { store } from '../store/index';
 import { Providers } from './providers';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/home/footer/Footer';
+import Banner from '@/components/forms/banner';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +17,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Provider store={store}>
           <Providers>
             <NavigationBar />
-            {children}
+            <Banner />
+            <main className="pb-20">
+              {children}
+            </main>
             <Footer />
           </Providers>
         </Provider>

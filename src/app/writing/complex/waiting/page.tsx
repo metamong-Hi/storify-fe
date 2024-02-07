@@ -63,7 +63,7 @@ const ComplexWaitingPage: React.FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      router.push(`/writing/simple/result`);
+      router.push(`/writing/complex/result`);
     }
   }, [isSuccess, router]);
 

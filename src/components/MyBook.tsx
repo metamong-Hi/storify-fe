@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import styled from 'styled-components';
+import styled,{ keyframes} from 'styled-components';
 import { Image,Modal } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
@@ -15,6 +15,7 @@ const StyledFlipBook = styled.div`
   align-items: center;
   height: 100vh;
   border-radius: 20px;
+  overflow:hidden;
   flex-direction: column;
   // .html-flip-book {
   //     width: 600px;
@@ -29,6 +30,7 @@ const StyledFlipBook = styled.div`
     // outline: 2px solid black;
     background-color: white;
     border-radius: 20px;
+    overflow:hidden;
     // display: flex;
     justify-content: center;
     align-items: center;
@@ -50,21 +52,66 @@ const StyledFlipBook = styled.div`
 
 
 const ResponsiveText = styled.p`
-  font-size: 1.5rem; // 기본 폰트 사이즈
-  line-height: 2.75rem; // 기본 줄 간격
-  margin: auto; // 자동 마진으로 가운데 정렬
-
-  // 화면 너비가 768px 미만일 때 적용될 스타일
+  font-size: 1.5rem; 
+  line-height: 2.75rem; 
+  margin: auto; 
   @media (max-width: 768px) {
-    font-size: 1.0rem; // 모바일 화면에서 줄어든 폰트 사이즈
-    line-height: 2rem; // 모바일 화면에서 줄어든 줄 간격
+    font-size: 1.0rem; 
+    line-height: 2rem; 
   }
 `;
 
-const StyledImage = styled.img`
+const generateAnimation = () => {
+  const animations = [
+    `
+      @keyframes animation {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+    `,
+    `
+      @keyframes animation {
+        0%, 100% { transform: translateX(0%) scale(1.4); }
+        50% { transform: translateX(-20%) scale(1.4); }
+  
+      }
+    `,
+    `
+      @keyframes animation {
+        0%, 100% { transform: translateX(0%) scale(1.4); }
+        50% { transform: translateX(20%) scale(1.4); }
+  
+      }
+    `,
+    `
+      @keyframes animation {
+        0%, 100% { transform: translateY(0%) scale(1.4); }
+        50% { transform: translateY(-20%) scale(1.4); }
+  
+
+      }
+    `,
+    `
+      @keyframes animation {
+        0%, 100% { transform: translateY(0%) scale(1.4); }
+        50% { transform: translateY(20%) scale(1.4); }
+  
+      }
+    `
+  ];
+
+  const randomIndex = Math.floor(Math.random() * animations.length);
+  return animations[randomIndex];
+};
+
+
+const AnimatedImage = styled.img<{ animationCss: string }>`
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  border-radius: 20px;
+  ${props => props.animationCss}
+  animation: animation 6s ease-in-out infinite;
 `;
 
 interface PageItem {
@@ -85,7 +132,6 @@ interface WindowSize {
 
 let token: string | null;
 if (typeof window !== 'undefined') {
-  // token = localStorage.getItem('token');
   token=sessionStorage.getItem('token');
 }
 
@@ -99,6 +145,10 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
   const [helloUserId, setHelloUserId]=useState('');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [animationCss, setAnimationCss] = useState('');
+  const token = sessionStorage.getItem('token');
+  const [isUser, setIsUser] = useState<boolean>(false);
+
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -113,25 +163,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   };
 
   const openImageEditor = (imageUrl: string) => {
-    const token = sessionStorage.getItem('token');
 
-    if (token) {
-      const decodedPayload = jwtDecode(token); 
-      console.log(decodedPayload.sub);
-      // setRealUserId(decodedPayload.sub);
-      console.log("여기 확인해라"+decodedPayload.sub);
-      console.log("여기 확인해라"+helloUserId);
-      if(decodedPayload.sub==helloUserId){
           setSelectedImageUrl(imageUrl);
           setIsImageEditorOpen(true);
-      }
-      else{
-        showEditFailedAlert();
-      }
-
-    } else {
-      console.log('토큰없음'); 
-    }
 
   };
   
@@ -150,6 +184,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     console.log(currentPageIndex + "페이지임");
       closeImageEditor();
       setIsLoaded(true);
+      setAnimationCss(generateAnimation());
   }, [currentPageIndex]);
   const handleImageDrop = async(droppedImageUrl:string) => {
     
@@ -186,9 +221,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         icon:'warning',
         confirmButtonText:'OK',
     }).then((result)=>{
-        // if(result.value){
-        //     handleDelete();
-        // }
+
     })
   }
   const showDeleteSuccessAlert=()=>{
@@ -198,9 +231,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         icon:'success',
         confirmButtonText:'OK',
     }).then((result)=>{
-        // if(result.value){
-        //     handleDelete();
-        // }
+
     })
   }
   const goToNextPage = () => {
@@ -219,9 +250,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       }
     }
   };
-  // const showEditsAlert=()=>{
-  
-  // }
+
   const handleEdit= async(droppedImageUrl:string) => {
 
     const token=sessionStorage.getItem('token')
@@ -241,17 +270,12 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       });
 
       if (response.ok) {
-        console.log(realImage);
         const result = await response.json();
-        console.log('이미지 감', result);
-        console.log(`${realImage}`)
-        console.log(`${bookId}`)
+
         // onDrop(`data:image/jpeg;base64,${droppedImageUrl}`); 
       } else {
-        console.error('망함', response.statusText);
       }
     } catch (error) {
-      console.error('업로드안됨:', error);
     }
 
   closeImageEditor();
@@ -277,32 +301,37 @@ const handleimsiEdit = () => {
 };
 
 const handleimsiDelete = () => {
-  console.log("삭제 버튼이 클릭되었습니다.");
   closeImageEditor();
 };
-  useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+useEffect(() => {
+  const fetchBookData = async () => {
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setTitle(data.title);
+      const pagesArray = Object.values(data.body) as PageItem[];
+      const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
+      setPage(newPages);
+      setHelloUserId(data.userId);
+      if (token) {
+        const decodedPayload = jwtDecode(token);
+        if(decodedPayload.sub === data.userId) {
+          setIsUser(true);
+  
+        } else {
         }
-   
-        return response.json();
-      })
-      .then((data) => {
-        setTitle(data.title);
-        const pagesArray = Object.values(data.body) as PageItem[];
-        const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
-        console.log(data);
-        setHelloUserId(data.userId);
-        console.log("헬로 유저아이디"+helloUserId);
-        setPage(newPages);
-      })
-      .catch((error) => {
-        console.error('Fetching error: ', error);
-      });
-    //  console.log(page)
-  }, [bookId]); // 빈 종속성 배열 추가
+      } else {
+      }
+    } catch (error) {
+      console.error('Fetching error: ', error);
+    }
+  };
+
+  fetchBookData();
+}, [bookId]); 
   const handleDelete = async () => {
     try {
       console.log(token + '토큰이다');
@@ -314,20 +343,16 @@ const handleimsiDelete = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("요청보내고 여기로옴")
+
       if (response.ok) {
-        console.log('삭제됨');
         showDeleteSuccessAlert();
         window.location.href='/allbooks';
       } else {
         showDeleteFailedAlert();
-
-        console.error('삭제 실패', response);
       }
     } catch (error) {
         console.log(error);
         showDeleteFailedAlert();
-      console.error('삭제 중 오류 발생', error);
     }
   };
   console.log(helloUserId);
@@ -350,7 +375,7 @@ const handleimsiDelete = () => {
 
       <p
         style={{
-          fontSize: '1.5rem',
+          fontSize: '3rem',
           lineHeight: '2.25rem',
           display: 'flex',
           justifyContent: 'center',
@@ -360,16 +385,7 @@ const handleimsiDelete = () => {
       >
         {title}
       </p>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-      <Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
-                 삭제
-        </Button>  
-
-      {/* 페이지 편집 버튼 */}
-      {/* {selectedImageUrl && ( */}
-        <Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
-      {/* )} */}
-      </div>
+    
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
@@ -415,29 +431,21 @@ const handleimsiDelete = () => {
                   textAlign: 'center',
                   height: '600px', // 페이지 높이 설정
                   width: '600px', // 페이지 너비 설정
+                  
+                  overflow:'hidden'
                 }}
               >
                {isEvenPage ? (
                   <ImageDroppable onDrop={handleImageDrop}>
-                    <Image
+                    <AnimatedImage
                           // className={`image ${isLoaded ? 'animate' : ''}`}
-
-                      isZoomed
+                      animationCss={animationCss}
+                      // isZoomed
                       width={600}
                       height={600}
                       src={item}
                       alt={`Page ${index + 1}`}
-                      style={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: '20px',
-                        // transition: 'transform 0.5s ease',
-                        // transform: isLoaded ? 'scale(1.1)' : 'scale(1)',
-                      }}
-                
-                      // draggable
-                      // onDragStart={(e) => handleDragStart(e, item)}
+                    
                     />
                   </ImageDroppable>
                 ) : (
@@ -468,13 +476,27 @@ const handleimsiDelete = () => {
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <Button onClick={goToPreviousPage}style={{ marginRight: '10px' }}>
           이전페이지
-          {/* <Image src="/Images/buttons/redArrow.png" alt="이전 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }} /> */}
+        
         </Button>
         <Button onClick={goToNextPage}style={{ marginLeft: '10px' }}>
-          다음페이지
-          {/* <Image src="Images/buttons/redArrow2.png" alt="다음 페이지" style={{ width: '20px', height: '20px', objectFit: 'contain', zIndex: 100, position: 'relative' }}/> */}
+          다음페이지 
+       
         </Button>
       </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px', gap: '10px', marginRight:'20px', marginBottom:'20px'}}>
+  
+  
+      {isUser && (
+<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px'}}>편집</Button>
+)} 
+  {isUser && (
+<Button color="danger" onClick={showDeleteAlert} style={{height:'40px',width:'40px'}}>
+  삭제
+</Button>  
+)}
+
+
+  </div>
    
     </>
   );

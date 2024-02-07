@@ -9,6 +9,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
+import { set } from 'lodash';
+import SettingsComponent from './Setting/Settings';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,7 +40,7 @@ const NavbarComponent = () => {
       .then(() => {
         sessionStorage.removeItem('token');
         setIsLoggedIn(false);
-        alert('로그아웃');
+
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
