@@ -21,7 +21,6 @@ const NavbarComponent = () => {
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
-  console.log(realToken);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = sessionStorage.getItem('token');
@@ -40,10 +39,9 @@ const NavbarComponent = () => {
       .then(() => {
         sessionStorage.removeItem('token');
         setIsLoggedIn(false);
-
       })
       .catch((error) => {
-        console.log('로그아웃 망함' + error);
+        console.error(error);
       });
   };
 
@@ -51,10 +49,25 @@ const NavbarComponent = () => {
     return pathName === pathname;
   };
 
+  const openLoginModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+      const modalElement = document.getElementById('authModal') as HTMLDialogElement;
+      modalElement.showModal();
+    }
+  };
+
   const menuItems = [
-    // { link: '/home', text: '홈' },
-    { link: '/allbooks', text: '책장' },
-    { link: '/writing', text: '책 만들기' },
+    {
+      link: '/allbooks',
+      text: '책장',
+      onClick: () => {}, // No special action on click, follow the link.
+    },
+    {
+      link: '/writing',
+      text: '책 만들기',
+      onClick: isLoggedIn ? () => {} : openLoginModal, // Open modal if not logged in.
+    },
   ];
 
   return (
@@ -83,11 +96,14 @@ const NavbarComponent = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
-                <Link key={index} href={item.link}>
-                  <li className=" text-xl p-2 xl:text-2xl font-bold">
-                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
+                <Link key={index} href={isLoggedIn ? item.link : '#'}>
+                  <li className=" text-xl p-1 xl:text-2xl font-bold">
+                    <div
+                      onClick={item.onClick}
+                      className={` p-4 ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                    >
                       {item.text}
-                    </span>
+                    </div>
                   </li>
                 </Link>
               ))}
@@ -102,13 +118,14 @@ const NavbarComponent = () => {
         <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
             {menuItems.map((item, index) => (
-              <Link key={index} href={item.link}>
-                <li className="block lg:inline-block text-lg lg:mx-2">
-                  <span className={` ${isActive(item.link) ? 'bg-base-200' : ''}`}>
-                    {item.text}
-                  </span>
-                </li>
-              </Link>
+              <li
+                key={index}
+                className={`block lg:inline-block text-lg lg:mx-2 rounded-lg ${isActive(item.link) ? 'bg-base-200' : ''}`}
+              >
+                <div onClick={item.onClick}>
+                  <Link href={isLoggedIn ? item.link : '#'}>{item.text}</Link>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
@@ -133,17 +150,17 @@ const NavbarComponent = () => {
                   tabIndex={0}
                   className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
-                  <li>
+                  <li className="p-1">
                     <Link href={`/user/${userId}/bookshelf`} className="p-4">
                       내 책장
                     </Link>
                   </li>
-                  {/* <li>
+                  {/* <li className="p-1">
                     <Link href={`/user/${userId}/profile`} className="p-4">
                       프로필
                     </Link>
                   </li> */}
-                  <li>
+                  <li className="p-1">
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
@@ -157,13 +174,7 @@ const NavbarComponent = () => {
                 <div
                   className="btn font-bold border-2 hover:"
                   onClick={() => {
-                    const modal = document.getElementById('authModal');
-                    if (modal) {
-                      const modalElement = document.getElementById(
-                        'authModal',
-                      ) as HTMLDialogElement;
-                      modalElement.showModal();
-                    }
+                    openLoginModal();
                   }}
                 >
                   로그인

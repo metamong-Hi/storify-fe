@@ -109,6 +109,14 @@ export const Book = ({ book, index }: BookComponentProps) => {
     name: book.userId?.userId ?? '', // Replace with actual user's name
   };
 
+  const openLoginModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+      const modalElement = document.getElementById('authModal') as HTMLDialogElement;
+      modalElement.showModal();
+    }
+  };
+
   return (
     <div
       key={index}
@@ -135,8 +143,11 @@ export const Book = ({ book, index }: BookComponentProps) => {
           </div>
         </div>
         <div className="flex justify-between items-center mt-4 ">
-          <Link href={user.bookshelfLink}>
-            <div className="flex items-center rounded-4xl space-x-2 hover:bg-black/10">
+          <Link href={token ? user.bookshelfLink : ''}>
+            <div
+              className="flex items-center rounded-4xl space-x-2 hover:bg-black/10 cursor-pointer"
+              onClick={!token ? openLoginModal : undefined} // Updated line
+            >
               <div className="avatar">
                 <div className="w-4 h-4 rounded-full">
                   <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} />
@@ -155,12 +166,13 @@ export const Book = ({ book, index }: BookComponentProps) => {
                 className={`btn btn-ghost btn-circle btn-sm ${
                   token ? '' : 'hover:bg-transparent hover:text-current'
                 }`}
-                onClick={token ? debouncedHandleLike : undefined}
+                onClick={token ? debouncedHandleLike : openLoginModal} // This line has changed
               >
                 <HeartIcon
                   className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
                 />
               </button>
+
               <span className="text-sm">{likeCount}</span>
             </div>
           </div>
