@@ -96,15 +96,16 @@ const NavbarComponent = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
-                <li key={index} className="block lg:inline-block text-lg lg:mx-2">
-                  <div onClick={item.onClick}>
-                    <Link href={isLoggedIn ? item.link : '#'}>
-                      <span className={`${isActive(item.link) ? 'bg-base-200' : ''}`}>
-                        {item.text}
-                      </span>
-                    </Link>
-                  </div>
-                </li>
+                <Link key={index} href={isLoggedIn ? item.link : '#'}>
+                  <li className=" text-xl p-2 xl:text-2xl font-bold">
+                    <div
+                      onClick={item.onClick}
+                      className={` p-4 ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                    >
+                      {item.text}
+                    </div>
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>
