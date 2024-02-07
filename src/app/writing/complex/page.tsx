@@ -315,7 +315,7 @@ const ComplexWritingPage: React.FC = () => {
           />
           <div className="flex justify-between mt-4">
             <Link href={`/writing`} passHref>
-              <button className="btn btn-outline btn-success btn-xm sm:btn-sm md:btn-md lg:btn-lg">
+              <button className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg">
                 뒤로가기
               </button>
             </Link>
