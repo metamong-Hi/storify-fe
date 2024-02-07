@@ -79,7 +79,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
     try {
       await sendLikeRequestToServer(prevLiked);
     } catch (error) {
-      // Revert state if the request fails
       setLiked((prevLiked) => !prevLiked);
       setLikeCount((prevCount) => (prevLiked ? prevCount + 1 : prevCount - 1));
       console.error('Failed to like/unlike the book:', error);
@@ -87,7 +86,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
   }, 300);
 
   const debouncedHandleLike = useCallback(() => {
-    // Call the debounced function with the new like status
     debouncedFunction(!liked);
   }, [debouncedFunction, liked]);
 
@@ -125,7 +123,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
             className="object-contain w-full h-full "
             height={200}
             width={200}
-            quality={90} // 품질 설정
+            quality={90}
           />
         </Link>
       </div>
