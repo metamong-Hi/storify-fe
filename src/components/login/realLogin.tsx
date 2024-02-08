@@ -10,7 +10,7 @@ import { signup } from '@/store/userSlice';
 import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
 import styled from 'styled-components';
-
+import Image from 'next/image';
 const StyledLink = styled(Link)`
   color: '#FFC4D0';
   cursor: pointer; 
@@ -41,6 +41,10 @@ function LoginPage() {
       }
     });
   };
+  const handleKakaoLogin = () => {
+    console.log('Kakao login clicked');
+  };
+
   const showLoginFailedAlert = () => {
     Swal.fire({
       title: `로그인 실패`,
@@ -179,6 +183,7 @@ function LoginPage() {
                   value={formData.password}
                   onChange={handleInputChange}
                 />
+                 
                 <p className="text-center text-small">
                   계정이 없으신가요?{' '}
              
@@ -190,7 +195,9 @@ function LoginPage() {
                   <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
                     로그인
                   </Button>
-                </div>
+                </div> <Button onClick={handleKakaoLogin} fullWidth style={{ backgroundColor: '#FEE500', color: '#000' }}>
+                  <img src="/Images/kakao/kakao_login_large_wide.png" alt="카카오로 로그인하기" style={{ width: '100%' }} />
+            </Button>
               </form>
             </Tab>
             <Tab key="sign-up" title="회원가입">
