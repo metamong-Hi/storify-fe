@@ -31,7 +31,6 @@ const NavbarComponent = () => {
       }
 
       setIsLoggedIn(!!token);
-      console.log('isLoggedIn', isLoggedIn);
     }
   }, []);
 
