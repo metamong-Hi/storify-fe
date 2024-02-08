@@ -91,31 +91,30 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
 
   return (
     <>
-      <div className="flex flex-col">
-        <div className="flex justify-between items-center mb-4">
-          <div
-            role="tablist"
-            className="tabs tabs-lifted flex justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32"
-          >
+      <div className="flex flex-col w-full pl-[4vw] pr-[4vw]">
+        <div className="flex flex-col sm:flex-row justify-between items-center w-full p-8 ">
+          <div role="tablist" className="tabs tabs-lifted relative justify-start p-5 ">
             {sortOptions.map((option) => (
               <a
                 role="tab"
                 key={option.value}
-                className={`tab ${sortBy === option.value ? 'tab-active' : ''}`}
+                className={`tab whitespace-nowrap text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl ${sortBy === option.value ? 'tab-active' : ''}`}
                 onClick={() => handleSortBy(option.value)}
               >
-                {option.label}
+                <span className="p-1">{option.label}</span>
               </a>
             ))}
           </div>
-          <div className="flex justify-center p-5">
-            {userId ? (userId === id ? '내 책장' : `${otherNickname} 님의 책장`) : ''}{' '}
+          <div
+            className={`${userId ? '' : 'hidden'} flex justify-center text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl p-5`}
+          >
+            {userId === id ? '내 책장' : `${otherNickname} 님의 책장`}
           </div>
 
-          <div className="flex justify-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
-            <div className="flex border-2 rounded-full pl-3 pr-2">
+          <div className="relative justify-end p-5 ">
+            <div className="flex border-2 rounded-full">
               <input
-                className="form-input w-full bg-transparent py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none"
+                className="form-input w-full bg-transparent py-1 sm:py-2 px-3 text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl focus:outline-none"
                 id="search"
                 type="search"
                 placeholder="검색어를 입력하세요."
@@ -134,13 +133,15 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
-          <div className="flex flex-wrap justify-center gap-4 px-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
+        <div className="flex justify-center flex-wrap gap-4 p-4 mx-auto">
+          <div className="flex flex-wrap justify-center gap-7 ">
             <BookShelves books={bookShelves} limit={limit} search={search} />
           </div>
         </div>
-        <div className="pt-8">
-          <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
+        <div className="mt-10">
+          <div className="text-xs sm:text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl ">
+            <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
+          </div>
         </div>
       </div>
     </>
