@@ -1,3 +1,5 @@
+'use client';
+
 import React, { use, useCallback, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
@@ -9,6 +11,7 @@ import { EyeIcon } from '@/components/icons/EyeIcon';
 import { getAllBooks } from './AllBooks';
 import { set } from 'lodash';
 import { LikeIcon } from '@/components/icons/LikeIcon';
+import { XIcon } from '@/components/icons/XIcon';
 
 import { jwtDecode } from 'jwt-decode';
 import { error } from 'console';
@@ -54,33 +57,42 @@ export const Book = ({ book, index }: BookComponentProps) => {
   const isInitiallyLiked = book.likes?.some((like) => like === whoIsLoggedIn?.sub);
   const [liked, setLiked] = useState<boolean>(isInitiallyLiked ?? false);
   const [likeCount, setLikeCount] = useState<number>(book.likesCount || 0);
+  const [likeError, setLikeError] = useState<boolean>(false);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
-    const method = likeStatus ? 'POST' : 'DELETE';
-    const response = await fetch(`${API_URL}/books/${book._id}/likes`, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const method = likeStatus ? 'POST' : 'DELETE';
+      const response = await fetch(`${API_URL}/books/${book._id}/likes`, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error('Failed to send like request to server');
+      if (!response.ok) {
+        throw new Error('Failed to send like request to server');
+      }
+
+      setLikeError(false); // Reset error state on success
+      return response.json();
+    } catch (error) {
+      setLikeError(true); // Set error state to true on failure
+
+      setTimeout(() => {
+        setLikeError(false); // Revert error state after 2 seconds
+      }, 1000);
+
+      throw error;
     }
-
-    return response.json();
   };
 
   const debouncedFunction = debounce(async (prevLiked: boolean) => {
-    setLiked((prevLiked) => !prevLiked);
-    setLikeCount((prevCount) => (prevLiked ? prevCount + 1 : prevCount - 1));
-
     try {
       await sendLikeRequestToServer(prevLiked);
-    } catch (error) {
       setLiked((prevLiked) => !prevLiked);
       setLikeCount((prevCount) => (prevLiked ? prevCount + 1 : prevCount - 1));
+    } catch (error) {
       console.error('Failed to like/unlike the book:', error);
     }
   }, 300);
@@ -138,7 +150,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-lg md:text-xl lg:text-2xl font-bold">
+          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold">
             <div className="text-center w-[250px]">{book.title}</div>
           </div>
         </div>
@@ -153,27 +165,42 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} />
                 </div>
               </div>
-              <span className="text-sm font-semibold">{user.name}</span>
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold">
+                {user.name}
+              </span>
             </div>
           </Link>
           <div className="flex justify-end items-center mt-1">
             <div className="flex items-center space-x-2">
               <EyeIcon className="w-4 h-4 text-gray-500" />
-              <span className="text-sm">{book.count}</span>
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">
+                {book.count}
+              </span>
             </div>
-            <div className="flex items-center ml-2">
+            <div className="flex items-center  ml-2">
               <button
-                className={`btn btn-ghost btn-circle btn-sm ${
+                className={`btn btn-ghost btn-circle btn-sm  ${
                   token ? '' : 'hover:bg-transparent hover:text-current'
                 }`}
-                onClick={token ? debouncedHandleLike : openLoginModal} // This line has changed
+                onClick={token ? debouncedHandleLike : openLoginModal}
               >
-                <HeartIcon
-                  className={`w-5 h-4 ${liked && token ? 'fill-current text-red-500' : 'text-gray-500'}`}
-                />
+                {likeError ? (
+                  <span>
+                    <XIcon />
+                  </span>
+                ) : (
+                  // Assume XIcon is your error icon
+                  <HeartIcon
+                    height={20}
+                    width={20}
+                    className={`${liked && token && !likeError ? 'fill-current text-red-500' : 'text-gray-500'}`}
+                  />
+                )}
               </button>
 
-              <span className="text-sm">{likeCount}</span>
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">
+                {likeCount}
+              </span>
             </div>
           </div>
         </div>

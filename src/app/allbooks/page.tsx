@@ -9,7 +9,7 @@ import Loading from './loading';
 
 const Page = () => {
   return (
-    <div className="flex justify-center items-center p-5">
+    <div className="flex justify-center items-center p-8">
       <BooksPage userId="" />
     </div>
   );
