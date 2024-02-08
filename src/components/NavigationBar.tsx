@@ -147,7 +147,7 @@ const NavbarComponent = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 z-[5] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li className="p-1">
                     <Link href={`/user/${userId}/bookshelf`} className="p-4">
