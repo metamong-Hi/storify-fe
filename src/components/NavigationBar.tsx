@@ -31,6 +31,7 @@ const NavbarComponent = () => {
       }
 
       setIsLoggedIn(!!token);
+      console.log('isLoggedIn', isLoggedIn);
     }
   }, []);
 
@@ -61,12 +62,12 @@ const NavbarComponent = () => {
     {
       link: '/allbooks',
       text: '책장',
-      onClick: () => {}, // No special action on click, follow the link.
+      onClick: () => {},
     },
     {
-      link: '/writing',
+      link: isLoggedIn ? '/writing' : '#',
       text: '책 만들기',
-      onClick: isLoggedIn ? () => {} : openLoginModal, // Open modal if not logged in.
+      onClick: isLoggedIn ? () => {} : openLoginModal,
     },
   ];
 
@@ -93,19 +94,17 @@ const NavbarComponent = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[5] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
-                <Link key={index} href={isLoggedIn ? item.link : '#'}>
-                  <li className=" text-xl p-1 xl:text-2xl font-bold">
-                    <div
-                      onClick={item.onClick}
-                      className={` p-4 ${isActive(item.link) ? 'bg-base-200' : ''}`}
-                    >
-                      {item.text}
-                    </div>
-                  </li>
-                </Link>
+                <li key={index} className="text-xl xl:text-2xl font-bold p-1">
+                  <Link
+                    href={item.link}
+                    className={`block p-4 rounded-lg hover:bg-base-200 ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                  >
+                    <div onClick={item.onClick}>{item.text}</div>
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
@@ -118,13 +117,13 @@ const NavbarComponent = () => {
         <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
             {menuItems.map((item, index) => (
-              <li
-                key={index}
-                className={`block lg:inline-block text-lg lg:mx-2 rounded-lg ${isActive(item.link) ? 'bg-base-200' : ''}`}
-              >
-                <div onClick={item.onClick}>
-                  <Link href={isLoggedIn ? item.link : '#'}>{item.text}</Link>
-                </div>
+              <li key={index} className="text-xl xl:text-2xl font-bold p-1">
+                <Link
+                  href={item.link}
+                  className={`block p-4 rounded-lg hover:bg-base-200 ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                >
+                  <div onClick={item.onClick}>{item.text}</div>
+                </Link>
               </li>
             ))}
           </ul>
