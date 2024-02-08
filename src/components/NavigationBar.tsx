@@ -165,7 +165,7 @@ const NavbarComponent = () => {
                   </li>
                   <li>
                     <Link
-                      href={`/allbooks`}
+                      href="/"
                       className="text-danger p-4 text-xs sm:text-xs md:text-lg lg:text-xl xl:text-lg 2xl:text-xl"
                       onClick={handleClickLogout}
                     >
