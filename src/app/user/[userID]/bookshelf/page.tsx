@@ -1,3 +1,4 @@
+'use client';
 import BooksPage from '@/components/book/BooksPage';
 
 const Page = ({ params }: { params: { userID: string } }) => {
