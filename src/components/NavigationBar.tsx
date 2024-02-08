@@ -164,20 +164,21 @@ const NavbarComponent = () => {
                     </Link>
                   </li>
                   <li>
-                    <div
+                    <Link
+                      href="/"
                       className="text-danger p-4 text-xs sm:text-xs md:text-lg lg:text-xl xl:text-lg 2xl:text-xl"
                       onClick={handleClickLogout}
                     >
                       로그아웃
-                    </div>
+                    </Link>
                   </li>
                 </ul>
               </div>
             </>
           ) : (
-            <div>
+            <>
               <div
-                className="btn font-bold border-2 hover:"
+                className="btn font-bold border-2 text-xs sm:text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl "
                 onClick={() => {
                   openLoginModal();
                 }}
@@ -198,7 +199,7 @@ const NavbarComponent = () => {
                   </div>
                 </div>
               </dialog>
-            </div>
+            </>
           )}
         </div>
       </div>
