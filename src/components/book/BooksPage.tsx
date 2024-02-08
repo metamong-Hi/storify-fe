@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 import { GetParams, getAllBooks } from '@/components/book/AllBooks';
 import { BooksData } from '@/types/books';
@@ -12,6 +12,7 @@ import { SearchIcon } from '@/components/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
+import Loading from '@/app/allbooks/loading';
 
 interface UseBooksDataProps {
   userId: string;
@@ -133,6 +134,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
             </div>
           </div>
         </div>
+
         <div className="flex justify-center flex-wrap gap-4 p-4 mx-auto">
           <div className="flex flex-wrap justify-center gap-7 ">
             <BookShelves books={bookShelves} limit={limit} search={search} />
