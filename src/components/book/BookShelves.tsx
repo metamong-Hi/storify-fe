@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useCallback, useState } from 'react';
+import React, { use, useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
 
@@ -53,11 +53,9 @@ export const Book = ({ book, index }: BookComponentProps) => {
     token = sessionStorage.getItem('token') ?? '';
   }
 
-  const whoIsLoggedIn = token ? jwtDecode(token) : null;
-  const isInitiallyLiked = book.likes?.some((like) => like === whoIsLoggedIn?.sub);
-  const [liked, setLiked] = useState<boolean>(isInitiallyLiked ?? false);
-  const [likeCount, setLikeCount] = useState<number>(book.likesCount || 0);
-  const [likeError, setLikeError] = useState<boolean>(false);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(book.likesCount);
+  const [likeError, setLikeError] = useState(false);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -75,7 +73,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
       }
 
       setLikeError(false); // Reset error state on success
-      return response.json();
+      return await response.json();
     } catch (error) {
       setLikeError(true); // Set error state to true on failure
 
@@ -89,9 +87,9 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
   const debouncedFunction = debounce(async (prevLiked: boolean) => {
     try {
-      await sendLikeRequestToServer(prevLiked);
+      const response = await sendLikeRequestToServer(prevLiked);
+      setLikeCount(response.likesCount);
       setLiked((prevLiked) => !prevLiked);
-      setLikeCount((prevCount) => (prevLiked ? prevCount + 1 : prevCount - 1));
     } catch (error) {
       console.error('Failed to like/unlike the book:', error);
     }
@@ -100,6 +98,13 @@ export const Book = ({ book, index }: BookComponentProps) => {
   const debouncedHandleLike = useCallback(() => {
     debouncedFunction(!liked);
   }, [debouncedFunction, liked]);
+
+  useEffect(() => {
+    let log = token ? jwtDecode(token) : null;
+    let isLiked = book.likes?.some((like) => like === log?.sub);
+    setLiked(isLiked ?? false);
+    setLikeCount(book.likesCount);
+  }, [book, token]);
 
   let imageURL;
 

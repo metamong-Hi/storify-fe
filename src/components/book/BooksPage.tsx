@@ -1,18 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookShelves from '@/components/book/BookShelves';
-import { GetParams, getAllBooks } from '@/components/book/AllBooks';
-import { BooksData } from '@/types/books';
-import { Tabs, Tab, user } from '@nextui-org/react';
-import PaginationSkeleton from '@/components/skeleton/PaginationSkeleton';
 
 import Pagination from '@/components/Pagination';
 import { SearchIcon } from '@/components/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
-import Loading from '@/app/allbooks/loading';
 
 interface UseBooksDataProps {
   userId: string;
@@ -44,9 +39,9 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     { label: '조회순', value: 'count' },
   ];
 
-  let nickname = '';
   let id = '';
   const [otherNickname, setOtherNickname] = useState('');
+  const [shelfTitle, setShelfTitle] = useState('');
 
   if (typeof window !== 'undefined' && userId) {
     id = jwtDecode(sessionStorage.getItem('token') || '')?.sub as string;
@@ -54,9 +49,12 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
       const data = await getOtherUserId(userId);
       setOtherNickname(data.nickname);
     };
-    getDatas(); // Await the promise to resolve
-    nickname = sessionStorage.getItem('nickname') || '';
+    getDatas();
   }
+
+  useEffect(() => {
+    setShelfTitle(userId ? (id === userId ? '내 서재' : otherNickname + '님의 서재') : '');
+  }, [userId, id, otherNickname]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
@@ -109,7 +107,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
           <div
             className={`${userId ? '' : 'hidden'} flex justify-center text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl p-5`}
           >
-            {userId === id ? '내 책장' : `${otherNickname} 님의 책장`}
+            {shelfTitle}
           </div>
 
           <div className="relative justify-end p-5 ">

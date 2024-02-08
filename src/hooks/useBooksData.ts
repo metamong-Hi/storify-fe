@@ -17,9 +17,11 @@ const useBooksData = ({ currentPage, limit, sortBy, search, userId }: UseBooksDa
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('fetching data');
       setIsLoading(true);
       try {
         const data = await getAllBooks(currentPage, limit, sortBy, search, userId);
+        console.log('data:', data);
         setBookShelves(data.books);
         setTotalItems(data.total);
       } catch (error) {
