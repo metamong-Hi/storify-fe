@@ -111,7 +111,7 @@ const AnimatedImage = styled.img<{ animationCss: string }>`
   height: 100%;
   border-radius: 20px;
   ${props => props.animationCss}
-  animation: animation 5s ease-in-out infinite;
+  animation: animation 8s ease-in-out infinite;
 `;
 
 interface PageItem {
@@ -491,7 +491,7 @@ useEffect(() => {
   
   
       {isUser && (
-<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px', backgroundColor:'transparent', color:'blue'}}>편집</Button>
+<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px', backgroundColor:'transparent', color:'blue'}}>그림바꾸기</Button>
 )} 
   {isUser && (
 <Button  onClick={showDeleteAlert} style={{height:'40px',width:'40px', backgroundColor:'transparent',color:'red'}}>
