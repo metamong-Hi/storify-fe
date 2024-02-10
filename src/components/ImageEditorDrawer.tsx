@@ -72,7 +72,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
     <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}  >
       <List>
         <ListItem>
-          <ListItemText primary="이미지 편집" />
+          <ListItemText primary="그림바꾸기" />
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginRight:'20px'}}>
 
           <Button onClick={onEdit} style={{backgroundColor: '#ABD6A8' }}>저장</Button>

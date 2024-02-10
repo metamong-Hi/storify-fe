@@ -5,12 +5,12 @@ import { Tabs, Tab, Input, Link, Button, Card, CardBody } from '@nextui-org/reac
 // import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { login } from '@/store/userSlice';
+import { kakaologin, login } from '@/store/userSlice';
 import { signup } from '@/store/userSlice';
 import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
 import styled from 'styled-components';
-
+import Image from 'next/image';
 const StyledLink = styled(Link)`
   color: '#FFC4D0';
   cursor: pointer; 
@@ -41,6 +41,26 @@ function LoginPage() {
       }
     });
   };
+  const handleKakaoLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('Kakao login clicked');
+
+    e.preventDefault(); 
+    dispatch(kakaologin()) 
+   
+    .then((action) => {
+      if (action.meta.requestStatus === 'fulfilled') {
+        console.log('카카오 로그인 성공');
+        window.location.reload();
+      } else {
+        throw new Error('카카오 로그인 실패');
+      }
+    })
+    .catch((error) => {
+        console.error('카카오 로그인 실패: ', error);
+        showLoginFailedAlert();
+    });
+};
+
   const showLoginFailedAlert = () => {
     Swal.fire({
       title: `로그인 실패`,
@@ -179,6 +199,7 @@ function LoginPage() {
                   value={formData.password}
                   onChange={handleInputChange}
                 />
+                 
                 <p className="text-center text-small">
                   계정이 없으신가요?{' '}
              
@@ -190,7 +211,9 @@ function LoginPage() {
                   <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
                     로그인
                   </Button>
-                </div>
+                </div> <Button onClick={handleKakaoLogin} fullWidth style={{ backgroundColor: '#FEE500', color: '#000' }}>
+                  <img src="/Images/kakao/kakao_login_large_wide.png" alt="카카오로 로그인하기" style={{ width: '100%' }} />
+            </Button>
               </form>
             </Tab>
             <Tab key="sign-up" title="회원가입">

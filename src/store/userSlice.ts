@@ -63,6 +63,35 @@ export const login = createAsyncThunk(
         }
     },
 );
+export const kakaologin = createAsyncThunk(
+    'user/kakaoLogin',
+    async (_, { rejectWithValue }) => {
+        try {
+            console.log("리덕스에는 문제 없음");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json', // Changed to 'Accept' for the expected response format
+                },
+              
+            });
+            if (!response.ok) {
+                throw new Error('카카오 로그인 실패함'); // Improved error message for clarity
+            }
+            const data = await response.json();
+            return {
+                accessToken: data.accessToken, // Assuming these are the details you get back
+                nickname: data.nickname,
+                refreshToken: data.refreshToken,
+            };
+        } catch (error) {
+            return rejectWithValue(
+                error instanceof Error ? error.message : 'An unknown error occurred'
+             
+                );
+        }
+    }
+);
 export const refreshAccessToken = createAsyncThunk(
     'user/refreshAccessToken',
     async (_, { getState, rejectWithValue }) => {
@@ -150,6 +179,36 @@ export const userSlice = createSlice({
                 console.log('로그인 성공:', action.payload);
             })
             .addCase(login.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload as string;
+                console.log('로그인 실패:', action.payload);
+            })
+
+
+            .addCase(kakaologin.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(kakaologin.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.token = action.payload.accessToken; // 수정된 부분
+                state.nickname = action.payload.nickname;
+                state.refreshToken=action.payload.refreshToken;
+                if (typeof window !== 'undefined') {
+                    // localStorage.setItem('token', action.payload.accessToken);
+                    // localStorage.setItem('username', action.payload.username);
+                    // localStorage.setItem('refreshToken',action.payload.refreshToken);
+                    sessionStorage.setItem('token', action.payload.accessToken);
+                    sessionStorage.setItem('nickname',action.payload.nickname);
+                    sessionStorage.setItem('refreshToken',action.payload.refreshToken);
+
+                    console.log(sessionStorage.getItem('token'));
+                    console.log(sessionStorage.getItem('nickname'));
+                    console.log(sessionStorage.getItem('refreshToken'));
+                }
+
+                console.log('로그인 성공:', action.payload);
+            })
+            .addCase(kakaologin.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload as string;
                 console.log('로그인 실패:', action.payload);
