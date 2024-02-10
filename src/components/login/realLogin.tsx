@@ -5,7 +5,7 @@ import { Tabs, Tab, Input, Link, Button, Card, CardBody } from '@nextui-org/reac
 // import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { login } from '@/store/userSlice';
+import { kakaologin, login } from '@/store/userSlice';
 import { signup } from '@/store/userSlice';
 import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
@@ -41,9 +41,25 @@ function LoginPage() {
       }
     });
   };
-  const handleKakaoLogin = () => {
+  const handleKakaoLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('Kakao login clicked');
-  };
+
+    e.preventDefault(); 
+    dispatch(kakaologin()) 
+   
+    .then((action) => {
+      if (action.meta.requestStatus === 'fulfilled') {
+        console.log('카카오 로그인 성공');
+        window.location.reload();
+      } else {
+        throw new Error('카카오 로그인 실패');
+      }
+    })
+    .catch((error) => {
+        console.error('카카오 로그인 실패: ', error);
+        showLoginFailedAlert();
+    });
+};
 
   const showLoginFailedAlert = () => {
     Swal.fire({
