@@ -5,9 +5,36 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
 import LoginPage from '@/components/login/realLogin';
+import { store } from '@/store/index';
 import Link from 'next/link';
-import Image from 'next/image';
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarMenuToggle,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  Button,
+  Avatar,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Image,
+} from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
+
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalProps,
+  useDisclosure,
+} from '@nextui-org/react';
+
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
 import SettingsComponent from './Setting/Settings';
@@ -19,11 +46,15 @@ const NavbarComponent = () => {
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
 
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const dispatch = useAppDispatch();
+  // const username = useAppSelector(state => state.user.username);
   const realToken = useAppSelector((state) => state.user.token);
   console.log(realToken);
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // const token = localStorage.getItem('token');
       const token = sessionStorage.getItem('token');
       setNickname(sessionStorage.getItem('nickname') || '');
       if (token) {
@@ -34,10 +65,19 @@ const NavbarComponent = () => {
       setIsLoggedIn(!!token);
     }
   }, []);
-
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  const handleClickBook = () => {
+    // router.push('/book');
+  };
+  const handleClickHome = () => {
+    // router.push('/');
+  };
   const handleClickLogout = () => {
     dispatch(logout())
       .then(() => {
+        // localStorage.removeItem('token');
         sessionStorage.removeItem('token');
         setIsLoggedIn(false);
       })
@@ -51,141 +91,124 @@ const NavbarComponent = () => {
   };
 
   const menuItems = [
-    // { link: '/home', text: '홈' },
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
   ];
 
   return (
     <>
-      <div className="navbar bg-base-100 p-2">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {menuItems.map((item, index) => (
-                <Link key={index} href={item.link}>
-                  <li className=" text-xl p-2 xl:text-2xl font-bold">
-                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
-                      {item.text}
-                    </span>
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          </div>
-          <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
-            <Link href="/" className="text-xl lg:text-3xl font-bold">
-              <span>STORIFY</span>
+      <Navbar maxWidth="2xl" height="4rem" isBordered onMenuOpenChange={setIsMenuOpen} className="">
+        <NavbarContent justify="start">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="sm:hidden"
+          />
+          <NavbarBrand>
+            <Link href="/" className="text-4xl  font-bold duration-300 ease-in-out">
+              <span className="">STORIFY</span>
             </Link>
-          </div>
-        </div>
-        <div className="hidden lg:flex navbar-center">
-          <ul className="menu menu-horizontal px-1">
-            {menuItems.map((item, index) => (
-              <Link key={index} href={item.link}>
-                <li className="block lg:inline-block text-lg lg:mx-2">
-                  <span className={` ${isActive(item.link) ? 'bg-base-200' : ''}`}>
-                    {item.text}
-                  </span>
-                </li>
+          </NavbarBrand>
+        </NavbarContent>
+
+        <NavbarContent className="text-2xl font-bold hidden sm:flex g-6" justify="center">
+          {menuItems.map((item) => (
+            <NavbarItem key={item.link}>
+              <Link
+                className={`
+    ${
+      isActive(item.link)
+        ? ' border border-transparent rounded-full px-4 py-2 transition transform hover: active: active:scale-90 shadow-md'
+        : ' hover: active: active:scale-95 rounded-full px-4 py-2 transition'
+    }`}
+                href={item.link}
+              >
+                {item.text}
               </Link>
-            ))}
-          </ul>
-        </div>
-        <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
+            </NavbarItem>
+          ))}
+        </NavbarContent>
+        <NavbarContent as="div" justify="end">
           {isLoggedIn ? (
             <>
-              <span className="">
-                <span className=" text-xl font-bold  pr-2">{nickname}</span>님 환영합니다
-              </span>
-              <div className="dropdown dropdown-end ">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-6 rounded-full">
-                    <Image
-                      alt="Tailwind CSS Navbar component"
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={10}
-                      height={10}
-                    />
-                  </div>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                    <Link href={`/user/${userId}/bookshelf`} className="p-4">
-                      내 책장
-                    </Link>
-                  </li>
-                  {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-4">
-                      프로필
-                    </Link>
-                  </li> */}
-                  <li>
-                    <div className="text-danger p-4" onClick={() => handleClickLogout()}>
-                      로그아웃
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <NavbarItem>
+                <span className="">
+                  <span className=" text-xl font-bold  pr-2">{nickname}</span>님 환영합니다
+                </span>
+              </NavbarItem>
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <Avatar
+                    showFallback
+                    isBordered
+                    color="default"
+                    size="md"
+                    src="https://images.unsplash.com/broken"
+                    className="mr-2"
+                  />
+                </DropdownTrigger>
+                <DropdownMenu>
+                  <DropdownItem key="mypage" href={`/user/${userId}/bookshelf`} className="p-2">
+                    내 책장
+                  </DropdownItem>
+                  <DropdownItem key="mypage" href={`/user/${userId}/profile`} className="p-2">
+                    프로필
+                  </DropdownItem>
+                  <DropdownItem
+                    key="logout"
+                    className="p-2"
+                    onClick={() => handleClickLogout()}
+                    color="danger"
+                  >
+                    로그아웃
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </>
           ) : (
             <>
-              <div>
-                <div
-                  className="btn font-bold border-2 hover:"
-                  onClick={() => {
-                    const modal = document.getElementById('authModal');
-                    if (modal) {
-                      const modalElement = document.getElementById(
-                        'authModal',
-                      ) as HTMLDialogElement;
-                      modalElement.showModal();
-                    }
-                  }}
-                >
+              <NavbarItem>
+                <Button onClick={onOpen} className="font-bold border-2  hover: " variant="flat">
                   로그인
-                </div>
-                <dialog id="authModal" className={`modal`}>
-                  <div className="modal-box max-h-4xl">
-                    <div className="modal-action">
-                      <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                          ✕
-                        </button>
-                      </form>
-                    </div>
-                    <div className="flex justify-center item-center">
-                      <LoginPage />
-                    </div>
-                  </div>
-                </dialog>
-              </div>
+                </Button>
+              </NavbarItem>
             </>
           )}
-        </div>
-      </div>
+        </NavbarContent>
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={index} className="p-1">
+              <Link color={isActive(item.link) ? '' : ''} href={item.link} className="text-xl ">
+                {item.text}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+          {isLoggedIn ? null : (
+            <>
+              <NavbarMenuItem className="p-1">
+                <Link href="/login">로그인</Link>
+              </NavbarMenuItem>
+              <NavbarMenuItem className="p-1">
+                <Link href="/signup">회원가입</Link>
+              </NavbarMenuItem>
+            </>
+          )}
+
+          <NavbarMenuItem></NavbarMenuItem>
+        </NavbarMenu>
+      </Navbar>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent className="flex flex-col justify-center items-center p-4">
+          {(_onClose: any) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
+              <ModalBody className="flex justify-center items-center">
+                <LoginPage />
+              </ModalBody>
+              <ModalFooter></ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 };
