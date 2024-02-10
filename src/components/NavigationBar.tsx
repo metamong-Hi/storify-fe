@@ -11,6 +11,15 @@ import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
 import SettingsComponent from './Setting/Settings';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalProps,
+  useDisclosure,
+} from '@nextui-org/react';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +27,8 @@ const NavbarComponent = () => {
   const [nickname, setNickname] = useState('');
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
@@ -152,36 +163,25 @@ const NavbarComponent = () => {
             </>
           ) : (
             <>
-              <div>
-                <div
-                  className="btn font-bold border-2 hover:"
-                  onClick={() => {
-                    const modal = document.getElementById('authModal');
-                    if (modal) {
-                      const modalElement = document.getElementById(
-                        'authModal',
-                      ) as HTMLDialogElement;
-                      modalElement.showModal();
-                    }
-                  }}
-                >
-                  로그인
-                </div>
-                <dialog id="authModal" className={`modal`}>
-                  <div className="modal-box max-h-4xl">
-                    <div className="modal-action">
-                      <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                          ✕
-                        </button>
-                      </form>
-                    </div>
-                    <div className="flex justify-center item-center">
-                      <LoginPage />
-                    </div>
-                  </div>
-                </dialog>
-              </div>
+             <div>
+             <button onClick={onOpen} className="btn btn-outline font-bold">
+  로그인
+</button>
+  <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent className="flex flex-col justify-center items-center p-4">
+          {(_onClose: any) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
+              <ModalBody className="flex justify-center items-center">
+                <LoginPage />
+              </ModalBody>
+              <ModalFooter></ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+</div>
+
             </>
           )}
         </div>
