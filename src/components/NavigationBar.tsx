@@ -21,6 +21,7 @@ const NavbarComponent = () => {
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
+  console.log(realToken);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = sessionStorage.getItem('token');
@@ -41,7 +42,7 @@ const NavbarComponent = () => {
         setIsLoggedIn(false);
       })
       .catch((error) => {
-        console.error(error);
+        console.log('로그아웃 망함' + error);
       });
   };
 
@@ -49,30 +50,15 @@ const NavbarComponent = () => {
     return pathName === pathname;
   };
 
-  const openLoginModal = () => {
-    const modal = document.getElementById('authModal');
-    if (modal) {
-      const modalElement = document.getElementById('authModal') as HTMLDialogElement;
-      modalElement.showModal();
-    }
-  };
-
   const menuItems = [
-    {
-      link: '/allbooks',
-      text: '책장',
-      onClick: () => {},
-    },
-    {
-      link: isLoggedIn ? '/writing' : '#',
-      text: '책 만들기',
-      onClick: isLoggedIn ? () => {} : openLoginModal,
-    },
+    // { link: '/home', text: '홈' },
+    { link: '/allbooks', text: '책장' },
+    { link: '/writing', text: '책 만들기' },
   ];
 
   return (
     <>
-      <div className="navbar bg-base-100 pl-[7vw] pr-[7vw]">
+      <div className="navbar bg-base-100 p-2">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -93,25 +79,21 @@ const NavbarComponent = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[5] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
-                <li key={index} className="text-xl xl:text-xl font-bold p-1">
-                  <Link
-                    href={item.link}
-                    className={`block p-4 rounded-lg hover:bg-base-200 ${isActive(item.link) ? 'bg-base-200' : ''}`}
-                  >
-                    <div onClick={item.onClick}>{item.text}</div>
-                  </Link>
-                </li>
+                <Link key={index} href={item.link}>
+                  <li className=" text-xl p-2 xl:text-2xl font-bold">
+                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
+                      {item.text}
+                    </span>
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>
-          <div className="justify-start p-5">
-            <Link
-              href="/"
-              className="text-base text-xl text-bold sm:text-2xl lg:text-3xl 2xl:text-4xl"
-            >
+          <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
+            <Link href="/" className="text-xl lg:text-3xl font-bold">
               <span>STORIFY</span>
             </Link>
           </div>
@@ -119,85 +101,87 @@ const NavbarComponent = () => {
         <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
             {menuItems.map((item, index) => (
-              <li
-                key={index}
-                className="text-xs sm:text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold p-1"
-              >
-                <Link
-                  href={item.link}
-                  className={`block p-4 rounded-lg hover:bg-base-200 ${isActive(item.link) ? 'bg-base-200' : ''}`}
-                >
-                  <div onClick={item.onClick}>{item.text}</div>
-                </Link>
-              </li>
+              <Link key={index} href={item.link}>
+                <li className="block lg:inline-block text-lg lg:mx-2">
+                  <span className={` ${isActive(item.link) ? 'bg-base-200' : ''}`}>
+                    {item.text}
+                  </span>
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
-        <div className="flex navbar-end p-5 overflow-visible md:overflow-visible">
+        <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
           {isLoggedIn ? (
             <>
-              <span className="text-xs pr-2 sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
-                <span className="font-bold pr-2">{nickname}</span>님 환영합니다
+              <span className="">
+                <span className=" text-xl font-bold  pr-2">{nickname}</span>님 환영합니다
               </span>
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-8 h-8 rounded-full">
+                  <div className="w-6 rounded-full">
                     <Image
-                      alt="User avatar"
+                      alt="Tailwind CSS Navbar component"
                       src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={100}
-                      height={100}
+                      width={10}
+                      height={10}
                     />
                   </div>
                 </div>
                 <ul
                   tabIndex={0}
-                  className="menu menu-compact dropdown-content z-[5] mt-3 shadow bg-base-100 rounded-box w-52"
+                  className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link
-                      href={`/user/${userId}/bookshelf`}
-                      className="p-4 text-xs sm:text-xs md:text-lg lg:text-xl xl:text-lg 2xl:text-xl"
-                    >
+                    <Link href={`/user/${userId}/bookshelf`} className="p-4">
                       내 책장
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/"
-                      className="text-danger p-4 text-xs sm:text-xs md:text-lg lg:text-xl xl:text-lg 2xl:text-xl"
-                      onClick={handleClickLogout}
-                    >
-                      로그아웃
+                  {/* <li>
+                    <Link href={`/user/${userId}/profile`} className="p-4">
+                      프로필
                     </Link>
+                  </li> */}
+                  <li>
+                    <div className="text-danger p-4" onClick={() => handleClickLogout()}>
+                      로그아웃
+                    </div>
                   </li>
                 </ul>
               </div>
             </>
           ) : (
             <>
-              <div
-                className="btn font-bold border-2 text-xs sm:text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl "
-                onClick={() => {
-                  openLoginModal();
-                }}
-              >
-                로그인
-              </div>
-              <dialog id="authModal" className={`modal`}>
-                <div className="modal-box max-h-4xl">
-                  <div className="modal-action">
-                    <form method="dialog">
-                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                        ✕
-                      </button>
-                    </form>
-                  </div>
-                  <div className="flex justify-center item-center">
-                    <LoginPage />
-                  </div>
+              <div>
+                <div
+                  className="btn font-bold border-2 hover:"
+                  onClick={() => {
+                    const modal = document.getElementById('authModal');
+                    if (modal) {
+                      const modalElement = document.getElementById(
+                        'authModal',
+                      ) as HTMLDialogElement;
+                      modalElement.showModal();
+                    }
+                  }}
+                >
+                  로그인
                 </div>
-              </dialog>
+                <dialog id="authModal" className={`modal`}>
+                  <div className="modal-box max-h-4xl">
+                    <div className="modal-action">
+                      <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                          ✕
+                        </button>
+                      </form>
+                    </div>
+                    <div className="flex justify-center item-center">
+                      <LoginPage />
+                    </div>
+                  </div>
+                </dialog>
+              </div>
             </>
           )}
         </div>
