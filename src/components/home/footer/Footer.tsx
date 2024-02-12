@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer p-10">
+    <footer className="footer bg-base-200 p-10">
       <aside>
         <Link href="/">
           <span className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 font-bold text-[#B68973]">
