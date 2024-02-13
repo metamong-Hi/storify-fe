@@ -1,14 +1,53 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import {Card, CardBody, Image, Button, Slider} from "@nextui-org/react";
 import { HeartIcon } from "../../../public/icons/HeartIcon";
 import { PauseCircleIcon } from "../../../public/icons/PauseCircleIcon";
 import { NextIcon } from "../../../public/icons/NextIcon";
 import { PreviousIcon } from "../../../public/icons/PreviousIcon";
+import { PlayCircleIcon } from "../../../public/icons/PlayCircleIcon";
 import { RepeatOneIcon } from "../../../public/icons/ReapeatIcon";
 import { ShuffleIcon } from "../../../public/icons/ShuffleIcon";
 
 export default function BackgroundMusic() {
-  const [liked, setLiked] = React.useState(false);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const audioRef = useRef(new Audio());
+  const tracks = [
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/Chopin - Nocturne op.9 No.2 (320kbps)-1707833466113.mp3',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/Chopin_ Berceuse in D-flat major, Op.57 (Michelangeli, Rubinstein, Moravec, Ashkenazy, Pollini) (320kbps)-1707833498326.mp3',
+    // 더 많은 트랙들...
+  ];
+
+  useEffect(() => {
+    isPlaying ? audioRef.current.play() : audioRef.current.pause();
+  }, [isPlaying]);
+
+  useEffect(() => {
+    audioRef.current.src = tracks[currentTrackIndex];
+    audioRef.current.play().catch(() => setIsPlaying(false));
+    setIsPlaying(true);
+  }, [currentTrackIndex]);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleNext = () => {
+    if (currentTrackIndex < tracks.length - 1) {
+      setCurrentTrackIndex(currentTrackIndex + 1);
+    } else {
+      setCurrentTrackIndex(0);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentTrackIndex > 0) {
+      setCurrentTrackIndex(currentTrackIndex - 1);
+    } else {
+      setCurrentTrackIndex(tracks.length - 1);
+    }
+  };
 
   return (
     <Card
@@ -51,6 +90,7 @@ export default function BackgroundMusic() {
                 className="data-[hover]:bg-foreground/10"
                 radius="full"
                 variant="light"
+                onClick={handlePrevious}
               >
                 <PreviousIcon />
               </Button>
@@ -59,14 +99,16 @@ export default function BackgroundMusic() {
                 className="w-auto h-auto data-[hover]:bg-foreground/10"
                 radius="full"
                 variant="light"
+                onClick={handlePlayPause}
               >
-                <PauseCircleIcon size={54} />
+                {isPlaying ? <PauseCircleIcon size={54} /> : <PlayCircleIcon size={54} />}
               </Button>
               <Button
                 isIconOnly
                 className="data-[hover]:bg-foreground/10"
                 radius="full"
                 variant="light"
+                onClick={handleNext}
               >
                 <NextIcon />
               </Button>

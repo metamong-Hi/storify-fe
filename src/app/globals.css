@@ -135,3 +135,17 @@ body {
 .textWithShadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+.font-default {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.font-serif {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.font-KyoboHand { font-family: 'KyoboHand'; }
+.font-Gulim { font-family: 'Gulim'; }
+.font-NamuGulim { font-family: 'NamuGulim'; }
+.font-ModernGulim { font-family: 'ModernGulim'; }
+.font-Socks { font-family: 'Socks'; }
+.font-Kids { font-family: 'Kids'; }

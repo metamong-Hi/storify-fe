@@ -60,15 +60,12 @@ const themeGroups: ThemeGroup[][] = [
 
 const Theme: React.FC = () => {
 
-  // 현재 선택된 테마를 저장하는 상태
   const [selectedTheme, setSelectedTheme] = useState<string>('default');
 
-  // 선택된 테마가 변경될 때마다 <html> 태그의 data-theme 속성을 업데이트
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', selectedTheme);
   }, [selectedTheme]);
 
-  // 테마 선택 핸들러 함수
   const handleThemeChange = (themeValue: string) => {
     setSelectedTheme(themeValue);
   };
