@@ -101,12 +101,12 @@ const NavbarComponent = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
                 <Link key={index} href={item.link}>
                   <li className=" text-xl p-2 xl:text-2xl font-bold">
-                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
+                    <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
                       {item.text}
                     </span>
                   </li>
@@ -152,7 +152,7 @@ const NavbarComponent = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 z-10 p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
                     <Link href={`/user/${userId}/bookshelf`} className="p-4 text-base-content">
