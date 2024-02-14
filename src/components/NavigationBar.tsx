@@ -51,7 +51,7 @@ const NavbarComponent = () => {
       .then(() => {
         sessionStorage.removeItem('token');
         setIsLoggedIn(false);
-
+        window.location.href='/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
