@@ -6,10 +6,11 @@ import { BooksData } from '@/types/books';
 import { Suspense } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import Loading from './loading';
+import Layout from './layout';
 
 const Page = () => {
   return (
-    <div className="flex justify-center items-center p-5">
+    <div className="flex justify-center items-center p-8">
       <BooksPage userId="" />
     </div>
   );

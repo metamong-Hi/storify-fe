@@ -206,7 +206,7 @@ const ComplexWritingPage: React.FC = () => {
         const inputHeight = inputRef.current.offsetHeight;
         const screenHeight = window.innerHeight;
         const scrollPosition = window.scrollY;
-        const bottomPosition = inputRef.current.getBoundingClientRect().bottom; // 입력창의 화면 내 위치
+        const bottomPosition = inputRef.current.getBoundingClientRect().bottom;
 
         if (bottomPosition > screenHeight) {
           window.scrollTo({
@@ -228,26 +228,6 @@ const ComplexWritingPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
-      {isListening && (
-        <div className="alert alert-error text-center mx-auto w-full sm:w-48 mb-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current shrink-0 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            />
-          </svg>
-          <span className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg">
-            마이크가 켜져있어요
-          </span>
-        </div>
-      )}
       <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
       <h1 className="text-3xl font-semibold mb-2">
         세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.
@@ -347,12 +327,12 @@ const ComplexWritingPage: React.FC = () => {
               {isListening ? '마이크 끄기' : '마이크 켜기'}
             </button>
             {currentStep < 2 ? (
-              <button className="btn font-bold border-2" onClick={handleClick} disabled={isSending}>
+              <button className="btn btn-primary font-bold border-2" onClick={handleClick} disabled={isSending}>
                 보내기
               </button>
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
-                <button className="btn font-bold border-2" disabled={isSending}>
+                <button className="btn btn-primary font-bold border-2" disabled={isSending}>
                   동화책 만들기
                 </button>
               </Link>
