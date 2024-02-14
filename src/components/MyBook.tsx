@@ -111,7 +111,7 @@ const AnimatedImage = styled.img<{ animationCss: string }>`
   height: 100%;
   border-radius: 20px;
   ${props => props.animationCss}
-  animation: animation 8s ease-in-out infinite;
+  animation: animation 20s ease-in-out infinite;
 `;
 
 interface PageItem {

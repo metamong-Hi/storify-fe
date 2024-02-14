@@ -4,20 +4,22 @@ import { io } from 'socket.io-client';
 
 const WebSocketPage = () => {
   useEffect(() => {
-    const serverUrl = 'https://api.storifyai.site:3000/ws-noti';
+    const serverUrl = 'ws://api.storifyai.site/';
     const token = sessionStorage.getItem('token');
     console.log("토큰이다: " + token);
 
     const socket = io(serverUrl, {
+      path: "/ws-noti",
       extraHeaders: {
         Authorization: `Bearer ${token}`
       },
-      withCredentials: true
+      withCredentials: true,
+
     });
 
     socket.on('connect', () => {
       console.log('Connected to the server');
-      socket.emit('friendRequest', { senderId: 'user1', receiverId: 'user2' });
+    //   socket.emit('friendRequest', { senderId: 'user1', receiverId: 'user2' });
     });
 
     socket.on('connect_error', (err) => {
