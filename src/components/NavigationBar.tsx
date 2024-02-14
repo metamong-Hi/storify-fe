@@ -154,6 +154,11 @@ const NavbarComponent = () => {
                     </Link>
                   </li> */}
                   <li>
+                    <Link href={`/setting`} className="p-4">
+                      환경 설정
+                    </Link>
+                  </li>
+                  <li>
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
