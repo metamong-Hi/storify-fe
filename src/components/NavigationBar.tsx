@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
-import SettingsComponent from './Setting/Settings';
+import SettingsComponent from './Setting/Theme';
 import {
   Modal,
   ModalContent,
@@ -153,6 +153,11 @@ const NavbarComponent = () => {
                       프로필
                     </Link>
                   </li> */}
+                  <li>
+                    <Link href={`/setting`} className="p-4">
+                      환경 설정
+                    </Link>
+                  </li>
                   <li>
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
