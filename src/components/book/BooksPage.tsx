@@ -8,6 +8,7 @@ import { SearchIcon } from '@/components/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
+import { redirect } from 'next/navigation';
 
 interface UseBooksDataProps {
   userId: string;
@@ -44,12 +45,15 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
   const [shelfTitle, setShelfTitle] = useState('');
 
   if (typeof window !== 'undefined' && userId) {
-    id = jwtDecode(sessionStorage.getItem('token') || '')?.sub as string;
-    const getDatas = async () => {
-      const data = await getOtherUserId(userId);
-      setOtherNickname(data.nickname);
-    };
-    getDatas();
+    id = sessionStorage.getItem('token') ?? '';
+    if (id !== '') {
+      id = jwtDecode(sessionStorage.getItem('token') || '')?.sub as string;
+      const getDatas = async () => {
+        const data = await getOtherUserId(userId);
+        setOtherNickname(data.nickname);
+      };
+      getDatas();
+    }
   }
 
   useEffect(() => {

@@ -164,25 +164,26 @@ const NavbarComponent = () => {
             </>
           ) : (
             <>
-             <div>
-             <button onClick={onOpen} className="btn btn-outline font-bold">
-  로그인
-</button>
-  <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent className="flex flex-col justify-center items-center p-4">
-          {(_onClose: any) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">{/* 로그인 / 회원가입 */}</ModalHeader>
-              <ModalBody className="flex justify-center items-center">
-                <LoginPage />
-              </ModalBody>
-              <ModalFooter></ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-</div>
-
+              <div>
+                <button onClick={onOpen} className="btn btn-outline font-bold">
+                  로그인
+                </button>
+                <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                  <ModalContent className="flex flex-col justify-center items-center p-4">
+                    {(_onClose: any) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">
+                          {/* 로그인 / 회원가입 */}
+                        </ModalHeader>
+                        <ModalBody className="flex justify-center items-center">
+                          <LoginPage />
+                        </ModalBody>
+                        <ModalFooter></ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
+              </div>
             </>
           )}
         </div>

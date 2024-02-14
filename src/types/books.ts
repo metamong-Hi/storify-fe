@@ -8,6 +8,7 @@ interface bodyData {
 
 interface userData {
   _id?: string;
+  avatar?: string;
   nickname?: string;
   userId?: string;
 }
