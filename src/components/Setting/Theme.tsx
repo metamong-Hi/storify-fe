@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useState, useEffect } from 'react';
 
 interface ThemeGroup {
@@ -7,9 +7,7 @@ interface ThemeGroup {
 }
 
 const themeGroups: ThemeGroup[][] = [
-  [
-    { label: '기본', value: 'default' },
-  ],
+  [{ label: '기본', value: 'default' }],
   [
     { label: '밝음', value: 'light' },
     { label: '어두움', value: 'dark' },
@@ -59,7 +57,6 @@ const themeGroups: ThemeGroup[][] = [
 ];
 
 const Theme: React.FC = () => {
-
   useEffect(() => {
     const storedTheme = localStorage.getItem('selectedTheme');
     if (storedTheme) {
@@ -80,24 +77,26 @@ const Theme: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-2">
-      {themeGroups.map((group, index) => (
-        <div key={index} className="flex flex-wrap -mx-2"> 
-          {group.map(theme => (
-            <label key={theme.value} className="px-2 min-w-[150px]">
-              <input
-                type="radio"
-                name="theme-buttons"
-                className="btn theme-controller join-item w-full h-10 text-lg p-2" 
-                aria-label={theme.label}
-                value={theme.value}
-                checked={selectedTheme === theme.value} 
-                onChange={() => handleThemeChange(theme.value)}
-              />
-            </label>
-          ))}
-        </div>
-      ))}
+    <div className="bg-base-content rounded-lg shadow-md p-5">
+      <div className="flex flex-col gap-y-2 ">
+        {themeGroups.map((group, index) => (
+          <div key={index} className="flex flex-wrap -mx-2 ">
+            {group.map((theme) => (
+              <label key={theme.value} className="px-2 min-w-[150px]">
+                <input
+                  type="radio"
+                  name="theme-buttons"
+                  className="btn theme-controller join-item w-full h-10 text-lg p-2"
+                  aria-label={theme.label}
+                  value={theme.value}
+                  checked={selectedTheme === theme.value}
+                  onChange={() => handleThemeChange(theme.value)}
+                />
+              </label>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

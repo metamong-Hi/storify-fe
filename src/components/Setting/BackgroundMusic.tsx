@@ -222,6 +222,40 @@ const BackgroundMusic: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+  
+    // 곡이 끝나면 다음 곡을 재생하는 함수
+    const handleAudioEnd = () => {
+      handleNext();
+    };
+  
+    // 'ended' 이벤트 리스너 추가
+    audio.addEventListener('ended', handleAudioEnd);
+  
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      audio.removeEventListener('ended', handleAudioEnd);
+    };
+  }, [handleNext]);
+  
+
+  // 현재 재생중인 곡의 인덱스를 로컬 스토리지에서 불러오기
+  useEffect(() => {
+    const storedTrackIndex = localStorage.getItem('currentTrackIndex');
+    if (storedTrackIndex) {
+      setCurrentTrackIndex(parseInt(storedTrackIndex, 10));
+    }
+  }, []);
+
+  // 현재 트랙 인덱스가 변경될 때마다 로컬 스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem('currentTrackIndex', currentTrackIndex.toString());
+    if (isPlaying) {
+      audioRef.current.play().catch(() => setIsPlaying(false));
+    }
+  }, [currentTrackIndex, isPlaying]);
+
   return (
     <div>
       <Card
@@ -293,20 +327,21 @@ const BackgroundMusic: React.FC = () => {
           </div>
         </CardBody>
       </Card>
-      <div className = "flex justify-center mt-4">
-      <ul className="track-list menu bg-base-200 w-64 rounded-box">
-        {MusicName.map((name, index) => (
-          <li
-            key={index}
-            className={`track-item ${currentTrackIndex === index ? 'active' : ''}`}
-            onClick={() => handlePlayTrack(index)}
-          >
-            <a>{index+1}. {name}</a>
-          </li>
-        ))}
-      </ul>
+      <div className="flex justify-center mt-4">
+        <ul className="track-list menu bg-base-200 min-w-[50vw] rounded-box">
+          {MusicName.map((name, index) => (
+            <li
+              key={index}
+              className={`track-item text-base-content ${currentTrackIndex === index ? 'active' : ''}`}
+              onClick={() => handlePlayTrack(index)}
+            >
+              <a>
+                {index + 1}. {name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-
     </div>
   );
 };

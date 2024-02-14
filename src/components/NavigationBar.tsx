@@ -44,7 +44,6 @@ const NavbarComponent = () => {
 
   const [selectedTheme, setSelectedTheme] = useState<string>('selectedTheme');
 
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = sessionStorage.getItem('token');
@@ -181,6 +180,9 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
+                <Link href="/setting" passHref>
+                  <button className="btn btn-outline font-bold mr-2">환경설정</button>
+                </Link>
                 <button onClick={onOpen} className="btn btn-outline font-bold">
                   로그인
                 </button>
