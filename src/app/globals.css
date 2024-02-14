@@ -58,6 +58,95 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'LightWrite';
+  src: url('/fonts/LightWrite.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sowal';
+
+  src: url('/fonts/SowalR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Boss';
+
+  src: url('/fonts/BossR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beach';
+
+  src: url('/fonts/BeachR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Soopilmyungjo';
+
+  src: url('/fonts/SoopilmyungjoR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BanditbulR';
+
+  src: url('/fonts/BanditbulR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HyuGothic';
+
+  src: url('/fonts/HyuGothicR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paint';
+
+  src: url('/fonts/PaintR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spring';
+
+  src: url('/fonts/SpringR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Baby';
+
+  src: url('/fonts/BabyR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .page {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
