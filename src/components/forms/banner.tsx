@@ -1,4 +1,4 @@
-// Page 컴포넌트 내
+"use client"
 import React, { useState, useEffect } from 'react';
 import Banner2 from './banner2';
 
