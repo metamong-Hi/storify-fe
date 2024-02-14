@@ -227,7 +227,7 @@ const ComplexWritingPage: React.FC = () => {
   }, [conversation]);
 
   return (
-    <div className="w-full sm:w-[90vw] md:w-[80vw] lg: w-[70vw] xl:w-[60vw]">
+    <div className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw]">
       <h1 className="text-3xl font-semibold mb-2 text-base-content">요정의 질문에 답을 해 보세요.</h1>
       <h1 className="text-3xl font-semibold mb-2 text-base-content">
         세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.

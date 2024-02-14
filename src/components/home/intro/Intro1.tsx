@@ -39,7 +39,7 @@ const Intro1: React.FC = () => {
         모든 동화책을 <span className="font-semibold">무료로</span> 이용 할 수 있습니다.
       </p>
 
-      <>
+      <div className="max-w-[100vw]">
         <Swiper
         effect={'coverflow'}
         grabCursor={true}
@@ -70,7 +70,7 @@ const Intro1: React.FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      </>
+      </div>
       <div className="mt-4"  data-aos="fade-up" 
         data-aos-delay="900">
         <Link href="/allbooks" passHref>

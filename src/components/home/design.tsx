@@ -64,7 +64,7 @@ const HomeDesign: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="absolute top-[10%] left-[6%] z-1">
+      <div className="absolute top-[10%] left-[6%] z-10">
         <div className="mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-6 2xl:mb-8 font-bold">
           <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 textWithShadow" data-aos="fade-up">
             여러분이 주인공인
