@@ -58,6 +58,87 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Comic Sans MS';
+  src: url('/fonts/ComicSansMS3.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'Nanum Gothic';
+  src: url('/fonts/NanumGothic-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  src: url('/fonts/NotoSerifKR-Regular.otf') format('otf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nanum Pen Script';
+  src: url('/fonts/NanumPenScript-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hahmlet';
+  src: url('/fonts/Hahmlet-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('/fonts/RobotoMono-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/fonts/FiraCode-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kalam';
+  src: url('/fonts/Kalam-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Amatic SC';
+  src: url('/fonts/AmaticSC.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pangolin';
+  src: url('/fonts/Pangolin-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .page {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
@@ -149,3 +230,58 @@ body {
 .font-ModernGulim { font-family: 'ModernGulim'; }
 .font-Socks { font-family: 'Socks'; }
 .font-Kids { font-family: 'Kids'; }
+.font-ComicSansMS {font-family: 'Comic Sans MS';}
+
+.font-nanum-gothic-regular {
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-noto-serif-kr-regular {
+  font-family: "Noto Serif KR", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-nanum-pen-script-regular {
+  font-family: "Nanum Pen Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-hahmle-regulart {
+  font-family: "Hahmlet", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-roboto-mono{
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-fira-code-regular {
+  font-family: "Fira Code", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-kalam-regular {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-amatic-sc-regular {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-pangolin-regular {
+  font-family: "Pangolin", cursive;
+  font-weight: 400;
+  font-style: normal;
+}

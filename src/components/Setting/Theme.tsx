@@ -71,11 +71,11 @@ const Theme: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-1">
+    <div className="flex flex-col gap-y-2">
       {themeGroups.map((group, index) => (
         <div key={index} className="flex flex-wrap -mx-2"> 
           {group.map(theme => (
-            <label key={theme.value} className="px-2 min-w-[120px]">
+            <label key={theme.value} className="px-2 min-w-[150px]">
               <input
                 type="radio"
                 name="theme-buttons"
