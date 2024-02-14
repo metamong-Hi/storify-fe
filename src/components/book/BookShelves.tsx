@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
 import { EyeIcon } from '@/components/icons/EyeIcon';
 import { getAllBooks } from './AllBooks';
-import { set } from 'lodash';
+import { get, set } from 'lodash';
 import { LikeIcon } from '@/components/icons/LikeIcon';
 import { XIcon } from '@/components/icons/XIcon';
 
@@ -27,8 +27,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 interface User {
   _id: string;
   avatar: string;
-  bookshelfLink: string;
   name: string;
+  bookshelfLink: string;
+  userId: string;
+  introduction: string;
 }
 interface userData extends BooksData {
   userId?: User;
@@ -50,7 +52,7 @@ interface BookComponentProps {
 }
 
 async function getUserProfile(_id: string) {
-  const response = await fetch(`${API_URL}/users/${_id}`, {
+  const response = await fetch(`${API_URL}/users/profile/${_id}`, {
     method: 'GET',
   });
 
@@ -62,6 +64,14 @@ export const Book = ({ book, index }: BookComponentProps) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(book.likesCount);
   const [likeError, setLikeError] = useState(false);
+  const [user, setUser] = useState<User>({
+    _id: '',
+    avatar: '',
+    bookshelfLink: '',
+    name: '',
+    userId: '',
+    introduction: '',
+  });
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -99,7 +109,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     } catch (error) {
       console.error('Failed to like/unlike the book:', error);
     }
-  }, 300);
+  }, 1000);
 
   const debouncedHandleLike = useCallback(() => {
     debouncedFunction(!liked);
@@ -118,20 +128,29 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const noBookImg =
       book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
         ? book.coverUrl
-        : '/images/bookCover.png';
+        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
     imageURL = book.thumbnail ? book.thumbnail : noBookImg;
   } catch (error) {
-    imageURL = '/images/bookCover.png';
+    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUserProfile(book.userId?.userId ?? '');
+      const user: User = {
+        _id: book.userId?._id ?? '',
+        avatar: data.avatar
+          ? data.avatar
+          : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
+        bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`,
+        name: data.nickname ?? data.userId,
+        userId: data.userId,
+        introduction: data.introduction,
+      };
+      setUser(user);
+    };
 
-  const user = {
-    _id: book.userId?._id,
-    avatar:
-      book.userId?.avatar ??
-      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
-    bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
-    name: book.userId?.userId ?? '', // Replace with actual user's name
-  };
+    fetchData();
+  }, [book]);
 
   const openLoginModal = () => {
     const modal = document.getElementById('authModal');
@@ -232,7 +251,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
                     <XIcon />
                   </span>
                 ) : (
-                  // Assume XIcon is your error icon
                   <HeartIcon
                     height={20}
                     width={20}
