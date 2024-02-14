@@ -152,16 +152,16 @@ const ComplexResultPage: React.FC = () => {
 
   return (
     <div className="w-[60vw]">
-      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         요정이 동화책을 만들고 있어요.
       </h1>
-      <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+      <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         잠시만 기다려 주세요.
       </h2>
       <div className="divider"></div>
       <textarea
         placeholder="여기에 간단히 적어줘"
-        className="textarea textarea-bordered textarea-success textarea-lg w-full"
+        className="textarea textarea-bordered textarea-success textarea-lg w-full text-base-content"
         rows={6}
         ref={textAreaRef}
         value={displayedText}
@@ -187,7 +187,7 @@ const ComplexResultPage: React.FC = () => {
         <Link href={`/book/${bookId}`} passHref>
           <button
             ref={buttonRef}
-            className="btn btn-outline btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg mt-4"
+            className="btn btn-success font-bold border-2 mt-4"
           >
             책 보러 가기
           </button>

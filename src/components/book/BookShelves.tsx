@@ -181,7 +181,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold">
+          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-base-content">
             <div className="text-center w-[250px]">{book.title}</div>
           </div>
         </div>
@@ -204,7 +204,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} />
                 </div>
               </div>
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold">
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
                 {user.name}
               </span>
             </div>
@@ -215,12 +215,12 @@ export const Book = ({ book, index }: BookComponentProps) => {
               } dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52`}
             >
               <Link href={user.bookshelfLink}>
-                <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap">
+                <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap text-base-content">
                   책장 보기
                 </li>
               </Link>
 
-              <li className="rounded-t hover:bg-base-200 py-2 px-4 block whitespace-no-wrap">
+              <li className="rounded-t hover:bg-base-200 py-2 px-4 block whitespace-no-wrap text-base-content">
                 친구 추가
               </li>
             </ul>
@@ -229,7 +229,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
           <div className="flex justify-end items-center mt-1">
             <div className="flex items-center space-x-2">
               <EyeIcon className="w-4 h-4 text-gray-500" />
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content">
                 {book.count}
               </span>
             </div>
@@ -261,7 +261,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
                 )}
               </button>
 
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content">
                 {likeCount}
               </span>
             </div>

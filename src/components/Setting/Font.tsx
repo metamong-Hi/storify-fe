@@ -28,16 +28,19 @@ const fontOptions: FontOption[][] = [
     { label: 'Kalam', classSuffix: 'kalam-regular' },
     { label: 'Amatic SC', classSuffix: 'amatic-sc-regular' },
   ],
-  [
-    { label: 'Pangolin', classSuffix: 'pangolin-regular' },
-  ],
+  [{ label: 'Pangolin', classSuffix: 'pangolin-regular' }],
 ];
 
 const FontSelector: React.FC = () => {
-  const [selectedFontClass, setSelectedFontClass] = useState<string>('font-default');
+  const [selectedFontClass, setSelectedFontClass] = useState<string>(() => {
+    return localStorage.getItem('selectedFontClass') || 'font-default';
+  });
 
   useEffect(() => {
+    // 페이지가 로드될 때 body의 className을 업데이트합니다.
     document.body.className = selectedFontClass;
+    // 선택된 글꼴 클래스를 로컬 스토리지에 저장합니다.
+    localStorage.setItem('selectedFontClass', selectedFontClass);
   }, [selectedFontClass]);
 
   const handleFontChange = (classSuffix: string) => {
@@ -45,20 +48,22 @@ const FontSelector: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-2">
-      {fontOptions.map((group, index) => (
-        <div key={index} className="flex flex-wrap gap-2">
-          {group.map((option, index) => (
-            <button
-              key={index}
-              className={`btn min-w-[150px] ${selectedFontClass === `font-${option.classSuffix}` ? 'btn-active' : ''}`}
-              onClick={() => handleFontChange(option.classSuffix)}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      ))}
+    <div className="bg-base-content rounded-lg shadow-md p-5">
+      <div className="flex flex-col gap-y-2">
+        {fontOptions.map((group, index) => (
+          <div key={index} className="flex flex-wrap gap-2">
+            {group.map((option, index) => (
+              <button
+                key={index}
+                className={`btn min-w-[150px] ${selectedFontClass === `font-${option.classSuffix}` ? 'btn-active' : ''}`}
+                onClick={() => handleFontChange(option.classSuffix)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

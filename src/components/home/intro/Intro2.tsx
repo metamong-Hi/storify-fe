@@ -22,7 +22,7 @@ const Intro2: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-4xl font-bold ">
         나만을 위한 <span className="text-[#B68973]">추천 동화책</span>
       </h1>
 
