@@ -46,16 +46,16 @@ const HomeDesign: React.FC = () => {
           disableOnInteraction: false,
         }}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
+        className="mySwiper relative z-0"
         style={{ width: '100%', height: '100vh' }}
       >
         {images.map((src, index) => (
-          <SwiperSlide key={index} style={{ height: '100vh' }}>
-            <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" />
+          <SwiperSlide key={index} className= " relative z-0" style={{ height: '100vh' }}>
+            <Image src={src} className= "relative z-0"  alt={`Slide ${index}`} layout="fill" objectFit="cover" />
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="absolute top-[10%] left-[6%] z-10">
+      <div className="absolute top-[10%] left-[6%] z-1">
         <div className="mb-12 font-bold">
           <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-6 opacity-0 animate-fadeInUp delay-1s textWithShadow">
             여러분이 주인공인

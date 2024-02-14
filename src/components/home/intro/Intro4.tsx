@@ -82,13 +82,13 @@ const Intro4: React.FC = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
       <h1
-        className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold"
+        className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
         data-aos="fade-up"
       >
         스토리파이만의 <span className="text-[#B68973]">부가서비스</span>
       </h1>
       <p
-        className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 mb-5"
+        className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
         data-aos="fade-up"
         data-aos-delay="300"
       >
@@ -114,11 +114,11 @@ const Intro4: React.FC = () => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1">
+              <h2 className="card-title text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">
                 {card.title}
               </h2>
               <h3
-                className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-gray-500"
+                className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-base-content/80"
                 style={{ whiteSpace: 'pre-line' }}
               >
                 {card.description}

@@ -60,9 +60,18 @@ const themeGroups: ThemeGroup[][] = [
 
 const Theme: React.FC = () => {
 
-  const [selectedTheme, setSelectedTheme] = useState<string>('default');
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('selectedTheme');
+    if (storedTheme) {
+      setSelectedTheme(storedTheme);
+      document.documentElement.setAttribute('data-theme', storedTheme);
+    }
+  }, []);
+
+  const [selectedTheme, setSelectedTheme] = useState<string>('selectedTheme');
 
   useEffect(() => {
+    localStorage.setItem('selectedTheme', selectedTheme);
     document.documentElement.setAttribute('data-theme', selectedTheme);
   }, [selectedTheme]);
 

@@ -53,12 +53,12 @@ const SimpleWritingPage: React.FC = () => {
   };
 
   return (
-    <div className="w-[60vw]">
-      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+    <div className="w-full sm:w-[90vw] md:w-[80vw] lg: w-[70vw] xl:w-[60vw]">
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         동화로 만들고 싶은
       </h1>
 
-      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+      <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         이야기를 적어 주세요.
       </h1>
 
@@ -66,7 +66,7 @@ const SimpleWritingPage: React.FC = () => {
       <div className="divider"></div>
       <textarea
         placeholder="여기에 이야기를 적어주세요"
-        className="textarea textarea-bordered textarea-lg w-full"
+        className="textarea textarea-bordered textarea-lg text-base-content w-full"
         rows={6}
         value={text}
         onChange={handleChange}
