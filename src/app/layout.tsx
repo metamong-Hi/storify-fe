@@ -9,7 +9,7 @@ import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/home/footer/Footer';
 import Banner from '@/components/forms/banner';
 import { ThemeProvider } from '@/components/Setting/ThemeContext';
-
+import {GoogleAnalytics} from '@next/third-parties/google'
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="kr" data-theme="fantasy">
@@ -25,6 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Providers>
         </Provider>
       </body>
+      <GoogleAnalytics gaId='G-PQN39348RK'/>
     </html>
   );
 }
