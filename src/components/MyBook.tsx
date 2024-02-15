@@ -315,6 +315,7 @@ useEffect(() => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log("데이터임"+data.userId);
       setTitle(data.title);
       const pagesArray = Object.values(data.body) as PageItem[];
       const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
