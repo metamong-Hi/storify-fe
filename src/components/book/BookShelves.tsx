@@ -212,7 +212,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
               tabIndex={0}
               className={`${
                 token ? '' : 'hidden'
-              } dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52`}
+              } dropdown-content z-10 menu p-2 shadow bg-base-200 rounded-box w-52`}
             >
               <Link href={user.bookshelfLink}>
                 <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap text-base-content">
