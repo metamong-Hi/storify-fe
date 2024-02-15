@@ -71,16 +71,16 @@ export const kakaologin = createAsyncThunk(
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao`, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'application/json', // Changed to 'Accept' for the expected response format
+                    'Accept': 'application/json', 
                 },
               
             });
             if (!response.ok) {
-                throw new Error('카카오 로그인 실패함'); // Improved error message for clarity
+                throw new Error('카카오 로그인 실패함'); 
             }
             const data = await response.json();
             return {
-                accessToken: data.accessToken, // Assuming these are the details you get back
+                accessToken: data.accessToken, 
                 nickname: data.nickname,
                 refreshToken: data.refreshToken,
             };
@@ -141,6 +141,7 @@ export const logout = createAsyncThunk('user/logout', async (_, { getState, reje
         }
 
         return '로그아웃 성공';
+
     } catch (error) {
         return rejectWithValue(
             error instanceof Error ? error.message : 'An unknown error occurred during logout',
