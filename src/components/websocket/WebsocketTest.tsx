@@ -1,20 +1,25 @@
 "use client"
 import { useEffect } from 'react';
-import { io } from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 const WebSocketPage = () => {
   useEffect(() => {
-    const serverUrl = 'ws://api.storifyai.site/';
+    const serverUrl = 'ws://api.storifyai.site';
     const token = sessionStorage.getItem('token');
     console.log("토큰이다: " + token);
 
-    const socket = io(serverUrl, {
+    const socket = io.connect(serverUrl, {
+      addTrailingSlash: false,
+      transports: ['websocket','polling'], 
       path: "/ws-noti",
-      extraHeaders: {
-        Authorization: `Bearer ${token}`
+      // extraHeaders: {
+      //   Authorization: `Bearer ${token}`
+      // },{ transports: ['websocket'] }
+      auth: {
+        token: `Bearer ${token}`,
       },
       withCredentials: true,
-
+// 
     });
 
     socket.on('connect', () => {
@@ -23,7 +28,7 @@ const WebSocketPage = () => {
     });
 
     socket.on('connect_error', (err) => {
-      console.log('Connection error', err.message);
+      console.log('Connection error', err);
     });
 
     socket.on('disconnect', (reason) => {
