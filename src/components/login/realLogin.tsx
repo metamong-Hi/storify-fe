@@ -43,22 +43,22 @@ function LoginPage() {
   };
   const handleKakaoLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('Kakao login clicked');
-
-    e.preventDefault(); 
-    dispatch(kakaologin()) 
+    window.location.href = 'https://api.storifyai.site/auth/kakao'
+    // e.preventDefault(); 
+    // dispatch(kakaologin()) 
    
-    .then((action) => {
-      if (action.meta.requestStatus === 'fulfilled') {
-        console.log('카카오 로그인 성공');
-        window.location.reload();
-      } else {
-        throw new Error('카카오 로그인 실패');
-      }
-    })
-    .catch((error) => {
-        console.error('카카오 로그인 실패: ', error);
-        showLoginFailedAlert();
-    });
+    // .then((action) => {
+    //   if (action.meta.requestStatus === 'fulfilled') {
+    //     console.log('카카오 로그인 성공');
+    //     window.location.reload();
+    //   } else {
+    //     throw new Error('카카오 로그인 실패');
+    //   }
+    // })
+    // .catch((error) => {
+    //     console.error('카카오 로그인 실패: ', error);
+    //     showLoginFailedAlert();
+    // });
 };
 
   const showLoginFailedAlert = () => {
