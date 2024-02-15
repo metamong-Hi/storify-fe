@@ -9,6 +9,7 @@ import apiService from '../services/apiService';
 import ImageEditorDrawer from './ImageEditorDrawer';
 import ImageDroppable from './ImageDroppable';
 import { jwtDecode } from 'jwt-decode';
+import Link from 'next/link';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -148,7 +149,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [animationCss, setAnimationCss] = useState('');
   const token = sessionStorage.getItem('token');
   const [isUser, setIsUser] = useState<boolean>(false);
-
+  const [userId,setUserId]=useState('');
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -317,6 +318,7 @@ useEffect(() => {
       const data = await response.json();
       console.log("데이터임"+data.userId);
       setTitle(data.title);
+      setUserId(data.userId);
       const pagesArray = Object.values(data.body) as PageItem[];
       const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
       setPage(newPages);
@@ -391,7 +393,11 @@ useEffect(() => {
       >
         {title}
       </p>
-    
+      <div style={{ textAlign: 'right', padding: '20px' }}> {/* Adjust padding as needed */}
+  <Link href={`/user/${userId}/bookshelf`}>
+   작가다
+  </Link>
+</div>
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
