@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
 import { EyeIcon } from '@/components/icons/EyeIcon';
 import { getAllBooks } from './AllBooks';
-import { set } from 'lodash';
+import { get, set } from 'lodash';
 import { LikeIcon } from '@/components/icons/LikeIcon';
 import { XIcon } from '@/components/icons/XIcon';
 
@@ -27,8 +27,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 interface User {
   _id: string;
   avatar: string;
-  bookshelfLink: string;
   name: string;
+  bookshelfLink: string;
+  userId: string;
+  introduction: string;
 }
 interface userData extends BooksData {
   userId?: User;
@@ -50,7 +52,7 @@ interface BookComponentProps {
 }
 
 async function getUserProfile(_id: string) {
-  const response = await fetch(`${API_URL}/users/${_id}`, {
+  const response = await fetch(`${API_URL}/users/profile/${_id}`, {
     method: 'GET',
   });
 
@@ -62,6 +64,14 @@ export const Book = ({ book, index }: BookComponentProps) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(book.likesCount);
   const [likeError, setLikeError] = useState(false);
+  const [user, setUser] = useState<User>({
+    _id: '',
+    avatar: '',
+    bookshelfLink: '',
+    name: '',
+    userId: '',
+    introduction: '',
+  });
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -99,7 +109,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     } catch (error) {
       console.error('Failed to like/unlike the book:', error);
     }
-  }, 300);
+  }, 1000);
 
   const debouncedHandleLike = useCallback(() => {
     debouncedFunction(!liked);
@@ -118,20 +128,29 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const noBookImg =
       book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
         ? book.coverUrl
-        : '/images/bookCover.png';
+        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
     imageURL = book.thumbnail ? book.thumbnail : noBookImg;
   } catch (error) {
-    imageURL = '/images/bookCover.png';
+    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUserProfile(book.userId?.userId ?? '');
+      const user: User = {
+        _id: book.userId?._id ?? '',
+        avatar: data.avatar
+          ? data.avatar
+          : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
+        bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`,
+        name: data.nickname ?? data.userId,
+        userId: data.userId,
+        introduction: data.introduction,
+      };
+      setUser(user);
+    };
 
-  const user = {
-    _id: book.userId?._id,
-    avatar:
-      book.userId?.avatar ??
-      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
-    bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`, // Replace with actual link to user's bookshelf
-    name: book.userId?.userId ?? '', // Replace with actual user's name
-  };
+    fetchData();
+  }, [book]);
 
   const openLoginModal = () => {
     const modal = document.getElementById('authModal');
@@ -162,7 +181,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold">
+          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-base-content">
             <div className="text-center w-[250px]">{book.title}</div>
           </div>
         </div>
@@ -185,7 +204,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} />
                 </div>
               </div>
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold">
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
                 {user.name}
               </span>
             </div>
@@ -193,15 +212,15 @@ export const Book = ({ book, index }: BookComponentProps) => {
               tabIndex={0}
               className={`${
                 token ? '' : 'hidden'
-              } dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52`}
+              } dropdown-content z-10 menu p-2 shadow bg-base-200 rounded-box w-52`}
             >
               <Link href={user.bookshelfLink}>
-                <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap">
+                <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap text-base-content">
                   책장 보기
                 </li>
               </Link>
 
-              <li className="rounded-t hover:bg-base-200 py-2 px-4 block whitespace-no-wrap">
+              <li className="rounded-t hover:bg-base-200 py-2 px-4 block whitespace-no-wrap text-base-content">
                 친구 추가
               </li>
             </ul>
@@ -210,7 +229,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
           <div className="flex justify-end items-center mt-1">
             <div className="flex items-center space-x-2">
               <EyeIcon className="w-4 h-4 text-gray-500" />
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content">
                 {book.count}
               </span>
             </div>
@@ -232,7 +251,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
                     <XIcon />
                   </span>
                 ) : (
-                  // Assume XIcon is your error icon
                   <HeartIcon
                     height={20}
                     width={20}
@@ -243,7 +261,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
                 )}
               </button>
 
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">
+              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content">
                 {likeCount}
               </span>
             </div>

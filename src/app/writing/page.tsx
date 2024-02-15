@@ -5,10 +5,10 @@ import ComplexCard from '@/components/objects/cards/Complex';
 
 const WritingPage: React.FC = () => {
   return (
-    <>
+    <div className="flex">
       <SimpleCard />
       <ComplexCard />
-    </>
+    </div>
   );
 };
 

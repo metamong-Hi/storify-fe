@@ -378,6 +378,7 @@ useEffect(() => {
 
 
       <p
+      className="text-base-content"
         style={{
           fontSize: '3rem',
           lineHeight: '2.25rem',

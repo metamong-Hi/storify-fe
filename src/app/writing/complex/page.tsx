@@ -227,9 +227,9 @@ const ComplexWritingPage: React.FC = () => {
   }, [conversation]);
 
   return (
-    <div className="w-[60vw]">
-      <h1 className="text-3xl font-semibold mb-2">요정의 질문에 답을 해 보세요.</h1>
-      <h1 className="text-3xl font-semibold mb-2">
+    <div className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw]">
+      <h1 className="text-3xl font-semibold mb-2 text-base-content">요정의 질문에 답을 해 보세요.</h1>
+      <h1 className="text-3xl font-semibold mb-2 text-base-content">
         세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.
       </h1>
       <div className="divider"></div>
@@ -267,7 +267,7 @@ const ComplexWritingPage: React.FC = () => {
         <div key={index}>
           <div className="chat chat-end ">
             <div className="chat-image avatar">
-              <div className="w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
+              <div className="w-12 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
@@ -280,7 +280,7 @@ const ComplexWritingPage: React.FC = () => {
           </div>
           <div className="chat chat-start">
             <div className="chat-image avatar">
-              <div className="w-16 rounded-full">
+              <div className="w-12 rounded-full">
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
@@ -303,7 +303,7 @@ const ComplexWritingPage: React.FC = () => {
       {currentStep < 3 && (
         <div ref={inputRef}>
           <input
-            className="input input-default input-bordered w-full"
+            className="input input-default input-bordered w-full text-base-content"
             value={text}
             onChange={handleChange}
             autoFocus

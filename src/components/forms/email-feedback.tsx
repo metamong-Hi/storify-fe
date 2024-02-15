@@ -54,7 +54,7 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
       <div className="hero min-h-[60vh]">
         <div className="hero-content text-center">
           <div className="w-[60vw]">
-            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 ">
               잠시만 기다려 주세요
             </h1>
             <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
@@ -72,10 +72,10 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
       <div className="hero min-h-[60vh]">
         <div className="hero-content text-center">
           <div className="w-[60vw]">
-            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-neutral">
               소중한 의견 감사드립니다.
             </h1>
-            <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+            <h2 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-neutral">
               더 나은 StORIFY로 보답하겠습니다.
             </h2>
             <div className="divider"></div>
@@ -94,7 +94,7 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
     <div className="hero min-h-[60vh]">
       <div className="hero-content text-center">
         <div className="w-[60vw]">
-          <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2">
+          <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-neutral">
             이용하면서 좋았던 점, 아쉬웠던 점을 알려주세요
           </h1>
           <div className="divider"></div>

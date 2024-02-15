@@ -68,7 +68,7 @@ const ComplexWaitingPage: React.FC = () => {
   }, [isSuccess, router]);
 
   return (
-    <div className="w-[60vw] min-h-[20vh]">
+    <div className="w-[60vw] h-[60vh] flex flex-col justify-center items-center ">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -77,18 +77,18 @@ const ComplexWaitingPage: React.FC = () => {
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
         className="mySwiper"
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '40%' }}
       >
         {loadingTexts.map((loadingText, index) => (
           <SwiperSlide key={index}>
-            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold">
+            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold text-base-content">
               {loadingText}
             </h1>
           </SwiperSlide>
         ))}
       </Swiper>
       {!isSuccess && (
-        <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg"></span>
+        <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg text-accent"></span>
       )}
     </div>
   );

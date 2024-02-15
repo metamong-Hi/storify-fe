@@ -46,9 +46,9 @@ const SimpleCard = () => {
           />
         </figure>
         <div className="card-body items-center text-center">
-          <h1 className="card-title text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1">혼자서 쓸래요</h1>
-          <h2 className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-gray-500">글쓰기에 자신 있다면</h2>
-          <h2 className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-gray-500">혼자서 글을 써 보세요</h2>
+          <h1 className="card-title text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">혼자서 쓸래요</h1>
+          <h2 className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-base-content/80">글쓰기에 자신 있다면</h2>
+          <h2 className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:tet-2xl text-base-content/80">혼자서 글을 써 보세요</h2>
         </div>
       </div>
     </Link>

@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
-import SettingsComponent from './Setting/Settings';
+import SettingsComponent from './Setting/Theme';
 import {
   Modal,
   ModalContent,
@@ -33,6 +33,17 @@ const NavbarComponent = () => {
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
   console.log(realToken);
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('selectedTheme');
+    if (storedTheme) {
+      setSelectedTheme(storedTheme);
+      document.documentElement.setAttribute('data-theme', storedTheme);
+    }
+  }, []);
+
+  const [selectedTheme, setSelectedTheme] = useState<string>('selectedTheme');
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = sessionStorage.getItem('token');
@@ -91,12 +102,12 @@ const NavbarComponent = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
                 <Link key={index} href={item.link}>
                   <li className=" text-xl p-2 xl:text-2xl font-bold">
-                    <span className={`${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
+                    <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
                       {item.text}
                     </span>
                   </li>
@@ -105,8 +116,8 @@ const NavbarComponent = () => {
             </ul>
           </div>
           <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
-            <Link href="/" className="text-xl lg:text-3xl font-bold">
-              <span>STORIFY</span>
+            <Link href="/" className="text-xl lg:text-3xl font-bold ">
+              <span className="text-base-content">STORIFY</span>
             </Link>
           </div>
         </div>
@@ -115,7 +126,7 @@ const NavbarComponent = () => {
             {menuItems.map((item, index) => (
               <Link key={index} href={item.link}>
                 <li className="block lg:inline-block text-lg lg:mx-2">
-                  <span className={` ${isActive(item.link) ? 'bg-base-200' : ''}`}>
+                  <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}>
                     {item.text}
                   </span>
                 </li>
@@ -126,8 +137,8 @@ const NavbarComponent = () => {
         <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
           {isLoggedIn ? (
             <>
-              <span className="">
-                <span className=" text-xl font-bold  pr-2">{nickname}</span>님 환영합니다
+              <span className="text-base-content">
+                <span className=" text-xl font-bold pr-2">{nickname}</span>님 환영합니다
               </span>
               <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -142,18 +153,23 @@ const NavbarComponent = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 z-10 p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link href={`/user/${userId}/bookshelf`} className="p-4">
+                    <Link href={`/user/${userId}/bookshelf`} className="p-4 text-base-content">
                       내 책장
                     </Link>
                   </li>
                   {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-4">
+                    <Link href={`/user/${userId}/profile`} className="p-4 text-base-content">
                       프로필
                     </Link>
                   </li> */}
+                  <li>
+                    <Link href={`/setting`} className="p-4 text-base-content">
+                      환경 설정
+                    </Link>
+                  </li>
                   <li>
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
@@ -165,6 +181,9 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
+                <Link href="/setting" passHref>
+                  <button className="btn btn-outline font-bold mr-2">환경설정</button>
+                </Link>
                 <button onClick={onOpen} className="btn btn-outline font-bold">
                   로그인
                 </button>

@@ -17,6 +17,16 @@ const config: Config = {
       ModernGulim: ['ModernGulim'],
       Kids: ['Kids'],
       Socks: ['Socks'],
+      HyuGothic: ['HyuGothic'],
+      LightWrite: ['LightWrite'],
+      Sowal: ['Sowal'],
+      Boss: ['Boss'],
+      Beach: ['Beach'],
+      Soopilmyungjo: ['Soopilmyungjo'],
+      Banditbul: ['Banditbul'],
+      Paint: ['Paint'],
+      Spring: ['Spring'],
+      Baby: ['Baby'],
     },
     extend: {
       backgroundImage: {
@@ -24,10 +34,10 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       screens: {
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
         '2xl': '1536px',
       },
       // spacing: {
@@ -57,36 +67,54 @@ const config: Config = {
       },
       fontSize: {
         '2xs': '0.5rem',
-        '2xl': ['1.5rem', {
-          lineHeight: '2rem',
-          letterSpacing: '-0.01em',
-          fontWeight: '500',
-        }],
-        '3xl': ['2rem', {
-          lineHeight: '2.25rem',
-          letterSpacing: '-0.02em',
-          fontWeight: '550',
-        }],
-        '4xl': ['2.5rem', {
-          lineHeight: '2.75rem',
-          letterSpacing: '-0.03em',
-          fontWeight: '600',
-        }],
-        '5xl': ['3rem', {
-          lineHeight: '3rem',
-          letterSpacing: '-0.04em',
-          fontWeight: '650',
-        }],
-        '6xl': ['3.5rem', {
-          lineHeight: '3.5rem',
-          letterSpacing: '-0.05em',
-          fontWeight: '700',
-        }],
-        '7xl': ['4rem', {
-          lineHeight: '4rem',
-          letterSpacing: '-0.06em',
-          fontWeight: '750',
-        }],
+        '2xl': [
+          '1.5rem',
+          {
+            lineHeight: '2rem',
+            letterSpacing: '-0.01em',
+            fontWeight: '500',
+          },
+        ],
+        '3xl': [
+          '2rem',
+          {
+            lineHeight: '2.25rem',
+            letterSpacing: '-0.02em',
+            fontWeight: '550',
+          },
+        ],
+        '4xl': [
+          '2.5rem',
+          {
+            lineHeight: '2.75rem',
+            letterSpacing: '-0.03em',
+            fontWeight: '600',
+          },
+        ],
+        '5xl': [
+          '3rem',
+          {
+            lineHeight: '3rem',
+            letterSpacing: '-0.04em',
+            fontWeight: '650',
+          },
+        ],
+        '6xl': [
+          '3.5rem',
+          {
+            lineHeight: '3.5rem',
+            letterSpacing: '-0.05em',
+            fontWeight: '700',
+          },
+        ],
+        '7xl': [
+          '4rem',
+          {
+            lineHeight: '4rem',
+            letterSpacing: '-0.06em',
+            fontWeight: '750',
+          },
+        ],
       },
       colors: {
         pastelRed: '#fda5a550',
