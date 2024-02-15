@@ -80,14 +80,14 @@ const SimpleWaitingPage: React.FC = () => {
       >
         {loadingTexts.map((loadingText, index) => (
           <SwiperSlide key={index}>
-            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold text-base-content">
+            <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold text-base-content">
               {loadingText}
             </h1>
           </SwiperSlide>
         ))}
       </Swiper>
       {!isSuccess && (
-        <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg text-accent"></span>
+        <span className="loading loading-dots loading-lg text-accent"></span>
       )}
     </div>
   );
