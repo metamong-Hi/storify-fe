@@ -397,9 +397,15 @@ useEffect(() => {
         {title}
       </p>
       <div style={{ textAlign: 'right', padding: '20px' }}> 
-  <Link href={`/user/${userId}/bookshelf`}>
+      <div className="dropdown">
+  <div tabIndex={0} role="button" className="btn m-1">{author}</div>
+  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+    <li> <Link href={`/user/${userId}/bookshelf`}>책장 보러가기</Link></li>
+  </ul>
+</div>
+  {/* <Link href={`/user/${userId}/bookshelf`}>
    {author}
-  </Link>
+  </Link> */}
 </div>
       <StyledFlipBook>
         <HTMLFlipBook
