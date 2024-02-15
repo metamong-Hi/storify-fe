@@ -1,5 +1,4 @@
 'use client';
-
 import './globals.css';
 
 import { Provider } from 'react-redux';
@@ -9,6 +8,7 @@ import { Providers } from './providers';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/home/footer/Footer';
 import Banner from '@/components/forms/banner';
+import { ThemeProvider } from '@/components/Setting/ThemeContext';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,12 +16,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="font-KyoboHand">
         <Provider store={store}>
           <Providers>
-            <NavigationBar />
-            <Banner />
-            <main className="pb-20">
-              {children}
-            </main>
-            <Footer />
+            <ThemeProvider>
+              <NavigationBar />
+              <Banner />
+              <main className="pb-20 bg-base-100 ">{children}</main>
+              <Footer />
+            </ThemeProvider>
           </Providers>
         </Provider>
       </body>

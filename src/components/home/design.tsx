@@ -55,12 +55,12 @@ const HomeDesign: React.FC = () => {
           disableOnInteraction: false,
         }}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
+        className="mySwiper relative z-0"
         style={{ width: '100%', height: '100vh' }}
       >
         {images.map((src, index) => (
-          <SwiperSlide key={index} style={{ height: '100vh' }}>
-            <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" />
+          <SwiperSlide key={index} className= "relative z-0" style={{ height: '100vh' }}>
+            <Image src={src} className= "relative z-0" alt={`Slide ${index}`} layout="fill" objectFit="cover" />
           </SwiperSlide>
         ))}
       </Swiper>
