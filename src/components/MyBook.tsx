@@ -150,6 +150,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const token = sessionStorage.getItem('token');
   const [isUser, setIsUser] = useState<boolean>(false);
   const [userId,setUserId]=useState('');
+  const [author,setAuthor]=useState('');
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -317,15 +318,17 @@ useEffect(() => {
       }
       const data = await response.json();
       console.log("데이터임"+data.userId);
+      console.log("닉네임임 제발 찍혀라"+data.userId.nickname);
       setTitle(data.title);
-      setUserId(data.userId);
+      setUserId(data.userId._id);
+      setAuthor(data.userId.nickname);
       const pagesArray = Object.values(data.body) as PageItem[];
       const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
       setPage(newPages);
-      setHelloUserId(data.userId);
+      setHelloUserId(data.userId._id);
       if (token) {
         const decodedPayload = jwtDecode(token);
-        if(decodedPayload.sub === data.userId) {
+        if(decodedPayload.sub === data.userId._id) {
           setIsUser(true);
   
         } else {
@@ -393,9 +396,9 @@ useEffect(() => {
       >
         {title}
       </p>
-      <div style={{ textAlign: 'right', padding: '20px' }}> {/* Adjust padding as needed */}
+      <div style={{ textAlign: 'right', padding: '20px' }}> 
   <Link href={`/user/${userId}/bookshelf`}>
-   작가다
+   {author}
   </Link>
 </div>
       <StyledFlipBook>
