@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
 import styled from 'styled-components';
 import Image from 'next/image';
+
 const StyledLink = styled(Link)`
   color: '#FFC4D0';
   cursor: pointer; 
@@ -44,21 +45,7 @@ function LoginPage() {
   const handleKakaoLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('Kakao login clicked');
     window.location.href = 'https://api.storifyai.site/auth/kakao'
-    // e.preventDefault(); 
-    // dispatch(kakaologin()) 
-   
-    // .then((action) => {
-    //   if (action.meta.requestStatus === 'fulfilled') {
-    //     console.log('카카오 로그인 성공');
-    //     window.location.reload();
-    //   } else {
-    //     throw new Error('카카오 로그인 실패');
-    //   }
-    // })
-    // .catch((error) => {
-    //     console.error('카카오 로그인 실패: ', error);
-    //     showLoginFailedAlert();
-    // });
+
 };
 
   const showLoginFailedAlert = () => {
@@ -115,7 +102,16 @@ function LoginPage() {
    
       if (action.meta.requestStatus === 'fulfilled') {
         console.log('로그인 성공');
-        // showLoginSuccessAlert();
+        const token=sessionStorage.getItem('token');
+        console.log("로그인 후에 토큰이 잘 전달되는지"+token);
+        if (token) {
+          import('@/utils/websocket')
+            .then(({ initializeWebSocket }) => {
+              initializeWebSocket(token); 
+            })
+            .catch((err) => console.error('웹소켓 연결 실패:', err));
+        }
+
         window.location.reload();
       } else {
         throw new Error('로그인 실패');
@@ -211,9 +207,10 @@ function LoginPage() {
                   <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
                     로그인
                   </Button>
-                </div> <Button onClick={handleKakaoLogin} fullWidth style={{ backgroundColor: '#FEE500', color: '#000' }}>
+                </div> 
+                {/* <Button onClick={handleKakaoLogin} fullWidth style={{ backgroundColor: '#FEE500', color: '#000' }}>
                   <img src="/Images/kakao/kakao_login_large_wide.png" alt="카카오로 로그인하기" style={{ width: '100%' }} />
-            </Button>
+            </Button> */}
               </form>
             </Tab>
             <Tab key="sign-up" title="회원가입">
