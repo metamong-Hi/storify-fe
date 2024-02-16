@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
 import SettingsComponent from './Setting/Theme';
+import { disconnectWebSocket } from '@/utils/websocket';
 import {
   Modal,
   ModalContent,
@@ -20,6 +21,8 @@ import {
   ModalProps,
   useDisclosure,
 } from '@nextui-org/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,8 +30,12 @@ const NavbarComponent = () => {
   const [nickname, setNickname] = useState('');
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
-
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const theme = useSelector((state : RootState) => state.theme.value);
+
+  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
+  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
@@ -60,8 +67,13 @@ const NavbarComponent = () => {
   const handleClickLogout = () => {
     dispatch(logout())
       .then(() => {
+        disconnectWebSocket();
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('refreshToken');
+        sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
+        
+        // window.location.href='/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
@@ -90,6 +102,7 @@ const NavbarComponent = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                style={{ filter: iconFilter }}
               >
                 <path
                   strokeLinecap="round"
@@ -116,7 +129,7 @@ const NavbarComponent = () => {
           </div>
           <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
             <Link href="/" className="text-xl lg:text-3xl font-bold ">
-              <span className="text-base-content">STORIFY</span>
+              <span className="text-base-content text-warning">STORIFY</span>
             </Link>
           </div>
         </div>
@@ -147,6 +160,7 @@ const NavbarComponent = () => {
                       src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
                       width={10}
                       height={10}
+                      style={{ filter: iconFilter }}
                     />
                   </div>
                 </div>
