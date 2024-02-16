@@ -10,7 +10,7 @@ interface ThemeGroup {
 }
 
 const themeGroups: ThemeGroup[] = [
-  { label: '기본', value: 'default' },
+  { label: '기본', value: 'light' },
     { label: '밝음', value: 'light' },
     { label: '어두움', value: 'dark' },
     { label: '컵케이크', value: 'cupcake' },
@@ -50,7 +50,7 @@ const Theme: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('selectedTheme') || 'default';
+    const storedTheme = localStorage.getItem('selectedTheme') || 'light';
     dispatch(setTheme(storedTheme));
     document.documentElement.setAttribute('data-theme', storedTheme);
   }, [dispatch]);

@@ -212,7 +212,7 @@ body {
   }
 }
 .blur-effect1 {
-  animation: blurFadeOut 5s ease-out forwards;
+  animation: blurFadeOut 4s ease-out forwards;
 }
 
 .slide-image {

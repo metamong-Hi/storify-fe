@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setText as setReduxText } from '@/store/textSlice';
 import Link from 'next/link';
+import { resetAll } from '@/store/bookSlice';
 
 const SimpleWritingPage: React.FC = () => {
   const [text, setText] = useState('');
@@ -29,6 +30,7 @@ const SimpleWritingPage: React.FC = () => {
         .join('');
       setText(transcript);
       dispatch(setReduxText(transcript));
+      resetAll();
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
@@ -50,6 +52,7 @@ const SimpleWritingPage: React.FC = () => {
     const newValue = event.target.value;
     setText(newValue);
     dispatch(setReduxText(newValue));
+    resetAll();
   };
 
   return (
@@ -72,7 +75,7 @@ const SimpleWritingPage: React.FC = () => {
       <div className="divider"></div>
       <div className="flex justify-between items-center">
         <Link href={`/writing`} passHref>
-          <button className="btn font-bold border-2">뒤로 가기</button>
+          <button className="btn btn-ghost font-bold border-2">뒤로 가기</button>
         </Link>
         <button
           onClick={() => setIsListening((prevState) => !prevState)}

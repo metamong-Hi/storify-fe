@@ -29,6 +29,7 @@ const HomeDesign: React.FC = () => {
   ];
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showToast, setShowToast] = useState(false); 
 
   useEffect(() => {
     const token=sessionStorage.getItem('token');
@@ -39,7 +40,8 @@ const HomeDesign: React.FC = () => {
     if (isLoggedIn) {
       window.location.href = '/writing';
     } else {
-      alert('로그인이 필요한 기능입니다.');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000); 
     }
   };
 
@@ -64,6 +66,13 @@ const HomeDesign: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      {showToast && (
+        <div className="toast toast-start z-50" >
+          <div className="alert alert-info">
+            <span>로그인이 필요한 기능입니다.</span>
+          </div>
+        </div>
+      )}
       <div className="absolute top-[10%] left-[6%] z-10">
         <div className="mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-6 2xl:mb-8 font-bold">
           <h1 className="text-white text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 textWithShadow" data-aos="fade-up">

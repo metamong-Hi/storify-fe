@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
+import { resetText  } from '@/store/textSlice';
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -49,6 +50,7 @@ const ComplexWaitingPage: React.FC = () => {
           const data = await response.json();
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
+          resetText();
           setIsSuccess(true);
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
@@ -68,7 +70,7 @@ const ComplexWaitingPage: React.FC = () => {
   }, [isSuccess, router]);
 
   return (
-    <div className="w-[60vw] h-[60vh] flex flex-col justify-center items-center ">
+    <div className="w-w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw] h-[60vh] flex flex-col justify-center items-center ">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
