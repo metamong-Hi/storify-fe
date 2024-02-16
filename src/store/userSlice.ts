@@ -33,7 +33,7 @@ export const signup = createAsyncThunk(
             if (!response.ok) throw new Error('회원가입 망함');
             const data = await response.json();
             return {
-
+                    
             }; 
         } catch (error) {
             return rejectWithValue(

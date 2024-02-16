@@ -88,8 +88,8 @@ function LoginPage() {
   };
   const showSignupFailedAlert = () => {
     Swal.fire({
-      title: `회원가입 실패`,
-      text: '회원가입에 실패했어요!',
+      title: `중복된 아이디가 있어요!`,
+      text: '',
       icon: 'error',
       confirmButtonText: 'OK',
     }).then((result) => {
