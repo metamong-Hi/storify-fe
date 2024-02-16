@@ -22,6 +22,9 @@ import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import { useAppSelector } from '@/hooks/useAppSelector';
 
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface User {
@@ -72,6 +75,11 @@ export const Book = ({ book, index }: BookComponentProps) => {
     userId: '',
     introduction: '',
   });
+
+  const theme = useSelector((state : RootState) => state.theme.value);
+
+  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
+  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -201,7 +209,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
             >
               <div className="avatar">
                 <div className="w-4 h-4 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} />
+                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} style={{ filter: iconFilter }}/>
                 </div>
               </div>
               <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">

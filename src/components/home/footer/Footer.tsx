@@ -1,14 +1,20 @@
-// components/Footer.tsx
-import React from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Footer: React.FC = () => {
+  const theme = useSelector((state : RootState) => state.theme.value);
+
+  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
+  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
   return (
     <footer className="footer bg-base-200 p-10">
       <aside>
         <Link href="/">
-          <span className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 font-bold text-base-content">
+          <span className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 font-bold text-warning">
             STORIFY
           </span>
         </Link>
@@ -35,6 +41,7 @@ const Footer: React.FC = () => {
                 alt="프론트 엔드"
                 width="20"
                 height="20"
+                style={{ filter: iconFilter }}
               />
               <p className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg text-base-content">
                 FE Repo
@@ -53,6 +60,7 @@ const Footer: React.FC = () => {
                 alt="백 엔드"
                 width="20"
                 height="20"
+                style={{ filter: iconFilter }}
               />
               <p className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg text-base-content">
                 BE Repo
@@ -71,6 +79,7 @@ const Footer: React.FC = () => {
                 alt="팀장 개발자 블로그"
                 width="20"
                 height="20"
+                style={{ filter: iconFilter }}
               />
               <p className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-md 2xl:text-lg text-base-content">
                 Dev Blog
