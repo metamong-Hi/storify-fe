@@ -61,6 +61,8 @@ const NavbarComponent = () => {
     dispatch(logout())
       .then(() => {
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('refreshToken');
+        sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
         window.location.href='/';
       })
