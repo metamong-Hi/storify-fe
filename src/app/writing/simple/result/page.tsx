@@ -103,7 +103,7 @@ const SimpleResultPage: React.FC = () => {
   }, [displayedText, bookContent]);
 
   useEffect(() => {
-    if (isTypingCompleted) {
+    if (realImagesLoaded) {
       setIsImageBlurCompleted(false);
       setTimeout(() => {
         setIsImageBlurCompleted(true);
@@ -112,9 +112,9 @@ const SimpleResultPage: React.FC = () => {
             setShowNavigateButton(true);
           }
         }, 1000);
-      }, 5000);
+      }, 4000);
     }
-  }, [isTypingCompleted, bookId]);
+  }, [realImagesLoaded, bookId]);
 
   useEffect(() => {
     const adjustScrollForElements = () => {

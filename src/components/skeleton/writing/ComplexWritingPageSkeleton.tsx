@@ -7,7 +7,7 @@ const ComplexWritingPageSkeleton: React.FC = () => {
   );
 
   return (
-    <div className="w-[60vw]">
+    <div className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw]">
       <SkeletonElement className="h-8 w-3/4 mb-4" />
       <div className="space-y-2">
         {Array(1).fill(null).map((_, index) => (
