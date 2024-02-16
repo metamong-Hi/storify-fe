@@ -148,18 +148,18 @@ function LoginPage() {
     )
       .then((action) => {
         if (action.meta.requestStatus === 'fulfilled') {
-          console.log('회원가입 성공');
+          console.debug('회원가입 성공');
           showSignupSuccessAlert();
         } else {
           throw new Error('회원가입 실패');
         }
       })
       .catch((error) => {
-        console.log('회원가입 실패: ********* ', error);
+        console.debug('회원가입 실패: ********* ', error);
         showSignupFailedAlert();
       });
 
-    console.log('여기까지 옴');
+
   };
   const handleSelectionChange = (key: string | number) => {
     setSelected(String(key));
@@ -208,9 +208,7 @@ function LoginPage() {
                     로그인
                   </Button>
                 </div> 
-                {/* <Button onClick={handleKakaoLogin} fullWidth style={{ backgroundColor: '#FEE500', color: '#000' }}>
-                  <img src="/Images/kakao/kakao_login_large_wide.png" alt="카카오로 로그인하기" style={{ width: '100%' }} />
-            </Button> */}
+      
               </form>
             </Tab>
             <Tab key="sign-up" title="회원가입">
