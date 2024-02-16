@@ -46,9 +46,9 @@ const ComplexCard = () => {
           />
         </figure>
         <div className="card-body items-center text-center">
-          <h2 className="card-title text-lg sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">요정과 쓸래요</h2>
-          <p className="text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">글쓰기가 어렵다면</p>
-          <p className="text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">요정이 도와줄 거예요</p>
+          <h1 className="card-title text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:tet-5xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">요정과 쓸래요</h1>
+          <h2 className="text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">글쓰기가 어렵다면</h2>
+          <h2 className="text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">요정이 도와줄 거예요</h2>
         </div>
       </div>
     </Link>

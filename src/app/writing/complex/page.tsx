@@ -5,6 +5,7 @@ import { addText } from '@/store/textSlice';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { resetAll } from '@/store/bookSlice';
 
 const messages = [
   '안녕, 만나서 반가워.',
@@ -50,7 +51,7 @@ const ComplexWritingPage: React.FC = () => {
         .map((result) => result[0].transcript)
         .join('');
       setText(transcript);
-      console.log(transcript);
+      resetAll();
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
@@ -130,6 +131,7 @@ const ComplexWritingPage: React.FC = () => {
 
     dispatch(addText(text));
     setText('');
+    resetAll();
     const updatedConversation = [...conversation, { question: text, answer: '' }];
     setConversation(updatedConversation);
     const combinedMessages = updatedConversation.map((item) => item.question).join(' ');

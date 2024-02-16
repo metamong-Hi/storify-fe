@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
-import { setBookId, setImageUrls } from '@/store/bookSlice';
+import { setBookId, setImageUrls} from '@/store/bookSlice';
 
 interface BookResponseData {
   _id: string;
@@ -16,7 +16,7 @@ interface ImageItem {
 }
 const Skeleton = () => {
   return (
-    <div className="skeleton w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-48 xl:h-48 2xl:w-60 2xl:h-60 "></div>
+    <div className="skeleton w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-60 2xl:h-60  "></div>
   );
 };
 
@@ -75,12 +75,6 @@ const SimpleResultPage: React.FC = () => {
   }, [bookContent, bookId, realImagesLoaded, token, dispatch]);
 
   useEffect(() => {
-    if (imageUrls.length > 0 && !realImagesLoaded) {
-      setRealImagesLoaded(true);
-    }
-  }, [imageUrls, realImagesLoaded]);
-
-  useEffect(() => {
     setDisplayedText('');
     let i = 0;
     const typingEffect = (currentText: string) => {
@@ -117,8 +111,8 @@ const SimpleResultPage: React.FC = () => {
           if (bookId) {
             setShowNavigateButton(true);
           }
-        }, 0);
-      }, 2000);
+        }, 1000);
+      }, 5000);
     }
   }, [isTypingCompleted, bookId]);
 
@@ -149,7 +143,7 @@ const SimpleResultPage: React.FC = () => {
   }, [realImagesLoaded, showNavigateButton]);
 
   return (
-    <div className="w-[60vw]">
+    <div className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw]">
       <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         요정이 동화책을 만들고 있어요.
       </h1>
@@ -159,7 +153,7 @@ const SimpleResultPage: React.FC = () => {
       <div className="divider"></div>
       <textarea
         placeholder="여기에 간단히 적어줘"
-        className="textarea textarea-bordered textarea-success textarea-lg w-full text-base-content"
+        className="textarea textarea-bordered textarea-lg w-full text-base-content"
         rows={6}
         ref={textAreaRef}
         value={displayedText}
@@ -175,7 +169,7 @@ const SimpleResultPage: React.FC = () => {
                 alt={`Image ${index + 1}`}
                 width={256}
                 height={256}
-                className="rounded-md blur-effect1 w-20 sm:w-24 md:w-28 lg:w-36 xl:w-48 2xl:w-60"
+                className="rounded-md blur-effect1 w-24 sm:w-28 md:w-32 lg:w-40 xl:w-48 2xl:w-60"
                 ref={(el) => (imageRefs.current[index] = el)}
               />
             ))
@@ -185,7 +179,7 @@ const SimpleResultPage: React.FC = () => {
         <Link href={`/book/${bookId}`} passHref>
           <button
             ref={buttonRef}
-            className="btn btn-success font-bold border-2 mt-4"
+            className="btn btn-primary font-bold border-2 mt-4"
           >
             책 보러 가기
           </button>
