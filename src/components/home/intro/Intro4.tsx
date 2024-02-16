@@ -82,13 +82,13 @@ const Intro4: React.FC = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
       <h1
-        className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
+        className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
         data-aos="fade-up"
       >
-        스토리파이만의 <span className="text-[#B68973]">부가서비스</span>
+        스토리파이만의 <span className="text-accent">부가서비스</span>
       </h1>
       <p
-        className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
+        className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
         data-aos="fade-up"
         data-aos-delay="300"
       >
