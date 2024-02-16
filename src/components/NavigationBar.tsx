@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
 import SettingsComponent from './Setting/Theme';
+import { disconnectWebSocket } from '@/utils/websocket';
 import {
   Modal,
   ModalContent,
@@ -66,11 +67,13 @@ const NavbarComponent = () => {
   const handleClickLogout = () => {
     dispatch(logout())
       .then(() => {
+        disconnectWebSocket();
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('refreshToken');
         sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
-        window.location.href='/';
+        
+        // window.location.href='/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
