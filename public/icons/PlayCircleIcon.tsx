@@ -10,7 +10,6 @@ export const PlayCircleIcon: React.FC<PlayCircleIconProps> = ({
   size = 24,
   width = size,
   height = size,
-  ...props
 }) => (
   <svg
     aria-hidden="true"
@@ -22,7 +21,6 @@ export const PlayCircleIcon: React.FC<PlayCircleIconProps> = ({
     width={width}
     stroke="#000000"
     strokeWidth="0.003"
-    {...props} 
   >
     <g stroke-width="0" />
     <g strokeLinecap="round" strokeLinejoin="round" />
