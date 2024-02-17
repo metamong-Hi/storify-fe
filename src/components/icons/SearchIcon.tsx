@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 
-// Define the prop types
 interface SearchIconProps {
   size?: number;
   strokeWidth?: number;
   width?: number;
   height?: number;
-  [x: string]: any; // for additional props like style, className, etc.
+  [x: string]: any;
 }
 
 export const SearchIcon: FC<SearchIconProps> = ({

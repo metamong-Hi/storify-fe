@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { updateUserEmail, updateUserPassword } from '@/services/userService';
 import { ProfileData } from '@/types/user';

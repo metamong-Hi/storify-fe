@@ -1,5 +1,5 @@
-"use client"
-import React,{useState,useEffect} from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   CardHeader,
@@ -24,15 +24,15 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
   const passImageUrl = '/images/buttons/pass.png';
   const nonPassImageUrl = '/images/buttons/nonPass.png';
   const doorImageUrl = '/images/buttons/door.png';
-  
+
   //여기서부터 수정함 - 1/30
   useEffect(() => {
     const fetchFriends = async () => {
-      console.log("여기까지 들어옴 친구")
+      console.log('여기까지 들어옴 친구');
       // const token=localStorage.getItem('token')
-      const token=sessionStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL +`/friends/${token}`,{
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/friends/${token}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -43,19 +43,19 @@ const FriendDrawer: React.FC<FriendDrawerProps> = ({ isOpen, onClose }) => {
           throw new Error('친구 망함');
         }
         const data = await response.json();
-        setCurrentFriends(data); 
+        setCurrentFriends(data);
         console.log('여기까지 왔음');
         console.log(data);
-        console.log("friends"+currentFriends);
+        console.log('friends' + currentFriends);
       } catch (error) {
         console.error('친구 에러', error);
       }
     };
 
     fetchFriends();
-  }, [currentFriends]); 
+  }, [currentFriends]);
   useEffect(() => {
-    console.log("currentFriends 업데이트됨:", currentFriends);
+    console.log('currentFriends 업데이트됨:', currentFriends);
   }, [currentFriends]);
   return (
     <div

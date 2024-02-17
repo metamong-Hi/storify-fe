@@ -40,14 +40,6 @@ const config: Config = {
         xl: '1280px',
         '2xl': '1536px',
       },
-      // spacing: {
-      //   sm: '8px',
-      //   md: '9.6px',
-      //   lg: '12.8px',
-      //   xl: '16px',
-      //   '2xl': '19.2px',
-      // },
-
       borderWidth: {
         '6': '6px',
         '10': '10px',
@@ -116,14 +108,6 @@ const config: Config = {
           },
         ],
       },
-      colors: {
-        pastelRed: '#fda5a550',
-        pastelOrange: '#fdba7450',
-        pastelYellow: '#fcd34d50',
-        pastelGreen: '#86efac50',
-        pastelBlue: '#93c5fd50',
-        pastelPurple: '#c4b5fd50',
-      },
       width: {
         '112': '28rem',
         '128': '32rem',
@@ -135,41 +119,6 @@ const config: Config = {
         '128': '32rem',
         '144': '36rem',
         '160': '40rem',
-      },
-      keyframes: {
-        shake: {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
-        },
-
-        spin: {
-          '0%': { transform: 'rotateY(0deg)' },
-          '100%': { transform: 'rotateY(360deg)' },
-        },
-        wiggle: {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
-        },
-        ottogi: {
-          '0%, 100%': { transform: 'rotate(-3deg) translateX(-5px)' },
-          '50%': { transform: 'rotate(3deg) translateX(5px)' },
-        },
-        bounce: {
-          '0%, 100%': {
-            transform: 'translateY(-10%)',
-            'animation-timing-function': 'cubic-bezier(0.8,0,1,1)',
-          },
-          '50%': {
-            transform: 'none',
-            'animation-timing-function': 'cubic-bezier(0,0,0.2,1)',
-          },
-        },
-      },
-      animation: {
-        'spin-slow': 'spin 5s linear infinite',
-        wiggle: 'wiggle 2s ease-in-out infinite',
-        ottogi: 'ottogi 2s ease-in-out infinite',
-        shake: 'shake 0.5s ease-in-out infinite',
       },
     },
   },
@@ -209,14 +158,14 @@ const config: Config = {
       'dim',
       'nord',
       'sunset',
-    ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
-    darkTheme: 'dark', // name of one of the included themes for dark mode
-    base: true, // applies background color and foreground color for root element by default
-    styled: true, // include daisyUI colors and design decisions for all components
-    utils: true, // adds responsive and modifier utility classes
-    prefix: '', // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
-    logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
-    themeRoot: ':root', // The element that receives theme color CSS variables
+    ], 
+    darkTheme: 'dark',
+    base: true,
+    styled: true,
+    utils: true,
+    prefix: '',
+    logs: true,
+    themeRoot: ':root',
   },
 };
 
