@@ -117,7 +117,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     } catch (error) {
       console.error('Failed to like/unlike the book:', error);
     }
-  }, 1000);
+  }, 500);
 
   const debouncedHandleLike = useCallback(() => {
     debouncedFunction(!liked);
