@@ -6,7 +6,7 @@ import { Providers } from './providers';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/home/footer/Footer';
 import Banner from '@/components/forms/banner';
-import { ThemeProvider } from '@/components/setting/ThemeContext';
+import { ThemeProvider } from '@/components/userSetting/ThemeContext';
 import {GoogleAnalytics} from '@next/third-parties/google'
 
 export default function Layout({ children }: { children: React.ReactNode }) {

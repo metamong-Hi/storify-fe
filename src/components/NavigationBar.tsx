@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
-import SettingsComponent from './setting/Theme';
+import SettingsComponent from './userSetting/Theme';
 import { disconnectWebSocket } from '@/utils/websocket';
 import {
   Modal,
@@ -179,7 +179,7 @@ const NavbarComponent = () => {
                     </Link>
                   </li> */}
                   <li>
-                    <Link href={`/setting`} className="p-4 text-base-content">
+                    <Link href={`/user-setting`} className="p-4 text-base-content">
                       환경 설정
                     </Link>
                   </li>
@@ -194,7 +194,7 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
-                <Link href="/setting" passHref>
+                <Link href="/user-setting" passHref>
                   <button className="btn btn-outline font-bold mr-2">환경설정</button>
                 </Link>
                 <button onClick={onOpen} className="btn btn-outline font-bold">
