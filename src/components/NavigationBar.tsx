@@ -73,7 +73,9 @@ const NavbarComponent = () => {
         console.log('로그아웃 망함' + error);
       });
   };
-
+  const toggleMenu=()=>{
+    setIsMenuOpen(!isMenuOpen);
+  };
   const isActive = (pathname: string) => {
     return pathName === pathname;
   };
@@ -82,10 +84,16 @@ const NavbarComponent = () => {
     // { link: '/home', text: '홈' },
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
+    { link: '/setting',text:'환경설정'}
   ];
+  const menuReal=[
+    {link:'/allbooks',text:'책장'},
+    {link:'/writing',text:'책 만들기'}
+  ]
 
   return (
     <>
+
       <div className="navbar bg-base-100 p-2">
         <div className="navbar-start">
           <div className="dropdown">
@@ -128,7 +136,7 @@ const NavbarComponent = () => {
         </div>
         <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
-            {menuItems.map((item, index) => (
+            {menuReal.map((item, index) => (
               <Link key={index} href={item.link}>
                 <li className="block lg:inline-block text-lg lg:mx-2">
                   <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}>
@@ -142,7 +150,9 @@ const NavbarComponent = () => {
         <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
           {isLoggedIn ? (
             <>
-              <span className="text-base-content">
+            
+              <span className="text-base-content hidden sm:block">
+                
                 <span className=" text-xl font-bold pr-2">{nickname}</span>님 환영합니다
               </span>
               <div className="dropdown dropdown-end ">
@@ -171,11 +181,6 @@ const NavbarComponent = () => {
                     </Link>
                   </li> */}
                   <li>
-                    <Link href={`/setting`} className="p-4 text-base-content">
-                      환경 설정
-                    </Link>
-                  </li>
-                  <li>
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
@@ -187,7 +192,7 @@ const NavbarComponent = () => {
             <>
               <div>
                 <Link href="/setting" passHref>
-                  <button className="btn btn-outline font-bold mr-2">환경설정</button>
+                  <button className="btn btn-outline font-bold mr-2 hidden sm:block">환경설정</button>
                 </Link>
                 <button onClick={onOpen} className="btn btn-outline font-bold">
                   로그인
@@ -197,7 +202,6 @@ const NavbarComponent = () => {
                     {(_onClose: any) => (
                       <>
                         <ModalHeader className="flex flex-col gap-1">
-                          {/* 로그인 / 회원가입 */}
                         </ModalHeader>
                         <ModalBody className="flex justify-center items-center">
                           <LoginPage />
