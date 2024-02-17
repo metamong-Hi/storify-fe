@@ -57,7 +57,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
   }
 
   useEffect(() => {
-    setShelfTitle(userId ? (id === userId ? '내 서재' : otherNickname + '님의 서재') : '');
+    setShelfTitle(userId ? (id === userId ? '내 책장' : otherNickname + '님의 책장') : '');
   }, [userId, id, otherNickname]);
 
   const [currentPage, setCurrentPage] = useState(1);
