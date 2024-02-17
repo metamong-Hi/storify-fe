@@ -175,6 +175,7 @@ const NavbarComponent = () => {
                       내 책장
                     </Link>
                   </li>
+                
                   {/* <li>
                     <Link href={`/user/${userId}/profile`} className="p-4 text-base-content">
                       프로필
@@ -191,12 +192,14 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
+    
                 <Link href="/setting" passHref>
-                  <button className="btn btn-outline font-bold mr-2 hidden sm:block">환경설정</button>
+                  <button className="btn btn-outline font-bold mr-4">환경설정</button>
                 </Link>
                 <button onClick={onOpen} className="btn btn-outline font-bold">
                   로그인
                 </button>
+
                 <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                   <ModalContent className="flex flex-col justify-center items-center p-4">
                     {(_onClose: any) => (
