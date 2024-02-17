@@ -9,7 +9,7 @@ export const XIcon = () => {
       width={24}
     >
       <path
-        className="stroke-current" // This makes the stroke color inherit from the parent
+        className="stroke-current"
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M6 1.7142857142857142 18.857142857142858 22.285714285714285m-0.8571428571428571 -20.57142857142857L5.142857142857142 22.285714285714285"

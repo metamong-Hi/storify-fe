@@ -1,19 +1,13 @@
-'use client'
+'use client';
 import ErrorPage from '@/components/ErrorPage/ErrorPage';
- 
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error
-  reset: () => void
-}) {
+
+export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <html>
       <body>
-      <ErrorPage />
+        <ErrorPage />
         <button onClick={() => reset()}>다시 시도</button>
       </body>
     </html>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFont } from '@/store/fontSlice';
 import { RootState } from '@/store';
@@ -33,21 +33,19 @@ const FontSelector: React.FC = () => {
   const dispatch = useDispatch();
   const selectedFontClass = useSelector((state: RootState) => state.font.selectedFontClass);
 
-  useEffect(() => {
-    // 페이지가 로드될 때 body의 className을 업데이트합니다.
-    document.body.className = selectedFontClass;
-    // 선택된 글꼴 클래스를 로컬 스토리지에 저장합니다.
-    localStorage.setItem('selectedFontClass', selectedFontClass);
-  }, [selectedFontClass]);
-
   const handleFontChange = (classSuffix: string) => {
     dispatch(setFont(`font-${classSuffix}`));
   };
 
+  useEffect(() => {
+    document.body.className = selectedFontClass;
+    localStorage.setItem('selectedFontClass', selectedFontClass);
+  }, [selectedFontClass]);
+
   return (
     <div className="bg-base-content rounded-lg shadow-md p-5">
       <div
-        className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-2 gap-y-2`}
+        className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2`}
       >
         {fontOptions.map((option, index) => (
           <button

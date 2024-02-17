@@ -114,11 +114,11 @@ const Intro4: React.FC = () => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">
+              <h2 className="card-title text-lg sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">
                 {card.title}
               </h2>
               <h3
-                className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-base-content/80"
+                className="text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-base-content/80"
                 style={{ whiteSpace: 'pre-line' }}
               >
                 {card.description}
