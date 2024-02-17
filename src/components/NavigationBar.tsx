@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
-import SettingsComponent from './Setting/Theme';
+import SettingsComponent from './setting/Theme';
 import { disconnectWebSocket } from '@/utils/websocket';
 import {
   Modal,

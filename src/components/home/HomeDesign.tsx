@@ -10,7 +10,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 
-const Home: React.FC = () => {
+const HomeDesign: React.FC = () => {
 
   useEffect(() => {
     AOS.init({
@@ -102,4 +102,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomeDesign;

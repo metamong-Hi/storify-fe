@@ -1,14 +1,26 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+'use client';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 const Footer: React.FC = () => {
-  const theme = useSelector((state : RootState) => state.theme.value);
+  const theme = useSelector((state: RootState) => state.theme.value);
 
-  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
+  const isWhiteIconTheme = [
+    'luxury',
+    'dark',
+    'coffee',
+    'night',
+    'halloween',
+    'sunset',
+    'synthwave',
+    'forest',
+    'black',
+    'dracula',
+    'business',
+  ].includes(theme);
   const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
   return (
     <footer className="footer bg-base-200 p-10">

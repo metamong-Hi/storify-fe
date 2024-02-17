@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import ProfilePage from '@/components/Setting/ProfileSetting';
-import SecurityPage from '@/components/Setting/SecuritySetting';
+import ProfilePage from '@/components/setting/ProfileSetting';
+import SecurityPage from '@/components/setting/SecuritySetting';
 import { getUserInfo } from '@/services/userService';
 import { ProfileData } from '@/types/user';
 

@@ -1,9 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import SettingsComponent from '@/components/Setting/Theme';
-import BackgroundMusic from '@/components/Setting/BackgroundMusic';
-import FontSelector from '@/components/Setting/Font';
-import ErrorPage from '@/components/ErrorPage/ErrorPage';
+import React from 'react';
+import ErrorPage from '@/components/errorPage/ErrorPage';
 
 const TestBH: React.FC = () => {
   return (
