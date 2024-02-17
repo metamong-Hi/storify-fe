@@ -84,7 +84,7 @@ const NavbarComponent = () => {
     // { link: '/home', text: '홈' },
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
-    { link: '/setting',text:'환경설정'}
+    // { link: '/setting',text:'환경설정'}
   ];
   const menuReal=[
     {link:'/allbooks',text:'책장'},
@@ -173,6 +173,11 @@ const NavbarComponent = () => {
                   <li>
                     <Link href={`/user/${userId}/bookshelf`} className="p-4 text-base-content">
                       내 책장
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href={`/setting`} className="p-4 text-base-content">
+                      환경설정
                     </Link>
                   </li>
                 
