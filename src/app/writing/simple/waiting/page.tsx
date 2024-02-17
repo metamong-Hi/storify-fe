@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
-import { setText as setReduxText, resetText } from '@/store/textSlice';
+import { resetText } from '@/store/textSlice';
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -50,7 +50,7 @@ const SimpleWaitingPage: React.FC = () => {
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
           setIsSuccess(true);
-          resetText(); 
+          resetText();
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
         }
@@ -88,9 +88,7 @@ const SimpleWaitingPage: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      {!isSuccess && (
-        <span className="loading loading-dots loading-lg text-accent"></span>
-      )}
+      {!isSuccess && <span className="loading loading-dots loading-lg text-accent"></span>}
     </div>
   );
 };

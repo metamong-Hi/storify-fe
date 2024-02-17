@@ -230,7 +230,9 @@ const ComplexWritingPage: React.FC = () => {
 
   return (
     <div className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw]">
-      <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">요정의 질문에 답을 해 보세요.</h1>
+      <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
+        요정의 질문에 답을 해 보세요.
+      </h1>
       <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         세 번만 대답하면 요정이 동화책을 만들어 줄 거예요.
       </h1>
@@ -329,7 +331,11 @@ const ComplexWritingPage: React.FC = () => {
               {isListening ? '마이크 끄기' : '마이크 켜기'}
             </button>
             {currentStep < 2 ? (
-              <button className="btn btn-primary font-bold border-2" onClick={handleClick} disabled={isSending}>
+              <button
+                className="btn btn-primary font-bold border-2"
+                onClick={handleClick}
+                disabled={isSending}
+              >
                 보내기
               </button>
             ) : (

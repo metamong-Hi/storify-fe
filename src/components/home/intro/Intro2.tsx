@@ -1,71 +1,40 @@
 // pages/index.tsx
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import { EffectCoverflow, Autoplay, Pagination } from 'swiper/modules';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 
 const Intro2: React.FC = () => {
-  const images = [
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai4-1706699657952.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai5-1706699671535.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai7-1706699697628.jpeg',
-  ];
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+    });
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold ">
-        나만을 위한 <span className="text-[#B68973]">추천 동화책</span>
+    <div className="min-h-screen w-full flex flex-col items-center justify-center">
+      <h1
+        className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
+        data-aos="fade-up"
+      >
+        디바이스 맞춤 <span className="text-accent">반응형 UI</span>
       </h1>
-
-      <p className="mt-3 text-2xl mb-4">
-      <span className="font-semibold">장르별, 인기별, 나만의</span> 책장이 있습니다.
+      <p
+        className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        모든 서비스를 <span className="font-semibold">언제,어디서나</span> 이용 할 수 있습니다.
       </p>
-
-      <>
-        <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        loop={true}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={true}
-        modules={[EffectCoverflow, Pagination, Autoplay]}
-        className="mySwiper"
-        >
-          {images.map((src, index) => (
-            <SwiperSlide key={index} style={{ height: '40vh', width :'40vw', position: 'relative' }}>
-                <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </>
-      <div className="mt-4">
-        <Link href="/allbooks" passHref>
-          <button className="p-2 text-2xl font-bold cursor-pointer hover:text-[#B68973] border rounded-xl border-[#B68973] opacity-0 bg-[#B68973] hover:bg-transparent text-white transition-all duration-300 ease-in-out transform hover:scale-150 animate-fadeInUp delay-3s text-md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl textWithShadow">
-            동화책 보러 가기
-          </button>
-        </Link>
-      </div>
+      <Image
+        src="https://s3.ap-northeast-2.amazonaws.com/storify/public/OR7V171-removebg-1707127021387.png"
+        alt="반응형 이미지"
+        width={1440}
+        height={720}
+        data-aos="fade-up"
+        data-aos-delay="600"
+      />
     </div>
   );
 };

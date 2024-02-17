@@ -1,4 +1,3 @@
-// components/Banner.tsx
 import React from 'react';
 
 interface BannerProps {
@@ -9,7 +8,7 @@ interface BannerProps {
 const Banner: React.FC<BannerProps> = ({ isLoggedIn, onBannerClick }) => {
   return (
     <div
-      className="bg-accent p-2.5 text-accent-content text-center text-base-content font-bold text-lg cursor-pointer transition-colors duration-300 ease-in-out"
+      className="bg-accent p-2 text-accent-content text-center text-base-content font-bold text-md sm:text-lg cursor-pointer transition-colors duration-300 ease-in-out"
       onClick={onBannerClick}
     >
       <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">

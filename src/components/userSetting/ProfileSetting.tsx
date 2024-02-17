@@ -1,8 +1,6 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-
 import { updateUserProfile } from '@/services/userService';
 import CameraIcon from '@/components/icons/CameraIcon';
 import ImageIcon from '@/components/icons/ImageIcon';

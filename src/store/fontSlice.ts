@@ -1,4 +1,3 @@
-// features/font/fontSlice.js
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface FontState {
