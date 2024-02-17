@@ -9,6 +9,7 @@ import apiService from '../services/apiService';
 import ImageEditorDrawer from './ImageEditorDrawer';
 import ImageDroppable from './ImageDroppable';
 import { jwtDecode } from 'jwt-decode';
+import Link from 'next/link';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -148,7 +149,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [animationCss, setAnimationCss] = useState('');
   const token = sessionStorage.getItem('token');
   const [isUser, setIsUser] = useState<boolean>(false);
-
+  const [userId,setUserId]=useState('');
+  const [author,setAuthor]=useState('');
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -315,14 +317,18 @@ useEffect(() => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log("데이터임"+data.userId);
+      console.log("닉네임임 제발 찍혀라"+data.userId.nickname);
       setTitle(data.title);
+      setUserId(data.userId._id);
+      setAuthor(data.userId.nickname);
       const pagesArray = Object.values(data.body) as PageItem[];
       const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
       setPage(newPages);
-      setHelloUserId(data.userId);
+      setHelloUserId(data.userId._id);
       if (token) {
         const decodedPayload = jwtDecode(token);
-        if(decodedPayload.sub === data.userId) {
+        if(decodedPayload.sub === data.userId._id) {
           setIsUser(true);
   
         } else {
@@ -390,7 +396,23 @@ useEffect(() => {
       >
         {title}
       </p>
-    
+      <div style={{ textAlign: 'right', padding: '20px' }}> 
+      <div className="dropdown">
+  <div tabIndex={0} role="button" className="btn m-1 btn-ghost">{author}</div>
+  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+    <li> <Link href={`/user/${userId}/bookshelf`}>책장 보러가기</Link></li>
+    {isUser&& (
+      <li role="button" className="menu-item">
+        <a href="#" onClick={showDeleteAlert}>삭제하기</a>
+      </li>
+
+    )}
+  </ul>
+</div>
+  {/* <Link href={`/user/${userId}/bookshelf`}>
+   {author}
+  </Link> */}
+</div>
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
@@ -494,11 +516,11 @@ useEffect(() => {
       {isUser && (
 <Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px', backgroundColor:'transparent', color:'blue'}}>그림바꾸기</Button>
 )} 
-  {isUser && (
+  {/* {isUser && (
 <Button  onClick={showDeleteAlert} style={{height:'40px',width:'40px', backgroundColor:'transparent',color:'red'}}>
   삭제
 </Button>  
-)}
+)} */}
 
 
   </div>

@@ -23,10 +23,15 @@ export const textSlice = createSlice({
     addText: (state, action: PayloadAction<string>) => {
       state.texts.push(action.payload);
     },
+
+    resetText: (state) => {
+      state.value = '';
+      state.texts = [];
+    },
   },
 });
 
 
-export const { setText, addText } = textSlice.actions;
+export const { setText, addText, resetText } = textSlice.actions;
 
 export default textSlice.reducer;

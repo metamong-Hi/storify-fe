@@ -26,9 +26,14 @@ export const bookSlice = createSlice({
     setImageUrls: (state, action: PayloadAction<string[]>) => {
       state.imageUrls = action.payload;
     },
+    resetAll:  (state) => {
+      state.content = '';
+      state.bookId = '';
+      state.imageUrls = [];
+    },
   },
 });
 
-export const { setBookContent, setBookId, setImageUrls } = bookSlice.actions;
+export const { setBookContent, setBookId, setImageUrls, resetAll } = bookSlice.actions;
 
 export default bookSlice.reducer;

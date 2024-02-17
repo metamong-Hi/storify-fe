@@ -29,6 +29,7 @@ const HomeDesign: React.FC = () => {
   ];
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showToast, setShowToast] = useState(false); 
 
   useEffect(() => {
     const token=sessionStorage.getItem('token');
@@ -39,7 +40,8 @@ const HomeDesign: React.FC = () => {
     if (isLoggedIn) {
       window.location.href = '/writing';
     } else {
-      alert('로그인이 필요한 기능입니다.');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000); 
     }
   };
 
@@ -64,25 +66,32 @@ const HomeDesign: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      {showToast && (
+        <div className="toast toast-start flex items-center text-center w-96 z-50" >
+          <div className="alert alert-error ">
+            <span>로그인이 필요한 기능입니다.</span>
+          </div>
+        </div>
+      )}
       <div className="absolute top-[10%] left-[6%] z-10">
         <div className="mb-1 sm:mb-2 md:mb-3 lg:mb-4 xl:mb-6 2xl:mb-8 font-bold">
-          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 textWithShadow" data-aos="fade-up">
+          <h1 className="text-white text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 textWithShadow" data-aos="fade-up">
             여러분이 주인공인
           </h1>
-          <h1 className="text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl textWithShadow" data-aos="fade-up" data-aos-delay="300">
+          <h1 className="text-white text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl textWithShadow" data-aos="fade-up" data-aos-delay="300">
             동화 세계가 펼쳐집니다!
           </h1>
         </div>
         <div className="mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5">
-          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-0 sm:mb-0.5 md:mb-1 lg:mb-2 xl:mb-3 2xl:mb-4 textWithShadow" data-aos="fade-up" data-aos-delay="600">
+          <h2 className="text-gray-200 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-0 sm:mb-0.5 md:mb-1 lg:mb-2 xl:mb-3 2xl:mb-4 textWithShadow" data-aos="fade-up" data-aos-delay="600">
             이야기를 흥미진진한 동화책으로
           </h2>
-          <h2 className="text-gray-200 text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-0 sm:mb-0.5 md:mb-1 lg:mb-2 xl:mb-3 2xl:mb-4 textWithShadow" data-aos="fade-up" data-aos-delay="900">
+          <h2 className="text-gray-200 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-0 sm:mb-0.5 md:mb-1 lg:mb-2 xl:mb-3 2xl:mb-4 textWithShadow" data-aos="fade-up" data-aos-delay="900">
             생생한 그림으로 살아나게 해줄 거예요
           </h2>
         </div>
         <button
-          className="p-1 border-2 rounded-lg border-white sm:p-1.5 md:p-2 lg:p-3 xl:p-4 2xl:p-5 font-bold cursor-pointer hover:text-black hover:border-black text-white opacity-0 duration-300 ease-in-out transform -md sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
+          className="p-1 border-2 rounded-lg border-white sm:p-1.5 md:p-2 lg:p-3 xl:p-4 2xl:p-5 font-bold cursor-pointer hover:text-black hover:border-black text-white opacity-0 duration-300 ease-in-out transform sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
           data-aos="fade-up" data-aos-delay="1200"
           onClick={handleStoryButtonClick}
         >
