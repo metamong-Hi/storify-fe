@@ -6,7 +6,7 @@
 개발팀: 크래프톤 정글 3기-101호-3팀  
 개발기간: 2024. 01. 11. ~ 2024. 02. 22.  
 
-[백엔드 Repo는 여기를 클릭해 주세요.](https://github.com/classbinu/storify-fe)  
+[백엔드 Repo는 여기를 클릭해 주세요.](https://github.com/classbinu/storify-be)  
 
 ## 기획 의도 
 우리는 어릴 적 엄마나 아빠가 읽어 주는 동화를 들으며 잠에 들곤 했습니다.  
