@@ -189,7 +189,7 @@ const NavbarComponent = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link href={`/setting`} className="p-4 text-base-content">
+                    <Link href={`/user-setting`} className="p-4 text-base-content">
                       환경설정
                     </Link>
                   </li>

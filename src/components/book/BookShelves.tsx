@@ -95,6 +95,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
       if (!response.ok) {
         throw new Error('Failed to send like request to server');
       }
+      
 
       setLikeError(false); // Reset error state on success
       return await response.json();

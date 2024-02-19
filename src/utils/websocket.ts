@@ -6,6 +6,7 @@ export const initializeWebSocket = (token: string): Socket => {
 
 
   socket = io('https://api.storifyai.site/ws-noti', {
+    // socket=io('http://localhost:3001',{
     transportOptions: {
       polling: {
         extraHeaders: {
@@ -22,6 +23,9 @@ export const initializeWebSocket = (token: string): Socket => {
     console.log("소켓 connected"+socket?.connected);
     socket?.on('friendRequest', (data) => {
       console.log('Friend request received by user2', data);
+    });
+    socket?.on('like', (data) => {
+      console.log('좋아요 받음', data);
     });
 
     // socket?.emit('like', (data) => {
