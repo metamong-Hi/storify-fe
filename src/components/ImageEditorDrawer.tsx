@@ -26,8 +26,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const token=sessionStorage.getItem('token');
   const realPageNumber=(Number(hellopage)+2)/2;
-  console.log("내가 제대로 계산한게 맞나"+realPageNumber); //맞음
-
+ 
   const fetchImages = async () => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/ai/books/${bookId}/${realPageNumber}/new-images`,{
@@ -37,8 +36,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
           Authorization: `Bearer ${token}`,
         }
       });
-      console.log(`ai/books/${bookId}/${realPageNumber}/new-images`);
-      console.log("요청은 보냈음");
+     
       if (!response.ok) {
         throw new Error('이미지 못사져옴');
       }
@@ -66,8 +64,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({ isOpen, onClose, 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, imageUrl: string) => {
     e.dataTransfer?.setData('text/plain', imageUrl);
   };
-  console.log(hellopage+"여기 페이지 넘어왔다");
-  console.log("북아이디다"+bookId);
+ 
   return (
     <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant={"persistent"}  >
       <List>

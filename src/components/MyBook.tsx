@@ -177,13 +177,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     setEditedImageUrl('');
   };
   const handleFlip = (pageIndex:PageIndexData) => {
-    console.log(pageIndex + "pageIndex임");
     setCurrentPageIndex(pageIndex.data);
   };
 
 
   useEffect(() => {
-    console.log(currentPageIndex + "페이지임");
       closeImageEditor();
       setIsLoaded(true);
       setAnimationCss(generateAnimation());
@@ -210,7 +208,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       text: '정말 삭제하실건가요?',
       icon: 'question',
       confirmButtonText: '네, 삭제할게요',
-      showCancelButton: true, // 닫기 버튼을 표시합니다.
+      showCancelButton: true, 
       cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
     }).then((result) => {
       if (result.isConfirmed) { // 'result.value' 대신 'result.isConfirmed'를 사용합니다.
@@ -317,8 +315,7 @@ useEffect(() => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log("데이터임"+data.userId);
-      console.log("닉네임임 제발 찍혀라"+data.userId.nickname);
+
       setTitle(data.title);
       setUserId(data.userId._id);
       setAuthor(data.userId.nickname);
@@ -344,8 +341,7 @@ useEffect(() => {
 }, [bookId]); 
   const handleDelete = async () => {
     try {
-      console.log(token + '토큰이다');
-      console.log(bookId + '북아이디다');
+ 
       const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`, {
         method: 'DELETE',
         headers: {
@@ -365,7 +361,7 @@ useEffect(() => {
         showDeleteFailedAlert();
     }
   };
-  console.log(helloUserId);
+
   return (
     <>
        {isImageEditorOpen && (
@@ -517,11 +513,7 @@ useEffect(() => {
       {isUser && (
 <Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px', backgroundColor:'transparent', color:'blue'}}>그림바꾸기</Button>
 )} 
-  {/* {isUser && (
-<Button  onClick={showDeleteAlert} style={{height:'40px',width:'40px', backgroundColor:'transparent',color:'red'}}>
-  삭제
-</Button>  
-)} */}
+
 
 
   </div>
