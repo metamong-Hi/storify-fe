@@ -21,7 +21,7 @@ const Intro2: React.FC = () => {
         디바이스 맞춤 <span className="text-accent">반응형 UI</span>
       </h3>
       <p
-        className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
+        className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-base-content"
         data-aos="fade-up"
         data-aos-delay="100"
       >
@@ -30,8 +30,8 @@ const Intro2: React.FC = () => {
       <Image
         src="https://s3.ap-northeast-2.amazonaws.com/storify/public/OR7V171-removebg-1707127021387.png"
         alt="반응형 이미지"
-        width={1440}
-        height={720}
+        width={1200}
+        height={800}
         data-aos="fade-up"
         data-aos-delay="200"
       />

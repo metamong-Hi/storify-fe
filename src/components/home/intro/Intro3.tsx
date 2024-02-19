@@ -94,12 +94,12 @@ const Intro3: React.FC = () => {
       >
         다양한 동화책들을 읽고, 써 보세요.
       </p>
-      <div className="grid grid-cols-2 grid-rows-2 gap-10 mb-10" data-aos="fade-up">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10" data-aos="fade-up">
         {cardInfo.map((card, index) => (
           <div
             key={index}
             ref={(node) => node && applyTiltEffect(node)}
-            className="card w-full sm:w-52 md:w-60 lg:w-80 xl:w-96 2xl:w-112 glass shadow-xl"
+            className="card w-64 sm:w-72 md:w-80 lg:w-96 xl:w-112 2xl:w-128 glass shadow-xl"
             data-aos="fade-up"
             data-aos-delay={`${index < 2 ? '200' : '300'}`}
           >
@@ -107,10 +107,9 @@ const Intro3: React.FC = () => {
               <Image
                 src={card.imgUrl}
                 alt={card.title}
-                width={500}
-                height={500}
+                width={256}
+                height={256}
                 layout="responsive"
-                className="rounded-xl"
               />
             </figure>
             <div className="card-body items-center text-center">

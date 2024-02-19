@@ -73,7 +73,7 @@ const Intro1: React.FC = () => {
               key={index}
               style={{ height: '50vh', width: '50vw', position: 'relative' }}
             >
-              <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" sizes="50vw" />
+              <Image src={src} alt={`Slide ${index}`} layout="fill" />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -9,7 +9,7 @@ interface NavigationButtonsProps {
 const NavigationButtons: React.FC<NavigationButtonsProps> = ({ isListening, setIsListening }) => (
   <div className="flex justify-between items-center">
     <Link href={`/writing`} passHref>
-      <button className="btn btn-ghost font-bold border-2">뒤로 가기</button>
+      <button className="btn font-bold border-2">뒤로 가기</button>
     </Link>
     <button
       onClick={() => setIsListening(prevState => !prevState)}

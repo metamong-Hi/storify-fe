@@ -23,6 +23,7 @@ import {
 } from '@nextui-org/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { useRouter } from 'next/navigation';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,10 +32,23 @@ const NavbarComponent = () => {
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
 
-  const theme = useSelector((state : RootState) => state.theme.value);
+  const theme = useSelector((state: RootState) => state.theme.value);
 
-  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
+  const isWhiteIconTheme = [
+    'luxury',
+    'dark',
+    'coffee',
+    'night',
+    'halloween',
+    'sunset',
+    'synthwave',
+    'forest',
+    'black',
+    'dracula',
+    'business',
+  ].includes(theme);
   const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
@@ -72,7 +86,7 @@ const NavbarComponent = () => {
         sessionStorage.removeItem('refreshToken');
         sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
-        
+
         // window.location.href='/';
       })
       .catch((error) => {
@@ -89,6 +103,14 @@ const NavbarComponent = () => {
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
   ];
+
+  const handleLogoClick = () => {
+    if (pathName === '/') {
+      window.location.reload();
+    } else {
+      router.push('/');
+    }
+  };
 
   return (
     <>
@@ -119,7 +141,9 @@ const NavbarComponent = () => {
               {menuItems.map((item, index) => (
                 <Link key={index} href={item.link}>
                   <li className=" text-xl p-2 xl:text-2xl font-bold">
-                    <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
+                    <span
+                      className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}
+                    >
                       {item.text}
                     </span>
                   </li>
@@ -128,9 +152,9 @@ const NavbarComponent = () => {
             </ul>
           </div>
           <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
-            <Link href="/" className="text-xl lg:text-3xl font-bold ">
+            <div onClick={handleLogoClick} className="text-xl lg:text-3xl font-bold cursor-pointer">
               <span className="text-base-content text-warning">STORIFY</span>
-            </Link>
+            </div>
           </div>
         </div>
         <div className="hidden lg:flex navbar-center">
