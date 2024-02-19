@@ -195,6 +195,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
       socket.on('like', (data) => {
         if (data.bookId === book._id) {
           console.log('Your book has received a like!',data);
+          alert(`${data.message}`);
         }
       });
     }

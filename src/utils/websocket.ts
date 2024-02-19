@@ -29,6 +29,7 @@ export const initializeWebSocket = (token: string): Socket => {
     });
     socket?.on('like', (data) => {
       console.log('좋아요 받음', data);
+      alert(data);
     });
 
     // socket?.emit('like', (data) => {
