@@ -20,7 +20,7 @@ const StyledLink = styled(Link)`
   }
 `;
 function LoginPage() {
-  const [selected, setSelected] = useState('login');
+  const [selected, setSelected] = useState('sign-up');
 
   // const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
   const dispatch = useAppDispatch();
@@ -28,7 +28,9 @@ function LoginPage() {
   const [formData, setFormData] = useState({
     userId: '',
     password: '',
+    confirmPassword:'',
   });
+  const [passwordError,setPasswordError]=useState('');
   const showLoginSuccessAlert = () => {
     Swal.fire({
       title: `로그인 성공`,
@@ -93,6 +95,9 @@ function LoginPage() {
       ...formData,
       [name]: value,
     });
+    if(name=='password' || name=='confirmPassword'){
+        setPasswordError('');
+    }
   };
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -127,6 +132,7 @@ function LoginPage() {
   const [formSignupData, setFormSignupData] = useState({
     userId: '',
     password: '',
+    confirmPassword:'',
   });
   const handleInputChangeSignup = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -140,6 +146,10 @@ function LoginPage() {
 
   const handleSignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if(formSignupData.password!==formSignupData.confirmPassword){
+        setPasswordError('비밀번호가 일치하지 않습니다');
+        return;
+    }
     dispatch(
       signup({
         userId: formSignupData.userId,
@@ -165,7 +175,7 @@ function LoginPage() {
     setSelected(String(key));
   };
   return (
-    <div className=" max-w-full w-[340px] h-[380px] gap-10">
+    <div className=" max-w-full w-[340px] h-[400px] gap-10">
       {/* <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden"> */}
           <Tabs
@@ -231,21 +241,23 @@ function LoginPage() {
                   value={formSignupData.password}
                   onChange={handleInputChangeSignup}
                 />
-          <Input
+             <Input
                   isRequired
                   label="비밀번호 확인"
                   placeholder="비밀번호를 다시 입력하세요"
                   type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
+                  name="confirmPassword" 
+                  value={formSignupData.confirmPassword}
+                  onChange={handleInputChangeSignup}
                 />
+                 {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
                 <p className="text-center text-small">
                   이미 계정이 있으신가요?{' '}
                   <StyledLink size="lg" onPress={() => setSelected('login')}>
                     로그인
                   </StyledLink>
                 </p>
+
                 <div className="flex gap-6 justify-end">
                   <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
                     회원가입

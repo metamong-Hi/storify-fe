@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
 import LoginPage from '@/components/login/realLogin';
+import RegisterPage from './login/realRegister';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -30,6 +31,10 @@ const NavbarComponent = () => {
   const pathName = usePathname();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // 로그인 모달 상태
+  const { isOpen: isLoginOpen, onOpen: onLoginOpen, onOpenChange: onLoginOpenChange} = useDisclosure();
+  // 회원가입 모달 상태
+  const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onOpenChange: onRegisterOpenChange } = useDisclosure();
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
@@ -198,14 +203,16 @@ const NavbarComponent = () => {
             <>
               <div>
     
-                <Link href="/setting" passHref>
-                  <button className="btn btn-outline font-bold mr-4">환경설정</button>
-                </Link>
-                <button onClick={onOpen} className="btn btn-outline font-bold">
-                  로그인
-                </button>
 
-                <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                  <button onClick={onLoginOpen} className="btn btn-outline mr-2 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">로그인</button>
+
+                  <button 
+  onClick={onRegisterOpen} 
+  className="btn btn-outline font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">
+  회원가입
+</button>
+
+                <Modal isOpen={isLoginOpen} onOpenChange={onLoginOpenChange}>
                   <ModalContent className="flex flex-col justify-center items-center p-4">
                     {(_onClose: any) => (
                       <>
@@ -213,6 +220,20 @@ const NavbarComponent = () => {
                         </ModalHeader>
                         <ModalBody className="flex justify-center items-center">
                           <LoginPage />
+                        </ModalBody>
+                        <ModalFooter></ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
+                <Modal isOpen={isRegisterOpen} onOpenChange={onRegisterOpenChange}>
+                  <ModalContent className="flex flex-col justify-center items-center p-4">
+                    {(_onClose: any) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">
+                        </ModalHeader>
+                        <ModalBody className="flex justify-center items-center">
+                          <RegisterPage />
                         </ModalBody>
                         <ModalFooter></ModalFooter>
                       </>
