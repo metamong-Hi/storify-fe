@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { logout } from '@/store/userSlice';
 import LoginPage from '@/components/login/realLogin';
+import RegisterPage from './login/realRegister';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -31,6 +32,10 @@ const NavbarComponent = () => {
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // 로그인 모달 상태
+  const { isOpen: isLoginOpen, onOpen: onLoginOpen, onOpenChange: onLoginOpenChange} = useDisclosure();
+  // 회원가입 모달 상태
+  const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onOpenChange: onRegisterOpenChange } = useDisclosure();
 
   const theme = useSelector((state : RootState) => state.theme.value);
 
@@ -79,7 +84,9 @@ const NavbarComponent = () => {
         console.log('로그아웃 망함' + error);
       });
   };
-
+  const toggleMenu=()=>{
+    setIsMenuOpen(!isMenuOpen);
+  };
   const isActive = (pathname: string) => {
     return pathName === pathname;
   };
@@ -88,10 +95,16 @@ const NavbarComponent = () => {
     // { link: '/home', text: '홈' },
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
+    // { link: '/setting',text:'환경설정'}
   ];
+  const menuReal=[
+    {link:'/allbooks',text:'책장'},
+    {link:'/writing',text:'책 만들기'}
+  ]
 
   return (
     <>
+
       <div className="navbar bg-base-100 p-2">
         <div className="navbar-start">
           <div className="dropdown">
@@ -135,7 +148,7 @@ const NavbarComponent = () => {
         </div>
         <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
-            {menuItems.map((item, index) => (
+            {menuReal.map((item, index) => (
               <Link key={index} href={item.link}>
                 <li className="block lg:inline-block text-lg lg:mx-2">
                   <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}>
@@ -149,7 +162,9 @@ const NavbarComponent = () => {
         <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
           {isLoggedIn ? (
             <>
-              <span className="text-base-content">
+            
+              <span className="text-base-content hidden sm:block">
+                
                 <span className=" text-xl font-bold pr-2">{nickname}</span>님 환영합니다
               </span>
               <div className="dropdown dropdown-end ">
@@ -173,17 +188,19 @@ const NavbarComponent = () => {
                       내 책장
                     </Link>
                   </li>
+                  <li>
+                    <Link href={`/setting`} className="p-4 text-base-content">
+                      환경설정
+                    </Link>
+                  </li>
+                
                   {/* <li>
                     <Link href={`/user/${userId}/profile`} className="p-4 text-base-content">
                       프로필
                     </Link>
                   </li> */}
                   <li>
-                    <Link href={`/user-setting`} className="p-4 text-base-content">
-                      환경 설정
-                    </Link>
-                  </li>
-                  <li>
+
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
@@ -194,21 +211,38 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
-                <Link href="/user-setting" passHref>
-                  <button className="btn btn-outline font-bold mr-2">환경설정</button>
-                </Link>
-                <button onClick={onOpen} className="btn btn-outline font-bold">
-                  로그인
-                </button>
-                <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+
+                  <button onClick={onLoginOpen} className="btn btn-outline mr-2 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">로그인</button>
+
+                  <button 
+  onClick={onRegisterOpen} 
+  className="btn btn-outline font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">
+  회원가입
+</button>
+
+                <Modal isOpen={isLoginOpen} onOpenChange={onLoginOpenChange}>
+
                   <ModalContent className="flex flex-col justify-center items-center p-4">
                     {(_onClose: any) => (
                       <>
                         <ModalHeader className="flex flex-col gap-1">
-                          {/* 로그인 / 회원가입 */}
                         </ModalHeader>
                         <ModalBody className="flex justify-center items-center">
                           <LoginPage />
+                        </ModalBody>
+                        <ModalFooter></ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
+                <Modal isOpen={isRegisterOpen} onOpenChange={onRegisterOpenChange}>
+                  <ModalContent className="flex flex-col justify-center items-center p-4">
+                    {(_onClose: any) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">
+                        </ModalHeader>
+                        <ModalBody className="flex justify-center items-center">
+                          <RegisterPage />
                         </ModalBody>
                         <ModalFooter></ModalFooter>
                       </>

@@ -17,7 +17,7 @@ const KakaoLogin: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log(data); 
+    //   console.log(data); 
     } catch (error) {
       console.error(error);
     }
