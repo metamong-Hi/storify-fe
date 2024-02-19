@@ -3,7 +3,7 @@
 import React, { use, useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
-
+import io from 'socket.io-client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
@@ -62,6 +62,17 @@ async function getUserProfile(_id: string) {
   return response.json();
 }
 
+const token=sessionStorage.getItem('token');
+const socket = io('https://api.storifyai.site/ws-noti', {
+  transportOptions: {
+    polling: {
+      extraHeaders: {
+        Authorization:
+          `Bearer ${token}`,
+      },
+    },
+  },
+});
 export const Book = ({ book, index }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
@@ -95,7 +106,13 @@ export const Book = ({ book, index }: BookComponentProps) => {
       if (!response.ok) {
         throw new Error('Failed to send like request to server');
       }
-      
+      socket.on('like', (data) => {
+        if (data.bookId === book._id) {
+          console.log('Your book has received a like!');
+          
+        }
+        console.log("일단 연결은 되었음 좋아요")
+      });
 
       setLikeError(false); // Reset error state on success
       return await response.json();
@@ -160,7 +177,19 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
     fetchData();
   }, [book]);
+  useEffect(() => {
+    const handleLikeNotification = (data) => {
+      if (data.bookId === book._id) {
+        console.log('Your book has received a like!', data);
+      }
+    };
 
+    socket.on('like', handleLikeNotification);
+
+    return () => {
+      socket.off('like', handleLikeNotification);
+    };
+  }, [book._id]);
   const openLoginModal = () => {
     const modal = document.getElementById('authModal');
     if (modal) {
