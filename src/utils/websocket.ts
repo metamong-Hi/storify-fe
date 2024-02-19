@@ -1,4 +1,5 @@
 import { io, Socket } from "socket.io-client";
+import Swal from 'sweetalert2';
 let socket: Socket | null = null;
 
 export const getSocket = () => socket;
@@ -29,7 +30,12 @@ export const initializeWebSocket = (token: string): Socket => {
     });
     socket?.on('like', (data) => {
       console.log('좋아요 받음', data);
-      alert(data);
+      Swal.fire({
+        title: '알림!',
+        text: data.message,
+        icon: 'success',
+        confirmButtonText: '확인'
+      });
     });
 
     // socket?.emit('like', (data) => {
