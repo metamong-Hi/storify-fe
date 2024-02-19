@@ -39,16 +39,16 @@ const SimpleCard = () => {
         <figure>
           <Image
             src="https://s3.ap-northeast-2.amazonaws.com/storify/public/solowriting-1706712930779.jpeg"
-            alt="동화 생성 선택"
-            width={500}
-            height={500}
+            alt="혼자서 쓸래요"
+            width={256}
+            height={256}
             layout="responsive"
           />
         </figure>
         <div className="card-body items-center text-center">
-          <h1 className="card-title text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:tet-5xl mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">혼자서 쓸래요</h1>
-          <h2 className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">글쓰기에 자신 있다면</h2>
-          <h2 className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">혼자서 글을 써 보세요</h2>
+          <h3 className="card-title text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:tet-5xl mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">혼자서 쓸래요</h3>
+          <p className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">글쓰기에 자신 있다면</p>
+          <p className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:tet-3xl text-base-content/80">혼자서 글을 써 보세요</p>
         </div>
       </div>
     </Link>

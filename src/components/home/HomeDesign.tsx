@@ -62,7 +62,7 @@ const HomeDesign: React.FC = () => {
       >
         {images.map((src, index) => (
           <SwiperSlide key={index} className= "relative z-0" style={{ height: '100vh' }}>
-            <Image src={src} className= "relative z-0" alt={`Slide ${index}`} layout="fill" objectFit="cover" />
+            <Image src={src} className= "relative z-0" alt={`Slide ${index}`} layout="fill" objectFit="cover" sizes="100vw" />
           </SwiperSlide>
         ))}
       </Swiper>

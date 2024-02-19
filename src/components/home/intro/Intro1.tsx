@@ -28,13 +28,13 @@ const Intro1: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <h1
+      <h3
         className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
         data-aos="fade-up"
         data-aos-delay="100"
       >
         어린이를 위한 <span className="text-accent">AI 동화책</span>
-      </h1>
+      </h3>
 
       <p
         className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
@@ -73,7 +73,7 @@ const Intro1: React.FC = () => {
               key={index}
               style={{ height: '50vh', width: '50vw', position: 'relative' }}
             >
-              <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" />
+              <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" sizes="50vw" />
             </SwiperSlide>
           ))}
         </Swiper>
