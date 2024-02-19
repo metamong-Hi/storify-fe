@@ -24,6 +24,8 @@ import {
 } from '@nextui-org/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,14 +34,35 @@ const NavbarComponent = () => {
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
   // 로그인 모달 상태
-  const { isOpen: isLoginOpen, onOpen: onLoginOpen, onOpenChange: onLoginOpenChange} = useDisclosure();
+  const {
+    isOpen: isLoginOpen,
+    onOpen: onLoginOpen,
+    onOpenChange: onLoginOpenChange,
+  } = useDisclosure();
   // 회원가입 모달 상태
-  const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onOpenChange: onRegisterOpenChange } = useDisclosure();
+  const {
+    isOpen: isRegisterOpen,
+    onOpen: onRegisterOpen,
+    onOpenChange: onRegisterOpenChange,
+  } = useDisclosure();
 
-  const theme = useSelector((state : RootState) => state.theme.value);
+  const theme = useSelector((state: RootState) => state.theme.value);
 
-  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
+  const isWhiteIconTheme = [
+    'luxury',
+    'dark',
+    'coffee',
+    'night',
+    'halloween',
+    'sunset',
+    'synthwave',
+    'forest',
+    'black',
+    'dracula',
+    'business',
+  ].includes(theme);
   const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
@@ -77,14 +100,14 @@ const NavbarComponent = () => {
         sessionStorage.removeItem('refreshToken');
         sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
-        
+
         // window.location.href='/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
       });
   };
-  const toggleMenu=()=>{
+  const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const isActive = (pathname: string) => {
@@ -95,16 +118,37 @@ const NavbarComponent = () => {
     // { link: '/home', text: '홈' },
     { link: '/allbooks', text: '책장' },
     { link: '/writing', text: '책 만들기' },
-    // { link: '/setting',text:'환경설정'}
+    // { link: '/user-setting',text:'환경설정'}
   ];
-  const menuReal=[
-    {link:'/allbooks',text:'책장'},
-    {link:'/writing',text:'책 만들기'}
-  ]
+  const menuReal = [
+    { link: '/allbooks', text: '책장' },
+    { link: '/writing', text: '책 만들기' },
+  ];
+
+  const handleLogoClick = () => {
+    if (pathName === '/') {
+      window.location.reload();
+    } else {
+      router.push('/');
+    }
+  };
+
+  const handleMenuItemClick = (link:string) => {
+    if (link === '/writing' && !isLoggedIn) {
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 필요',
+        text: '책을 만들기 위해서는 로그인이 필요합니다.',
+        confirmButtonText: '확인',
+      });
+    } else {
+      // 그 외의 경우에는 해당 링크로 라우팅
+      router.push(link);
+    }
+  };
 
   return (
     <>
-
       <div className="navbar bg-base-100 p-2">
         <div className="navbar-start">
           <div className="dropdown">
@@ -132,7 +176,9 @@ const NavbarComponent = () => {
               {menuItems.map((item, index) => (
                 <Link key={index} href={item.link}>
                   <li className=" text-xl p-2 xl:text-2xl font-bold">
-                    <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}>
+                    <span
+                      className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}
+                    >
                       {item.text}
                     </span>
                   </li>
@@ -141,30 +187,32 @@ const NavbarComponent = () => {
             </ul>
           </div>
           <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
-            <Link href="/" className="text-xl lg:text-3xl font-bold ">
+            <div onClick={handleLogoClick} className="text-xl lg:text-3xl font-bold cursor-pointer">
               <span className="text-base-content text-warning">STORIFY</span>
-            </Link>
+            </div>
           </div>
         </div>
         <div className="hidden lg:flex navbar-center">
           <ul className="menu menu-horizontal px-1">
             {menuReal.map((item, index) => (
-              <Link key={index} href={item.link}>
-                <li className="block lg:inline-block text-lg lg:mx-2">
-                  <span className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}>
-                    {item.text}
-                  </span>
-                </li>
-              </Link>
+              <li
+                key={index}
+                className="block lg:inline-block text-lg lg:mx-2"
+                onClick={() => handleMenuItemClick(item.link)}
+              >
+                <span
+                  className={`cursor-pointer text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                >
+                  {item.text}
+                </span>
+              </li>
             ))}
           </ul>
         </div>
         <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
           {isLoggedIn ? (
             <>
-            
               <span className="text-base-content hidden sm:block">
-                
                 <span className=" text-xl font-bold pr-2">{nickname}</span>님 환영합니다
               </span>
               <div className="dropdown dropdown-end ">
@@ -189,18 +237,17 @@ const NavbarComponent = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link href={`/setting`} className="p-4 text-base-content">
+                    <Link href={`/user-setting`} className="p-4 text-base-content">
                       환경설정
                     </Link>
                   </li>
-                
+
                   {/* <li>
                     <Link href={`/user/${userId}/profile`} className="p-4 text-base-content">
                       프로필
                     </Link>
                   </li> */}
                   <li>
-
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
@@ -211,22 +258,25 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
+                <button
+                  onClick={onLoginOpen}
+                  className="btn btn-outline mr-2 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl "
+                >
+                  로그인
+                </button>
 
-                  <button onClick={onLoginOpen} className="btn btn-outline mr-2 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">로그인</button>
-
-                  <button 
-  onClick={onRegisterOpen} 
-  className="btn btn-outline font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">
-  회원가입
-</button>
+                <button
+                  onClick={onRegisterOpen}
+                  className="btn btn-outline font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl "
+                >
+                  회원가입
+                </button>
 
                 <Modal isOpen={isLoginOpen} onOpenChange={onLoginOpenChange}>
-
                   <ModalContent className="flex flex-col justify-center items-center p-4">
                     {(_onClose: any) => (
                       <>
-                        <ModalHeader className="flex flex-col gap-1">
-                        </ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1"></ModalHeader>
                         <ModalBody className="flex justify-center items-center">
                           <LoginPage />
                         </ModalBody>
@@ -239,8 +289,7 @@ const NavbarComponent = () => {
                   <ModalContent className="flex flex-col justify-center items-center p-4">
                     {(_onClose: any) => (
                       <>
-                        <ModalHeader className="flex flex-col gap-1">
-                        </ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1"></ModalHeader>
                         <ModalBody className="flex justify-center items-center">
                           <RegisterPage />
                         </ModalBody>

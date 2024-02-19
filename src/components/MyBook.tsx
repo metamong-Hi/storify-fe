@@ -473,6 +473,7 @@ useEffect(() => {
                   </ImageDroppable>
                 ) : (
                   <div
+                    className= "text-black"
                     style={{
                       display: 'flex',
                       justifyContent: 'center',

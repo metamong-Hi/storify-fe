@@ -80,48 +80,48 @@ const Intro3: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
-      <h1
-        className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
+      <h3
+        className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
         data-aos="fade-up"
+        data-aos-delay="100"
       >
         스토리파이만의 <span className="text-accent">부가서비스</span>
-      </h1>
+      </h3>
       <p
-        className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
+        className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
         data-aos="fade-up"
-        data-aos-delay="300"
+        data-aos-delay="100"
       >
-        다양한 <span className="font-semibold">동화책들을</span> 읽고, 써 보세요.
+        다양한 동화책들을 읽고, 써 보세요.
       </p>
-      <div className="grid grid-cols-2 grid-rows-2 gap-10 mb-10" data-aos="fade-up">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10" data-aos="fade-up">
         {cardInfo.map((card, index) => (
           <div
             key={index}
             ref={(node) => node && applyTiltEffect(node)}
-            className="card w-full sm:w-52 md:w-60 lg:w-80 xl:w-96 2xl:w-112 glass shadow-xl"
+            className="card w-64 sm:w-72 md:w-80 lg:w-96 xl:w-112 2xl:w-128 glass shadow-xl"
             data-aos="fade-up"
-            data-aos-delay={`${index < 2 ? '600' : '900'}`}
+            data-aos-delay={`${index < 2 ? '200' : '300'}`}
           >
             <figure>
               <Image
                 src={card.imgUrl}
                 alt={card.title}
-                width={500}
-                height={500}
+                width={256}
+                height={256}
                 layout="responsive"
-                className="rounded-xl"
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title text-lg sm:text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">
+              <h4 className="card-title text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">
                 {card.title}
-              </h2>
-              <h3
-                className="text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-base-content/80"
+              </h4>
+              <h5
+                className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-base-content/80"
                 style={{ whiteSpace: 'pre-line' }}
               >
                 {card.description}
-              </h3>
+              </h5>
             </div>
           </div>
         ))}
