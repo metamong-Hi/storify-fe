@@ -2,8 +2,6 @@ import SimpleWritingPageSkeleton from "@/components/skeleton/writing/SimpleWriti
 
 export default function Loading() {
   return (
-    <>
-      <SimpleWritingPageSkeleton/>
-    </>
+    <SimpleWritingPageSkeleton/>
   );
 }

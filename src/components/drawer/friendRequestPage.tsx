@@ -17,12 +17,11 @@ function FriendRequest() {
   };
 
   const handleFriendRequestSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    alert('여기까지 왔다 친구신청');
+
     // const token=localStorage.getItem('token')
     const token = sessionStorage.getItem('token');
     const name = formRequestData.receiver;
-    console.log(name);
-    console.log(token);
+   
     const status = '대기';
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/friendsReqs`, {
@@ -37,7 +36,7 @@ function FriendRequest() {
       alert(data);
       alert('친구신청됨');
     } catch (error) {
-      alert('친구신청망함' + error);
+      alert('친구신청 에러' + error);
       console.log(error);
     }
   };

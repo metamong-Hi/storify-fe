@@ -14,7 +14,7 @@ const SimpleWritingPage: React.FC = () => {
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert('Your browser does not support Speech API. Please try Google Chrome.');
+      alert('크롬 브라우저를 사용해 주세요');
       return;
     }
 
@@ -34,7 +34,7 @@ const SimpleWritingPage: React.FC = () => {
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      setError('Speech recognition error: ' + event.error);
+      setError('에러발생: ' + event.error);
     };
 
     if (isListening) {

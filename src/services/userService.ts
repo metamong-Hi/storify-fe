@@ -1,52 +1,47 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const token = sessionStorage.getItem('token');
 
 export async function updateUserPassword(oldPassword: string, newPassword: string): Promise<void> {
-  const formData = new FormData();
-  formData.set('oldPassword', oldPassword);
-  formData.set('newPassword', newPassword);
-
-  const token = sessionStorage.getItem('token');
   console.log('token: ', token);
   try {
     await fetch(`${API_URL}/auth/password`, {
       method: 'PATCH',
       headers: {
+        'content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(response.body);
-        } else {
-          throw new Error('비밀번호 업데이트 실패');
-        }
-      })
-      .then(() => {
-        console.log('비밀번호 업데이트 성공');
-      });
+      body: JSON.stringify({ oldPassword, newPassword }),
+    }).then(async (response) => {
+      const data = await response.json();
+      console.log(data);
+      if (data.message === '비밀번호를 확인해주세요.') {
+        alert('현재 비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+      } else {
+        alert('비밀번호 업데이트 성공');
+      }
+    });
   } catch (error) {
     console.error('비밀번호 업데이트 실패: ', error);
   }
 }
 
 export async function updateUserEmail(email: string): Promise<void> {
-  const formData = new FormData();
-  formData.set('email', email);
-
   const token = sessionStorage.getItem('token');
 
   try {
     await fetch(`${API_URL}/users`, {
       method: 'PATCH',
       headers: {
+        'content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: formData,
+      body: JSON.stringify({
+        email,
+      }),
     })
       .then((response) => {
-        response.json();
         console.log(response);
+        console.log(response.json());
       })
       .then(() => {
         console.log('이메일 업데이트 성공');
@@ -88,6 +83,7 @@ export async function updateUserProfile(
     if (!response.ok) {
       throw new Error('Failed to update profile');
     }
+    console.log(response.json());
 
     console.log('프로필 업데이트 성공');
   } catch (error) {

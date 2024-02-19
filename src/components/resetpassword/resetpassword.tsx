@@ -85,14 +85,14 @@ function ResetPasswordPage() {
     e.preventDefault();
     dispatch(login({ userId: formData.userId, password: formData.password }))
       .then(() => {
-        console.log('로그인 성공');
+        
         showLoginSuccessAlert();
       })
       .catch((error) => {
         console.error('로그인 실패: ', error);
         showLoginFailedAlert();
       });
-    console.log('여기까지 왔다');
+ 
   };
 
   const [formSignupData, setFormSignupData] = useState({
@@ -126,7 +126,6 @@ function ResetPasswordPage() {
         showSignupFailedAlert();
       });
 
-    console.log('여기까지 옴');
   };
   const handleSelectionChange = (key: string | number) => {
     setSelected(String(key));

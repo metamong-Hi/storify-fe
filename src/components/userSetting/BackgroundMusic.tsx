@@ -1,13 +1,10 @@
 'use client';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Card, CardBody, Image, Button, Slider } from '@nextui-org/react';
-import { HeartIcon } from '../../../public/icons/HeartIcon';
+import { Card, CardBody, Button, Slider } from '@nextui-org/react';
 import { PauseCircleIcon } from '../../../public/icons/PauseCircleIcon';
 import { NextIcon } from '../../../public/icons/NextIcon';
 import { PreviousIcon } from '../../../public/icons/PreviousIcon';
 import { PlayCircleIcon } from '../../../public/icons/PlayCircleIcon';
-import { RepeatOneIcon } from '../../../public/icons/ReapeatIcon';
-import { ShuffleIcon } from '../../../public/icons/ShuffleIcon';
 
 const tracks = [
   'https://s3.ap-northeast-2.amazonaws.com/storify/public/Chopin - Nocturne op.9 No.2 (320kbps)-1707833466113.mp3',
@@ -99,14 +96,10 @@ const BackgroundMusic: React.FC = () => {
   }, [currentTrackIndex]);
 
   useEffect(() => {
-    // 오디오 메타데이터 로딩 시, 트랙 기간 업데이트
     const updateDuration = () => {
       setTrackDuration(audioRef.current.duration);
     };
-
     audioRef.current.addEventListener('loadedmetadata', updateDuration);
-
-    // 컴포넌트 언마운트 시, 이벤트 리스너 제거
     return () => {
       audioRef.current.removeEventListener('loadedmetadata', updateDuration);
     };
@@ -209,7 +202,6 @@ const BackgroundMusic: React.FC = () => {
 
   const handlePlayPause = () => setIsPlaying(!isPlaying);
 
-  // Function to update the current playback time
   useEffect(() => {
     const updateProgress = () => {
       setTrackProgress(audioRef.current?.currentTime || 0);
@@ -225,22 +217,18 @@ const BackgroundMusic: React.FC = () => {
   useEffect(() => {
     const audio = audioRef.current;
   
-    // 곡이 끝나면 다음 곡을 재생하는 함수
     const handleAudioEnd = () => {
       handleNext();
     };
   
-    // 'ended' 이벤트 리스너 추가
     audio.addEventListener('ended', handleAudioEnd);
   
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     return () => {
       audio.removeEventListener('ended', handleAudioEnd);
     };
   }, [handleNext]);
   
 
-  // 현재 재생중인 곡의 인덱스를 로컬 스토리지에서 불러오기
   useEffect(() => {
     const storedTrackIndex = localStorage.getItem('currentTrackIndex');
     if (storedTrackIndex) {
@@ -248,7 +236,6 @@ const BackgroundMusic: React.FC = () => {
     }
   }, []);
 
-  // 현재 트랙 인덱스가 변경될 때마다 로컬 스토리지에 저장
   useEffect(() => {
     localStorage.setItem('currentTrackIndex', currentTrackIndex.toString());
     if (isPlaying) {

@@ -35,7 +35,6 @@ const ComplexResultPage: React.FC = () => {
   const [showNavigateButton, setShowNavigateButton] = useState(false);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
 
   if (typeof window !== 'undefined') {
     token = sessionStorage.getItem('token');

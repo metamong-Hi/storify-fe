@@ -1,4 +1,3 @@
-// pages/SimpleWritingPageSkeleton.tsx
 import React from 'react';
 
 const SimpleWritingPageSkeleton: React.FC = () => {

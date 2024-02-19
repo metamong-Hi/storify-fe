@@ -63,7 +63,7 @@ const LoginPage: React.FC = () => {
     .catch((error) => {
       console.error("로그인 실패: ", error);
     });
-    console.log("여기까지 왔다");
+    // console.log("여기까지 왔다");
 
   };
 

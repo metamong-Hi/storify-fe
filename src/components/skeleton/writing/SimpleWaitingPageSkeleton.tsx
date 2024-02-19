@@ -1,4 +1,3 @@
-// components/SimpleWaitingPageSkeleton.tsx
 import React from 'react';
 
 const SimpleWaitingPageSkeleton: React.FC = () => {

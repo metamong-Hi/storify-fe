@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalProps,
   useDisclosure,
-  Button
+  Button,
 } from '@nextui-org/react';
 const FriendPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -21,6 +21,7 @@ const FriendPage = () => {
 
   return (
     <>
+
     <div>
       <button
         onClick={toggleDrawer}
@@ -35,14 +36,7 @@ const FriendPage = () => {
       >
         친구신청
       </button>
-      {/* <Button
-                  onClick={onOpen}
-                  className="font-bold text-[##B68973] border-[##B68973] border-2 bg-[#B68973]  hover:bg-gray-200 "
-
-                  variant="flat"
-                >
-                  친구신청
-                </Button> */}
+   
     </div>
      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
     <ModalContent className="flex flex-col justify-center items-center p-4">
@@ -53,15 +47,14 @@ const FriendPage = () => {
          <FriendRequest/>
         </ModalBody>
         <ModalFooter>
-          {/* <Button color="danger" variant='light' onPress={onClose}>
-          닫기
-        </Button> */}
+      
        </ModalFooter>
       </>
     )}
   </ModalContent>
   </Modal>
   </>
+
   );
 };
 

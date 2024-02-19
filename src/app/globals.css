@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -168,13 +176,6 @@
   border-radius: 5px;
 }
 
-html,
-body {
-  height: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-}
 
 @keyframes blurFadeOut {
   0% {
@@ -211,6 +212,7 @@ body {
     filter: blur(0px);
   }
 }
+
 .blur-effect1 {
   animation: blurFadeOut 4s ease-out forwards;
 }
@@ -247,7 +249,6 @@ body {
 .font-serif {
   font-family: 'Times New Roman', Times, serif;
 }
-
 .font-KyoboHand {
   font-family: 'KyoboHand';
 }
@@ -266,8 +267,6 @@ body {
 .font-Kids {
   font-family: 'Kids';
 }
-
-
 .font-LightWrite {
   font-family: 'LightWrite';
 }
@@ -289,7 +288,6 @@ body {
 .font-HyuGothic {
   font-family: 'HyuGothic';
 }
-
 .font-Paint {
   font-family: 'Paint';
 }
@@ -299,19 +297,13 @@ body {
 .font-Baby {
   font-family: 'Baby';
 }
-
 .font-nanum-gothic-regular {
   font-family: 'Nanum Gothic', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-
 .font-noto-serif-kr-regular {
   font-family: 'Noto Serif KR', serif;
   font-weight: 400;
   font-style: normal;
-}
-
-.white-icon {
-  filter: invert(100%) brightness(200%);
 }

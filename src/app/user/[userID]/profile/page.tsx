@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import ProfilePage from '@/components/Setting/ProfileSetting';
-import SecurityPage from '@/components/Setting/SecuritySetting';
+import ProfilePage from '@/components/userSetting/ProfileSetting';
+import SecurityPage from '@/components/userSetting/SecuritySetting';
 import { getUserInfo } from '@/services/userService';
 import { ProfileData } from '@/types/user';
 
@@ -13,12 +13,14 @@ const Page = ({ params }: { params: { userID: string } }) => {
   const [message, setMessage] = useState('');
 
   const [profileData, setProfileData] = useState<ProfileData>({
+    _id: '',
     avatar: '',
     userId: '',
     nickname: '',
     introduction: '',
     email: '',
     password: '',
+    socialProvider: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +48,7 @@ const Page = ({ params }: { params: { userID: string } }) => {
 
   return (
     <div className="flex flex-col justify-center items-center p-8">
-      <div role="tablist" className="tabs tabs-lifted md:hidden">
+      <div role="tablist" className="tabs tabs-lifted">
         {settingOptions.map((option) => (
           <a
             key={option.value}
@@ -66,13 +68,19 @@ const Page = ({ params }: { params: { userID: string } }) => {
         </p>
       )}
 
-      <div className="flex flex-col md:flex-row md:items-stretch">
-        <div className={`flex-1 p-5 ${settings !== 'profile' ? 'hidden md:block' : ''}`}>
+      {/* {settings === 'profile' && <ProfilePage data={profileData} />} */}
+
+      <div className="">
+        <div className={`flex-1 p-5 ${settings !== 'profile' ? 'hidden' : ''}`}>
           <ProfilePage data={profileData} />
         </div>
-        <div className={`flex-1 p-5 ${settings !== 'security' ? 'hidden md:block' : ''}`}>
-          <SecurityPage data={profileData} />
-        </div>
+        {profileData.socialProvider ? (
+          ''
+        ) : (
+          <div className={`flex-1 p-5 ${settings !== 'security' ? 'hidden' : ''}`}>
+            <SecurityPage data={profileData} />
+          </div>
+        )}
       </div>
     </div>
   );

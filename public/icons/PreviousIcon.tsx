@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface PreviousIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
@@ -10,7 +10,6 @@ export const PreviousIcon: React.FC<PreviousIconProps> = ({
   size = 24,
   width,
   height,
-  ...props
 }) => (
   <svg
     aria-hidden="true"
@@ -20,7 +19,6 @@ export const PreviousIcon: React.FC<PreviousIconProps> = ({
     role="presentation"
     viewBox="0 0 24 24"
     width={size || width}
-    {...props} // Spread any additional SVG properties
   >
     <path
       d="M20.2409 7.21957V16.7896C20.2409 18.7496 18.1109 19.9796 16.4109 18.9996L12.2609 16.6096L8.11094 14.2096C6.41094 13.2296 6.41094 10.7796 8.11094 9.79957L12.2609 7.39957L16.4109 5.00957C18.1109 4.02957 20.2409 5.24957 20.2409 7.21957Z"

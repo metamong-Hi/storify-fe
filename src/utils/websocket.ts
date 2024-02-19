@@ -20,6 +20,13 @@ export const initializeWebSocket = (token: string): Socket => {
 
     socket?.emit('auth', `${token}`); 
     console.log("소켓 connected"+socket?.connected);
+    socket?.on('friendRequest', (data) => {
+      console.log('Friend request received by user2', data);
+    });
+
+    // socket?.emit('like', (data) => {
+    //   console.log('Like 알림 받음:', data);
+    // });
   });
 
   socket.on('message', (message: string) => {
