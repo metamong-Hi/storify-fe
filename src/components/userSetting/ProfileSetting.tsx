@@ -1,12 +1,12 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-
 import { updateUserProfile } from '@/services/userService';
 import CameraIcon from '@/components/icons/CameraIcon';
 import ImageIcon from '@/components/icons/ImageIcon';
 import { ProfileData } from '@/types/user';
+import { useRouter } from 'next/navigation';
+import exp from 'constants';
 
 interface propsType {
   data: ProfileData;
@@ -21,6 +21,8 @@ function ProfilePage(profile: propsType) {
   const [oriAvatar, setOriAvatar] = useState('');
   const [oriNickname, setOriNickname] = useState('');
   const [oriIntroduction, setOriIntroduction] = useState('');
+
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -62,7 +64,13 @@ function ProfilePage(profile: propsType) {
     event.preventDefault();
     try {
       await updateUserProfile(nickname, avatar, introduction);
-      // 성공 시 처리 (예: 성공 메시지 표시 또는 리다이렉션)
+      setOriNickname(nickname);
+      setOriIntroduction(introduction);
+      setOriAvatar(imagePreview);
+      setAvatar('');
+      setNickname('');
+      setIntroduction('');
+      router.push(`/user/${profile.data._id}/profile`);
     } catch (error) {
       // 오류 시 처리 (예: 오류 메시지 표시)
     }

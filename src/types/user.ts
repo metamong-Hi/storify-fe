@@ -4,6 +4,8 @@ export interface SignupData {
 }
 
 export interface ProfileData {
+  _id: string;
+  socialProvider: string;
   avatar: string;
   userId: string;
   nickname: string;

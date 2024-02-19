@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalProps,
   useDisclosure,
-  Button
+  Button,
 } from '@nextui-org/react';
 const FriendPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -21,6 +21,7 @@ const FriendPage = () => {
 
   return (
     <>
+
     <div>
       <button
         onClick={toggleDrawer}
@@ -53,6 +54,7 @@ const FriendPage = () => {
   </ModalContent>
   </Modal>
   </>
+
   );
 };
 

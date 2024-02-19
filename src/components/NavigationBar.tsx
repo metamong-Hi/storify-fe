@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { set } from 'lodash';
-import SettingsComponent from './Setting/Theme';
+import SettingsComponent from './userSetting/Theme';
 import { disconnectWebSocket } from '@/utils/websocket';
 import {
   Modal,
@@ -200,6 +200,7 @@ const NavbarComponent = () => {
                     </Link>
                   </li> */}
                   <li>
+
                     <div className="text-danger p-4" onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
@@ -210,7 +211,6 @@ const NavbarComponent = () => {
           ) : (
             <>
               <div>
-    
 
                   <button onClick={onLoginOpen} className="btn btn-outline mr-2 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl ">로그인</button>
 
@@ -221,6 +221,7 @@ const NavbarComponent = () => {
 </button>
 
                 <Modal isOpen={isLoginOpen} onOpenChange={onLoginOpenChange}>
+
                   <ModalContent className="flex flex-col justify-center items-center p-4">
                     {(_onClose: any) => (
                       <>

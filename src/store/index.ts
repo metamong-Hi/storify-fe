@@ -1,5 +1,3 @@
-
-// store/index.ts
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 import textReducer from './textSlice';

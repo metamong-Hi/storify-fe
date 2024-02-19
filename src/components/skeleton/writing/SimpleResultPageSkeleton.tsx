@@ -1,4 +1,3 @@
-// components/SimpleResultPageSkeleton.tsx
 import React from 'react';
 
 const SimpleResultPageSkeleton: React.FC = () => {

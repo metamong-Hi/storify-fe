@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-interface EmailFeedBackProps {
+interface FeedBackProps {
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
+const FeedBack: React.FC<FeedBackProps> = ({ text, setText }) => {
   let token: string | null;
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -125,4 +125,4 @@ const EmailFeedBack: React.FC<EmailFeedBackProps> = ({ text, setText }) => {
   );
 };
 
-export default EmailFeedBack;
+export default FeedBack;

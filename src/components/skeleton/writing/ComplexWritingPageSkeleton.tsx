@@ -1,4 +1,3 @@
-// components/ComplexWritingPageSkeleton.tsx
 import React from 'react';
 
 const ComplexWritingPageSkeleton: React.FC = () => {
