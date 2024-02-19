@@ -31,6 +31,9 @@ function LoginPage() {
     confirmPassword:'',
   });
   const [passwordError,setPasswordError]=useState('');
+  const [userIdError, setUserIdError] = useState('');
+  const [passwordLengthError, setPasswordLengthError] = useState('');
+
   const showLoginSuccessAlert = () => {
     Swal.fire({
       title: `로그인 성공`,
@@ -98,6 +101,7 @@ function LoginPage() {
     if(name=='password' || name=='confirmPassword'){
         setPasswordError('');
     }
+    
   };
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,6 +146,18 @@ function LoginPage() {
       ...formSignupData,
       [name]: value,
     });
+    if (name === 'userId') {
+        setUserIdError('');
+        if (value.length < 3 || value.length > 10) {
+          setUserIdError('아이디는 3자에서 10자 사이로 입력해주세요.');
+        }
+      } else if (name === 'password' || name === 'confirmPassword') {
+        setPasswordError('');
+        setPasswordLengthError('');
+        if (name === 'password' && value.length < 4) {
+          setPasswordLengthError('비밀번호는 4자 이상 입력해주세요.');
+        }
+      }
   };
 
   const handleSignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -232,6 +248,7 @@ function LoginPage() {
                   value={formSignupData.userId}
                   onChange={handleInputChangeSignup}
                 />
+                 {userIdError && <p style={{ color: 'red' }}>{userIdError}</p>}
                 <Input
                   isRequired
                   label="비밀번호"
@@ -241,6 +258,7 @@ function LoginPage() {
                   value={formSignupData.password}
                   onChange={handleInputChangeSignup}
                 />
+                {passwordLengthError && <p style={{ color: 'red' }}>{passwordLengthError}</p>}
              <Input
                   isRequired
                   label="비밀번호 확인"
