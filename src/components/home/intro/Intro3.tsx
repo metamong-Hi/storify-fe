@@ -83,13 +83,14 @@ const Intro3: React.FC = () => {
       <h1
         className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
         data-aos="fade-up"
+        data-aos-delay="100"
       >
         스토리파이만의 <span className="text-accent">부가서비스</span>
       </h1>
       <p
         className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
         data-aos="fade-up"
-        data-aos-delay="300"
+        data-aos-delay="100"
       >
         다양한 동화책들을 읽고, 써 보세요.
       </p>
@@ -100,7 +101,7 @@ const Intro3: React.FC = () => {
             ref={(node) => node && applyTiltEffect(node)}
             className="card w-full sm:w-52 md:w-60 lg:w-80 xl:w-96 2xl:w-112 glass shadow-xl"
             data-aos="fade-up"
-            data-aos-delay={`${index < 2 ? '600' : '900'}`}
+            data-aos-delay={`${index < 2 ? '200' : '300'}`}
           >
             <figure>
               <Image

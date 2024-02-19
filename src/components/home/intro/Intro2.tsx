@@ -16,13 +16,14 @@ const Intro2: React.FC = () => {
       <h1
         className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
         data-aos="fade-up"
+        data-aos-delay="100"
       >
         디바이스 맞춤 <span className="text-accent">반응형 UI</span>
       </h1>
       <p
         className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
         data-aos="fade-up"
-        data-aos-delay="300"
+        data-aos-delay="100"
       >
         모든 서비스를 언제,어디서나 이용 할 수 있습니다.
       </p>
@@ -32,7 +33,7 @@ const Intro2: React.FC = () => {
         width={1440}
         height={720}
         data-aos="fade-up"
-        data-aos-delay="600"
+        data-aos-delay="200"
       />
     </div>
   );

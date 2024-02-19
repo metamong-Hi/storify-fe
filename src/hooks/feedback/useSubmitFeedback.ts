@@ -28,7 +28,7 @@ const useSubmitFeedback = (): [(params: FeedbackParams) => Promise<void>, Submit
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ message: '피드백 : ' + text }),
       });
 
       if (response.status === 201) {
