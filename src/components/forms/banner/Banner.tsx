@@ -12,8 +12,8 @@ const Banner: React.FC<BannerProps> = ({ isLoggedIn, onBannerClick }) => {
       onClick={onBannerClick}
     >
       <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
-        <p>여러분의 의견이 우리 서비스를 완성합니다.</p>
-        <p>귀중한 의견을 남겨주세요!</p>
+        <h1>여러분의 의견이 우리 서비스를 완성합니다.</h1>
+        <h2>귀중한 의견을 남겨주세요!</h2>
       </div>
     </div>
   );

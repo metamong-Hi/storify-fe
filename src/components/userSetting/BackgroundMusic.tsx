@@ -284,7 +284,7 @@ const BackgroundMusic: React.FC = () => {
               <div className="flex w-full items-center justify-center">
                 <Button
                   isIconOnly
-                  className="data-[hover]:bg-foreground/10"
+                  className=" w-auto h-auto data-[hover]:bg-foreground/10"
                   radius="full"
                   variant="light"
                   onClick={handlePrevious}
@@ -302,7 +302,7 @@ const BackgroundMusic: React.FC = () => {
                 </Button>
                 <Button
                   isIconOnly
-                  className="data-[hover]:bg-foreground/10"
+                  className="w-auto h-auto data-[hover]:bg-foreground/10"
                   radius="full"
                   variant="light"
                   onClick={handleNext}

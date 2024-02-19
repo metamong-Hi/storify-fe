@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import FeedBack from '@/components/forms/email-feedback';
+import FeedBack from '@/components/forms/banner/Feedback';
 const FeedBackPage: React.FC = () => {
   const [formText, setFormText] = useState('');
   return (
