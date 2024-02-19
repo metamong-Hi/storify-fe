@@ -24,9 +24,9 @@ export const initializeWebSocket = (token: string): Socket => {
       console.log('Friend request received by user2', data);
     });
 
-    socket?.emit('like', (data) => {
-      console.log('Like 알림 받음:', data);
-    });
+    // socket?.emit('like', (data) => {
+    //   console.log('Like 알림 받음:', data);
+    // });
   });
 
   socket.on('message', (message: string) => {
