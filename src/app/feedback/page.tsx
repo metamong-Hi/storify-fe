@@ -1,15 +1,8 @@
-"use client"
-import React, { useState } from 'react';
-import FeedBack from '@/components/forms/banner/Feedback';
-const FeedBackPage: React.FC = () => {
-  const [formText, setFormText] = useState('');
-  return (
-    <div className="min-h-[100vh] w-full flex flex-col items-center mt-10">
-      <div>
-        <FeedBack text={formText} setText={setFormText} />
-      </div>
-    </div>
-  );
+import React from 'react';
+import FeedBackWriting from '@/components/forms/banner/writing/FeedbackWriting';
+
+const FeedBackWritingPage: React.FC = () => {
+  return <FeedBackWriting />;
 };
 
-export default FeedBackPage;
+export default FeedBackWritingPage;

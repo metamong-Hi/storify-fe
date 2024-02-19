@@ -4,13 +4,12 @@ import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
 const loadingTexts: string[] = [
-  '와, 멋진 글이네요!',
-  '요정에게 글을 보낼게요.',
-  '글이 요정에게 전달되고 있어요.',
-  '요정이 글을 받았어요.',
-  '요정이 글을 읽고 있어요.',
-  '요정이 어떤 동화로 바꿀 지 생각하고 있어요.',
-  '곧 요정이 동화를 써 줄 거예요.',
+  '잠시만 기다려 주세요.',
+  '의견을 전달하고 있어요',
+  '의견을 보내주셔서 감사합니다.',
+  '피드백이 잘 도착했습니다.',
+  '바로 반영하도록 하겠습니다.',
+  '더 나은 서비스로 보답하겠습니다.',
 ];
 
 const LoadingTextSwiper: React.FC = () => (
@@ -26,9 +25,7 @@ const LoadingTextSwiper: React.FC = () => (
   >
     {loadingTexts.map((loadingText, index) => (
       <SwiperSlide key={index}>
-        <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold text-base-content">
-          {loadingText}
-        </h1>
+        <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold text-base-content">{loadingText}</h1>
       </SwiperSlide>
     ))}
   </Swiper>

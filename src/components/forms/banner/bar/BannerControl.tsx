@@ -4,10 +4,14 @@ import Banner from './Banner';
 
 const BannerControl:React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(true); 
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     setIsLoggedIn(!!token);
+
+    const bannerHidden = localStorage.getItem('bannerHidden');
+    setIsBannerVisible(bannerHidden !== 'true');
   }, []);
 
   const handleBannerClick = () => {
@@ -18,7 +22,16 @@ const BannerControl:React.FC = () => {
     }
   };
 
-  return <Banner isLoggedIn={isLoggedIn} onBannerClick={handleBannerClick} />;
+  const handleCloseBanner = () => {
+    setIsBannerVisible(false);
+    localStorage.setItem('bannerHidden', 'true');
+  };
+
+  if (!isBannerVisible) return null;
+
+  return <Banner isLoggedIn={isLoggedIn}
+  onBannerClick={handleBannerClick}
+  onCloseBanner={handleCloseBanner} />;
 };
 
 export default BannerControl;

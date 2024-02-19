@@ -1,14 +1,13 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { resetAll } from '@/store/bookSlice';
-import { setText as setReduxText } from '@/store/textSlice';
+import { setFeedbackMessage } from '@/store/textSlice';
 import useSpeechRecognition from '@/hooks/writing/useSpeechRecognition';
 import TextArea from './TextArea';
 import NavigationButtons from './NavigationButtons';
-import Title from '../writing/Title';
+import Title from '../../writing/Title';
 
-const SimpleWriting: React.FC = () => {
+const FeedBackWriting: React.FC = () => {
   const [isListening, setIsListening] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { text, setText, error } = useSpeechRecognition(isListening);
@@ -16,8 +15,7 @@ const SimpleWriting: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
     setText(newValue);
-    dispatch(setReduxText(newValue));
-    dispatch(resetAll());
+    dispatch(setFeedbackMessage(newValue));
   };
 
   return (
@@ -32,4 +30,4 @@ const SimpleWriting: React.FC = () => {
   );
 };
 
-export default SimpleWriting;
+export default FeedBackWriting;

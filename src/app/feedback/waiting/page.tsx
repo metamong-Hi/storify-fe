@@ -1,8 +1,8 @@
 import React from 'react';
-import SimpleWaiting from '@/components/forms/writing/waiting/Waiting';
+import FeedBackWaiting from '@/components/forms/banner/waiting/FeedBackWaiting';
 
-const SimpleWritingPage: React.FC = () => {
-  return <SimpleWaiting />;
+const FeedBackWritingPage: React.FC = () => {
+  return <FeedBackWaiting />;
 };
 
-export default SimpleWritingPage;
+export default FeedBackWritingPage;

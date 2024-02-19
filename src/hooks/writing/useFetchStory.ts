@@ -38,8 +38,6 @@ export const useFetchStory = ({ text, token }: UseFetchStoryProps): UseFetchStor
         setIsSuccess(true);
         dispatch(resetText());
       } else {
-        // Assuming you want to handle the not-ok response differently
-        // For example, setting isSuccess to false
         setIsSuccess(false);
         console.error('Submission failed. Please try again.');
       }

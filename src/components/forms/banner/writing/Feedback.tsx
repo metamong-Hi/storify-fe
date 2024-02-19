@@ -80,9 +80,7 @@ const FeedBack: React.FC<FeedBackProps> = ({ text, setText }) => {
             </h2>
             <div className="divider"></div>
             <Link href="/" passHref>
-              <button className="btn font-bold border-2">
-                홈으로 가기
-              </button>
+              <button className="btn font-bold border-2">홈으로 가기</button>
             </Link>
           </div>
         </div>
@@ -108,14 +106,9 @@ const FeedBack: React.FC<FeedBackProps> = ({ text, setText }) => {
           <div className="divider"></div>
           <div className="flex justify-between">
             <Link href="/" passHref>
-              <button className="btn font-bold border-2">
-                뒤로 가기
-              </button>
+              <button className="btn font-bold border-2">뒤로 가기</button>
             </Link>
-            <button
-              className="btn btn-primary font-bold border-2"
-              onClick={handleButtonClick}
-            >
+            <button className="btn btn-primary font-bold border-2" onClick={handleButtonClick}>
               보내기
             </button>
           </div>
