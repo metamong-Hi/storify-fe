@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
+import { resetText  } from '@/store/textSlice';
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -49,6 +50,7 @@ const ComplexWaitingPage: React.FC = () => {
           const data = await response.json();
           dispatch(setBookContent(data.content));
           dispatch(setBookId(data.story._id));
+          resetText();
           setIsSuccess(true);
         } else {
           alert('제출에 실패했습니다. 다시 시도해주세요.');
@@ -68,7 +70,7 @@ const ComplexWaitingPage: React.FC = () => {
   }, [isSuccess, router]);
 
   return (
-    <div className="w-[60vw] h-[60vh] flex flex-col justify-center items-center ">
+    <div className="w-w-[90vw] sm:w-[85vw] md:w-[80vw] lg: w-[75vw] xl:w-[70vw] h-[60vh] flex flex-col justify-center items-center ">
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -81,14 +83,14 @@ const ComplexWaitingPage: React.FC = () => {
       >
         {loadingTexts.map((loadingText, index) => (
           <SwiperSlide key={index}>
-            <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-center font-bold text-base-content">
+            <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold text-base-content">
               {loadingText}
             </h1>
           </SwiperSlide>
         ))}
       </Swiper>
       {!isSuccess && (
-        <span className="loading loading-dots loading-xs sm:loading-sm md:loading-md lg:loading-lg text-accent"></span>
+        <span className="loading loading-dots loading-lg text-accent"></span>
       )}
     </div>
   );

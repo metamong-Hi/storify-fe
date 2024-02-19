@@ -332,10 +332,10 @@ const BackgroundMusic: React.FC = () => {
           {MusicName.map((name, index) => (
             <li
               key={index}
-              className={`track-item text-base-content ${currentTrackIndex === index ? 'active' : ''}`}
+              className={`track-item text-xl text-base-content ${currentTrackIndex === index ? 'active' : ''}`}
               onClick={() => handlePlayTrack(index)}
             >
-              <a>
+              <a >
                 {index + 1}. {name}
               </a>
             </li>

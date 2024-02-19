@@ -5,7 +5,7 @@ import ComplexCard from '@/components/objects/cards/Complex';
 
 const WritingPage: React.FC = () => {
   return (
-    <div className="flex">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
       <SimpleCard />
       <ComplexCard />
     </div>

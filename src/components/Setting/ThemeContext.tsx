@@ -11,15 +11,14 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedTheme, setSelectedTheme] = useState<string>('default');
+  const [selectedTheme, setSelectedTheme] = useState<string>('light');
   const [selectedFontClass, setSelectedFontClass] = useState<string>('font-default');
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   useEffect(() => {
-    const storedTheme = localStorage.getItem('selectedTheme') || 'default';
+    const storedTheme = localStorage.getItem('selectedTheme') || 'light';
     setSelectedTheme(storedTheme);
     document.documentElement.setAttribute('data-theme', storedTheme);
 
-    // 글꼴 설정을 로컬 스토리지에서 불러옵니다.
     const storedFontClass = localStorage.getItem('selectedFontClass') || 'font-default';
     setSelectedFontClass(storedFontClass);
     document.documentElement.className = storedFontClass;
@@ -31,12 +30,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [selectedTheme]);
 
   useEffect(() => {
-    // 글꼴 클래스를 로컬 스토리지에 저장합니다.
     localStorage.setItem('selectedFontClass', selectedFontClass);
     document.documentElement.className = selectedFontClass;
   }, [selectedFontClass]);
 
-  // 현재 재생중인 곡의 인덱스를 로컬 스토리지에서 불러오기
   useEffect(() => {
     const storedTrackIndex = localStorage.getItem('currentTrackIndex');
     if (storedTrackIndex) {

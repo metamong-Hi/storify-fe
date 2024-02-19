@@ -12,7 +12,7 @@ import { ThemeProvider } from '@/components/Setting/ThemeContext';
 import {GoogleAnalytics} from '@next/third-parties/google'
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="kr" data-theme="fantasy">
+    <html lang="kr" data-theme="light">
       <body className="font-KyoboHand">
         <Provider store={store}>
           <Providers>
