@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
+import Swal from 'sweetalert2';
 
 const BannerControl:React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +19,16 @@ const BannerControl:React.FC = () => {
     if (isLoggedIn) {
       window.location.href = '/feedback';
     } else {
-      alert('피드백을 남기기 위해서는 로그인이 필요합니다.');
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 필요',
+        text: '이 기능을 사용하려면 로그인이 필요합니다.',
+        confirmButtonText: '확인',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+        },
+        buttonsStyling: false,
+      });
     }
   };
 

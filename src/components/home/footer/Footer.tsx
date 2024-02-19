@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo }  from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -12,15 +12,26 @@ interface FooterLinkProps {
   label: string;
 }
 
-
 const whiteIconThemes: string[] = [
-  'luxury', 'dark', 'coffee', 'night', 'halloween',
-  'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business',
+  'luxury',
+  'dark',
+  'coffee',
+  'night',
+  'halloween',
+  'sunset',
+  'synthwave',
+  'forest',
+  'black',
+  'dracula',
+  'business',
 ];
 
 const FooterLink: React.FC<FooterLinkProps> = ({ href, src, alt, label }) => {
   const theme = useSelector((state: RootState) => state.theme.value);
-  const iconFilter = useMemo(() => whiteIconThemes.includes(theme) ? 'invert(100%)' : 'none', [theme]);
+  const iconFilter = useMemo(
+    () => (whiteIconThemes.includes(theme) ? 'invert(100%)' : 'none'),
+    [theme],
+  );
 
   return (
     <Link href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
@@ -52,7 +63,9 @@ const Footer: React.FC = () => {
         </p>
       </aside>
       <nav>
-        <h6 className="footer-title text-base-content text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">About Us</h6>
+        <h6 className="footer-title text-base-content text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+          About Us
+        </h6>
         <div className="flex flex-col gap-2">
           <FooterLink
             href="https://github.com/classbinu/storify-fe"

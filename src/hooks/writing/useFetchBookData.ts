@@ -1,7 +1,8 @@
-// useFetchBookData.ts
+"use client";
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setBookId, setImageUrls } from '@/store/bookSlice';
+import Swal from 'sweetalert2';
 
 interface BookResponseData {
   _id: string;
@@ -47,7 +48,18 @@ export const useFetchBookData = (token: string | null, bookContent: string, book
         const imageUrls = Object.values(responseData.body).map(item => item.imageUrl);
         dispatch(setImageUrls(imageUrls));
       } catch (error) {
-        setError(error instanceof Error ? error.message : 'An unknown error occurred');
+        const errorMessage = error instanceof Error ? error.message : '책 불러오기가 실패했어요. 다시 시도해보세요';
+        setError(errorMessage);
+        Swal.fire({ 
+          icon: 'error',
+          title: '에러 발생',
+          text: errorMessage,
+          confirmButtonText: '확인',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+          },
+          buttonsStyling: false,
+        });
       } finally {
         setIsLoading(false);
       }

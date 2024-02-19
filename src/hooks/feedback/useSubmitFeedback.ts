@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 interface FeedbackParams {
   text: string;
@@ -11,7 +12,6 @@ interface SubmitFeedbackResult {
   error: string | null;
 }
 
-// Adjust the hook to accept an object with text and token
 const useSubmitFeedback = (): [(params: FeedbackParams) => Promise<void>, SubmitFeedbackResult] => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,10 +35,28 @@ const useSubmitFeedback = (): [(params: FeedbackParams) => Promise<void>, Submit
         setIsSubmitted(true);
         setError(null);
       } else {
-        setError('Failed to submit feedback');
+        Swal.fire({
+          icon: 'error',
+          title: '에러 발생',
+          text: '제출이 실패했어요. 다시 시도해보세요',
+          confirmButtonText: '확인',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+          },
+          buttonsStyling: false,
+        });
       }
     } catch (error: any) {
-      setError(error.message || 'An error occurred');
+      Swal.fire({
+        icon: 'error',
+        title: '에러 발생',
+        text: '제출이 실패했어요. 다시 시도해보세요',
+        confirmButtonText: '확인',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+        },
+        buttonsStyling: false,
+      });
     } finally {
     }
   };

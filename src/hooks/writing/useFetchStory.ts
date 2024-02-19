@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setBookContent, setBookId } from '@/store/bookSlice';
 import { resetText } from '@/store/textSlice';
+import Swal from 'sweetalert2'; 
 
 interface UseFetchStoryProps {
   text: string;
@@ -39,11 +40,29 @@ export const useFetchStory = ({ text, token }: UseFetchStoryProps): UseFetchStor
         dispatch(resetText());
       } else {
         setIsSuccess(false);
-        console.error('Submission failed. Please try again.');
+        Swal.fire({
+          icon: 'error',
+          title: '에러 발생',
+          text: '제출이 실패했어요. 다시 시도해보세요',
+          confirmButtonText: '확인',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+          },
+          buttonsStyling: false,
+        });
       }
     } catch (error) {
       setIsSuccess(false);
-      console.error('An error occurred. Please try again.');
+      Swal.fire({
+        icon: 'error',
+        title: '에러 발생',
+        text: '제출이 실패했어요. 다시 시도해보세요',
+        confirmButtonText: '확인',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+        },
+        buttonsStyling: false,
+      });
     }
   }, [dispatch, text, token]);
 

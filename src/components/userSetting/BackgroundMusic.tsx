@@ -5,6 +5,7 @@ import { PauseCircleIcon } from '../../../public/icons/PauseCircleIcon';
 import { NextIcon } from '../../../public/icons/NextIcon';
 import { PreviousIcon } from '../../../public/icons/PreviousIcon';
 import { PlayCircleIcon } from '../../../public/icons/PlayCircleIcon';
+import Swal from 'sweetalert2';
 
 const tracks = [
   'https://s3.ap-northeast-2.amazonaws.com/storify/public/Chopin - Nocturne op.9 No.2 (320kbps)-1707833466113.mp3',
@@ -134,7 +135,16 @@ const BackgroundMusic: React.FC = () => {
               setIsPlaying(true);
             })
             .catch((error) => {
-              console.error('Playback failed', error);
+              Swal.fire({
+                icon: 'error',
+                title: '재생 에러',
+                text: '재생이 실패했어요. 다시 시도해보세요',
+                confirmButtonText: '확인',
+                customClass: {
+                  confirmButton: 'btn btn-primary',
+                },
+                buttonsStyling: false,
+              });
               setIsPlaying(false);
             });
         }
@@ -216,18 +226,17 @@ const BackgroundMusic: React.FC = () => {
 
   useEffect(() => {
     const audio = audioRef.current;
-  
+
     const handleAudioEnd = () => {
       handleNext();
     };
-  
+
     audio.addEventListener('ended', handleAudioEnd);
-  
+
     return () => {
       audio.removeEventListener('ended', handleAudioEnd);
     };
   }, [handleNext]);
-  
 
   useEffect(() => {
     const storedTrackIndex = localStorage.getItem('currentTrackIndex');
@@ -322,7 +331,7 @@ const BackgroundMusic: React.FC = () => {
               className={`track-item text-xl text-base-content ${currentTrackIndex === index ? 'active' : ''}`}
               onClick={() => handlePlayTrack(index)}
             >
-              <a >
+              <a>
                 {index + 1}. {name}
               </a>
             </li>
