@@ -26,11 +26,11 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ imageUrls, realImagesLoaded
               alt={`Image ${index + 1}`}
               width={256}
               height={256}
-              className="rounded-md w-24 sm:w-28 md:w-32 lg:w-40 xl:w-48 2xl:w-60"
+              className="rounded-md blur-effect1 w-24 sm:w-28 md:w-32 lg:w-40 xl:w-48 2xl:w-60"
               ref={(el) => (imageRefs.current[index] = el)}
             />
           ))
-        : Array.from({ length: imageUrls.length || 3 }, (_, index) => <Skeleton key={index} />)}
+        : Array.from({ length: imageUrls.length || 4 }, (_, index) => <Skeleton key={index} />)}
     </div>
   );
 };

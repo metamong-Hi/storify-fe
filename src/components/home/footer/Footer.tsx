@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
         <h6 className="footer-title text-base-content text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
           About Us
         </h6>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col justify-center items-center text-center gap-2 ">
           <FooterLink
             href="https://github.com/classbinu/storify-fe"
             src="https://s3.ap-northeast-2.amazonaws.com/storify/public/GitHubIcon-1707114011024.png"
