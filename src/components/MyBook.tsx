@@ -144,7 +144,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [helloUserId, setHelloUserId]=useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [animationCss, setAnimationCss] = useState('');
-  const [token,setToken]=useState('');
+  // const [token,setToken]=useState('');
   const [isUser, setIsUser] = useState<boolean>(false);
   const [userId,setUserId]=useState('');
   const [author,setAuthor]=useState('');
@@ -327,6 +327,7 @@ useEffect(() => {
       const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
       setPage(newPages);
       setHelloUserId(data.userId._id);
+      const token=sessionStorage.getItem('token');
       if (token) {
         const decodedPayload = jwtDecode(token);
         if(decodedPayload.sub === data.userId._id) {
@@ -345,7 +346,7 @@ useEffect(() => {
 }, [bookId]); 
   const handleDelete = async () => {
     try {
- 
+      const token=sessionStorage.getItem('token')
       const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`, {
         method: 'DELETE',
         headers: {
