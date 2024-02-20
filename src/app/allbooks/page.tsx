@@ -1,17 +1,14 @@
-'use client';
+import dynamic from 'next/dynamic';
+import React from 'react';
 
-import { getAllBooks } from '@/components/book/AllBooks';
-import BooksPage from '@/components/book/BooksPage';
-import { BooksData } from '@/types/books';
-import { Suspense } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import Loading from './loading';
-import Layout from './layout';
+const DynamicBooksPage = dynamic(() => import('@/components/book/BooksPage'), {
+  ssr: false,
+});
 
 const Page = () => {
   return (
     <div className="flex justify-center items-center p-8">
-      <BooksPage userId="" />
+      <DynamicBooksPage userId="" />
     </div>
   );
 };
