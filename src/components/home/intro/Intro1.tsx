@@ -71,7 +71,7 @@ const Intro1: React.FC = () => {
           {images.map((src, index) => (
             <SwiperSlide
               key={index}
-              style={{ height: '50vh', width: '50vw', position: 'relative' }}
+              style={{ height: '60vh', width: '50vw', position: 'relative' }}
             >
               <Image src={src} alt={`Slide ${index}`} layout="fill" />
             </SwiperSlide>

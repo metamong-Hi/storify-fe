@@ -1,4 +1,4 @@
-import SimpleWritingPageSkeleton from "@/components/skeleton/writing/SimpleWritingPageSkeleton";
+import SimpleWritingPageSkeleton from "@/components/skeleton/writing/SimpleWriting";
 
 export default function Loading() {
   return (

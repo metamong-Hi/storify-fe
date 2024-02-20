@@ -128,11 +128,12 @@ const ComplexWritingPage: React.FC = () => {
 
     setIsSending(true);
     setIsQuestionLoading(true);
+    const finalText = text.trim().endsWith('.') ? text.trim() : `${text.trim()},`;
 
-    dispatch(addText(text));
+    dispatch(addText(finalText));
     setText('');
     resetAll();
-    const updatedConversation = [...conversation, { question: text, answer: '' }];
+    const updatedConversation = [...conversation, { question: finalText, answer: '' }];
     setConversation(updatedConversation);
     const combinedMessages = updatedConversation.map((item) => item.question).join(' ');
     if (currentStep < 2) {
@@ -240,24 +241,24 @@ const ComplexWritingPage: React.FC = () => {
       {displayedMessages.map((message, index) => (
         <div key={index} className="chat chat-start mb-2">
           <div className="chat-image avatar">
-            <div className="w-12 rounded-full">
+            <div className="w-12 lg:w-16 rounded-full">
               <Image
                 alt="Tailwind CSS chat bubble component"
                 src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                width={500}
-                height={500}
+                width={256}
+                height={256}
               />
             </div>
           </div>
           <div className="flex">
-            <div className="chat-bubble">{message}</div>
+            <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{message}</div>
             {index === 0 && (
               <button onClick={playAudio} className="btn btn-circle btn-outline ml-4">
                 <div className="w-8 h-8 relative">
                   <Image
                     src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
-                    width={500}
-                    height={500}
+                    width={256}
+                    height={256}
                     objectFit="scale-down"
                     alt="play audio"
                   />
@@ -271,25 +272,25 @@ const ComplexWritingPage: React.FC = () => {
         <div key={index}>
           <div className="chat chat-end ">
             <div className="chat-image avatar">
-              <div className="w-12 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
+              <div className="w-12 lg:w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                  width={500}
-                  height={500}
+                  width={256}
+                  height={256}
                 />
               </div>
             </div>
-            <div className="chat-bubble chat-bubble-success">{exchange.question}</div>
+            <div className="chat-bubble chat-bubble-success text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{exchange.question}</div>
           </div>
           <div className="chat chat-start">
             <div className="chat-image avatar">
-              <div className="w-12 rounded-full">
+              <div className="w-12 lg:w-16 rounded-full">
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                  width={500}
-                  height={500}
+                  width={256}
+                  height={256}
                 />
               </div>
             </div>
@@ -298,7 +299,7 @@ const ComplexWritingPage: React.FC = () => {
                 <span className="loading loading-dots loading-lg"></span>
               </div>
             ) : (
-              <div className="chat-bubble">{exchange.answer}</div>
+              <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{exchange.answer}</div>
             )}
           </div>
         </div>

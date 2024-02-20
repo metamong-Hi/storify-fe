@@ -521,9 +521,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                     />
                   </ImageDroppable>
                 ) : (
-                  <div
-                    className="text-black flex items-center p-4 h-[40vh] sm:h-[45vh] lg:h-[50vh]"
-                  >
+                  <div className="text-black flex items-center p-8 h-[40vh] sm:h-[45vh] lg:h-[50vh]">
                     <ResponsiveText>{item}</ResponsiveText>
                   </div>
                 )}
@@ -538,11 +536,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             이전 페이지
           </Button>
         ) : (
-          <Button
-            size="lg"
-            onClick={navigateToAllBooks}
-            style={{ marginRight: '10px' }}
-          >
+          <Button size="lg" onClick={navigateToAllBooks} style={{ marginRight: '10px' }}>
             뒤로가기
           </Button>
         )}
@@ -552,11 +546,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             다음 페이지
           </Button>
         ) : (
-          <Button
-            size="lg"
-            onClick={navigateToAllBooks}
-            style={{ marginLeft: '10px' }}
-          >
+          <Button size="lg" onClick={navigateToAllBooks} style={{ marginLeft: '10px' }}>
             책장으로 가기
           </Button>
         )}

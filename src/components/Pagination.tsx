@@ -29,7 +29,6 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
     return pageNumbers.slice(startPage - 1, endPage);
   }, [currentPage, pageNumbers, totalPage]);
 
-
   return (
     <div className="flex justify-center items-center">
       <nav className="block">

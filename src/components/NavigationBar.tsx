@@ -236,7 +236,10 @@ const NavbarComponent = () => {
                   className="mt-3 relative z-20 p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link href={`/user/${userId}/bookshelf`} className="p-4 text-xl text-base-content">
+                    <Link
+                      href={`/user/${userId}/bookshelf`}
+                      className="p-4 text-xl text-base-content"
+                    >
                       내 책장
                     </Link>
                   </li>

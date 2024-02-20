@@ -1,12 +1,11 @@
-"use client"
+'use client';
 import React from 'react';
 
 const KakaoLogin: React.FC = () => {
-
   const sendApiRequest = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao/userInfo`, {
-        method: 'GET', 
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -17,7 +16,7 @@ const KakaoLogin: React.FC = () => {
       }
 
       const data = await response.json();
-    //   console.log(data); 
+      //   console.log(data);
     } catch (error) {
       console.error(error);
     }
