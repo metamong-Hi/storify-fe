@@ -122,7 +122,7 @@ function LoginPage() {
           
         }
         //noti/sendMissedNotifications
-        // window.location.reload();
+        window.location.reload();
         handleAlert();
       } else {
         throw new Error('로그인 실패');
