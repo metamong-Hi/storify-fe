@@ -13,7 +13,9 @@ import { redirect } from 'next/navigation';
 interface UseBooksDataProps {
   userId: string;
 }
-
+interface BookListProps{
+  userId:string;
+}
 interface userIDProps {
   _id: string;
   nickname: string;
@@ -33,19 +35,19 @@ async function getOtherUserId(userId: string) {
   return response;
 }
 
-const BooksPage = ({ userId }: UseBooksDataProps) => {
+const BooksPage: React.FC<UseBooksDataProps> =({ userId }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
     { label: '조회순', value: 'count' },
   ];
 
-  let id = '';
+  // let id = '';
   const [otherNickname, setOtherNickname] = useState('');
   const [shelfTitle, setShelfTitle] = useState('');
-
+  let id=sessionStorage.getItem('token');
+  
   if (typeof window !== 'undefined' && userId) {
-    id = sessionStorage.getItem('token') ?? '';
     if (id !== '') {
       id = jwtDecode(sessionStorage.getItem('token') || '')?.sub as string;
       const getDatas = async () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { getAllBooks } from '@/components/book/AllBooks';
+
 import BookList from '@/components/book/BookList';
 
 export default function HomePage() {
