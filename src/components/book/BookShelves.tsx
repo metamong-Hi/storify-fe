@@ -100,9 +100,6 @@ async function getUserIdtoProfile(_id: string) {
   return response2;
 }
 
-const token = sessionStorage.getItem('token');
-console.log(token);
-
 export const Book = ({ book, index }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
