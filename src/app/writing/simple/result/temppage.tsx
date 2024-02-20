@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
-import { setBookId, setImageUrls, resetAll } from '@/store/bookSlice';
+import { setBookId, setImageUrls} from '@/store/bookSlice';
 
 interface BookResponseData {
   _id: string;
@@ -14,14 +14,13 @@ interface BookResponseData {
 interface ImageItem {
   imageUrl: string;
 }
-
 const Skeleton = () => {
   return (
-    <div className="skeleton w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-60 2xl:h-60 "></div>
+    <div className="skeleton w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-60 2xl:h-60  "></div>
   );
 };
 
-const ComplexResultPage: React.FC = () => {
+const SimpleResultPage: React.FC = () => {
   const dispatch = useDispatch();
   let token: string | null = null;
   const bookContent = useSelector((state: RootState) => state.book.content);
@@ -66,7 +65,6 @@ const ComplexResultPage: React.FC = () => {
           );
           dispatch(setImageUrls(imageUrls));
           setRealImagesLoaded(true);
-          resetAll();
         }
       } catch (error) {
         console.error('Error:', error);
@@ -149,7 +147,7 @@ const ComplexResultPage: React.FC = () => {
       <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         요정이 동화책을 만들고 있어요.
       </h1>
-      <h2 className=" text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
+      <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold mb-0 sm:mb-0 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 text-base-content">
         잠시만 기다려 주세요.
       </h2>
       <div className="divider"></div>
@@ -181,7 +179,7 @@ const ComplexResultPage: React.FC = () => {
         <Link href={`/book/${bookId}`} passHref>
           <button
             ref={buttonRef}
-            className="btn btn-outline xl:btn-lg btn-primary font-bold border-2 mt-4"
+            className="btn btn-lg btn-outline btn-primary font-bold border-2 mt-4"
           >
             책 보러 가기
           </button>
@@ -190,4 +188,4 @@ const ComplexResultPage: React.FC = () => {
     </div>
   );
 };
-export default ComplexResultPage;
+export default SimpleResultPage;

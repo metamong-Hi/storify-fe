@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ComplexWritingPageSkeleton: React.FC = () => {
+const ComplexWriting: React.FC = () => {
   const SkeletonElement = ({ className }: { className: string }) => (
     <div className={`animate-pulse ${className} skeleton`}></div>
   );
@@ -31,4 +31,4 @@ const ComplexWritingPageSkeleton: React.FC = () => {
   );
 };
 
-export default ComplexWritingPageSkeleton;
+export default ComplexWriting;

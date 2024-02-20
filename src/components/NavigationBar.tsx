@@ -101,7 +101,7 @@ const NavbarComponent = () => {
         sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
 
-        // window.location.href='/';
+        window.location.href='/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
@@ -133,7 +133,7 @@ const NavbarComponent = () => {
     }
   };
 
-  const handleMenuItemClick = (link:string) => {
+  const handleMenuItemClick = (link: string) => {
     if (link === '/writing' && !isLoggedIn) {
       Swal.fire({
         icon: 'error',
@@ -149,13 +149,13 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 p-2">
+      <div className="navbar bg-base-100 p-1">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-8 w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -171,13 +171,13 @@ const NavbarComponent = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-20 p-1 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
                 <Link key={index} href={item.link}>
-                  <li className=" text-xl p-2 xl:text-2xl font-bold">
+                  <li>
                     <span
-                      className={`text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}
+                      className={`text-xl xl:text-2xl font-bold text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}
                     >
                       {item.text}
                     </span>
@@ -186,8 +186,11 @@ const NavbarComponent = () => {
               ))}
             </ul>
           </div>
-          <div className=" justify-start p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
-            <div onClick={handleLogoClick} className="text-xl lg:text-3xl font-bold cursor-pointer">
+          <div className=" justify-start p-4 sm:px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+            <div
+              onClick={handleLogoClick}
+              className="text-3xl lg:text-4xl font-bold cursor-pointer"
+            >
               <span className="text-base-content text-warning">STORIFY</span>
             </div>
           </div>
@@ -201,7 +204,7 @@ const NavbarComponent = () => {
                 onClick={() => handleMenuItemClick(item.link)}
               >
                 <span
-                  className={`cursor-pointer text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                  className={` cursor-pointer text-2xl text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}
                 >
                   {item.text}
                 </span>
@@ -209,46 +212,50 @@ const NavbarComponent = () => {
             ))}
           </ul>
         </div>
-        <div className="flex navbar-end p-5 sm:px-5 md:px-8 lg:px-10 xl:px-20 2xl:px-32">
+        <div className="flex navbar-end p-4 sm:px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
           {isLoggedIn ? (
             <>
-              <span className="text-base-content hidden sm:block">
-                <span className=" text-xl font-bold pr-2">{nickname}</span>님 환영합니다
+              <span className="flex flex-row items-center text-base-content">
+                <span className=" text-xl font-bold pr-2">{nickname}</span>
+                <span className="hidden sm:block">님 환영합니다</span>
               </span>
               <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-6 rounded-full">
+                  <div className="w-8 rounded-full">
                     <Image
                       alt="Tailwind CSS Navbar component"
                       src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={10}
-                      height={10}
+                      width={128}
+                      height={128}
                       style={{ filter: iconFilter }}
                     />
                   </div>
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-10 p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 relative z-20 p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link href={`/user/${userId}/bookshelf`} className="p-4 text-base-content">
+                    <Link
+                      href={`/user/${userId}/bookshelf`}
+                      className="p-4 text-xl text-base-content"
+                    >
                       내 책장
                     </Link>
                   </li>
                   <li>
-                    <Link href={`/user-setting`} className="p-4 text-base-content">
+                    <Link href={`/user-setting`} className="p-4 text-xl text-base-content">
                       환경설정
                     </Link>
                   </li>
 
                   {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-4 text-base-content">
+                    <Link href={`/user/${userId}/profile`} className="p-4 text-xl text-base-content">
                       프로필
                     </Link>
                   </li> */}
                   <li>
-                    <div className="text-danger p-4" onClick={() => handleClickLogout()}>
+                    <div className="text-danger p-4 text-xl " onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
                   </li>
@@ -260,14 +267,14 @@ const NavbarComponent = () => {
               <div>
                 <button
                   onClick={onLoginOpen}
-                  className="btn btn-outline mr-2 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl "
+                  className="btn btn-outline mr-2 font-bold text-md lg:text-lg xl:text-xl 2xl:text-2xl "
                 >
                   로그인
                 </button>
 
                 <button
                   onClick={onRegisterOpen}
-                  className="btn btn-outline font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl "
+                  className="btn btn-outline font-bold text-md lg:text-lg xl:text-xl 2xl:text-2xl "
                 >
                   회원가입
                 </button>

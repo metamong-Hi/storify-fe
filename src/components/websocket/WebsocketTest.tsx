@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 
 
 const token=sessionStorage.getItem('token');
-const socket = io('https://api.storifyai.site/ws-noti', {
+const socket = io('http://localhost:3001', {
   transportOptions: {
     polling: {
       extraHeaders: {
