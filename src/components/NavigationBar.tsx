@@ -101,7 +101,7 @@ const NavbarComponent = () => {
         sessionStorage.removeItem('nickname');
         setIsLoggedIn(false);
 
-        // window.location.href='/';
+        window.location.href='/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
