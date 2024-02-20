@@ -134,7 +134,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
                 className="p-2 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none"
                 onClick={handleSearch}
               >
-                <SearchIcon size={18} />
+                <SearchIcon size={30} />
               </button>
             </div>
           </div>
