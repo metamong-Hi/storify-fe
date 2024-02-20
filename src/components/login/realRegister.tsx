@@ -130,7 +130,7 @@ function LoginPage() {
         console.error('로그인 실패: ', error);
         showLoginFailedAlert();
       });
-    console.log('여기까지 왔다');
+    console.log('여기까지 왔다'); //테스트
   };
 
   const [formSignupData, setFormSignupData] = useState({
