@@ -22,6 +22,7 @@ const BooksList = ({ userId }: UseBooksDataProps) => {
     sortBy: '',
     search: '',
     userId: userId,
+    type: '',
   });
 
   return (
