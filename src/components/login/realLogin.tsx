@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
 import styled from 'styled-components';
 import Image from 'next/image';
-
+import { setNotifications } from '@/store/notificationSlice';
 const StyledLink = styled(Link)`
   color: '#FFC4D0';
   cursor: pointer; 
@@ -73,7 +73,7 @@ function LoginPage() {
       confirmButtonText: 'OK',
     }).then((result) => {
       if (result.value) {
-        window.location.reload();
+        // window.location.reload();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
@@ -152,6 +152,8 @@ function LoginPage() {
 
       const data = await response.json();
       console.log("Data received:", data);
+      sessionStorage.setItem('notifications', JSON.stringify(data));
+      dispatch(setNotifications(data));
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }

@@ -11,7 +11,7 @@ export const initializeWebSocket = (token: string): Socket => {
 
   // socket = io('https://api.storifyai.site/ws-noti', {
     // socket=io('http://localhost:3001/ws-noti',{
-    socket = io('https://api.storifyai.site/ws-noti', {    
+    socket = io('http://localhost:3001/ws-noti', {    
     transportOptions: {
       polling: {
         extraHeaders: {
