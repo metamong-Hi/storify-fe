@@ -131,10 +131,7 @@ interface WindowSize {
   height: number | undefined;
 }
 
-let token: string | null;
-if (typeof window !== 'undefined') {
-  token=sessionStorage.getItem('token');
-}
+
 
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [page, setPage] = useState<string[]>([]);
@@ -147,7 +144,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [helloUserId, setHelloUserId]=useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [animationCss, setAnimationCss] = useState('');
-
+  const [token,setToken]=useState('');
   const [isUser, setIsUser] = useState<boolean>(false);
   const [userId,setUserId]=useState('');
   const [author,setAuthor]=useState('');
@@ -185,7 +182,6 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       closeImageEditor();
       setIsLoaded(true);
       setAnimationCss(generateAnimation());
-      const token = sessionStorage.getItem('token');
   }, [currentPageIndex]);
   const handleImageDrop = async(droppedImageUrl:string) => {
     
