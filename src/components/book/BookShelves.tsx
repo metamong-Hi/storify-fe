@@ -1,9 +1,10 @@
+
 'use client';
 
 import React, { use, useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
-
+import io from 'socket.io-client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
@@ -25,6 +26,9 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
+
+
+import { getSocket, initializeWebSocket } from '@/utils/websocket';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface User {
@@ -62,6 +66,9 @@ async function getUserProfile(_id: string) {
   return response.json();
 }
 
+const token=sessionStorage.getItem('token');
+console.log(token);
+
 export const Book = ({ book, index }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
@@ -95,8 +102,21 @@ export const Book = ({ book, index }: BookComponentProps) => {
       if (!response.ok) {
         throw new Error('Failed to send like request to server');
       }
+      const socket = getSocket();
+      // socket.on('like', (data) => {
+      //   if (data.bookId === book._id) {
+      //     console.log('Your book has received a like!');
+          
+      //   }
+      //   console.log("일단 연결은 되었음 좋아요")
+      // });
 
       setLikeError(false); // Reset error state on success
+
+      if (socket ) {
+        console.log("여기까지 왔음")
+        socket.emit('like', { bookId: book._id });
+      }
       return await response.json();
     } catch (error) {
       setLikeError(true); // Set error state to true on failure
@@ -159,7 +179,32 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
     fetchData();
   }, [book]);
+  useEffect(() => {
+    // 사용자 인증 토큰이 있다고 가정
+    const userToken = sessionStorage.getItem('token');
+    if (userToken) {
+      initializeWebSocket(userToken);
+    }
+  }, []);
+  useEffect(() => {
+    const socket = getSocket();
+    console.log("소켓만 호출함"+getSocket);
+    console.log("여기 소켓이다 참고해라"+socket);
+    if (socket) {
+      console.log("소켓 연결ㄷ룀")
+      socket.on('like', (data) => {
+        if (data.bookId === book._id) {
+          console.log('Your book has received a like!',data);
+          alert(`${data.message}`);
+        }
+      });
+    }
 
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      if (socket) socket.off('like');
+    };
+  }, [book._id]);
   const openLoginModal = () => {
     const modal = document.getElementById('authModal');
     if (modal) {

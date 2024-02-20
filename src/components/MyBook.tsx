@@ -209,9 +209,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       icon: 'question',
       confirmButtonText: '네, 삭제할게요',
       showCancelButton: true, 
-      cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
+      cancelButtonText: '취소', 
     }).then((result) => {
-      if (result.isConfirmed) { // 'result.value' 대신 'result.isConfirmed'를 사용합니다.
+      if (result.isConfirmed) { 
         handleDelete();
       }
     });
@@ -256,9 +256,20 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const handleEdit= async(droppedImageUrl:string) => {
 
     const token=sessionStorage.getItem('token')
+    
     try {
       const realPageNumber=(Number(currentPageIndex)+2)/2;
       const realImage = droppedImageUrl.replace("data:image/jpeg;base64,", "");
+      if (!realImage) {
+
+        Swal.fire({
+          title: '이미지가 없습니다!',
+          text: '수정을 위해서는 이미지가 필요합니다.',
+          icon: 'warning',
+          confirmButtonText: '확인',
+        });
+        return; 
+      }
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books/${bookId}/${realPageNumber}/new-images`, {
         method: 'PATCH',
         headers: {
@@ -273,37 +284,33 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
       if (response.ok) {
         const result = await response.json();
-
-        // onDrop(`data:image/jpeg;base64,${droppedImageUrl}`); 
+        Swal.fire('수정완료!', '수정이 완료되었어요!', 'success');
       } else {
+        Swal.fire('실패!', '편집에 실패했습니다.', 'error');
       }
     } catch (error) {
+      Swal.fire('오류!', '처리 중 예상치 못한 오류가 발생했습니다.', 'error');
     }
+  
 
   closeImageEditor();
   }
-  const handleimsiEdit = () => {
-    console.log("편집 버튼이 클릭되었습니다.");
-    Swal.fire({
-      title: '이미지를 저장하시나요?',
-      text: '한 번 저장하면 되돌릴 수 없어요!',
-      icon: 'question',
-      confirmButtonText: '네, 저장할게요',
-      showCancelButton: true, // 닫기 버튼을 추가합니다.
-      cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
-    }).then((result) => {
-      if (result.isConfirmed) { // 확인 버튼이 클릭되었는지 확인합니다.
-        handleEdit(selectedImageUrl);
-        Swal.fire({
-          title: '수정완료!',
-          text: '수정이 완료되었어요!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
-      }
-    });
-  };
-  
+ 
+const handleimsiEdit = () => {
+  console.log("편집 버튼이 클릭되었습니다.");
+  Swal.fire({
+    title: '이미지를 저장하시나요?',
+    text: '한 번 저장하면 되돌릴 수 없어요!',
+    icon: 'question',
+    confirmButtonText: '네, 저장할게요',
+    showCancelButton: true,
+    cancelButtonText: '취소',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      handleEdit(selectedImageUrl);
+    }
+  });
+};
 const handleimsiDelete = () => {
   closeImageEditor();
 };
