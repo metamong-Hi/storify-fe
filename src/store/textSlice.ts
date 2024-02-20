@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface TextState {
   value: string;
   texts: string[];
+  feedbackMessage: string;
 }
 
 const initialState: TextState = {
   value: '',
   texts: [],
+  feedbackMessage: '', 
 };
 
 export const textSlice = createSlice({
@@ -24,10 +26,13 @@ export const textSlice = createSlice({
       state.value = '';
       state.texts = [];
     },
+    setFeedbackMessage: (state, action) => { 
+      state.feedbackMessage = action.payload;
+    },
   },
 });
 
 
-export const { setText, addText, resetText } = textSlice.actions;
+export const { setText, addText, resetText, setFeedbackMessage } = textSlice.actions;
 
 export default textSlice.reducer;
