@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 
 import Pagination from '@/components/Pagination';
@@ -9,9 +9,12 @@ import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
 import { redirect } from 'next/navigation';
+import { BooksData } from '@/types/books';
+import { set } from 'lodash';
 
 interface UseBooksDataProps {
   userId: string;
+  type: string;
 }
 
 interface userIDProps {
@@ -33,7 +36,7 @@ async function getOtherUserId(userId: string) {
   return response;
 }
 
-const BooksPage = ({ userId }: UseBooksDataProps) => {
+const BooksPage = ({ userId, type }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
@@ -57,8 +60,14 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
   }
 
   useEffect(() => {
-    setShelfTitle(userId ? (id === userId ? '내 책장' : otherNickname + '님의 책장') : '');
-  }, [userId, id, otherNickname]);
+    if (userId) {
+      if (type === 'liked')
+        setShelfTitle(id === userId ? '내 선호작' : otherNickname + '님의 선호작');
+      else setShelfTitle(id === userId ? '내 책장' : otherNickname + '님의 책장');
+    } else {
+      setShelfTitle('');
+    }
+  }, [userId, id, otherNickname, type]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
@@ -72,10 +81,49 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     sortBy,
     search,
     userId: userId,
+    type: type,
   });
+  const [filteredBooks, setFilteredBooks] = useState<BooksData[]>([]);
 
+  useEffect(() => {
+    if (type === 'liked') {
+      // 초기에 bookShelves 데이터를 기반으로 한 필터링과 정렬 로직
+      let processedBooks = bookShelves;
+
+      // Search logic
+      if (search) {
+        processedBooks = processedBooks.filter((book) =>
+          book.title?.toLowerCase().includes(search.toLowerCase()),
+        );
+      }
+
+      console.log('search:', processedBooks);
+
+      // 정렬 로직
+      if (sortBy === 'like') {
+        processedBooks.sort((a, b) => {
+          const aCount = a.likesCount && a.likesCount > 0 ? a.likesCount : a.likes?.length ?? 0;
+          const bCount = b.likesCount && b.likesCount > 0 ? b.likesCount : b.likes?.length ?? 0;
+
+          return bCount - aCount;
+        });
+      } else if (sortBy === 'count') {
+        processedBooks.sort((a, b) => ((b.count ?? 0) as number) - ((a.count ?? 0) as number));
+      } else {
+        processedBooks.sort((a, b) => {
+          const dateA = new Date(a.createdAt ?? '');
+          const dateB = new Date(b.createdAt ?? '');
+          return dateB.getTime() - dateA.getTime();
+        });
+      }
+
+      setFilteredBooks(processedBooks);
+    }
+  }, [bookShelves, search, sortBy, type]);
+
+  // 페이지네이션 설정
   const { totalPage, paginate } = usePagination({
-    totalItems,
+    totalItems: type === 'liked' ? filteredBooks.length : totalItems,
     itemsPerPage: limit,
     onPageChange: setCurrentPage,
   });
@@ -139,7 +187,11 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
 
         <div className="flex justify-center flex-wrap gap-4 p-4 mx-auto">
           <div className="flex flex-wrap justify-center gap-7 ">
-            <BookShelves books={bookShelves} limit={limit} search={search} />
+            <BookShelves
+              books={type === 'liked' ? filteredBooks : bookShelves}
+              limit={limit}
+              search={search}
+            />
           </div>
         </div>
         <div className="mt-10">

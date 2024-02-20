@@ -11,7 +11,7 @@ import Layout from './layout';
 const Page = () => {
   return (
     <div className="flex justify-center items-center p-8">
-      <BooksPage userId="" />
+      <BooksPage userId="" type="" />
     </div>
   );
 };
