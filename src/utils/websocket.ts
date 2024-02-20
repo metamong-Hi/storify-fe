@@ -28,12 +28,14 @@ export const initializeWebSocket = (token: string): Socket => {
     socket?.on('friendRequest', (data) => {
       console.log('Friend request received by user2', data);
     });
+    socket?.on('missedNotifications',(data)=>{
+      console.log("일단 여기 좋아요 찍힘",data);
+    });
     socket?.on('like', (data) => {
       console.log('좋아요 받음', data);
       Swal.fire({
-        title: '알림!',
+        title: '❤️좋아요를 받았어요❤️',
         text: data.message,
-        icon: 'success',
         confirmButtonText: '확인'
       });
     });

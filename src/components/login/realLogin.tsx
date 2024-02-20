@@ -121,7 +121,7 @@ function LoginPage() {
             .catch((err) => console.error('웹소켓 연결 실패:', err));
         }
 
-        window.location.reload();
+        // window.location.reload();
       } else {
         throw new Error('로그인 실패');
       }
