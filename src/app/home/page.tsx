@@ -1,15 +1,17 @@
-'use client';
+import dynamic from 'next/dynamic';
+import React from 'react';
 
-import { getAllBooks } from '@/components/book/AllBooks';
-import BookList from '@/components/book/BookList';
+const BookListWithNoSSR = dynamic(() => import('@/components/book/BookList'), {
+  ssr: false, 
+});
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
-      <div className=" p-20">
-        <BookList userId="" />
-        <BookList userId="" />
-        <BookList userId="" />
+      <div className="p-20">
+        <BookListWithNoSSR userId="" />
+        <BookListWithNoSSR userId="" />
+        <BookListWithNoSSR userId="" />
       </div>
     </div>
   );
