@@ -11,6 +11,7 @@ interface FontOption {
 
 const fontOptions: FontOption[] = [
   { label: '기본', classSuffix: 'default' },
+  { label: '타임즈', classSuffix: 'serif' },
   { label: '교보손글씨', classSuffix: 'KyoboHand' },
   { label: '굴림', classSuffix: 'Gulim' },
   { label: '나무굴림', classSuffix: 'NamuGulim' },
@@ -28,6 +29,8 @@ const fontOptions: FontOption[] = [
   { label: '페인트', classSuffix: 'Paint' },
   { label: '봄', classSuffix: 'Spring' },
   { label: '아기', classSuffix: 'Baby' },
+  { label: '나눔고딕', classSuffix: 'nanum-gothic-regular' },
+  { label: '노토세리프', classSuffix: 'noto-serif-kr-regular' },
 ];
 
 const FontSelector: React.FC = () => {

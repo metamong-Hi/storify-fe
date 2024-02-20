@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Head>
-        <title>Stoify</title> 
+        <title>Stoify</title>
         <meta name="description" content="당신의 경험을 동화책으로 만들어보세요" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
