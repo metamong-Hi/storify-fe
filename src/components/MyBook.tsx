@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import styled, { keyframes } from 'styled-components';
-import { Image, Modal } from '@nextui-org/react';
+import styled,{ keyframes} from 'styled-components';
+import { Image,Modal } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
 import apiService from '../services/apiService';
@@ -10,15 +10,13 @@ import ImageEditorDrawer from './ImageEditorDrawer';
 import ImageDroppable from './ImageDroppable';
 import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   border-radius: 20px;
-  overflow: hidden;
+  overflow:hidden;
   flex-direction: column;
   // .html-flip-book {
   //     width: 600px;
@@ -26,17 +24,21 @@ const StyledFlipBook = styled.div`
   //     box-shadow: 10px 10px 25px rgba(0.1, 0.1, 0.1, 0.3);
   // }
   @media (max-width: 768px) {
-    height: auto;
-    padding: 10px;
+    height: auto; 
+    padding: 20px; 
   }
   .demoPage {
-    // outline: 1px solid black;
+    // outline: 2px solid black;
     background-color: white;
     border-radius: 20px;
-    overflow: hidden;
+    overflow:hidden;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     @media (max-width: 768px) {
-      height: 512px;
-      width: 100%;
+      height: 400px;
+      width: 100%; 
     }
   }
 
@@ -49,34 +51,17 @@ const StyledFlipBook = styled.div`
   //   }
 `;
 
+
 const ResponsiveText = styled.p`
-  font-size: 2.25rem;
-  line-height: 3rem;
-
-  @media (max-width: 512px) {
-    font-size: 1.5rem;
-    line-height: 2.25rem;
-  }
-  @media (min-width: 512px) and (max-width: 768px) {
-    font-size: 1.25rem;
-    line-height: 2rem;
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    font-size: 1.5rem;
-    line-height: 2.25rem;
-  }
-
-  @media (min-width: 1025px) and (max-width: 1280px) {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-  }
-
-  @media (min-width: 1281px) and (max-width: 1536px) {
-    font-size: 2rem;
-    line-height: 2.75rem;
+  font-size: 1.5rem; 
+  line-height: 2.75rem; 
+  margin: auto; 
+  @media (max-width: 768px) {
+    font-size: 1.0rem; 
+    line-height: 2rem; 
   }
 `;
+
 const generateAnimation = () => {
   const animations = [
     `
@@ -113,19 +98,20 @@ const generateAnimation = () => {
         50% { transform: translateY(20%) scale(1.4); }
   
       }
-    `,
+    `
   ];
 
   const randomIndex = Math.floor(Math.random() * animations.length);
   return animations[0];
 };
 
+
 const AnimatedImage = styled.img<{ animationCss: string }>`
   object-fit: cover;
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  ${(props) => props.animationCss}
+  ${props => props.animationCss}
   animation: animation 20s ease-in-out infinite;
 `;
 
@@ -147,7 +133,7 @@ interface WindowSize {
 
 let token: string | null;
 if (typeof window !== 'undefined') {
-  token = sessionStorage.getItem('token');
+  token=sessionStorage.getItem('token');
 }
 
 const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
@@ -158,15 +144,13 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [selectedImageUrl, setSelectedImageUrl] = useState('');
   const [editedImageUrl, setEditedImageUrl] = useState('');
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
-  const [helloUserId, setHelloUserId] = useState('');
+  const [helloUserId, setHelloUserId]=useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [animationCss, setAnimationCss] = useState('');
   const token = sessionStorage.getItem('token');
   const [isUser, setIsUser] = useState<boolean>(false);
-  const [userId, setUserId] = useState('');
-  const [author, setAuthor] = useState('');
-  const router = useRouter();
-
+  const [userId,setUserId]=useState('');
+  const [author,setAuthor]=useState('');
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -181,28 +165,32 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   };
 
   const openImageEditor = (imageUrl: string) => {
-    setSelectedImageUrl(imageUrl);
-    setIsImageEditorOpen(true);
-  };
 
+          setSelectedImageUrl(imageUrl);
+          setIsImageEditorOpen(true);
+
+  };
+  
   const closeImageEditor = () => {
     setIsImageEditorOpen(false);
     setSelectedImageUrl('');
     setEditedImageUrl('');
   };
-  const handleFlip = (pageIndex: PageIndexData) => {
+  const handleFlip = (pageIndex:PageIndexData) => {
     setCurrentPageIndex(pageIndex.data);
   };
 
+
   useEffect(() => {
-    closeImageEditor();
-    setIsLoaded(true);
-    setAnimationCss(generateAnimation());
+      closeImageEditor();
+      setIsLoaded(true);
+      setAnimationCss(generateAnimation());
   }, [currentPageIndex]);
-  const handleImageDrop = async (droppedImageUrl: string) => {
-    const updatedPage = [...page];
-    updatedPage[currentPageIndex] = droppedImageUrl;
-    setPage(updatedPage);
+  const handleImageDrop = async(droppedImageUrl:string) => {
+    
+    const updatedPage = [...page]; 
+     updatedPage[currentPageIndex] = droppedImageUrl; 
+    setPage(updatedPage); 
     setSelectedImageUrl(droppedImageUrl);
   };
 
@@ -220,31 +208,34 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       text: '정말 삭제하실건가요?',
       icon: 'question',
       confirmButtonText: '네, 삭제할게요',
-      showCancelButton: true,
-      cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
+      showCancelButton: true, 
+      cancelButtonText: '취소', 
     }).then((result) => {
-      if (result.isConfirmed) {
-        // 'result.value' 대신 'result.isConfirmed'를 사용합니다.
+      if (result.isConfirmed) { 
         handleDelete();
       }
     });
-  };
-  const showDeleteFailedAlert = () => {
+  }
+  const showDeleteFailedAlert=()=>{
     Swal.fire({
-      title: '삭제실패',
-      text: '본인 글만 삭제할 수 있어요',
-      icon: 'warning',
-      confirmButtonText: 'OK',
-    }).then((result) => {});
-  };
-  const showDeleteSuccessAlert = () => {
+        title:'삭제실패',
+        text:'본인 글만 삭제할 수 있어요',
+        icon:'warning',
+        confirmButtonText:'OK',
+    }).then((result)=>{
+
+    })
+  }
+  const showDeleteSuccessAlert=()=>{
     Swal.fire({
-      title: '삭제성공',
-      text: '삭제했어요~~',
-      icon: 'success',
-      confirmButtonText: 'OK',
-    }).then((result) => {});
-  };
+        title:'삭제성공',
+        text:'삭제했어요~~',
+        icon:'success',
+        confirmButtonText:'OK',
+    }).then((result)=>{
+
+    })
+  }
   const goToNextPage = () => {
     if (bookRef.current && bookRef.current.pageFlip) {
       const pageFlipInstance = bookRef.current.pageFlip();
@@ -262,95 +253,102 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     }
   };
 
-  const handleEdit = async (droppedImageUrl: string) => {
-    const token = sessionStorage.getItem('token');
-    try {
-      const realPageNumber = (Number(currentPageIndex) + 2) / 2;
-      const realImage = droppedImageUrl.replace('data:image/jpeg;base64,', '');
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/ai/books/${bookId}/${realPageNumber}/new-images`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
+  const handleEdit= async(droppedImageUrl:string) => {
 
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            base64: realImage,
-          }),
+    const token=sessionStorage.getItem('token')
+    
+    try {
+      const realPageNumber=(Number(currentPageIndex)+2)/2;
+      const realImage = droppedImageUrl.replace("data:image/jpeg;base64,", "");
+      if (!realImage) {
+
+        Swal.fire({
+          title: '이미지가 없습니다!',
+          text: '수정을 위해서는 이미지가 필요합니다.',
+          icon: 'warning',
+          confirmButtonText: '확인',
+        });
+        return; 
+      }
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books/${bookId}/${realPageNumber}/new-images`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+
+          'Authorization':`Bearer ${token}`,
         },
-      );
+        body: JSON.stringify({
+          base64: realImage
+        }),
+      });
 
       if (response.ok) {
         const result = await response.json();
-
-        // onDrop(`data:image/jpeg;base64,${droppedImageUrl}`);
+        Swal.fire('수정완료!', '수정이 완료되었어요!', 'success');
       } else {
+        Swal.fire('실패!', '편집에 실패했습니다.', 'error');
       }
-    } catch (error) {}
+    } catch (error) {
+      Swal.fire('오류!', '처리 중 예상치 못한 오류가 발생했습니다.', 'error');
+    }
+  
 
-    closeImageEditor();
-  };
-  const handleimsiEdit = () => {
-    console.log('편집 버튼이 클릭되었습니다.');
-    Swal.fire({
-      title: '이미지를 저장하시나요?',
-      text: '한 번 저장하면 되돌릴 수 없어요!',
-      icon: 'question',
-      confirmButtonText: '네, 저장할게요',
-      showCancelButton: true, // 닫기 버튼을 추가합니다.
-      cancelButtonText: '취소', // 닫기 버튼의 텍스트를 설정합니다.
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // 확인 버튼이 클릭되었는지 확인합니다.
-        handleEdit(selectedImageUrl);
-        Swal.fire({
-          title: '수정완료!',
-          text: '수정이 완료되었어요!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
+  closeImageEditor();
+  }
+ 
+const handleimsiEdit = () => {
+  console.log("편집 버튼이 클릭되었습니다.");
+  Swal.fire({
+    title: '이미지를 저장하시나요?',
+    text: '한 번 저장하면 되돌릴 수 없어요!',
+    icon: 'question',
+    confirmButtonText: '네, 저장할게요',
+    showCancelButton: true,
+    cancelButtonText: '취소',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      handleEdit(selectedImageUrl);
+    }
+  });
+};
+const handleimsiDelete = () => {
+  closeImageEditor();
+};
+useEffect(() => {
+  const fetchBookData = async () => {
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    });
-  };
+      const data = await response.json();
 
-  const handleimsiDelete = () => {
-    closeImageEditor();
-  };
-  useEffect(() => {
-    const fetchBookData = async () => {
-      try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-
-        setTitle(data.title);
-        setUserId(data.userId._id);
-        setAuthor(data.userId.nickname);
-        const pagesArray = Object.values(data.body) as PageItem[];
-        const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
-        setPage(newPages);
-        setHelloUserId(data.userId._id);
-        if (token) {
-          const decodedPayload = jwtDecode(token);
-          if (decodedPayload.sub === data.userId._id) {
-            setIsUser(true);
-          } else {
-          }
+      setTitle(data.title);
+      setUserId(data.userId._id);
+      setAuthor(data.userId.nickname);
+      const pagesArray = Object.values(data.body) as PageItem[];
+      const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
+      setPage(newPages);
+      setHelloUserId(data.userId._id);
+      if (token) {
+        const decodedPayload = jwtDecode(token);
+        if(decodedPayload.sub === data.userId._id) {
+          setIsUser(true);
+  
         } else {
         }
-      } catch (error) {
-        console.error('Fetching error: ', error);
+      } else {
       }
-    };
+    } catch (error) {
+      console.error('Fetching error: ', error);
+    }
+  };
 
-    fetchBookData();
-  }, [bookId, token]);
+  fetchBookData();
+}, [bookId]); 
   const handleDelete = async () => {
     try {
+ 
       const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`, {
         method: 'DELETE',
         headers: {
@@ -361,111 +359,69 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
 
       if (response.ok) {
         showDeleteSuccessAlert();
-        window.location.href = '/allbooks';
+        window.location.href='/allbooks';
       } else {
         showDeleteFailedAlert();
       }
     } catch (error) {
-      console.log(error);
-      showDeleteFailedAlert();
+        console.log(error);
+        showDeleteFailedAlert();
     }
-  };
-
-  const navigateToAllBooks = () => {
-    router.push('/allbooks');
   };
 
   return (
     <>
-      <div>
-        {isImageEditorOpen && (
-          <ImageEditorDrawer
-            isOpen={isImageEditorOpen}
-            onClose={closeImageEditor}
-            hellopage={parseInt(currentPageIndex.toString(), 10)}
-            bookId={bookId}
-            imageUrls={[]}
-            handleDragOver={(e) => e.preventDefault()}
-            handleDragStart={(e, imageUrl) => console.log(imageUrl)}
-            onEdit={handleimsiEdit}
-            onDelete={handleimsiDelete}
-          />
-        )}
+       {isImageEditorOpen && (
+        <ImageEditorDrawer
+        isOpen={isImageEditorOpen}
+        onClose={closeImageEditor}
+        hellopage={parseInt(currentPageIndex.toString(), 10)}
+        bookId={bookId}
+        imageUrls={[]} 
+        handleDragOver={(e) => e.preventDefault()} 
+        handleDragStart={(e, imageUrl) => console.log(imageUrl)} 
+        onEdit={handleimsiEdit}
+        onDelete={handleimsiDelete}
+      />
+      )}
 
-        <p
-          className="text-base-content"
-          style={{
-            fontSize: '3rem',
-            lineHeight: '2.25rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingTop: '20px',
-          }}
-        >
-          {title}
-        </p>
-      </div>
 
-      <div
+      <p
+      className="text-base-content"
         style={{
+          fontSize: '3rem',
+          lineHeight: '2.25rem',
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center',
-          padding: '10px',
+          paddingTop: '50px',
         }}
       >
-        {isUser && (
-          <button
-            onClick={() => openImageEditor(selectedImageUrl)}
-            className=" btn btn-lg text-success text-md md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl btn-ghost"
-          >
-            그림바꾸기
-          </button>
-        )}
+        {title}
+      </p>
+      <div style={{ textAlign: 'right', padding: '20px' }}> 
+      <div className="dropdown">
+  <div tabIndex={0} role="button" className="btn m-1 btn-ghost">{author}</div>
+  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+    <li> <Link href={`/user/${userId}/bookshelf`}>책장 보러가기</Link></li>
+    {isUser&& (
+      <li role="button" className="menu-item">
+        <a href="#" onClick={showDeleteAlert}>삭제하기</a>
+      </li>
 
-        <div className="dropdown" style={{ marginLeft: isUser ? '0' : 'auto' }}>
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-lg text-base-content text-md md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl btn-ghost"
-          >
-            {author}
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-10 menu p-0 md:p-1 shadow bg-base-100 rounded-box w-28 md:w-32"
-          >
-            <li>
-              <Link href={`/user/${userId}/bookshelf`}>
-                <span className="text-base-content text-sm md:text-md lg:text-md xl:text-lg 2xl:text-lg">
-                  책장 보러가기
-                </span>
-              </Link>
-            </li>
-            {isUser && (
-              <li role="button" className="menu-item">
-                <a
-                  href="#"
-                  onClick={showDeleteAlert}
-                  className="text-base-content text-sm md:text-md lg:text-md xl:text-lg 2xl:text-lg"
-                >
-                  삭제하기
-                </a>
-              </li>
-            )}
-          </ul>
-        </div>
-      </div>
-      {/* <Link href={`/user/${userId}/bookshelf`}>
+    )}
+  </ul>
+</div>
+  {/* <Link href={`/user/${userId}/bookshelf`}>
    {author}
   </Link> */}
+</div>
       <StyledFlipBook>
         <HTMLFlipBook
           ref={bookRef}
-          width={512}
-          height={512}
-          style={{ boxShadow: '10px 10px 15px rgba(0.1, 0.1, 0.1, 0.5)', borderRadius: '20px' }}
+          width={550} 
+          height={550}
+          style={{ boxShadow: '20px 20px 35px rgba(0.1, 0.1, 0.1, 0.5)', borderRadius: '20px' }}
           startPage={0}
           drawShadow={false}
           flippingTime={10}
@@ -478,11 +434,11 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           showPageCorners={true}
           disableFlipByClick={false}
           size="stretch"
-          minWidth={256}
-          maxWidth={512}
-          minHeight={256}
-          maxHeight={512}
-          maxShadowOpacity={0.3}
+          minWidth={200}
+          maxWidth={550}
+          minHeight={300}
+          maxHeight={550}
+          maxShadowOpacity={0.3}   
           showCover={false}
           mobileScrollSupport={true}
           onFlip={handleFlip}
@@ -503,26 +459,44 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   textAlign: 'center',
-                  height: '512px', // 페이지 높이 설정
-                  width: '512px', // 페이지 너비 설정
-                  overflow: 'hidden',
+                  height: '600px', // 페이지 높이 설정
+                  width: '600px', // 페이지 너비 설정
+                  
+                  overflow:'hidden'
                 }}
               >
-                {isEvenPage ? (
+               {isEvenPage ? (
                   <ImageDroppable onDrop={handleImageDrop}>
                     <AnimatedImage
-                      // className={`image ${isLoaded ? 'animate' : ''}`}
+                          // className={`image ${isLoaded ? 'animate' : ''}`}
                       animationCss={animationCss}
                       // isZoomed
-                      width={512}
-                      height={512}
+                      width={600}
+                      height={600}
                       src={item}
                       alt={`Page ${index + 1}`}
+                    
                     />
                   </ImageDroppable>
                 ) : (
-                  <div className="text-black flex items-center p-8 h-[40vh] sm:h-[45vh] lg:h-[50vh]">
-                    <ResponsiveText>{item}</ResponsiveText>
+                  <div
+                    className= "text-black"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center', // 세로 방향 가운데 정렬
+                      textAlign: 'center',
+                      padding: '20px',
+                      height: '50vh', // 부모 div 높이를 100%로 설정
+                    }}
+                  >
+                    <ResponsiveText>
+                    <p
+               
+                    >
+                      {item}
+                    </p>
+                    </ResponsiveText>
                   </div>
                 )}
               </div>
@@ -531,26 +505,26 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         </HTMLFlipBook>
       </StyledFlipBook>
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-        {currentPageIndex > 0 ? (
-          <Button size="lg" onClick={goToPreviousPage} style={{ marginRight: '10px' }}>
-            이전 페이지
-          </Button>
-        ) : (
-          <Button size="lg" onClick={navigateToAllBooks} style={{ marginRight: '10px' }}>
-            뒤로가기
-          </Button>
-        )}
-
-        {currentPageIndex < page.length / 2 - 1 ? (
-          <Button size="lg" onClick={goToNextPage} style={{ marginLeft: '10px' }}>
-            다음 페이지
-          </Button>
-        ) : (
-          <Button size="lg" onClick={navigateToAllBooks} style={{ marginLeft: '10px' }}>
-            책장으로 가기
-          </Button>
-        )}
+        <Button onClick={goToPreviousPage}style={{ marginRight: '10px' }}>
+          이전페이지
+        
+        </Button>
+        <Button onClick={goToNextPage}style={{ marginLeft: '10px' }}>
+          다음페이지 
+       
+        </Button>
       </div>
+      <div style={{ display: 'flex', justifyContent:  'center', marginTop: '10px', gap: '10px', marginRight:'20px', marginBottom:'20px'}}>
+  
+  
+      {isUser && (
+<Button onClick={() => openImageEditor(selectedImageUrl)} style={{height:'40px',width:'40px', backgroundColor:'transparent', color:'blue'}}>그림바꾸기</Button>
+)} 
+
+
+
+  </div>
+   
     </>
   );
 };
