@@ -307,7 +307,7 @@ const ComplexWritingPage: React.FC = () => {
       {currentStep < 3 && (
         <div ref={inputRef}>
           <input
-            className="input input-default input-bordered w-full text-base-content"
+            className="input input-default input-bordered w-full text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-base-content"
             value={text}
             onChange={handleChange}
             autoFocus
@@ -322,17 +322,17 @@ const ComplexWritingPage: React.FC = () => {
           />
           <div className="flex justify-between mt-4">
             <Link href={`/writing`} passHref>
-              <button className="btn font-bold border-2">뒤로가기</button>
+              <button className="btn btn-outline btn-lg font-bold border-2">뒤로가기</button>
             </Link>
             <button
               onClick={() => setIsListening((prevState) => !prevState)}
-              className={`btn font-bold border-2 btn-error ${isListening ? '' : 'btn-outline'}`}
+              className={`btn xl:btn-lg font-bold border-2 btn-error ${isListening ? '' : 'btn-outline'}`}
             >
               {isListening ? '마이크 끄기' : '마이크 켜기'}
             </button>
             {currentStep < 2 ? (
               <button
-                className="btn btn-primary font-bold border-2"
+                className="btn btn-outline xl:btn-lg btn-primary font-bold border-2"
                 onClick={handleClick}
                 disabled={isSending}
               >
@@ -340,7 +340,7 @@ const ComplexWritingPage: React.FC = () => {
               </button>
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
-                <button className="btn btn-primary font-bold border-2" disabled={isSending}>
+                <button className="btn btn-outline xl:btn-lg btn-primary font-bold border-2" disabled={isSending}>
                   동화책 만들기
                 </button>
               </Link>

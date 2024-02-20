@@ -30,7 +30,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ imageUrls, realImagesLoaded
               ref={(el) => (imageRefs.current[index] = el)}
             />
           ))
-        : Array.from({ length: imageUrls.length || 3 }, (_, index) => <Skeleton key={index} />)}
+        : Array.from({ length: imageUrls.length || 4 }, (_, index) => <Skeleton key={index} />)}
     </div>
   );
 };

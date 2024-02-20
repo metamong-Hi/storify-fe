@@ -136,11 +136,12 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const noBookImg =
       book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
         ? book.coverUrl
-        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
+        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
     imageURL = book.thumbnail ? book.thumbnail : noBookImg;
   } catch (error) {
-    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
+    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
   }
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getUserProfile(book.userId?.userId ?? '');
@@ -180,16 +181,16 @@ export const Book = ({ book, index }: BookComponentProps) => {
             priority={true}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
-            height={200}
-            width={200}
-            quality={90}
+            height={256}
+            width={256}
+            quality={100}
           />
         </Link>
       </div>
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-base-content">
+          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
             <div className="text-center w-[250px]">{book.title}</div>
           </div>
         </div>
@@ -208,8 +209,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
               }
             >
               <div className="avatar">
-                <div className="w-4 h-4 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} style={{ filter: iconFilter }}/>
+                <div className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 rounded-full">
+                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={128} height={128} style={{ filter: iconFilter }}/>
                 </div>
               </div>
               <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
@@ -260,8 +261,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   </span>
                 ) : (
                   <HeartIcon
-                    height={20}
-                    width={20}
+                    height={128}
+                    width={128}
                     className={`${
                       liked && token && !likeError ? 'fill-current text-red-500' : 'text-gray-500'
                     }`}

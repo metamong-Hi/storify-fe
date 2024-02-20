@@ -179,7 +179,7 @@ const SimpleResultPage: React.FC = () => {
         <Link href={`/book/${bookId}`} passHref>
           <button
             ref={buttonRef}
-            className="btn btn-primary font-bold border-2 mt-4"
+            className="btn btn-lg btn-primary font-bold border-2 mt-4"
           >
             책 보러 가기
           </button>
