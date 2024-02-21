@@ -66,20 +66,28 @@ const NavbarComponent = () => {
 
   const theme = useSelector((state: RootState) => state.theme.value);
   const iconFilter = getIconFilter(theme);
-  const handleNotificationsClick = () => {
+  const handleNotificationsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); // 이벤트 버블링 방지
     setShowNotifications(!showNotifications);
     sessionStorage.removeItem('notifications');
   };
   // notifications.forEach((notification, index) => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
+
+    // 페이지의 다른 부분을 클릭했을 때 실행될 핸들러
+    const handlePageClick = () => {
+      if (showNotifications) {
+        setShowNotifications(false);
+      }
+    };
   useEffect(() => {
     // 클릭 이벤트 리스너 등록
-    document.addEventListener('click', handleNotificationsClick);
+    document.addEventListener('click', handlePageClick);
 
     // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
-      document.removeEventListener('click', handleNotificationsClick);
+      document.removeEventListener('click', handlePageClick);
     };
   }, [showNotifications]); 
 
