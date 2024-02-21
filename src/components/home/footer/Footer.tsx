@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { getIconFilter } from '@/utils/IconFilter';
 
 interface FooterLinkProps {
   href: string;
@@ -12,26 +13,10 @@ interface FooterLinkProps {
   label: string;
 }
 
-const whiteIconThemes: string[] = [
-  'luxury',
-  'dark',
-  'coffee',
-  'night',
-  'halloween',
-  'sunset',
-  'synthwave',
-  'forest',
-  'black',
-  'dracula',
-  'business',
-];
 
 const FooterLink: React.FC<FooterLinkProps> = ({ href, src, alt, label }) => {
   const theme = useSelector((state: RootState) => state.theme.value);
-  const iconFilter = useMemo(
-    () => (whiteIconThemes.includes(theme) ? 'invert(100%)' : 'none'),
-    [theme],
-  );
+  const iconFilter = getIconFilter(theme);
 
   return (
     <Link href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>

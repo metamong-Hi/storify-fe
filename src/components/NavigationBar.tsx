@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { logout } from '@/store/userSlice';
+import { logout, setSignupSuccess } from '@/store/userSlice';
 import LoginPage from '@/components/login/realLogin';
 import RegisterPage from './login/realRegister';
 import Link from 'next/link';
@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import { getIconFilter } from '@/utils/IconFilter';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ const NavbarComponent = () => {
   const [nickname, setNickname] = useState('');
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
+  const signupSuccess = useAppSelector((state) => state.user.signupSuccess);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
@@ -45,7 +47,9 @@ const NavbarComponent = () => {
       setNotifications(JSON.parse(storedNotifications));
       console.log('여기다 확인해라' + notifications);
     }
-  }, []);
+  }, [notifications]);
+
+
 
   // 로그인 모달 상태
   const {
@@ -61,6 +65,7 @@ const NavbarComponent = () => {
   } = useDisclosure();
 
   const theme = useSelector((state: RootState) => state.theme.value);
+  const iconFilter = getIconFilter(theme);
   const handleNotificationsClick = () => {
     setShowNotifications(!showNotifications);
     sessionStorage.removeItem('notifications');
@@ -77,20 +82,6 @@ const NavbarComponent = () => {
       document.removeEventListener('click', handleNotificationsClick);
     };
   }, [showNotifications]); 
-  const isWhiteIconTheme = [
-    'luxury',
-    'dark',
-    'coffee',
-    'night',
-    'halloween',
-    'sunset',
-    'synthwave',
-    'forest',
-    'black',
-    'dracula',
-    'business',
-  ].includes(theme);
-  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
@@ -175,9 +166,16 @@ const NavbarComponent = () => {
     }
   };
 
+  useEffect(() => {
+    if (signupSuccess === 1) {
+      onLoginOpen();
+      dispatch(setSignupSuccess(0));
+    }
+  }, [signupSuccess, dispatch, onLoginOpen]);
+
   return (
     <>
-      <div className="navbar bg-base-100 p-0">
+      <div className="navbar bg-base-100 px-0 sm:px-4 md:px-8 lg:px-12 xl:px-12 2xl:px-18">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

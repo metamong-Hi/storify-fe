@@ -20,13 +20,10 @@ const Intro2: React.FC = () => {
       <Image
         src="https://s3.ap-northeast-2.amazonaws.com/storify/public/OR7V171-removebg-1707127021387.png"
         alt="반응형 이미지"
-        style={{
-          width: '100%',
-          height: 'auto',
-        }} sizes="100vw"
-        priority={true} 
-        width={1200}
-        height={800}
+        sizes="100vw"
+        width={1440}
+        height={720}
+        quality={75}
         data-aos="fade-up"
         data-aos-delay="200"
       />

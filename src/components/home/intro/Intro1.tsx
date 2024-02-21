@@ -46,7 +46,7 @@ const Intro1: React.FC = () => {
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
-            depth: 100,
+            depth: 50,
             modifier: 1,
             slideShadows: true,
           }}
@@ -59,14 +59,15 @@ const Intro1: React.FC = () => {
           {images.map((src, index) => (
             <SwiperSlide
               key={index}
-              style={{ height: '50vh', width: '50vw', position: 'relative' }}
+              style={{ width: '50vw', position: 'relative' }}
             >
               <Image
                 src={src}
                 alt={`Slide ${index}`}
-                fill
+                width={1440}
+                height={720}
+                quality={75}
                 sizes="50vw"
-                priority={true}
               />
             </SwiperSlide>
           ))}

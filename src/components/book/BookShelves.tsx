@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { use, useCallback, useEffect, useState } from 'react';
@@ -13,20 +12,16 @@ import { getAllBooks } from './AllBooks';
 import { get, set } from 'lodash';
 import { LikeIcon } from '@/components/icons/LikeIcon';
 import { XIcon } from '@/components/icons/XIcon';
-
 import useSessionStorage from '@/hooks/useSessionStorage';
-
 import { jwtDecode } from 'jwt-decode';
 import { error } from 'console';
-
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import { useAppSelector } from '@/hooks/useAppSelector';
-
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-
-
+import { getIconFilter } from '@/utils/IconFilter';
+import BookImage from './bookImage';
 
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -56,6 +51,7 @@ interface BookShelvesProps {
 interface BookComponentProps {
   book: BooksData;
   index: number;
+  priority?: boolean;
 }
 
 async function getUserProfile(_id: string) {
@@ -66,10 +62,10 @@ async function getUserProfile(_id: string) {
   return response.json();
 }
 
-const token=sessionStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 console.log(token);
 
-export const Book = ({ book, index }: BookComponentProps) => {
+export const Book = ({ book, index, priority }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(book.likesCount);
@@ -83,10 +79,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
     introduction: '',
   });
 
-  const theme = useSelector((state : RootState) => state.theme.value);
-
-  const isWhiteIconTheme = ['luxury', 'dark', 'coffee', 'night', 'halloween', 'sunset', 'synthwave', 'forest', 'black', 'dracula', 'business'].includes(theme);
-  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
+  const theme = useSelector((state: RootState) => state.theme.value);
+  const iconFilter = getIconFilter(theme);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -106,11 +100,11 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       setLikeError(false); // Reset error state on success
 
-      if (socket ) {
-        console.log("여기까지 왔음");
+      if (socket) {
+        console.log('여기까지 왔음');
         socket.emit('like', { bookId: book._id });
         console.log(book._id);
-        console.log("여기까지 오?");
+        console.log('여기까지 오?');
       }
       return await response.json();
     } catch (error) {
@@ -145,26 +139,15 @@ export const Book = ({ book, index }: BookComponentProps) => {
     setLikeCount(book.likesCount);
   }, [book, token]);
 
-  let imageURL;
-
-  try {
-    const noBookImg =
-      book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
-        ? book.coverUrl
-        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
-    imageURL = book.thumbnail ? book.thumbnail : noBookImg;
-  } catch (error) {
-    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await getUserProfile(book.userId?.userId ?? '');
+      const userAvatar = data.avatar
+        ? data.avatar
+        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png';
       const user: User = {
         _id: book.userId?._id ?? '',
-        avatar: data.avatar
-          ? data.avatar
-          : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
+        avatar: userAvatar,
         bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`,
         name: data.nickname ?? data.userId,
         userId: data.userId,
@@ -175,6 +158,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
     fetchData();
   }, [book]);
+
   useEffect(() => {
     // 사용자 인증 토큰이 있다고 가정
     const userToken = sessionStorage.getItem('token');
@@ -186,7 +170,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const socket = getSocket();
 
     if (socket) {
-      console.log("소켓 연결ㄷ룀")
+      console.log('소켓 연결ㄷ룀');
       // socket.on('like', (data) => {
       //   if (data.bookId === book._id) {
       //     console.log('Your book has received a like!',data);
@@ -213,23 +197,23 @@ export const Book = ({ book, index }: BookComponentProps) => {
       key={index}
       className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
-      <div className="object-center transition-transform duration-500 hover:scale-105 w-[280px] h-[280px]">
+      <div className="object-center transition-transform duration-500 hover:scale-105 ">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
-          <Image
-            src={imageURL}
-            priority={true}
+          <BookImage
+            src={book.coverUrl || 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708544260293.png'}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
-            height={256}
-            width={256}
-            quality={90}
+            height={300}
+            width={300}
+            quality={75}
+            priority={priority}
           />
         </Link>
       </div>
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
+          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl font-bold text-base-content">
             <div className="text-center w-[240px]">{book.title}</div>
           </div>
         </div>
@@ -249,9 +233,19 @@ export const Book = ({ book, index }: BookComponentProps) => {
             >
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={128} height={128} style={{ filter: iconFilter }}/>
+                  <Image
+                    src={
+                      user.avatar ||
+                      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'
+                    }
+                    alt={`${user.name}'s Avatar`}
+                    width={128}
+                    height={128}
+                    style={{ filter: iconFilter }}
+                  />
                 </div>
               </div>
+
               <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
                 {user.name}
               </span>
@@ -324,7 +318,7 @@ export default function BookShelves({ books = [], limit, search }: BookShelvesPr
   return (
     <>
       {books.map((book, index) => (
-        <Book key={index} book={book} index={index} />
+        <Book key={index} book={book} index={index}  priority={index < 4} />
       ))}
     </>
   );

@@ -98,8 +98,8 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId }: UseBooksDataProps) =
   return (
     <>
       <div className="flex flex-col w-full pl-[4vw] pr-[4vw]">
-        <div className="flex flex-col sm:flex-row justify-between items-center w-full p-8 ">
-          <div role="tablist" className="tabs tabs-lifted relative justify-start p-5 ">
+        <div className="flex flex-col sm:flex-row justify-between items-center w-full py-8 ">
+          <div role="tablist" className="tabs tabs-lifted relative justify-start mb-4 sm:mb-0">
             {sortOptions.map((option) => (
               <a
                 role="tab"
@@ -117,7 +117,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId }: UseBooksDataProps) =
             {shelfTitle}
           </div>
 
-          <div className="relative justify-end p-5 ">
+          <div className="relative justify-end ">
             <div className="flex border-2 rounded-full">
               <input
                 className="form-input w-full bg-transparent py-1 sm:py-2 px-3 text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl focus:outline-none"
@@ -140,13 +140,11 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId }: UseBooksDataProps) =
           </div>
         </div>
 
-        <div className="flex justify-center flex-wrap gap-4 p-4 mx-auto">
-          <div className="flex flex-wrap justify-center gap-7 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-1 md:gap-4 2xl:gap-8">
             <BookShelves books={bookShelves} limit={limit} search={search} />
-          </div>
         </div>
         <div className="mt-10">
-          <div className="text-xs sm:text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl ">
+          <div className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl ">
             <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
           </div>
         </div>
