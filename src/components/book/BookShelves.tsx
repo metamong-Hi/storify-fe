@@ -103,19 +103,14 @@ export const Book = ({ book, index }: BookComponentProps) => {
         throw new Error('Failed to send like request to server');
       }
       const socket = getSocket();
-      // socket.on('like', (data) => {
-      //   if (data.bookId === book._id) {
-      //     console.log('Your book has received a like!');
-          
-      //   }
-      //   console.log("일단 연결은 되었음 좋아요")
-      // });
 
       setLikeError(false); // Reset error state on success
 
       if (socket ) {
-        console.log("여기까지 왔음")
+        console.log("여기까지 왔음");
         socket.emit('like', { bookId: book._id });
+        console.log(book._id);
+        console.log("여기까지 오?");
       }
       return await response.json();
     } catch (error) {
@@ -189,16 +184,15 @@ export const Book = ({ book, index }: BookComponentProps) => {
   }, []);
   useEffect(() => {
     const socket = getSocket();
-    console.log("소켓만 호출함"+getSocket);
-    console.log("여기 소켓이다 참고해라"+socket);
+
     if (socket) {
       console.log("소켓 연결ㄷ룀")
-      socket.on('like', (data) => {
-        if (data.bookId === book._id) {
-          console.log('Your book has received a like!',data);
-          alert(`${data.message}`);
-        }
-      });
+      // socket.on('like', (data) => {
+      //   if (data.bookId === book._id) {
+      //     console.log('Your book has received a like!',data);
+      //     alert(`${data.message}`);
+      //   }
+      // });
     }
 
     return () => {

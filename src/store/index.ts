@@ -4,7 +4,7 @@ import textReducer from './textSlice';
 import bookReducer from './bookSlice';
 import themeReducer from './themeSlice';
 import fontReducer from './fontSlice';
-
+import notificationReducer from './notificationSlice';
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -12,7 +12,7 @@ export const store = configureStore({
     book: bookReducer,
     theme: themeReducer,
     font: fontReducer,
-
+    notification: notificationReducer,
   },
 });
 
