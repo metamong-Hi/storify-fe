@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled, { keyframes } from 'styled-components';
-import { Image, Modal } from '@nextui-org/react';
+// import { Image, Modal } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
 import apiService from '../services/apiService';
@@ -11,6 +11,16 @@ import ImageDroppable from './ImageDroppable';
 import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import UpdateTitle from './UpdateTitle';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalProps,
+  useDisclosure,
+} from '@nextui-org/react';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -160,6 +170,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [title, setTitle] = useState('');
   const bookRef = useRef<HTMLFlipBookElement>(null);
   const [isImageEditorOpen, setIsImageEditorOpen] = useState<boolean>(false);
+  const [isTitleModalOpen, setIsTitleModalOpen] = useState<boolean>(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState('');
   const [editedImageUrl, setEditedImageUrl] = useState('');
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
@@ -170,6 +181,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [isUser, setIsUser] = useState<boolean>(false);
   const [userId, setUserId] = useState('');
   const [author, setAuthor] = useState('');
+  const {isOpen,onOpen,onOpenChange}=useDisclosure();
   const router = useRouter();
   const showEditFailedAlert = () => {
     Swal.fire({
@@ -188,6 +200,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     setSelectedImageUrl(imageUrl);
     setIsImageEditorOpen(true);
   };
+  const openTitleModal=()=>{
+    setIsTitleModalOpen(true);
+  }
 
   const closeImageEditor = () => {
     setIsImageEditorOpen(false);
@@ -432,7 +447,14 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             그림바꾸기
           </button>
         )}
-
+  {isUser && (
+          <button
+            onClick={() => openTitleModal()}
+            className=" btn btn-lg text-success text-md md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl btn-ghost"
+          >
+            제목바꾸기
+          </button>
+        )}
         <div className="dropdown" style={{ marginLeft: isUser ? '0' : 'auto' }}>
           <div
             tabIndex={0}
@@ -560,7 +582,21 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             책장으로 가기
           </Button>
         )}
+              <Modal isOpen={isTitleModalOpen} >
+                  <ModalContent className="flex flex-col justify-center items-center p-4">
+                    {(_onClose: any) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                        <ModalBody className="flex justify-center items-center">
+                          <UpdateTitle bookId={bookId}/>
+                        </ModalBody>
+                        <ModalFooter></ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
       </div>
+
     </>
   );
 };

@@ -84,8 +84,8 @@ const NavbarComponent = () => {
   const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
-  const realToken = useAppSelector((state) => state.user.token);
-  console.log(realToken);
+  // const realToken = useAppSelector((state) => state.user.token);
+  // console.log(realToken);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('selectedTheme');
