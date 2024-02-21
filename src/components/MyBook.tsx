@@ -149,6 +149,7 @@ interface WindowSize {
   height: number | undefined;
 }
 
+
 let token: string | null;
 if (typeof window !== 'undefined') {
   token = sessionStorage.getItem('token');
@@ -165,7 +166,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [helloUserId, setHelloUserId] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [animationCss, setAnimationCss] = useState('');
-  const token = sessionStorage.getItem('token');
+  // const [token,setToken]=useState('');
   const [isUser, setIsUser] = useState<boolean>(false);
   const [userId, setUserId] = useState('');
   const [author, setAuthor] = useState('');
@@ -334,30 +335,32 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         }
         const data = await response.json();
 
-        setTitle(data.title);
-        setUserId(data.userId._id);
-        setAuthor(data.userId.nickname);
-        const pagesArray = Object.values(data.body) as PageItem[];
-        const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
-        setPage(newPages);
-        setHelloUserId(data.userId._id);
-        if (token) {
-          const decodedPayload = jwtDecode(token);
-          if (decodedPayload.sub === data.userId._id) {
-            setIsUser(true);
-          } else {
-          }
+      setTitle(data.title);
+      setUserId(data.userId._id);
+      setAuthor(data.userId.nickname);
+      const pagesArray = Object.values(data.body) as PageItem[];
+      const newPages = pagesArray.flatMap((item): string[] => [item.imageUrl, item.text]);
+      setPage(newPages);
+      setHelloUserId(data.userId._id);
+      if (token) {
+        const decodedPayload = jwtDecode(token);
+        if(decodedPayload.sub === data.userId._id) {
+          setIsUser(true);
+  
         } else {
         }
-      } catch (error) {
-        console.error('Fetching error: ', error);
+      } else {
       }
-    };
+    } catch (error) {
+      console.error('Fetching error: ', error);
+    }
+  };
 
     fetchBookData();
   }, [bookId, token]);
   const handleDelete = async () => {
     try {
+ 
       const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`, {
         method: 'DELETE',
         headers: {

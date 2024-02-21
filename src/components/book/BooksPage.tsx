@@ -42,32 +42,27 @@ const BooksPage = ({ userId, type }: UseBooksDataProps) => {
     { label: '좋아요순', value: 'like' },
     { label: '조회순', value: 'count' },
   ];
-
-  let id = '';
   const [otherNickname, setOtherNickname] = useState('');
   const [shelfTitle, setShelfTitle] = useState('');
 
-  if (typeof window !== 'undefined' && userId) {
-    id = sessionStorage.getItem('token') ?? '';
-    if (id !== '') {
-      id = jwtDecode(sessionStorage.getItem('token') || '')?.sub as string;
-      const getDatas = async () => {
-        const data = await getOtherUserId(userId);
-        setOtherNickname(data.nickname);
-      };
-      getDatas();
-    }
-  }
-
   useEffect(() => {
-    if (userId) {
-      if (type === 'liked')
-        setShelfTitle(id === userId ? '내 선호작' : otherNickname + '님의 선호작');
-      else setShelfTitle(id === userId ? '내 책장' : otherNickname + '님의 책장');
-    } else {
-      setShelfTitle('');
-    }
-  }, [userId, id, otherNickname, type]);
+    const fetchData = async () => {
+      let id = '';
+      if (typeof window !== 'undefined' && userId) {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          id = jwtDecode(token)?.sub as string;
+          if (id !== userId) {
+            const data = await getOtherUserId(userId); // 가정: getOtherUserId가 비동기 함수이며, userId를 사용하여 데이터를 가져옴
+            setOtherNickname(data.nickname);
+          }
+        }
+      }
+      setShelfTitle(userId ? (id === userId ? '내 책장' : `${otherNickname}님의 책장`) : '');
+    };
+
+    fetchData();
+  }, [userId, otherNickname]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
