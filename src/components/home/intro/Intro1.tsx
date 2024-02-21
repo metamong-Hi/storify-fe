@@ -32,7 +32,7 @@ const Intro1: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <IntroHeading>어린이를 위한 <span className="text-accent">AI 동화책</span></IntroHeading>
       <IntroText>모든 동화책을 무료로 이용할 수 있습니다.</IntroText>
-      <div className="max-w-[100vw]">
+      <div className="max-w-[100vw] mt-5">
         <Swiper
           effect={'coverflow'}
           grabCursor={true}
@@ -59,15 +59,12 @@ const Intro1: React.FC = () => {
           {images.map((src, index) => (
             <SwiperSlide
               key={index}
-              style={{ height: '60vh', width: '50vw', position: 'relative' }}
+              style={{ height: '50vh', width: '50vw', position: 'relative' }}
             >
               <Image
                 src={src}
                 alt={`Slide ${index}`}
                 fill
-                style={{
-                  objectFit: 'cover',
-                }}
                 sizes="50vw"
                 priority={true}
               />

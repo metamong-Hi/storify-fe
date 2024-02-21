@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -28,7 +27,11 @@ const ImageSwiper: React.FC<ImageSwiperProps> = ({ images }) => {
     >
       {images.map((src, index) => (
         <SwiperSlide key={index}>
-          <Image src={src} alt={`Slide ${index}`} layout="fill" objectFit="cover" sizes="100vw" priority />
+          <Image src={src} 
+          alt={`Slide ${index}`} 
+          width={4800}
+          height={3300}
+          priority={true}  />
         </SwiperSlide>
       ))}
     </Swiper>

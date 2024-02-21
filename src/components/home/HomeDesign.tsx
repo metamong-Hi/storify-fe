@@ -2,9 +2,9 @@
 import React, { useState, useEffect, lazy } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-const ImageSwiper = lazy(()=> import('./ImageSwiper'));
-const HeroSection = lazy(()=> import('./HeroSection'));
-const StoryButton = lazy(()=> import('./StoryButton'));
+import ImageSwiper from './ImageSwiper';
+const HeroSection = lazy(() => import('./HeroSection'));
+const StoryButton = lazy(() => import('./StoryButton'));
 
 const images = [
   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
@@ -33,8 +33,10 @@ const HomeDesign: React.FC = () => {
   return (
     <div className="relative w-full h-full">
       <ImageSwiper images={images} />
-      <HeroSection />
-      <StoryButton isLoggedIn={isLoggedIn} />
+      <div className="absolute top-[10%] left-[10%] z-10">
+        <HeroSection />
+        <StoryButton isLoggedIn={isLoggedIn} />
+      </div>
     </div>
   );
 };

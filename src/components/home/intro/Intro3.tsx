@@ -84,7 +84,7 @@ const Intro3: React.FC = () => {
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
       <IntroHeading>스토리파이만의 <span className="text-accent">부가서비스</span></IntroHeading>
       <IntroText>다양한 동화책들을 읽고, 써 보세요.</IntroText>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10" data-aos="fade-up">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10 mt-5" data-aos="fade-up">
         {cardInfo.map((card, index) => (
           <div
             key={index}
