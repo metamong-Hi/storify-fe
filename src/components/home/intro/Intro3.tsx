@@ -7,6 +7,8 @@ import 'swiper/css/pagination';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import VanillaTilt from 'vanilla-tilt';
+import IntroHeading from './IntroHeading';
+import IntroText from './IntroText';
 
 interface TiltNode extends HTMLDivElement {
   vanillaTilt?: VanillaTilt;
@@ -80,21 +82,9 @@ const Intro3: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
-      <h3
-        className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 font-bold text-base-content"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        스토리파이만의 <span className="text-accent">부가서비스</span>
-      </h3>
-      <p
-        className="text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl mb-0 sm:mb-1 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-5 text-base-content"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        다양한 동화책들을 읽고, 써 보세요.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10" data-aos="fade-up">
+      <IntroHeading>스토리파이만의 <span className="text-accent">부가서비스</span></IntroHeading>
+      <IntroText>다양한 동화책들을 읽고, 써 보세요.</IntroText>
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10 mt-5" data-aos="fade-up">
         {cardInfo.map((card, index) => (
           <div
             key={index}
@@ -107,9 +97,10 @@ const Intro3: React.FC = () => {
               <Image
                 src={card.imgUrl}
                 alt={card.title}
-                width={256}
-                height={256}
-                layout="responsive"
+                width={512}
+                height={512}
+                priority={true}
+                style={{objectFit: "contain"}}
               />
             </figure>
             <div className="card-body items-center text-center">
