@@ -14,7 +14,7 @@ const Banner: React.FC<BannerProps> = ({ isLoggedIn, onBannerClick, onCloseBanne
 
   return (
     <div
-      className=" flex flex-row justify-between bg-accent p-2 text-accent-content text-center text-accent-content font-bold text-md sm:text-lg cursor-pointer transition-colors duration-300 ease-in-out"
+      className=" flex flex-row justify-between bg-accent p-4 text-accent-content text-center text-accent-content font-bold text-lg sm:text-xl lg:text-2xl cursor-pointer transition-colors duration-300 ease-in-out"
       onClick={onBannerClick}
     >
       <div></div>

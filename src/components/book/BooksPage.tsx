@@ -16,7 +16,9 @@ interface UseBooksDataProps {
   userId: string;
   type: string;
 }
-
+interface BookListProps {
+  userId: string;
+}
 interface userIDProps {
   _id: string;
   nickname: string;
@@ -36,7 +38,7 @@ async function getOtherUserId(userId: string) {
   return response;
 }
 
-const BooksPage = ({ userId, type }: UseBooksDataProps) => {
+const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
