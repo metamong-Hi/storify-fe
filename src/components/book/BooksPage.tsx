@@ -55,7 +55,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
         if (token) {
           id = jwtDecode(token)?.sub as string;
           if (id !== userId) {
-            const data = await getOtherUserId(userId); // 가정: getOtherUserId가 비동기 함수이며, userId를 사용하여 데이터를 가져옴
+            const data = await getOtherUserId(userId);
             setOtherNickname(data.nickname);
           }
         }
@@ -84,19 +84,14 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
 
   useEffect(() => {
     if (type === 'liked') {
-      // 초기에 bookShelves 데이터를 기반으로 한 필터링과 정렬 로직
       let processedBooks = bookShelves;
 
-      // Search logic
       if (search) {
         processedBooks = processedBooks.filter((book) =>
           book.title?.toLowerCase().includes(search.toLowerCase()),
         );
       }
 
-      console.log('search:', processedBooks);
-
-      // 정렬 로직
       if (sortBy === 'like') {
         processedBooks.sort((a, b) => {
           const aCount = a.likesCount && a.likesCount > 0 ? a.likesCount : a.likes?.length ?? 0;
@@ -118,7 +113,6 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
     }
   }, [bookShelves, search, sortBy, type]);
 
-  // 페이지네이션 설정
   const { totalPage, paginate } = usePagination({
     totalItems: type === 'liked' ? filteredBooks.length : totalItems,
     itemsPerPage: limit,

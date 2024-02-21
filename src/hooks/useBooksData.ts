@@ -1,8 +1,7 @@
-// useBooksData.ts
 import { useState, useEffect, useCallback } from 'react';
 import { getBooks } from '@/components/book/AllBooks';
 import { BooksData } from '@/types/books';
-import { GetParams } from '@/components/book/AllBooks';
+
 interface UseBooksDataProps {
   type: string;
   currentPage: number;

@@ -59,7 +59,6 @@ interface UserProfileProps {
 
 BookShelves.propTypes = {
   books: PropTypes.array.isRequired,
-  // ... other props
 };
 interface BookShelvesProps {
   books: Array<BooksData>;
@@ -148,20 +147,17 @@ export const Book = ({ book, index }: BookComponentProps) => {
       }
       const socket = getSocket();
 
-      setLikeError(false); // Reset error state on success
+      setLikeError(false);
 
       if (socket) {
-        console.log('여기까지 왔음');
         socket.emit('like', { bookId: book._id });
-        console.log(book._id);
-        console.log('여기까지 오?');
       }
       return await response.json();
     } catch (error) {
-      setLikeError(true); // Set error state to true on failure
+      setLikeError(true);
 
       setTimeout(() => {
-        setLikeError(false); // Revert error state after 2 seconds
+        setLikeError(false);
       }, 1000);
 
       throw error;
@@ -241,7 +237,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
     fetchData();
   }, [book]);
   useEffect(() => {
-    // 사용자 인증 토큰이 있다고 가정
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
       initializeWebSocket(userToken);
@@ -251,7 +246,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const socket = getSocket();
 
     if (socket) {
-      console.log('소켓 연결ㄷ룀');
+      //여긴 유지
       // socket.on('like', (data) => {
       //   if (data.bookId === book._id) {
       //     console.log('Your book has received a like!',data);
@@ -261,7 +256,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
     }
 
     return () => {
-      // 컴포넌트 언마운트 시 이벤트 리스너 제거
       if (socket) socket.off('like');
     };
   }, [book._id]);
