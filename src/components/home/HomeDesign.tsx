@@ -1,10 +1,10 @@
 'use client';
-import React, { useState, useEffect, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ImageSwiper from './ImageSwiper';
-const HeroSection = lazy(() => import('./HeroSection'));
-const StoryButton = lazy(() => import('./StoryButton'));
+import HeroSection from './HeroSection';
+import StoryButton from './StoryButton';
 
 const images = [
   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',

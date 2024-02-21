@@ -2,18 +2,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
+import dynamic from 'next/dynamic';
 import StoryDisplay from './StoryDisplay';
-import ImageGallery from './ImageGallery';
-import NavigateButton from './NavigationButton';
 import Title from '../Title';
 import useFetchBookData from '@/hooks/writing/useFetchBookData';
+
+const ImageGallery = dynamic(() => import('./ImageGallery'), {
+  ssr: false,
+});
+const NavigateButton = dynamic(() => import('./NavigationButton'), {
+  ssr: false,
+});
 
 const SimpleResult: React.FC = () => {
   const bookContent = useSelector((state: RootState) => state.book.content);
   const BookId = useSelector((state: RootState) => state.book.bookId);
   const [showNavigateButton, setShowNavigateButton] = useState(false);
-  const navigateButtonRef = useRef<HTMLDivElement>(null); 
-  const imageGalleryRef = useRef<HTMLDivElement>(null); 
+  const navigateButtonRef = useRef<HTMLDivElement>(null);
+  const imageGalleryRef = useRef<HTMLDivElement>(null);
   let token: string | null = null;
 
   if (typeof window !== 'undefined') {
@@ -40,7 +46,7 @@ const SimpleResult: React.FC = () => {
       window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
     }
   }, [showNavigateButton]);
-  
+
   return (
     <div className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw]">
       <Title line1="요정이 동화책을 만들고 있어요." line2="잠시만 기다려 주세요." />
@@ -50,9 +56,7 @@ const SimpleResult: React.FC = () => {
       <div ref={imageGalleryRef}>
         <ImageGallery imageUrls={imageUrls} realImagesLoaded={realImagesLoaded} />
       </div>
-      <div ref={navigateButtonRef}>
-        {showNavigateButton && <NavigateButton bookId={bookId} />}
-      </div>
+      <div ref={navigateButtonRef}>{showNavigateButton && <NavigateButton bookId={bookId} />}</div>
     </div>
   );
 };

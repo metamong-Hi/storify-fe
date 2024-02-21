@@ -222,7 +222,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
             className="object-contain w-full h-full "
             height={256}
             width={256}
-            quality={90}
+            quality={75}
           />
         </Link>
       </div>
@@ -249,7 +249,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
             >
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={128} height={128} style={{ filter: iconFilter }}/>
+                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={64} height={64} style={{ filter: iconFilter }}/>
                 </div>
               </div>
               <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setBookContent, setBookId } from '@/store/bookSlice';
 import { resetText } from '@/store/textSlice';
 import Swal from 'sweetalert2'; 
+import apiService from '@/services/apiService';
 
 interface UseFetchStoryProps {
   text: string;
@@ -23,7 +24,7 @@ export const useFetchStory = ({ text, token }: UseFetchStoryProps): UseFetchStor
     if (!text || !token) return;
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/stories`, {
+      const response = await apiService(`${process.env.NEXT_PUBLIC_API_URL}/ai/stories`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

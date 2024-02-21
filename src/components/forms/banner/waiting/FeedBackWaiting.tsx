@@ -2,8 +2,8 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useSubmitFeedback from '@/hooks/feedback/useSubmitFeedback';
-const LoadingTextSwiper = React.lazy(() => import('./LoadingTextSwiper'));
-const LoadingIndicator = React.lazy(() => import('./LoadingIndicator'));
+import LoadingTextSwiper from './LoadingTextSwiper';
+import LoadingIndicator from './LoadingIndicator';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
 
