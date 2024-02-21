@@ -63,11 +63,20 @@ const NavbarComponent = () => {
   const theme = useSelector((state: RootState) => state.theme.value);
   const handleNotificationsClick = () => {
     setShowNotifications(!showNotifications);
+    sessionStorage.removeItem('notifications');
   };
   // notifications.forEach((notification, index) => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
+  useEffect(() => {
+    // 클릭 이벤트 리스너 등록
+    document.addEventListener('click', handleNotificationsClick);
 
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener('click', handleNotificationsClick);
+    };
+  }, [showNotifications]); 
   const isWhiteIconTheme = [
     'luxury',
     'dark',
@@ -235,7 +244,7 @@ const NavbarComponent = () => {
           {isLoggedIn ? (
             <>
               <span className="flex flex-row items-center text-base-content">
-                <span className=" text-xl font-bold pr-1">{nickname}</span>
+                <span className=" text-xl font-bold pr-1 hidden sm:block">{nickname}</span>
                 <span className="hidden sm:block">님 환영합니다</span>
               </span>
               <div className="relative z-20 mr-1">

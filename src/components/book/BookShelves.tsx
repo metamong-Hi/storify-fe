@@ -192,7 +192,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
       //     console.log('Your book has received a like!',data);
       //     alert(`${data.message}`);
       //   }
-      // });
+      // }); //
     }
 
     return () => {
