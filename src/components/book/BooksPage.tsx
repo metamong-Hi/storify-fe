@@ -13,8 +13,8 @@ import { redirect } from 'next/navigation';
 interface UseBooksDataProps {
   userId: string;
 }
-interface BookListProps{
-  userId:string;
+interface BookListProps {
+  userId: string;
 }
 interface userIDProps {
   _id: string;
@@ -35,7 +35,7 @@ async function getOtherUserId(userId: string) {
   return response;
 }
 
-const BooksPage: React.FC<UseBooksDataProps> =({ userId }: UseBooksDataProps) => {
+const BooksPage: React.FC<UseBooksDataProps> = ({ userId }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
@@ -43,8 +43,6 @@ const BooksPage: React.FC<UseBooksDataProps> =({ userId }: UseBooksDataProps) =>
   ];
   const [otherNickname, setOtherNickname] = useState('');
   const [shelfTitle, setShelfTitle] = useState('');
- 
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,7 +61,7 @@ const BooksPage: React.FC<UseBooksDataProps> =({ userId }: UseBooksDataProps) =>
     };
 
     fetchData();
-  }, [userId, otherNickname]); 
+  }, [userId, otherNickname]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);

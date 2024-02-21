@@ -43,10 +43,10 @@ const NavbarComponent = () => {
     const storedNotifications = sessionStorage.getItem('notifications');
     if (storedNotifications) {
       setNotifications(JSON.parse(storedNotifications));
-      console.log("여기다 확인해라"+notifications);
+      console.log('여기다 확인해라' + notifications);
     }
   }, []);
-  
+
   // 로그인 모달 상태
   const {
     isOpen: isLoginOpen,
@@ -67,7 +67,7 @@ const NavbarComponent = () => {
   // notifications.forEach((notification, index) => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
-  
+
   const isWhiteIconTheme = [
     'luxury',
     'dark',
@@ -120,7 +120,7 @@ const NavbarComponent = () => {
         sessionStorage.removeItem('notifications');
         setIsLoggedIn(false);
 
-        window.location.href='/';
+        window.location.href = '/';
       })
       .catch((error) => {
         console.log('로그아웃 망함' + error);
@@ -235,32 +235,44 @@ const NavbarComponent = () => {
           {isLoggedIn ? (
             <>
               <span className="flex flex-row items-center text-base-content">
-                <span className=" text-xl font-bold pr-2">{nickname}</span>
+                <span className=" text-xl font-bold pr-1">{nickname}</span>
                 <span className="hidden sm:block">님 환영합니다</span>
               </span>
-              <div className="relative mr-2">
-  <button onClick={handleNotificationsClick} className="btn btn-ghost btn-circle">
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ filter: iconFilter }}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0018 14V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3c0 .667-.333 1.333-1 2L4 17h5m6 0a3.5 3.5 0 01-7 0m7 0h-7" />
-      </svg>
-  </button>
-  {notifications.length > 0 && (
-    <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-white text-xs">
-      {notifications.length}
-    </span>
-  )}
- {showNotifications && (
-  <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-    <ul>
-      {notifications.map((notification, index) => (
-        <li key={index} className="p-2 border-b border-gray-200">
-         {(notification as any).message}
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-    </div>
+              <div className="relative z-20 mr-1">
+                <button onClick={handleNotificationsClick} className="btn btn-ghost btn-circle">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-8 w-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    style={{ filter: iconFilter }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0018 14V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3c0 .667-.333 1.333-1 2L4 17h5m6 0a3.5 3.5 0 01-7 0m7 0h-7"
+                    />
+                  </svg>
+                </button>
+                {notifications.length > 0 && (
+                  <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-white text-sm">
+                    {notifications.length}
+                  </span>
+                )}
+                {showNotifications && (
+                  <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <ul>
+                      {notifications.map((notification, index) => (
+                        <li key={index} className="p-2 border-b border-gray-200">
+                          {(notification as any).message}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
               <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                   <div className="w-8 rounded-full">
@@ -280,24 +292,24 @@ const NavbarComponent = () => {
                   <li>
                     <Link
                       href={`/user/${userId}/bookshelf`}
-                      className="p-4 text-xl text-base-content"
+                      className="p-4 text-lg text-base-content"
                     >
                       내 책장
                     </Link>
                   </li>
                   <li>
-                    <Link href={`/user-setting`} className="p-4 text-xl text-base-content">
+                    <Link href={`/user-setting`} className="p-4 text-lg text-base-content">
                       환경설정
                     </Link>
                   </li>
 
                   {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-4 text-xl text-base-content">
+                    <Link href={`/user/${userId}/profile`} className="p-4 text-lg text-base-content">
                       프로필
                     </Link>
                   </li> */}
                   <li>
-                    <div className="text-danger p-4 text-xl " onClick={() => handleClickLogout()}>
+                    <div className="text-danger p-4 text-lg " onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
                   </li>

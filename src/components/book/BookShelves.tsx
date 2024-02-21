@@ -248,7 +248,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
               }
             >
               <div className="avatar">
-                <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 2xl:w-12 2xl:h-12 rounded-full">
+                <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
                   <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={128} height={128} style={{ filter: iconFilter }}/>
                 </div>
               </div>

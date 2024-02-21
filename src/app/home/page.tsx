@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 const BookListWithNoSSR = dynamic(() => import('@/components/book/BookList'), {
-  ssr: false, 
+  ssr: false,
 });
 
 export default function HomePage() {
