@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import { getIconFilter } from '@/utils/IconFilter';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -64,6 +65,7 @@ const NavbarComponent = () => {
   } = useDisclosure();
 
   const theme = useSelector((state: RootState) => state.theme.value);
+  const iconFilter = getIconFilter(theme);
   const handleNotificationsClick = () => {
     setShowNotifications(!showNotifications);
   };
@@ -71,20 +73,6 @@ const NavbarComponent = () => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
 
-  const isWhiteIconTheme = [
-    'luxury',
-    'dark',
-    'coffee',
-    'night',
-    'halloween',
-    'sunset',
-    'synthwave',
-    'forest',
-    'black',
-    'dracula',
-    'business',
-  ].includes(theme);
-  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);

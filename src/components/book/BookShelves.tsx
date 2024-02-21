@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { getIconFilter } from '@/utils/IconFilter';
 import BookImage from './bookImage';
 
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
@@ -79,21 +80,7 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
   });
 
   const theme = useSelector((state: RootState) => state.theme.value);
-
-  const isWhiteIconTheme = [
-    'luxury',
-    'dark',
-    'coffee',
-    'night',
-    'halloween',
-    'sunset',
-    'synthwave',
-    'forest',
-    'black',
-    'dracula',
-    'business',
-  ].includes(theme);
-  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
+  const iconFilter = getIconFilter(theme);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
