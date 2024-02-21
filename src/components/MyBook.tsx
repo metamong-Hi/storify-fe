@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import styled, { keyframes } from 'styled-components';
-import { Image, Modal } from '@nextui-org/react';
+import { Image } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
 import apiService from '../services/apiService';
@@ -11,10 +11,18 @@ import ImageDroppable from './ImageDroppable';
 import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import UpdateTitle from './UpdateTitle';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;ㄴ
   height: 100vh;
   border-radius: 20px;
   overflow: hidden;
@@ -171,6 +179,14 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [userId, setUserId] = useState('');
   const [author, setAuthor] = useState('');
   const router = useRouter();
+
+
+  const [isTitleModalOpen, setIsTitleModalOpen] = useState<boolean>(false);
+  // const {isOpen,onOpen,onOpenChange}=useDisclosure();
+
+
+
+
   const showEditFailedAlert = () => {
     Swal.fire({
       title: '편집 불가',
@@ -197,6 +213,16 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const handleFlip = (pageIndex: PageIndexData) => {
     setCurrentPageIndex(pageIndex.data);
   };
+  const handleClose = () => {
+    setIsTitleModalOpen(false); // 모달 닫기 핸들러
+  };
+
+
+
+  const openTitleModal=()=>{
+    setIsTitleModalOpen(true);
+  }
+
 
   useEffect(() => {
     closeImageEditor();
@@ -400,7 +426,43 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             onDelete={handleimsiDelete}
           />
         )}
+    {isTitleModalOpen&& (
+        <Dialog
+        open={isTitleModalOpen}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+ <DialogTitle
+            id="responsive-dialog-title"
+            sx={{
+              textAlign: 'center', 
+              '& .MuiTypography-root': {
+                flex: 1,
+              }
+            }}
+          >
+            {"제목바꾸기"}
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+        <DialogContent>
+          <div className="flex flex-col justify-center items-center">
+            <UpdateTitle bookId={bookId} />
+          </div>
+        </DialogContent>
 
+      </Dialog>
+        )}
         <p
           className="text-base-content"
           style={{
@@ -425,12 +487,50 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
         }}
       >
         {isUser && (
-          <button
-            onClick={() => openImageEditor(selectedImageUrl)}
-            className=" btn btn-lg text-success text-md md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl btn-ghost"
-          >
-            그림바꾸기
-          </button>
+         <div className="dropdown" style={{ marginLeft: isUser ? '0' : 'auto' }}>
+         <div
+           tabIndex={0}
+           role="button"
+           className="btn btn-lg text-base-content text-md md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl btn-ghost"
+         >
+            <SettingsIcon />
+         </div>
+         <ul
+           tabIndex={0}
+           className="dropdown-content z-10 menu p-0 md:p-1 shadow bg-base-100 rounded-box w-28 md:w-32"
+         >
+           <li role="button" className="menu-item">
+               <a
+                 href="#"
+                 onClick={() => openTitleModal()}
+                 className="text-base-content text-sm md:text-md lg:text-md xl:text-lg 2xl:text-lg"
+               >
+                 제목바꾸기
+               </a>
+             </li>
+
+         <li role="button" className="menu-item">
+               <a
+                 href="#"
+                 onClick={() => openImageEditor(selectedImageUrl)}
+                 className="text-base-content text-sm md:text-md lg:text-md xl:text-lg 2xl:text-lg"
+               >
+                 그림바꾸기
+               </a>
+             </li>
+
+             <li role="button" className="menu-item">
+               <a
+                 href="#"
+                 onClick={showDeleteAlert}
+                 className="text-base-content text-sm md:text-md lg:text-md xl:text-lg 2xl:text-lg"
+               >
+                 삭제하기
+               </a>
+             </li>
+         </ul>
+         </div>
+    
         )}
 
         <div className="dropdown" style={{ marginLeft: isUser ? '0' : 'auto' }}>
@@ -452,17 +552,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                 </span>
               </Link>
             </li>
-            {isUser && (
-              <li role="button" className="menu-item">
-                <a
-                  href="#"
-                  onClick={showDeleteAlert}
-                  className="text-base-content text-sm md:text-md lg:text-md xl:text-lg 2xl:text-lg"
-                >
-                  삭제하기
-                </a>
-              </li>
-            )}
+      
           </ul>
           </div>
         </div>
@@ -561,6 +651,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           </Button>
         )}
       </div>
+
+
     </>
   );
 };

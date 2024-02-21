@@ -176,7 +176,7 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
       //     console.log('Your book has received a like!',data);
       //     alert(`${data.message}`);
       //   }
-      // });
+      // }); //
     }
 
     return () => {
