@@ -35,7 +35,6 @@ const Page = ({ params }: { params: { userID: string } }) => {
       try {
         const data = await getUserInfo(userID);
         setProfileData(data);
-        console.log(data);
       } catch (error) {
         setMessage('프로필 데이터를 불러오는 데 실패했습니다.');
       } finally {

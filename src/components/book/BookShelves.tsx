@@ -2,7 +2,7 @@
 
 import React, { use, useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
-import { BooksData } from '@/types/books';
+import { BooksData, userData } from '@/types/books';
 import io from 'socket.io-client';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -26,21 +26,37 @@ import BookImage from './bookImage';
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-interface User {
+interface ProfileProps {
   _id: string;
   avatar: string;
   name: string;
   bookshelfLink: string;
+  likedBooksLink: string;
   userId: string;
   introduction: string;
 }
-interface userData extends BooksData {
-  userId?: User;
+
+interface UserProps {
+  _id: string;
+  password: string;
+  email: string;
+  createdAt: Date;
+  __v: number;
+  refreshToken: string;
+  userId: string;
+  nickname: string;
+}
+
+interface UserProfileProps {
+  _id: string;
+  userId: string;
+  nickname: string;
+  avatar: string;
+  introduction: string;
 }
 
 BookShelves.propTypes = {
   books: PropTypes.array.isRequired,
-  // ... other props
 };
 interface BookShelvesProps {
   books: Array<BooksData>;
@@ -55,6 +71,9 @@ interface BookComponentProps {
 }
 
 async function getUserProfile(_id: string) {
+  if (!_id) {
+    return;
+  }
   const response = await fetch(`${API_URL}/users/profile/${_id}`, {
     method: 'GET',
   });
@@ -62,18 +81,33 @@ async function getUserProfile(_id: string) {
   return response.json();
 }
 
-const token = sessionStorage.getItem('token');
-console.log(token);
+async function getUserIdtoProfile(_id: string) {
+  if (!_id) {
+    return;
+  }
+  const response: UserProps = await fetch(`${API_URL}/users/${_id}`, {
+    method: 'GET',
+  })
+    .then((res) => res.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+  const response2 = await getUserProfile(response.userId);
+
+  return response2;
+}
 
 export const Book = ({ book, index, priority }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(book.likesCount);
+  const [likeCount, setLikeCount] = useState(book.likesCount ?? book.likes?.length);
   const [likeError, setLikeError] = useState(false);
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<ProfileProps>({
     _id: '',
     avatar: '',
     bookshelfLink: '',
+    likedBooksLink: '',
     name: '',
     userId: '',
     introduction: '',
@@ -98,7 +132,7 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
       }
       const socket = getSocket();
 
-      setLikeError(false); // Reset error state on success
+      setLikeError(false);
 
       if (socket) {
         console.log('여기까지 왔음');
@@ -108,10 +142,10 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
       }
       return await response.json();
     } catch (error) {
-      setLikeError(true); // Set error state to true on failure
+      setLikeError(true);
 
       setTimeout(() => {
-        setLikeError(false); // Revert error state after 2 seconds
+        setLikeError(false);
       }, 1000);
 
       throw error;
@@ -121,7 +155,10 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
   const debouncedFunction = debounce(async (prevLiked: boolean) => {
     try {
       const response = await sendLikeRequestToServer(prevLiked);
-      setLikeCount(response.likesCount);
+      if (response.likesCount) setLikeCount(response.likesCount);
+      else if (response.likes) setLikeCount(response.likes.length);
+      else setLikeCount(0);
+
       setLiked((prevLiked) => !prevLiked);
     } catch (error) {
       console.error('Failed to like/unlike the book:', error);
@@ -136,22 +173,39 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
     let log = token ? jwtDecode(token) : null;
     let isLiked = book.likes?.some((like) => like === log?.sub);
     setLiked(isLiked ?? false);
-    setLikeCount(book.likesCount);
+    if (book.likesCount) setLikeCount(book.likesCount);
+    else if (book.likes) setLikeCount(book.likes.length);
+    else setLikeCount(0);
   }, [book, token]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getUserProfile(book.userId?.userId ?? '');
-      const userAvatar = data.avatar
-        ? data.avatar
-        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png';
-      const user: User = {
-        _id: book.userId?._id ?? '',
-        avatar: userAvatar,
-        bookshelfLink: `/user/${encodeURIComponent(book.userId?._id ?? '')}/bookshelf`,
+      const setData = async (): Promise<UserProfileProps> => {
+        if (typeof book.userId === 'string') {
+          const data = await getUserIdtoProfile(book.userId);
+          setUser(data);
+          return data;
+        } else {
+          const data = await getUserProfile(book.userId?.userId ?? '');
+          setUser(data);
+          return data;
+        }
+      };
+
+      const data = await setData();
+
+      const _id = typeof book.userId === 'string' ? book.userId : book.userId?._id ?? '';
+
+      const user: ProfileProps = {
+        _id: _id,
+        avatar: data.avatar
+          ? data.avatar
+          : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
+        bookshelfLink: `/user/${encodeURIComponent(_id)}/bookshelf`,
         name: data.nickname ?? data.userId,
         userId: data.userId,
         introduction: data.introduction,
+        likedBooksLink: `/user/${encodeURIComponent(_id)}/liked-books`,
       };
       setUser(user);
     };
@@ -160,7 +214,6 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
   }, [book]);
 
   useEffect(() => {
-    // 사용자 인증 토큰이 있다고 가정
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
       initializeWebSocket(userToken);
@@ -170,7 +223,7 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
     const socket = getSocket();
 
     if (socket) {
-      console.log('소켓 연결ㄷ룀');
+      //여긴 유지
       // socket.on('like', (data) => {
       //   if (data.bookId === book._id) {
       //     console.log('Your book has received a like!',data);
@@ -180,7 +233,6 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
     }
 
     return () => {
-      // 컴포넌트 언마운트 시 이벤트 리스너 제거
       if (socket) socket.off('like');
     };
   }, [book._id]);
@@ -259,6 +311,11 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
               <Link href={user.bookshelfLink}>
                 <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap text-base-content">
                   책장 보기
+                </li>
+              </Link>
+              <Link href={user.likedBooksLink}>
+                <li className="rounded-t hover:bg-base-300 py-2 px-4 block whitespace-no-wrap text-base-content">
+                  선호작 보기
                 </li>
               </Link>
 

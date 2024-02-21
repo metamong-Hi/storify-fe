@@ -20,7 +20,7 @@ const StyledLink = styled(Link)`
   }
 `;
 function LoginPage() {
-  const [selected, setSelected] = useState('sign-up');
+  const [selected, setSelected] = useState('login');
 
   // const [formData, setFormData] = useState<LoginData>({ username: '', password: '' });
   const dispatch = useAppDispatch();
