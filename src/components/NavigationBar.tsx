@@ -235,7 +235,7 @@ const NavbarComponent = () => {
           {isLoggedIn ? (
             <>
               <span className="flex flex-row items-center text-base-content">
-                <span className=" text-xl font-bold pr-1">{nickname}</span>
+                <span className=" text-xl font-bold pr-1 hidden sm:block">{nickname}</span>
                 <span className="hidden sm:block">님 환영합니다</span>
               </span>
               <div className="relative z-20 mr-1">
