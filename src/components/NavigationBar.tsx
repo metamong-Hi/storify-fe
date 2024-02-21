@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { logout } from '@/store/userSlice';
+import { logout, setSignupSuccess } from '@/store/userSlice';
 import LoginPage from '@/components/login/realLogin';
 import RegisterPage from './login/realRegister';
 import Link from 'next/link';
@@ -33,6 +33,7 @@ const NavbarComponent = () => {
   const [nickname, setNickname] = useState('');
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
+  const signupSuccess = useAppSelector((state) => state.user.signupSuccess);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
@@ -45,7 +46,9 @@ const NavbarComponent = () => {
       setNotifications(JSON.parse(storedNotifications));
       console.log('여기다 확인해라' + notifications);
     }
-  }, []);
+  }, [notifications]);
+
+
 
   // 로그인 모달 상태
   const {
@@ -166,9 +169,16 @@ const NavbarComponent = () => {
     }
   };
 
+  useEffect(() => {
+    if (signupSuccess === 1) {
+      onLoginOpen();
+      dispatch(setSignupSuccess(0));
+    }
+  }, [signupSuccess, dispatch, onLoginOpen]);
+
   return (
     <>
-      <div className="navbar bg-base-100 p-0">
+      <div className="navbar bg-base-100 px-0 sm:px-4 md:px-8 lg:px-12 xl:px-12 2xl:px-18">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -236,7 +246,7 @@ const NavbarComponent = () => {
             <>
               <span className="flex flex-row items-center text-base-content">
                 <span className=" text-xl font-bold pr-1">{nickname}</span>
-                <span className="hidden sm:block">님 환영합니다</span>
+                <span className="hidden md:block">님 환영합니다</span>
               </span>
               <div className="relative z-20 mr-1">
                 <button onClick={handleNotificationsClick} className="btn btn-ghost btn-circle">
