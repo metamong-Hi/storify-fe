@@ -168,7 +168,7 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 p-1">
+      <div className="navbar bg-base-100 p-0">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -190,13 +190,13 @@ const NavbarComponent = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-20 p-1 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItems.map((item, index) => (
                 <Link key={index} href={item.link}>
                   <li>
                     <span
-                      className={`text-xl xl:text-2xl font-bold text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-4`}
+                      className={`text-lg xl:text-xl font-bold text-base-content ${isActive(item.link) ? 'bg-base-200' : ''} menu-item p-2`}
                     >
                       {item.text}
                     </span>
@@ -215,15 +215,15 @@ const NavbarComponent = () => {
           </div>
         </div>
         <div className="hidden lg:flex navbar-center">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-2">
             {menuReal.map((item, index) => (
               <li
                 key={index}
-                className="block lg:inline-block text-lg lg:mx-2"
+                className="block lg:inline-block text-xl lg:mx-2"
                 onClick={() => handleMenuItemClick(item.link)}
               >
                 <span
-                  className={` cursor-pointer text-2xl text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}
+                  className={` cursor-pointer text-xl text-base-content ${isActive(item.link) ? 'bg-base-200' : ''}`}
                 >
                   {item.text}
                 </span>
@@ -257,7 +257,7 @@ const NavbarComponent = () => {
                   </svg>
                 </button>
                 {notifications.length > 0 && (
-                  <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-white text-sm">
+                  <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-white text-lg">
                     {notifications.length}
                   </span>
                 )}
@@ -265,7 +265,7 @@ const NavbarComponent = () => {
                   <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <ul>
                       {notifications.map((notification, index) => (
-                        <li key={index} className="p-2 border-b border-gray-200">
+                        <li key={index} className="p-2 border-b text-lg border-gray-200">
                           {(notification as any).message}
                         </li>
                       ))}
@@ -287,29 +287,29 @@ const NavbarComponent = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 relative z-20 p-4 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 relative z-20 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
                     <Link
                       href={`/user/${userId}/bookshelf`}
-                      className="p-4 text-lg text-base-content"
+                      className="p-2 text-lg text-base-content"
                     >
                       내 책장
                     </Link>
                   </li>
                   <li>
-                    <Link href={`/user-setting`} className="p-4 text-lg text-base-content">
+                    <Link href={`/user-setting`} className="p-2 text-lg text-base-content">
                       환경설정
                     </Link>
                   </li>
 
                   {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-4 text-lg text-base-content">
+                    <Link href={`/user/${userId}/profile`} className="p-2 text-lg text-base-content">
                       프로필
                     </Link>
                   </li> */}
                   <li>
-                    <div className="text-danger p-4 text-lg " onClick={() => handleClickLogout()}>
+                    <div className="text-danger p-2 text-lg " onClick={() => handleClickLogout()}>
                       로그아웃
                     </div>
                   </li>
