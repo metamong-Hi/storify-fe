@@ -1,7 +1,8 @@
-import HomeDesign from '@/components/home/HomeDesign';
-import Intro1 from '@/components/home/intro/Intro1';
-import Intro3 from '@/components/home/intro/Intro2';
-import Intro4 from '@/components/home/intro/Intro3';
+import React, { lazy } from 'react';
+const HomeDesign = lazy(() => import('@/components/home/HomeDesign'));
+const Intro1 = lazy(() => import('@/components/home/intro/Intro1'));
+const Intro3 = lazy(() => import('@/components/home/intro/Intro2'));
+const Intro4 = lazy(() => import('@/components/home/intro/Intro3'));
 
 export default function Page() {
   return (

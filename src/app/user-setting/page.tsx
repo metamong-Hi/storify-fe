@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import SettingsComponent from '@/components/userSetting/Theme';
-import BackgroundMusic from '@/components/userSetting/BackgroundMusic';
-import FontSelector from '@/components/userSetting/Font';
+const BackgroundMusic = React.lazy(() => import('@/components/userSetting/BackgroundMusic'));
+const FontSelector = React.lazy(() => import('@/components/userSetting/Font'));
 
 const Setting: React.FC = () => {
   const [currentTab, setCurrentTab] = useState('theme');
