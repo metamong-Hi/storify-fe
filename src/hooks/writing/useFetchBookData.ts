@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setBookId, setImageUrls } from '@/store/bookSlice';
+import apiService from '@/services/apiService';
 
 interface ImageItem {
   imageUrl: string;
@@ -34,7 +35,7 @@ const useFetchBookData = (
     }
     const fetchBookData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/books`, {
+        const response = await apiService(`${process.env.NEXT_PUBLIC_API_URL}/ai/books`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

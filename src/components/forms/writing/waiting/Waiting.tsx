@@ -1,9 +1,9 @@
 'use client';
-import React, { lazy } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useFetchStory } from '@/hooks/writing/useFetchStory';
-const LoadingTextSwiper = lazy(()=> import('./LoadingTextSwiper'));
-const LoadingIndicator = lazy(()=> import('../../banner/waiting/LoadingIndicator'));
+import LoadingTextSwiper from './LoadingTextSwiper';
+import LoadingIndicator from '../../banner/waiting/LoadingIndicator' ;
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
 
