@@ -1,11 +1,16 @@
 import { io, Socket } from "socket.io-client";
+import Swal from 'sweetalert2';
 let socket: Socket | null = null;
 
-
+export const getSocket = () => socket;
 export const initializeWebSocket = (token: string): Socket => {
-
+  if (socket && socket.connected) {
+    console.log('소켓이 이미 연결되어 있습니다.');
+    return socket;
+  }
 
   socket = io('https://api.storifyai.site/ws-noti', {
+    // socket=io('http://localhost:3001/ws-noti',{
     transportOptions: {
       polling: {
         extraHeaders: {
@@ -22,6 +27,17 @@ export const initializeWebSocket = (token: string): Socket => {
     console.log("소켓 connected"+socket?.connected);
     socket?.on('friendRequest', (data) => {
       console.log('Friend request received by user2', data);
+    });
+    socket?.on('missedNotifications',(data)=>{
+      console.log("일단 여기 좋아요 찍힘",data);
+    });
+    socket?.on('like', (data) => {
+      console.log('좋아요 받음', data);
+      Swal.fire({
+        title: '❤️좋아요를 받았어요❤️',
+        text: data.message,
+        confirmButtonText: '확인'
+      });
     });
 
     // socket?.emit('like', (data) => {

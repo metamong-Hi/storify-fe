@@ -11,7 +11,7 @@ const NavigateButton: React.FC<NavigateButtonProps> = ({ bookId }) => {
 
   return (
     <Link href={`/book/${bookId}`} passHref>
-      <button ref={buttonRef} className="btn btn-primary font-bold border-2 mt-4">
+      <button ref={buttonRef} className="btn xl:btn-lg btn-outline btn-primary font-bold border-2 mt-4">
         책 보러 가기
       </button>
     </Link>

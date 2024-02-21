@@ -6,6 +6,9 @@ import FontSelector from '@/components/userSetting/Font';
 
 const Setting: React.FC = () => {
   const [currentTab, setCurrentTab] = useState('theme');
+  const [isLoading, setIsLoading] = useState(true); 
+
+
 
   const renderComponent = () => {
     switch (currentTab) {

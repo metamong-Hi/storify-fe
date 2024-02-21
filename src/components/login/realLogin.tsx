@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import { showSignupModal } from '../signup/SignupModal';
 import styled from 'styled-components';
 import Image from 'next/image';
-
+import { setNotifications } from '@/store/notificationSlice';
 const StyledLink = styled(Link)`
   color: '#FFC4D0';
   cursor: pointer; 
@@ -73,7 +73,7 @@ function LoginPage() {
       confirmButtonText: 'OK',
     }).then((result) => {
       if (result.value) {
-        window.location.reload();
+        // window.location.reload();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
@@ -119,9 +119,11 @@ function LoginPage() {
               initializeWebSocket(token); 
             })
             .catch((err) => console.error('웹소켓 연결 실패:', err));
+          
         }
-
+        //noti/sendMissedNotifications
         window.location.reload();
+        handleAlert();
       } else {
         throw new Error('로그인 실패');
       }
@@ -132,7 +134,31 @@ function LoginPage() {
       });
     console.log('여기까지 왔다');
   };
+  async function handleAlert() {
+    try {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        console.log('No token found');
+        return;
+      }
+  
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/noti/sendMissedNotifications`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      const data = await response.json();
+      console.log("Data received:", data);
+      sessionStorage.setItem('notifications', JSON.stringify(data));
+      dispatch(setNotifications(data));
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  }
+  
   const [formSignupData, setFormSignupData] = useState({
     userId: '',
     password: '',

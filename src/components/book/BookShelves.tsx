@@ -1,9 +1,10 @@
+
 'use client';
 
 import React, { use, useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
-
+import io from 'socket.io-client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeartIcon } from '@/components/icons/HeartIcon';
@@ -25,6 +26,9 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
+
+
+import { getSocket, initializeWebSocket } from '@/utils/websocket';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface User {
@@ -62,6 +66,9 @@ async function getUserProfile(_id: string) {
   return response.json();
 }
 
+const token=sessionStorage.getItem('token');
+console.log(token);
+
 export const Book = ({ book, index }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
@@ -95,8 +102,16 @@ export const Book = ({ book, index }: BookComponentProps) => {
       if (!response.ok) {
         throw new Error('Failed to send like request to server');
       }
+      const socket = getSocket();
 
       setLikeError(false); // Reset error state on success
+
+      if (socket ) {
+        console.log("여기까지 왔음");
+        socket.emit('like', { bookId: book._id });
+        console.log(book._id);
+        console.log("여기까지 오?");
+      }
       return await response.json();
     } catch (error) {
       setLikeError(true); // Set error state to true on failure
@@ -136,11 +151,12 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const noBookImg =
       book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
         ? book.coverUrl
-        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
+        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
     imageURL = book.thumbnail ? book.thumbnail : noBookImg;
   } catch (error) {
-    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1707826129323.png';
+    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
   }
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getUserProfile(book.userId?.userId ?? '');
@@ -159,7 +175,31 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
     fetchData();
   }, [book]);
+  useEffect(() => {
+    // 사용자 인증 토큰이 있다고 가정
+    const userToken = sessionStorage.getItem('token');
+    if (userToken) {
+      initializeWebSocket(userToken);
+    }
+  }, []);
+  useEffect(() => {
+    const socket = getSocket();
 
+    if (socket) {
+      console.log("소켓 연결ㄷ룀")
+      // socket.on('like', (data) => {
+      //   if (data.bookId === book._id) {
+      //     console.log('Your book has received a like!',data);
+      //     alert(`${data.message}`);
+      //   }
+      // });
+    }
+
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      if (socket) socket.off('like');
+    };
+  }, [book._id]);
   const openLoginModal = () => {
     const modal = document.getElementById('authModal');
     if (modal) {
@@ -180,8 +220,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
             priority={true}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
-            height={200}
-            width={200}
+            height={256}
+            width={256}
             quality={90}
           />
         </Link>
@@ -189,8 +229,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-base-content">
-            <div className="text-center w-[250px]">{book.title}</div>
+          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
+            <div className="text-center w-[240px]">{book.title}</div>
           </div>
         </div>
         <div className=" flex justify-between items-center mt-4 ">
@@ -208,8 +248,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
               }
             >
               <div className="avatar">
-                <div className="w-4 h-4 rounded-full">
-                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={5} height={5} style={{ filter: iconFilter }}/>
+                <div className="w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 2xl:w-12 2xl:h-12 rounded-full">
+                  <Image src={user.avatar} alt={`${user.name}'s Avatar`} width={128} height={128} style={{ filter: iconFilter }}/>
                 </div>
               </div>
               <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
@@ -260,8 +300,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   </span>
                 ) : (
                   <HeartIcon
-                    height={20}
-                    width={20}
+                    height={128}
+                    width={128}
                     className={`${
                       liked && token && !likeError ? 'fill-current text-red-500' : 'text-gray-500'
                     }`}

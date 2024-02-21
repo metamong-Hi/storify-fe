@@ -107,7 +107,7 @@ const HomeDesign: React.FC = () => {
           </h2>
         </div>
         <button
-          className="px-2 py-1 border-2 rounded-lg border-white md:px-2 md:py-1 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 2xl:px-5 2xl:py-3 font-bold cursor-pointer hover:text-black hover:border-black text-white opacity-0 duration-300 ease-in-out transform sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
+          className="px-2 py-1 border-2 rounded-lg border-white md:px-2 md:py-1 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 2xl:px-5 2xl:py-3 font-bold cursor-pointer hover:text-black hover:bg-white text-white opacity-0 duration-300 ease-in-out transform sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:tet-4xl textWithShadow"
           data-aos="fade-up"
           data-aos-delay="100"
           onClick={handleStoryButtonClick}
