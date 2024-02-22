@@ -173,13 +173,13 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
                 }}
               />
               <button
-                className="p-2 text-base-content rounded-full hover:bg-accent focus:outline-none"
+                className="p-2 text-base-content rounded-full hover:bg-primary focus:outline-none"
                 onClick={handleSearch}
               >
                 <SearchIcon size={24} />
               </button>
               <button
-                className="p-2 text-base-content rounded-full hover:bg-accent focus:outline-none"
+                className="p-2 text-base-content rounded-full hover:bg-primary focus:outline-none"
                 onClick={() => {
                   setSearch('');
                 }}
