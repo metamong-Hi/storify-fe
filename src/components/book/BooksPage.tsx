@@ -146,7 +146,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
                 role="tab"
                 key={option.value}
                 className={`tab whitespace-nowrap text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl ${sortBy === option.value ? 'tab-active' : ''}
-                hover:text-primary hover:bg-primary/20`}
+                hover:bg-base-300`}
                 onClick={() => handleSortBy(option.value)}
               >
                 <span className="p-1">{option.label}</span>
@@ -173,13 +173,13 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
                 }}
               />
               <button
-                className="p-2 text-base-content rounded-full hover:bg-primary focus:outline-none"
+                className="p-2 text-base-content rounded-full hover:bg-base-300 focus:outline-none"
                 onClick={handleSearch}
               >
                 <SearchIcon size={24} />
               </button>
               <button
-                className="p-2 text-base-content rounded-full hover:bg-primary focus:outline-none"
+                className="p-2 text-base-content rounded-full hover:bg-base-300 focus:outline-none"
                 onClick={() => {
                   setSearch('');
                 }}
