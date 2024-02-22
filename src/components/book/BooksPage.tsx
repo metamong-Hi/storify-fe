@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 
 import Pagination from '@/components/Pagination';
@@ -9,11 +9,16 @@ import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
 import { redirect } from 'next/navigation';
+import { BooksData } from '@/types/books';
+import { set } from 'lodash';
 
 interface UseBooksDataProps {
   userId: string;
+  type: string;
 }
-
+interface BookListProps {
+  userId: string;
+}
 interface userIDProps {
   _id: string;
   nickname: string;
@@ -33,7 +38,7 @@ async function getOtherUserId(userId: string) {
   return response;
 }
 
-const BooksPage = ({ userId }: UseBooksDataProps) => {
+const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
@@ -41,8 +46,6 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
   ];
   const [otherNickname, setOtherNickname] = useState('');
   const [shelfTitle, setShelfTitle] = useState('');
- 
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +55,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
         if (token) {
           id = jwtDecode(token)?.sub as string;
           if (id !== userId) {
-            const data = await getOtherUserId(userId); // 가정: getOtherUserId가 비동기 함수이며, userId를 사용하여 데이터를 가져옴
+            const data = await getOtherUserId(userId);
             setOtherNickname(data.nickname);
           }
         }
@@ -61,7 +64,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     };
 
     fetchData();
-  }, [userId, otherNickname]); 
+  }, [userId, otherNickname]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
@@ -75,10 +78,43 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
     sortBy,
     search,
     userId: userId,
+    type: type,
   });
+  const [filteredBooks, setFilteredBooks] = useState<BooksData[]>([]);
+
+  useEffect(() => {
+    if (type === 'liked') {
+      let processedBooks = bookShelves;
+
+      if (search) {
+        processedBooks = processedBooks.filter((book) =>
+          book.title?.toLowerCase().includes(search.toLowerCase()),
+        );
+      }
+
+      if (sortBy === 'like') {
+        processedBooks.sort((a, b) => {
+          const aCount = a.likesCount && a.likesCount > 0 ? a.likesCount : a.likes?.length ?? 0;
+          const bCount = b.likesCount && b.likesCount > 0 ? b.likesCount : b.likes?.length ?? 0;
+
+          return bCount - aCount;
+        });
+      } else if (sortBy === 'count') {
+        processedBooks.sort((a, b) => ((b.count ?? 0) as number) - ((a.count ?? 0) as number));
+      } else {
+        processedBooks.sort((a, b) => {
+          const dateA = new Date(a.createdAt ?? '');
+          const dateB = new Date(b.createdAt ?? '');
+          return dateB.getTime() - dateA.getTime();
+        });
+      }
+
+      setFilteredBooks(processedBooks);
+    }
+  }, [bookShelves, search, sortBy, type]);
 
   const { totalPage, paginate } = usePagination({
-    totalItems,
+    totalItems: type === 'liked' ? filteredBooks.length : totalItems,
     itemsPerPage: limit,
     onPageChange: setCurrentPage,
   });
@@ -98,8 +134,8 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
   return (
     <>
       <div className="flex flex-col w-full pl-[4vw] pr-[4vw]">
-        <div className="flex flex-col sm:flex-row justify-between items-center w-full p-8 ">
-          <div role="tablist" className="tabs tabs-lifted relative justify-start p-5 ">
+        <div className="flex flex-col sm:flex-row justify-between items-center w-full py-8 ">
+          <div role="tablist" className="tabs tabs-lifted relative justify-start mb-4 sm:mb-0">
             {sortOptions.map((option) => (
               <a
                 role="tab"
@@ -117,7 +153,7 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
             {shelfTitle}
           </div>
 
-          <div className="relative justify-end p-5 ">
+          <div className="relative justify-end ">
             <div className="flex border-2 rounded-full">
               <input
                 className="form-input w-full bg-transparent py-1 sm:py-2 px-3 text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl focus:outline-none"
@@ -140,13 +176,15 @@ const BooksPage = ({ userId }: UseBooksDataProps) => {
           </div>
         </div>
 
-        <div className="flex justify-center flex-wrap gap-4 p-4 mx-auto">
-          <div className="flex flex-wrap justify-center gap-7 ">
-            <BookShelves books={bookShelves} limit={limit} search={search} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-1 md:gap-4 2xl:gap-8">
+            <BookShelves
+              books={type === 'liked' ? filteredBooks : bookShelves}
+              limit={limit}
+              search={search}
+            />
           </div>
-        </div>
         <div className="mt-10">
-          <div className="text-xs sm:text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl ">
+          <div className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl ">
             <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
           </div>
         </div>

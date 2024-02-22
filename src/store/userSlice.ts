@@ -10,6 +10,7 @@ interface UserState {
     error: string | null;
     nickname: string | null;
     refreshToken:string|null;
+    signupSuccess: number; 
 }
 
 const initialState: UserState = {
@@ -18,6 +19,7 @@ const initialState: UserState = {
     error: null,
     nickname: null,
     refreshToken:null,
+    signupSuccess: 0,
 };
 export const signup = createAsyncThunk(
     'user/signup',
@@ -152,7 +154,11 @@ export const logout = createAsyncThunk('user/logout', async (_, { getState, reje
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setSignupSuccess: (state, action: PayloadAction<number>) => {
+            state.signupSuccess = action.payload;
+        },
+    },
 
     extraReducers: (builder) => {
         builder
@@ -255,7 +261,11 @@ export const userSlice = createSlice({
                 
             })
 
+            .addCase(signup.fulfilled, (state, action) => {
+                state.signupSuccess = 1;
+            })
+
     },
 });
-
+export const { setSignupSuccess } = userSlice.actions;
 export default userSlice.reducer;

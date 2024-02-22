@@ -155,7 +155,7 @@ const ComplexResultPage: React.FC = () => {
       <div className="divider"></div>
       <textarea
         placeholder="여기에 간단히 적어줘"
-        className="textarea textarea-bordered textarea-lg w-full text-base-content text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"
+        className="textarea textarea-bordered textarea-lg w-full text-base-content text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
         rows={6}
         ref={textAreaRef}
         value={displayedText}

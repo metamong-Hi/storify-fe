@@ -98,11 +98,8 @@ function SecurityPage(profile: propsType) {
   const handleEmailSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMessage('');
-    console.log(user.email);
 
     if (!validateEmail()) return;
-
-    console.log(user.email);
 
     setLoading(true);
     try {
@@ -119,12 +116,9 @@ function SecurityPage(profile: propsType) {
   const handlePasswordSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMessage('');
-    console.log(user.currentPassword, user.newPassword);
 
     const flag = validatePassword();
-    console.log(flag);
     if (!flag) return;
-    console.log(user.currentPassword, user.newPassword);
 
     setLoading(true);
     try {

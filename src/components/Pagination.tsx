@@ -36,7 +36,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(1)}
-              className={`btn first:ml-0 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item font-semibold flex w-full px-4 py-2 border-t border-b border-l rounded-l-lg ${
+              className={`btn first:ml-0 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item font-semibold flex w-full px-2 py-1 sm:px-4 sm:py-2 border-t border-b border-l rounded-l-lg ${
                 currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
@@ -46,7 +46,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(Math.max(1, currentPage - 1))}
-              className={`btn text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item font-semibold flex w-full px-4 py-2 border-t border-b border-l  ${
+              className={`btn text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item font-semibold flex w-full px-2 py-1 sm:px-4 sm:py-2 border-t border-b border-l  ${
                 currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
@@ -58,7 +58,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
               <li key={number}>
                 <button
                   onClick={() => paginate(number)}
-                  className={`text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-4 py-2 ${
+                  className={`text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-3 py-1 sm:px-4 sm:py-2 ${
                     currentPage === number ? 'btn-active' : ''
                   } `}
                 >
@@ -70,7 +70,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(Math.min(totalPage, currentPage + 1))}
-              className={`text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-4 py-2 border-t border-b border-l  ${
+              className={`text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-2 py-1 sm:px-4 sm:py-2 border-t border-b border-l  ${
                 currentPage === totalPage ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >
@@ -80,7 +80,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
           <li>
             <button
               onClick={() => paginate(totalPage)}
-              className={`last:mr-0 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-4 py-2 border-t border-b border-l border-r rounded-r-lg  ${
+              className={`last:mr-0 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-2 py-1 sm:px-4 sm:py-2 border-t border-b border-l border-r rounded-r-lg  ${
                 currentPage === totalPage ? 'cursor-not-allowed opacity-50' : ''
               }`}
             >

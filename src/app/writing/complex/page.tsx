@@ -6,6 +6,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { resetAll } from '@/store/bookSlice';
+import { getIconFilter } from '@/utils/IconFilter';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const messages = [
   '안녕, 만나서 반가워.',
@@ -32,6 +35,8 @@ const ComplexWritingPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string>('');
+  const theme = useSelector((state: RootState) => state.theme.value);
+  const iconFilter = getIconFilter(theme); 
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -259,7 +264,7 @@ const ComplexWritingPage: React.FC = () => {
                     src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
                     width={256}
                     height={256}
-                    objectFit="scale-down"
+                    style={{ filter: iconFilter }}
                     alt="play audio"
                   />
                 </div>
@@ -308,7 +313,7 @@ const ComplexWritingPage: React.FC = () => {
       {currentStep < 3 && (
         <div ref={inputRef}>
           <input
-            className="input input-default input-bordered w-full text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-base-content"
+            className="input input-default input-bordered w-full text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-base-content"
             value={text}
             onChange={handleChange}
             autoFocus
@@ -323,7 +328,7 @@ const ComplexWritingPage: React.FC = () => {
           />
           <div className="flex justify-between mt-4">
             <Link href={`/writing`} passHref>
-              <button className="btn btn-outline btn-lg font-bold border-2">뒤로가기</button>
+              <button className="btn btn-outline xl:btn-lg font-bold border-2">뒤로가기</button>
             </Link>
             <button
               onClick={() => setIsListening((prevState) => !prevState)}

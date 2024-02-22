@@ -2,7 +2,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const token = sessionStorage.getItem('token');
 
 export async function updateUserPassword(oldPassword: string, newPassword: string): Promise<void> {
-  console.log('token: ', token);
   try {
     await fetch(`${API_URL}/auth/password`, {
       method: 'PATCH',
@@ -13,7 +12,7 @@ export async function updateUserPassword(oldPassword: string, newPassword: strin
       body: JSON.stringify({ oldPassword, newPassword }),
     }).then(async (response) => {
       const data = await response.json();
-      console.log(data);
+
       if (data.message === '비밀번호를 확인해주세요.') {
         alert('현재 비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
       } else {
@@ -39,12 +38,16 @@ export async function updateUserEmail(email: string): Promise<void> {
         email,
       }),
     })
-      .then((response) => {
-        console.log(response);
-        console.log(response.json());
+      .then(async (response) => {
+        const data = await response.json();
+        if (data.message === '이메일을 확인해주세요.') {
+          alert('이메일 형식을 확인해주세요.');
+        } else {
+          alert('이메일 업데이트 성공');
+        }
       })
-      .then(() => {
-        console.log('이메일 업데이트 성공');
+      .catch((error) => {
+        console.error('이메일 업데이트 실패: ', error);
       });
   } catch (error) {
     console.error('이메일 업데이트 실패: ', error);
@@ -83,9 +86,6 @@ export async function updateUserProfile(
     if (!response.ok) {
       throw new Error('Failed to update profile');
     }
-    console.log(response.json());
-
-    console.log('프로필 업데이트 성공');
   } catch (error) {
     console.error('프로필 업데이트 실패: ', error);
   }
@@ -97,7 +97,6 @@ export async function getUserInfo(_id: string): Promise<any> {
   });
 
   if (!response.ok) {
-    console.log('response: ', response);
     throw new Error('Failed to fetch user profile');
   }
 
