@@ -180,6 +180,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
       initializeWebSocket(userToken);
+      console.log("소켓셋팅됨");
     }
   }, []);
   useEffect(() => {
