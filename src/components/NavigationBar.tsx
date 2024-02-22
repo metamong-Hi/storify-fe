@@ -294,8 +294,9 @@ const NavbarComponent = () => {
                     <Image
                       alt="Tailwind CSS Navbar component"
                       src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={128}
-                      height={128}
+                      width={32}
+                      height={32}
+                      quality={75}
                       style={{ filter: iconFilter }}
                     />
                   </div>

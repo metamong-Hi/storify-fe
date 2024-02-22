@@ -169,8 +169,9 @@ const ComplexResultPage: React.FC = () => {
                 key={index}
                 src={url}
                 alt={`Image ${index + 1}`}
-                width={256}
-                height={256}
+                width={192}
+                height={192}
+                quality={75}
                 className="rounded-md blur-effect1 w-24 sm:w-28 md:w-32 lg:w-40 xl:w-48 2xl:w-60"
                 ref={(el) => (imageRefs.current[index] = el)}
               />
