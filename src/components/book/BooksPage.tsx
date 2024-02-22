@@ -4,13 +4,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 
 import Pagination from '@/components/Pagination';
-import { SearchIcon } from '../../../public/icons/SearchIcon';
+import { SearchIcon } from '@/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
 import { redirect } from 'next/navigation';
 import { BooksData } from '@/types/books';
 import { set } from 'lodash';
+import { getUserInfo } from '@/services/userService';
+import { user } from '@nextui-org/react';
+import ResetIcon from '@/icons/ResetIcon';
+import { ProfileData } from '@/types/user';
 
 interface UseBooksDataProps {
   userId: string;
@@ -33,41 +37,38 @@ async function GET(url: string): Promise<userIDProps> {
   }
 }
 
-async function getOtherUserId(userId: string) {
-  const response = await GET(process.env.NEXT_PUBLIC_API_URL + `/users/${userId}`);
-  return response;
-}
-
 const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
     { label: '조회순', value: 'count' },
   ];
-  const [otherNickname, setOtherNickname] = useState('');
+
   const [shelfTitle, setShelfTitle] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      let id = '';
-      if (typeof window !== 'undefined') {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-          id = jwtDecode(token)?.sub as string;
-          if (id !== userId) {
-            const data = await getOtherUserId(userId);
-            setOtherNickname(data.nickname);
-          }
+      const data: ProfileData | null = await getUserInfo(userId);
+      console.log(userId);
+      if (userId) {
+        if (type === 'liked') {
+          setShelfTitle('좋아요한 책장');
+        } else if (typeof window !== 'undefined') {
+          const token = sessionStorage.getItem('token');
+          const decoded = token ? jwtDecode(token) : null;
+          setShelfTitle(
+            decoded && decoded.sub === userId ? '내 책장' : `${data?.nickname} 님의 책장`,
+          );
         } else {
-          const data = await getOtherUserId(userId);
-          setOtherNickname(data.nickname);
+          setShelfTitle(`${data?.nickname} 님의 책장`);
         }
+      } else {
+        setShelfTitle('전체 책장');
       }
-      setShelfTitle(userId ? (id === userId ? '내 책장' : `${otherNickname}님의 책장`) : '');
     };
 
     fetchData();
-  }, [userId, otherNickname]);
+  }, [type, userId]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);
@@ -78,8 +79,8 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
   const { bookShelves, totalItems, isLoading } = useBooksData({
     currentPage,
     limit,
-    sortBy,
-    search,
+    sortBy: sortBy,
+    search: search,
     userId: userId,
     type: type,
   });
@@ -96,7 +97,6 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
       }
       if (Array.isArray(processedBooks)) {
         if (sortBy === 'like') {
-          // processedBooks = processedBooks.filter((book) => book.likesCount || book.likes?.length);
           processedBooks.sort((a, b) => {
             const aCount = a.likesCount && a.likesCount > 0 ? a.likesCount : a.likes?.length ?? 0;
             const bCount = b.likesCount && b.likesCount > 0 ? b.likesCount : b.likes?.length ?? 0;
@@ -145,7 +145,8 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
               <a
                 role="tab"
                 key={option.value}
-                className={`tab whitespace-nowrap text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl ${sortBy === option.value ? 'tab-active' : ''}`}
+                className={`tab whitespace-nowrap text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl ${sortBy === option.value ? 'tab-active' : ''}
+                hover:text-primary hover:bg-primary/20`}
                 onClick={() => handleSortBy(option.value)}
               >
                 <span className="p-1">{option.label}</span>
@@ -153,13 +154,13 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
             ))}
           </div>
           <div
-            className={`${userId ? '' : 'hidden'} flex justify-center text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl p-5`}
+            className={`flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-3xl 2xl:text-3xl p-5`}
           >
             {shelfTitle}
           </div>
 
           <div className="relative justify-end ">
-            <div className="flex border-2 rounded-full">
+            <div className="flex flex-row border-2 rounded-full focus-within:border-primary">
               <input
                 className="form-input w-full bg-transparent py-1 sm:py-2 px-3 text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl focus:outline-none"
                 id="search"
@@ -172,10 +173,18 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
                 }}
               />
               <button
-                className="p-2 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none"
+                className="p-2 text-base-content rounded-full hover:bg-accent focus:outline-none"
                 onClick={handleSearch}
               >
-                <SearchIcon size={30} />
+                <SearchIcon size={24} />
+              </button>
+              <button
+                className="p-2 text-base-content rounded-full hover:bg-accent focus:outline-none"
+                onClick={() => {
+                  setSearch('');
+                }}
+              >
+                <ResetIcon />
               </button>
             </div>
           </div>

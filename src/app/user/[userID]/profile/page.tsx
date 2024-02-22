@@ -12,16 +12,7 @@ const Page = ({ params }: { params: { userID: string } }) => {
   const [settings, setSettings] = useState('profile');
   const [message, setMessage] = useState('');
 
-  const [profileData, setProfileData] = useState<ProfileData>({
-    _id: '',
-    avatar: '',
-    userId: '',
-    nickname: '',
-    introduction: '',
-    email: '',
-    password: '',
-    socialProvider: '',
-  });
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(false);
 
   const settingOptions = [
@@ -61,7 +52,7 @@ const Page = ({ params }: { params: { userID: string } }) => {
       </div>
       {message && (
         <p
-          className={`text-${message.includes('실패') ? 'error' : 'success'}-500 text-xs italic mb-4`}
+          className={`text-${message.includes('실패') ? 'error' : 'success'} mt-10 text-xs italic mb-4`}
         >
           {message}
         </p>
@@ -69,15 +60,13 @@ const Page = ({ params }: { params: { userID: string } }) => {
 
       <div className="">
         <div className={`flex-1 p-5 ${settings !== 'profile' ? 'hidden' : ''}`}>
-          <ProfilePage data={profileData} />
+          {profileData && <ProfilePage data={profileData} />}
         </div>
-        {profileData.socialProvider ? (
-          ''
-        ) : (
+        {profileData && !profileData.socialProvider ? (
           <div className={`flex-1 p-5 ${settings !== 'security' ? 'hidden' : ''}`}>
             <SecurityPage data={profileData} />
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

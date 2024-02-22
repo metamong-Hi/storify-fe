@@ -28,7 +28,6 @@ const useBooksData = ({
       try {
         const data = await getBooks(currentPage, limit, sortBy, search, userId, type);
         if (type === 'liked') {
-          console.log('data:', data);
           setBookShelves(data);
           setTotalItems(data.length);
         } else {

@@ -12,4 +12,5 @@ export interface ProfileData {
   introduction: string;
   email: string;
   password: string;
+  createdAt: Date;
 }
