@@ -230,6 +230,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
         likedBooksLink: `/user/${encodeURIComponent(_id)}/liked-books`,
       };
       setUser(user);
+      console.log('user:', user.avatar);
     };
 
     fetchData();
@@ -238,16 +239,14 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
       initializeWebSocket(userToken);
-      console.log("소켓셋팅됨");
+      console.log('소켓셋팅됨');
     }
   }, []);
   useEffect(() => {
     const socket = getSocket();
 
     if (socket) {
-
       // socket.emit('like', { bookId: book._id });
-
       //여긴 유지
       // socket.on('like', (data) => {
       //   if (data.bookId === book._id) {
@@ -279,7 +278,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
           <Image
             loading="eager"
             src={imageURL}
-            priority={index<4}
+            priority={index < 4}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
             height={256}
@@ -312,7 +311,10 @@ export const Book = ({ book, index }: BookComponentProps) => {
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
                   <Image
-                    src={user.avatar || 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'}
+                    src={
+                      user.avatar ||
+                      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'
+                    }
                     alt={`${user.name}'s Avatar`}
                     width={32}
                     height={32}
