@@ -38,16 +38,16 @@ const Intro3: React.FC = () => {
         'https://s3.ap-northeast-2.amazonaws.com/storify/public/BABCCF72A395AAD2652B8FC666F5014F48C0B9CC9735BD61B4577E9332335462 (1)-1707132423885.jpeg',
     },
     {
-      title: '그림체 선택',
-      description: '카툰/지브리/색연필\n원하는대로 그려보세요',
+      title: '동화책 수정',
+      description: '이미지,제목,테마를\n원하는대로 바꿔보세요',
       imgUrl:
-        'https://s3.ap-northeast-2.amazonaws.com/storify/public/55EC9FF649B29F79F3040C7F9F491CA673361815536DB9B6CFCC7953125865F8 (1)-1707132340249.jpeg',
+        'https://s3.ap-northeast-2.amazonaws.com/storify/public/0E07F78F03B1954936EC89A6061665DDAF6C291EFFC62D43058A54F81ECD276C (1)-1708592430988.jpeg',
     },
   ];
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
-      <IntroHeading>스토리파이만의 <span className="text-accent">부가서비스</span></IntroHeading>
+      <IntroHeading>스토리파이만의 <span className="text-accent">특별한 서비스</span></IntroHeading>
       <IntroText>다양한 동화책들을 읽고, 써 보세요.</IntroText>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-10 mt-5" data-aos="fade-up">
         {cardInfo.map((card, index) => (
