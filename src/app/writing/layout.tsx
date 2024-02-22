@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function WritingLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>

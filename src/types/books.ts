@@ -6,7 +6,7 @@ interface bodyData {
   _id?: string;
 }
 
-interface userData {
+export interface userData {
   _id?: string;
   avatar?: string;
   nickname?: string;

@@ -72,7 +72,7 @@ function ProfilePage(profile: propsType) {
       setIntroduction('');
       router.push(`/user/${profile.data._id}/profile`);
     } catch (error) {
-      // 오류 시 처리 (예: 오류 메시지 표시)
+      console.error('프로필 업데이트 중 오류가 발생했습니다: ', error);
     }
   };
 

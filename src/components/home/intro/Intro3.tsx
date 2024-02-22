@@ -1,6 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
+import React, { useEffect } from 'react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
@@ -9,10 +8,8 @@ import AOS from 'aos';
 import VanillaTilt from 'vanilla-tilt';
 import IntroHeading from './IntroHeading';
 import IntroText from './IntroText';
+import CardComponent from '@/components/objects/CardComponent';
 
-interface TiltNode extends HTMLDivElement {
-  vanillaTilt?: VanillaTilt;
-}
 
 const Intro3: React.FC = () => {
   useEffect(() => {
@@ -20,38 +17,6 @@ const Intro3: React.FC = () => {
       duration: 1000,
     });
   }, []);
-
-  const tiltRef = useRef<TiltNode>(null);
-
-  useEffect(() => {
-    const currentTilt = tiltRef.current;
-
-    if (currentTilt) {
-      VanillaTilt.init(currentTilt, {
-        max: 10,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.5,
-      });
-    }
-
-    return () => {
-      if (currentTilt && currentTilt.vanillaTilt) {
-        currentTilt.vanillaTilt.destroy();
-      }
-    };
-  }, []);
-
-  const applyTiltEffect = (node: HTMLElement) => {
-    if (node) {
-      VanillaTilt.init(node, {
-        max: 10,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.5,
-      });
-    }
-  };
 
   const cardInfo = [
     {
@@ -84,37 +49,9 @@ const Intro3: React.FC = () => {
     <div className="min-h-screen w-full flex flex-col items-center justify-center">
       <IntroHeading>스토리파이만의 <span className="text-accent">부가서비스</span></IntroHeading>
       <IntroText>다양한 동화책들을 읽고, 써 보세요.</IntroText>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10 mb-10 mt-5" data-aos="fade-up">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-10 mt-5" data-aos="fade-up">
         {cardInfo.map((card, index) => (
-          <div
-            key={index}
-            ref={(node) => node && applyTiltEffect(node)}
-            className="card w-64 sm:w-72 md:w-80 lg:w-96 xl:w-112 2xl:w-128 glass shadow-xl"
-            data-aos="fade-up"
-            data-aos-delay={`${index < 2 ? '200' : '300'}`}
-          >
-            <figure>
-              <Image
-                src={card.imgUrl}
-                alt={card.title}
-                width={512}
-                height={512}
-                priority={true}
-                style={{objectFit: "contain"}}
-              />
-            </figure>
-            <div className="card-body items-center text-center">
-              <h4 className="card-title text-lg md:text-1xl lg:text-2xl xl:text-3xl 2xl:tet-4xl mb-0 sm:mb-0 md:mb-0.5 lg:mb-0.5 xl:mb-1 2xl:mb-1 text-base-content">
-                {card.title}
-              </h4>
-              <h5
-                className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-base-content/80"
-                style={{ whiteSpace: 'pre-line' }}
-              >
-                {card.description}
-              </h5>
-            </div>
-          </div>
+          <CardComponent key={index} title={card.title} description={card.description} imgUrl={card.imgUrl} />
         ))}
       </div>
     </div>

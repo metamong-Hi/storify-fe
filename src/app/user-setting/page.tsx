@@ -1,25 +1,21 @@
-'use client';
+"use client";
 import React, { useState } from 'react';
-import SettingsComponent from '@/components/userSetting/Theme';
-const BackgroundMusic = React.lazy(() => import('@/components/userSetting/BackgroundMusic'));
-const FontSelector = React.lazy(() => import('@/components/userSetting/Font'));
-
+import dynamic from 'next/dynamic';
+import ThemeSelector from '@/components/userSetting/Theme';
+const FontSelector = dynamic(() => import('@/components/userSetting/Font'), {
+  ssr: false,
+});
 const Setting: React.FC = () => {
   const [currentTab, setCurrentTab] = useState('theme');
-  const [isLoading, setIsLoading] = useState(true); 
-
-
 
   const renderComponent = () => {
     switch (currentTab) {
       case 'theme':
-        return <SettingsComponent />;
+        return <ThemeSelector />;
       case 'font':
         return <FontSelector />;
-      case 'music':
-        return <BackgroundMusic />;
       default:
-        return <SettingsComponent />;
+        return <ThemeSelector />;
     }
   };
 
@@ -32,27 +28,19 @@ const Setting: React.FC = () => {
         >
           <a
             role="tab"
-            className={`tab text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content ${currentTab === 'theme' ? 'tab-active' : ''}`}
+            className={`tab text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content ${currentTab === 'theme' ? 'tab-active' : ''}`}
             onClick={() => setCurrentTab('theme')}
           >
             테마
           </a>
           <a
             role="tab"
-            className={`tab text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content ${currentTab === 'font' ? 'tab-active' : ''}`}
+            className={`tab text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content ${currentTab === 'font' ? 'tab-active' : ''}`}
             onClick={() => setCurrentTab('font')}
           >
             글꼴
           </a>
-          <a
-            role="tab"
-            className={`tab text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-base-content ${currentTab === 'music' ? 'tab-active' : ''}`}
-            onClick={() => setCurrentTab('music')}
-          >
-            배경음악
-          </a>
         </div>
-        <></>
       </div>
       <div className="flex-grow flex items-center justify-center">{renderComponent()}</div>
     </div>

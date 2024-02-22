@@ -8,7 +8,7 @@ const DynamicBooksPage = dynamic(() => import('@/components/book/BooksPage'), {
 const Page = () => {
   return (
     <div className="flex justify-center items-center p-8">
-      <DynamicBooksPage userId="" />
+      <DynamicBooksPage userId="" type="" />
     </div>
   );
 };
