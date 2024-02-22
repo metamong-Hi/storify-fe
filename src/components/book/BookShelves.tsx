@@ -93,9 +93,9 @@ async function getUserIdtoProfile(_id: string) {
   if (!_id) {
     return;
   }
-  const response: UserProps = await getUserInfo(_id);
+  const response: UserProps | null = await getUserInfo(_id);
 
-  const response2 = await getUserProfile(response.userId);
+  const response2 = await getUserProfile(response?.userId ?? '');
 
   return response2;
 }
