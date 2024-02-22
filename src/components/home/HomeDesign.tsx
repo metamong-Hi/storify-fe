@@ -17,13 +17,13 @@ import StoryButton from './StoryButton';
 // ];
 
 const images = [
-  '/images/intro/ai1.jpeg',
-  '/images/intro/ai2.jpeg',
-  '/images/intro/ai3.jpeg',
-  '/images/intro/ai4.jpeg',
-  '/images/intro/ai5.jpeg',
-  '/images/intro/ai6.jpeg',
-  '/images/intro/ai7.jpeg',
+  '/Images/intro/ai1.jpeg',
+  '/Images/intro/ai2.jpeg',
+  '/Images/intro/ai3.jpeg',
+  '/Images/intro/ai4.jpeg',
+  '/Images/intro/ai5.jpeg',
+  '/Images/intro/ai6.jpeg',
+  '/Images/intro/ai7.jpeg',
 ];
 
 const HomeDesign: React.FC = () => {
