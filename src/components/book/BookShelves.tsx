@@ -275,17 +275,17 @@ export const Book = ({ book, index }: BookComponentProps) => {
       key={index}
       className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
-      <div className="object-center transition-transform duration-500 hover:scale-105 w-[280px] h-[280px]">
+      <div className="object-center transition-transform duration-500 hover:scale-105 ">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
           <Image
             loading="eager"
             src={imageURL}
-            priority={true}
+            priority={index<4}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
             height={256}
             width={256}
-            quality={90}
+            quality={75}
           />
         </Link>
       </div>
@@ -293,7 +293,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
           <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
-            <div className="text-center w-[240px]">{book.title}</div>
+            <div className="text-center max-w-60">{book.title}</div>
           </div>
         </div>
         <div className=" flex justify-between items-center mt-4 ">
@@ -313,10 +313,11 @@ export const Book = ({ book, index }: BookComponentProps) => {
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
                   <Image
-                    src={user.avatar}
+                    src={user.avatar || 'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'}
                     alt={`${user.name}'s Avatar`}
-                    width={128}
-                    height={128}
+                    width={32}
+                    height={32}
+                    quality={75}
                     style={{ filter: iconFilter }}
                   />
                 </div>

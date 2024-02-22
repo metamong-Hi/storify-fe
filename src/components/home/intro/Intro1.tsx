@@ -64,8 +64,8 @@ const Intro1: React.FC = () => {
               <Image
                 src={src}
                 alt={`Slide ${index}`}
-                width={1440}
-                height={720}
+                width={720}
+                height={360}
                 quality={75}
                 sizes="50vw"
               />
