@@ -12,16 +12,18 @@ import { getAllBooks } from './AllBooks';
 import { get, set } from 'lodash';
 import { LikeIcon } from '@/components/icons/LikeIcon';
 import { XIcon } from '@/components/icons/XIcon';
+
 import useSessionStorage from '@/hooks/useSessionStorage';
+
 import { jwtDecode } from 'jwt-decode';
 import { error } from 'console';
+
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import { useAppSelector } from '@/hooks/useAppSelector';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { getIconFilter } from '@/utils/IconFilter';
-import BookImage from './bookImage';
 
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -67,7 +69,6 @@ interface BookShelvesProps {
 interface BookComponentProps {
   book: BooksData;
   index: number;
-  priority?: boolean;
 }
 
 async function getUserProfile(_id: string) {
@@ -98,7 +99,7 @@ async function getUserIdtoProfile(_id: string) {
   return response2;
 }
 
-export const Book = ({ book, index, priority }: BookComponentProps) => {
+export const Book = ({ book, index }: BookComponentProps) => {
   const token = useSessionStorage('token');
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(book.likesCount ?? book.likes?.length);
@@ -114,7 +115,21 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
   });
 
   const theme = useSelector((state: RootState) => state.theme.value);
-  const iconFilter = getIconFilter(theme);
+
+  const isWhiteIconTheme = [
+    'luxury',
+    'dark',
+    'coffee',
+    'night',
+    'halloween',
+    'sunset',
+    'synthwave',
+    'forest',
+    'black',
+    'dracula',
+    'business',
+  ].includes(theme);
+  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -135,10 +150,7 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
       setLikeError(false);
 
       if (socket) {
-        console.log('여기까지 왔음');
         socket.emit('like', { bookId: book._id });
-        console.log(book._id);
-        console.log('여기까지 오?');
       }
       return await response.json();
     } catch (error) {
@@ -178,6 +190,18 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
     else setLikeCount(0);
   }, [book, token]);
 
+  let imageURL;
+
+  try {
+    const noBookImg =
+      book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
+        ? book.coverUrl
+        : 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
+    imageURL = book.thumbnail ? book.thumbnail : noBookImg;
+  } catch (error) {
+    imageURL = 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708421769163.png';
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const setData = async (): Promise<UserProfileProps> => {
@@ -212,7 +236,6 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
 
     fetchData();
   }, [book]);
-
   useEffect(() => {
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
@@ -223,13 +246,15 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
     const socket = getSocket();
 
     if (socket) {
+      socket.emit('like', { bookId: book._id });
+
       //여긴 유지
       // socket.on('like', (data) => {
       //   if (data.bookId === book._id) {
       //     console.log('Your book has received a like!',data);
       //     alert(`${data.message}`);
       //   }
-      // }); //
+      // });
     }
 
     return () => {
@@ -249,23 +274,24 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
       key={index}
       className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
-      <div className="object-center transition-transform duration-500 hover:scale-105 ">
+      <div className="object-center transition-transform duration-500 hover:scale-105 w-[280px] h-[280px]">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
-          <BookImage
-            src={book.coverUrl || 'https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708544260293.png'}
+          <Image
+            loading="eager"
+            src={imageURL}
+            priority={true}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
-            height={300}
-            width={300}
-            quality={75}
-            priority={priority}
+            height={256}
+            width={256}
+            quality={90}
           />
         </Link>
       </div>
 
       <div className="p-4">
         <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl font-bold text-base-content">
+          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
             <div className="text-center w-[240px]">{book.title}</div>
           </div>
         </div>
@@ -286,10 +312,7 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
                   <Image
-                    src={
-                      user.avatar ||
-                      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'
-                    }
+                    src={user.avatar}
                     alt={`${user.name}'s Avatar`}
                     width={128}
                     height={128}
@@ -297,7 +320,6 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
                   />
                 </div>
               </div>
-
               <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
                 {user.name}
               </span>
@@ -319,9 +341,9 @@ export const Book = ({ book, index, priority }: BookComponentProps) => {
                 </li>
               </Link>
 
-              <li className="rounded-t hover:bg-base-200 py-2 px-4 block whitespace-no-wrap text-base-content">
+              {/* <li className="rounded-t hover:bg-base-200 py-2 px-4 block whitespace-no-wrap text-base-content">
                 친구 추가
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -375,7 +397,7 @@ export default function BookShelves({ books = [], limit, search }: BookShelvesPr
   return (
     <>
       {books.map((book, index) => (
-        <Book key={index} book={book} index={index}  priority={index < 4} />
+        <Book key={index} book={book} index={index} />
       ))}
     </>
   );
