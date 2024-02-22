@@ -140,7 +140,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
     <>
       <div className="flex flex-col w-full pl-[4vw] pr-[4vw]">
         <div className="flex flex-col sm:flex-row justify-between items-center w-full py-8 ">
-          <div role="tablist" className="tabs tabs-lifted relative justify-start mb-4 sm:mb-0">
+          <div role="tablist" className="tabs tabs-bordered relative justify-start mb-4 sm:mb-0">
             {sortOptions.map((option) => (
               <a
                 role="tab"

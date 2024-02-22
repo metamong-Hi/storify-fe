@@ -47,12 +47,12 @@ const Page = ({ params }: { params: { userID: string } }) => {
 
   return (
     <div className="flex flex-col justify-center items-center p-8">
-      <div role="tablist" className="tabs tabs-lifted">
+      <div role="tablist" className="tabs tabs-bordered">
         {settingOptions.map((option) => (
           <a
             key={option.value}
             role="tab"
-            className={`tab tab-lg whitespace-nowrap ${settings === option.value ? 'tab-active' : ''}`}
+            className={`tab tab-lg whitespace-nowrap  ${settings === option.value ? 'tab-active ' : ''}`}
             onClick={() => setSettings(option.value)}
           >
             {option.label}
@@ -66,8 +66,6 @@ const Page = ({ params }: { params: { userID: string } }) => {
           {message}
         </p>
       )}
-
-      {/* {settings === 'profile' && <ProfilePage data={profileData} />} */}
 
       <div className="">
         <div className={`flex-1 p-5 ${settings !== 'profile' ? 'hidden' : ''}`}>

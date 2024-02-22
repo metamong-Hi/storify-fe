@@ -135,7 +135,7 @@ function SecurityPage(profile: propsType) {
 
   return (
     <>
-      <div className="mx-auto my-8 p-4 md:p-6 bg-white rounded-lg shadow-md w-full max-w-md md:max-w-lg">
+      <div className="mx-auto my-8 p-4 md:p-6 bg-accent/20 rounded-lg shadow-md w-full max-w-md md:max-w-lg">
         <form onSubmit={handleEmailSubmit} className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">
             이메일 주소
@@ -162,7 +162,7 @@ function SecurityPage(profile: propsType) {
           </button>
         </form>
       </div>
-      <div className="mx-auto my-8 p-4 md:p-6 bg-white rounded-lg shadow-md w-full max-w-md md:max-w-lg">
+      <div className="mx-auto my-8 p-4 md:p-6  bg-accent/20 rounded-lg shadow-md w-full max-w-md md:max-w-lg">
         <form onSubmit={handlePasswordSubmit}>
           <label
             htmlFor="current-password"
@@ -221,7 +221,7 @@ function SecurityPage(profile: propsType) {
             }`}
           />
           {errors.confirmNewPassword && (
-            <p className="text-red-500 text-xs italic">{errors.confirmNewPassword}</p>
+            <p className="text-error text-xs italic">{errors.confirmNewPassword}</p>
           )}
 
           <button

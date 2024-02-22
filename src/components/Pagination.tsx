@@ -59,7 +59,7 @@ function Pagination({ totalPage, paginate, currentPage }: IProps) {
                 <button
                   onClick={() => paginate(number)}
                   className={`text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl join-item btn font-semibold flex w-full px-3 py-1 sm:px-4 sm:py-2 ${
-                    currentPage === number ? 'btn-active' : ''
+                    currentPage === number ? 'btn-active bg-accent' : ''
                   } `}
                 >
                   {number}
