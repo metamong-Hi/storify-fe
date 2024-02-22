@@ -14,17 +14,7 @@ import { set } from 'lodash';
 import { getUserInfo } from '@/services/userService';
 import { user } from '@nextui-org/react';
 import ResetIcon from '@/icons/ResetIcon';
-
-interface UserProps {
-  _id: string;
-  password: string;
-  email: string;
-  createdAt: Date;
-  __v: number;
-  refreshToken: string;
-  userId: string;
-  nickname: string;
-}
+import { ProfileData } from '@/types/user';
 
 interface UseBooksDataProps {
   userId: string;
@@ -58,7 +48,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: UserProps | null = await getUserInfo(userId);
+      const data: ProfileData | null = await getUserInfo(userId);
       console.log(userId);
       if (userId) {
         if (type === 'liked') {

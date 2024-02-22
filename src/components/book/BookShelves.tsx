@@ -30,6 +30,7 @@ import { RootState } from '@/store';
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 import Swal from 'sweetalert2';
 import { getUserInfo } from '@/services/userService';
+import { ProfileData } from '@/types/user';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const bookCover = '/static/bookCover.png';
@@ -43,17 +44,6 @@ interface ProfileProps {
   likedBooksLink: string;
   userId: string;
   introduction: string;
-}
-
-interface UserProps {
-  _id: string;
-  password: string;
-  email: string;
-  createdAt: Date;
-  __v: number;
-  refreshToken: string;
-  userId: string;
-  nickname: string;
 }
 
 interface UserProfileProps {
@@ -93,7 +83,7 @@ async function getUserIdtoProfile(_id: string) {
   if (!_id) {
     return;
   }
-  const response: UserProps | null = await getUserInfo(_id);
+  const response: ProfileData | null = await getUserInfo(_id);
 
   const response2 = await getUserProfile(response?.userId ?? '');
 

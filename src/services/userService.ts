@@ -1,21 +1,13 @@
+import { ProfileData } from '@/types/user';
 import Swal from 'sweetalert2';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const token = sessionStorage.getItem('token');
 
-interface UserProps {
-  _id: string;
-  password: string;
-  email: string;
-  createdAt: Date;
-  __v: number;
-  refreshToken: string;
-  userId: string;
-  nickname: string;
-}
+const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
 
 export async function updateUserPassword(oldPassword: string, newPassword: string): Promise<void> {
   try {
+    if (!token) throw new Error('No token found');
     await fetch(`${API_URL}/auth/password`, {
       method: 'PATCH',
       headers: {
@@ -38,9 +30,8 @@ export async function updateUserPassword(oldPassword: string, newPassword: strin
 }
 
 export async function updateUserEmail(email: string): Promise<void> {
-  const token = sessionStorage.getItem('token');
-
   try {
+    if (!token) throw new Error('No token found');
     await fetch(`${API_URL}/users`, {
       method: 'PATCH',
       headers: {
@@ -73,7 +64,6 @@ export async function updateUserProfile(
   introduction: string,
 ): Promise<void> {
   try {
-    const token = sessionStorage.getItem('token');
     if (!token) throw new Error('No token found');
 
     const formData = new FormData();
@@ -121,7 +111,7 @@ export async function updateUserProfile(
   }
 }
 
-export async function getUserInfo(_id: string): Promise<UserProps | null> {
+export async function getUserInfo(_id: string): Promise<ProfileData | null> {
   if (!_id ?? _id === '') {
     return null;
   }

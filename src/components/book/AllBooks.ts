@@ -23,6 +23,7 @@ async function GET(url: string): Promise<BooksResponse> {
 }
 
 export async function getUserLikedBooks() {
+  if (typeof window === 'undefined') throw new Error('No token found');
   const token = sessionStorage.getItem('token');
   try {
     const response = await fetch(`${API_URL}/books/likes`, {
