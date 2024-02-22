@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 
 import Pagination from '@/components/Pagination';
-import { SearchIcon } from '@/components/icons/SearchIcon';
+import { SearchIcon } from '../../../public/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';

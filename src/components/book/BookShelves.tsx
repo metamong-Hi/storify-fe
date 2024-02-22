@@ -6,12 +6,14 @@ import { BooksData, userData } from '@/types/books';
 import io from 'socket.io-client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HeartIcon } from '@/components/icons/HeartIcon';
-import { EyeIcon } from '@/components/icons/EyeIcon';
+import { HeartIcon } from '../../../public/icons/HeartIcon';
+import { EyeIcon } from '../../../public/icons/EyeIcon';
 import { getAllBooks } from './AllBooks';
 import { get, set } from 'lodash';
-import { LikeIcon } from '@/components/icons/LikeIcon';
-import { XIcon } from '@/components/icons/XIcon';
+import { LikeIcon } from '../../../public/icons/LikeIcon';
+import { XIcon } from '../../../public/icons/XIcon';
+
+// import bookCover from '@/images/bookCover.png';
 
 import useSessionStorage from '@/hooks/useSessionStorage';
 
@@ -27,6 +29,8 @@ import { RootState } from '@/store';
 
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+const bookCover = '/static/bookCover.png';
 
 interface ProfileProps {
   _id: string;
@@ -196,10 +200,10 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const noBookImg =
       book.coverUrl && (book.coverUrl.startsWith('http://') || book.coverUrl.startsWith('https://'))
         ? book.coverUrl
-        : '/images/bookCover.png';
+        : bookCover;
     imageURL = book.thumbnail ? book.thumbnail : noBookImg;
   } catch (error) {
-    imageURL = '/images/bookCover.png';
+    imageURL = bookCover;
   }
 
   useEffect(() => {
@@ -222,7 +226,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       const user: ProfileProps = {
         _id: _id,
-        avatar: data.avatar ? data.avatar : '/images/bookCover.png',
+        avatar: data.avatar ? data.avatar : bookCover,
         bookshelfLink: `/user/${encodeURIComponent(_id)}/bookshelf`,
         name: data.nickname ?? data.userId,
         userId: data.userId,
@@ -311,10 +315,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
                   <Image
-                    src={
-                      user.avatar ||
-                      'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'
-                    }
+                    src={user.avatar}
                     alt={`${user.name}'s Avatar`}
                     width={32}
                     height={32}
@@ -323,9 +324,11 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   />
                 </div>
               </div>
-              <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
-                {user.name}
-              </span>
+              <div className=" truncate max-w-[40px]">
+                <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
+                  {user.name}
+                </span>
+              </div>
             </div>
             <ul
               tabIndex={0}
