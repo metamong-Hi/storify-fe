@@ -50,7 +50,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
   useEffect(() => {
     const fetchData = async () => {
       let id = '';
-      if (typeof window !== 'undefined' && userId) {
+      if (typeof window !== 'undefined') {
         const token = sessionStorage.getItem('token');
         if (token) {
           id = jwtDecode(token)?.sub as string;
@@ -58,6 +58,9 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
             const data = await getOtherUserId(userId);
             setOtherNickname(data.nickname);
           }
+        } else {
+          const data = await getOtherUserId(userId);
+          setOtherNickname(data.nickname);
         }
       }
       setShelfTitle(userId ? (id === userId ? '내 책장' : `${otherNickname}님의 책장`) : '');
@@ -84,29 +87,31 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
 
   useEffect(() => {
     if (type === 'liked') {
-      let processedBooks = bookShelves;
+      let processedBooks: BooksData[] = bookShelves;
 
       if (search) {
         processedBooks = processedBooks.filter((book) =>
           book.title?.toLowerCase().includes(search.toLowerCase()),
         );
       }
+      if (Array.isArray(processedBooks)) {
+        if (sortBy === 'like') {
+          // processedBooks = processedBooks.filter((book) => book.likesCount || book.likes?.length);
+          processedBooks.sort((a, b) => {
+            const aCount = a.likesCount && a.likesCount > 0 ? a.likesCount : a.likes?.length ?? 0;
+            const bCount = b.likesCount && b.likesCount > 0 ? b.likesCount : b.likes?.length ?? 0;
 
-      if (sortBy === 'like') {
-        processedBooks.sort((a, b) => {
-          const aCount = a.likesCount && a.likesCount > 0 ? a.likesCount : a.likes?.length ?? 0;
-          const bCount = b.likesCount && b.likesCount > 0 ? b.likesCount : b.likes?.length ?? 0;
-
-          return bCount - aCount;
-        });
-      } else if (sortBy === 'count') {
-        processedBooks.sort((a, b) => ((b.count ?? 0) as number) - ((a.count ?? 0) as number));
-      } else {
-        processedBooks.sort((a, b) => {
-          const dateA = new Date(a.createdAt ?? '');
-          const dateB = new Date(b.createdAt ?? '');
-          return dateB.getTime() - dateA.getTime();
-        });
+            return bCount - aCount;
+          });
+        } else if (sortBy === 'count') {
+          processedBooks.sort((a, b) => ((b.count ?? 0) as number) - ((a.count ?? 0) as number));
+        } else {
+          processedBooks.sort((a, b) => {
+            const dateA = new Date(a.createdAt ?? '');
+            const dateB = new Date(b.createdAt ?? '');
+            return dateB.getTime() - dateA.getTime();
+          });
+        }
       }
 
       setFilteredBooks(processedBooks);
@@ -177,12 +182,12 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-1 md:gap-4 2xl:gap-8">
-            <BookShelves
-              books={type === 'liked' ? filteredBooks : bookShelves}
-              limit={limit}
-              search={search}
-            />
-          </div>
+          <BookShelves
+            books={type === 'liked' ? filteredBooks : bookShelves}
+            limit={limit}
+            search={search}
+          />
+        </div>
         <div className="mt-10">
           <div className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl ">
             <Pagination totalPage={totalPage} currentPage={currentPage} paginate={paginate} />
