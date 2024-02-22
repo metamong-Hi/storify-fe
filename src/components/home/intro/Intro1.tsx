@@ -19,18 +19,18 @@ const Intro1: React.FC = () => {
   }, []);
 
   const images = [
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai4-1706699657952.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai5-1706699671535.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai7-1706699697628.jpeg',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/1-1708592079757.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/4-1708592098720.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/2-1708592125784.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/3-1708592136624.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/5-1708592147827.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/6-1708592157119.png',
+    'https://s3.ap-northeast-2.amazonaws.com/storify/public/4-1708592098720.png',
   ];
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <IntroHeading>어린이를 위한 <span className="text-accent">AI 동화책</span></IntroHeading>
+      <IntroHeading>어린이들이 만든 <span className="text-accent">AI 동화책</span></IntroHeading>
       <IntroText>모든 동화책을 무료로 이용할 수 있습니다.</IntroText>
       <div className="max-w-[100vw] mt-5">
         <Swiper
@@ -64,9 +64,9 @@ const Intro1: React.FC = () => {
               <Image
                 src={src}
                 alt={`Slide ${index}`}
-                width={1440}
-                height={720}
-                quality={75}
+                width={720}
+                height={360}
+                quality={100}
                 sizes="50vw"
               />
             </SwiperSlide>

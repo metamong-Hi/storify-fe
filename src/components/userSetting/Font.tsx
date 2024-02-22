@@ -18,7 +18,6 @@ const fontOptions: FontOption[] = [
   { label: '모던굴림', classSuffix: 'ModernGulim' },
   { label: '양말', classSuffix: 'Socks' },
   { label: '어린이', classSuffix: 'Kids' },
-  { label: '타임즈', classSuffix: 'serif' },
   { label: '가벼운글씨', classSuffix: 'LightWrite' },
   { label: '소월', classSuffix: 'Sowal' },
   { label: '보스', classSuffix: 'Boss' },

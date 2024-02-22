@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { updateUserProfile } from '@/services/userService';
-import CameraIcon from '@/components/icons/CameraIcon';
-import ImageIcon from '@/components/icons/ImageIcon';
+import CameraIcon from '../../../public/icons/CameraIcon';
+import ImageIcon from '../../../public/icons/ImageIcon';
 import { ProfileData } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import exp from 'constants';

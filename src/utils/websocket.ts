@@ -33,10 +33,20 @@ export const initializeWebSocket = (token: string): Socket => {
     });
     socket?.on('like', (data) => {
       console.log('좋아요 받음', data);
+      // Swal.fire({
+      //   title: '❤️좋아요를 받았어요❤️',
+      //   text: data.message,
+      //   confirmButtonText: '확인'
+      // });
       Swal.fire({
+        position: "top-end",
+        // imageUrl: "https://unsplash.it/400/200",
+        // imageWidth: 150,
+        // imageHeight: 150,
         title: '❤️좋아요를 받았어요❤️',
-        text: data.message,
-        confirmButtonText: '확인'
+        text:data.message,
+        showConfirmButton: false,
+        timer: 1500
       });
     });
 

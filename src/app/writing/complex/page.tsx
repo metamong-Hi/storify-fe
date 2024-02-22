@@ -250,8 +250,9 @@ const ComplexWritingPage: React.FC = () => {
               <Image
                 alt="Tailwind CSS chat bubble component"
                 src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                width={256}
-                height={256}
+                width={64}
+                height={64}
+                quality={75}
               />
             </div>
           </div>
@@ -262,8 +263,9 @@ const ComplexWritingPage: React.FC = () => {
                 <div className="w-8 h-8 relative">
                   <Image
                     src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
-                    width={256}
-                    height={256}
+                    width={64}
+                    height={64}
+                    quality={75}
                     style={{ filter: iconFilter }}
                     alt="play audio"
                   />
@@ -281,8 +283,9 @@ const ComplexWritingPage: React.FC = () => {
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                  width={256}
-                  height={256}
+                  width={64}
+                height={64}
+                quality={75}
                 />
               </div>
             </div>
@@ -294,8 +297,9 @@ const ComplexWritingPage: React.FC = () => {
                 <Image
                   alt="Tailwind CSS chat bubble component"
                   src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
-                  width={256}
-                  height={256}
+                  width={64}
+                height={64}
+                quality={75}
                 />
               </div>
             </div>
