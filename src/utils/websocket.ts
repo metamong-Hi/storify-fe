@@ -4,10 +4,10 @@ let socket: Socket | null = null;
 
 export const getSocket = () => socket;
 export const initializeWebSocket = (token: string): Socket => {
-  if (socket && socket.connected) {
-    console.log('소켓이 이미 연결되어 있습니다.');
-    return socket;
-  }
+  // if (socket && socket.connected) {
+  //   console.log('소켓이 이미 연결되어 있습니다.');
+  //   return socket;
+  // }
 
   socket = io('https://api.storifyai.site/ws-noti', {
     // socket=io('http://localhost:3001/ws-noti',{

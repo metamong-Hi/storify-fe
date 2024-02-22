@@ -240,13 +240,14 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
       initializeWebSocket(userToken);
+      console.log("소켓셋팅됨");
     }
   }, []);
   useEffect(() => {
     const socket = getSocket();
 
     if (socket) {
-      socket.emit('like', { bookId: book._id });
+      //socket.emit('like', { bookId: book._id });
 
       //여긴 유지
       // socket.on('like', (data) => {
