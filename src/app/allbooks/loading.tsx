@@ -14,7 +14,7 @@ export default function Loading() {
     <div className="flex justify-center items-center p-8">
       <div className="flex flex-col w-full pl-[4vw] pr-[4vw]">
         <div className="flex flex-col sm:flex-row justify-between items-center w-full p-8 ">
-          <div role="tablist" className="tabs tabs-lifted relative justify-start p-5 ">
+          <div role="tablist" className="tabs tabs-bordered relative justify-start p-5 ">
             {sortOptions.map((option) => (
               <a
                 role="tab"

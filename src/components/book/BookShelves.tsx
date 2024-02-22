@@ -28,9 +28,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
+import Swal from 'sweetalert2';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const bookCover = '/static/bookCover.png';
+const bookCover = '/static/images/bookCover.png';
+const personIcon = '/static/images/defaultAvatar.png';
 
 interface ProfileProps {
   _id: string;
@@ -226,7 +228,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
 
       const user: ProfileProps = {
         _id: _id,
-        avatar: data.avatar ? data.avatar : bookCover,
+        avatar: data.avatar ? data.avatar : personIcon,
         bookshelfLink: `/user/${encodeURIComponent(_id)}/bookshelf`,
         name: data.nickname ?? data.userId,
         userId: data.userId,
@@ -275,7 +277,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
   return (
     <div
       key={index}
-      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
+      className="bg-opacity-20 bg-accent backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
       <div className="object-center transition-transform duration-500 hover:scale-105 ">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
@@ -293,9 +295,9 @@ export const Book = ({ book, index }: BookComponentProps) => {
       </div>
 
       <div className="p-4">
-        <div className="flex truncate justify-center text-align-center">
-          <div className="flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
-            <div className="text-center max-w-60">{book.title}</div>
+        <div className="flex  justify-center text-align-center">
+          <div className="flex  justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-base-content">
+            <div className="text-center truncate max-w-60">{book.title}</div>
           </div>
         </div>
         <div className=" flex justify-between items-center mt-4 ">
@@ -324,11 +326,9 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   />
                 </div>
               </div>
-              <div className=" truncate max-w-[40px]">
-                <span className="text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
-                  {user.name}
-                </span>
-              </div>
+              <span className="truncate max-w-20 text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-semibold text-base-content">
+                {user.name}
+              </span>
             </div>
             <ul
               tabIndex={0}
@@ -367,7 +367,12 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   token
                     ? debouncedHandleLike
                     : () => {
-                        alert('로그인이 필요합니다.');
+                        Swal.fire({
+                          icon: 'error',
+                          title: '로그인 필요',
+                          text: '좋아요를 누르기 위해서는 로그인이 필요합니다.',
+                          confirmButtonText: '확인',
+                        });
                       }
                 }
               >
