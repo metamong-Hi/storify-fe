@@ -27,10 +27,7 @@ function ProfilePage(profile: propsType) {
   useEffect(() => {
     try {
       setOriNickname(profile.data.nickname ?? profile.data.userId);
-      setOriAvatar(
-        profile.data.avatar ||
-          'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png',
-      );
+      setOriAvatar(profile.data.avatar || '/static/images/defaultAvatar.png');
       setOriIntroduction(profile.data.introduction ?? '자기 소개를 입력해주세요');
     } catch (error) {
       console.error('유저 프로필을 가져오는 중 오류가 발생했습니다: ', error);
@@ -83,7 +80,7 @@ function ProfilePage(profile: propsType) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto my-8 p-6 bg-white rounded-lg shadow-md w-full max-w-md sm:max-w-lg"
+      className="mx-auto my-8 p-6 bg-accent/20 border-1 rounded-lg shadow-md w-full max-w-md sm:max-w-lg"
     >
       <div className="mb-8 flex justify-center item-center space-y-4">
         <label
@@ -91,10 +88,7 @@ function ProfilePage(profile: propsType) {
           className="relative item-center w-24 h-24 overflow-hidden rounded-full cursor-pointer"
         >
           <Image
-            src={
-              imagePreview ||
-              'https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png'
-            }
+            src={imagePreview || '/static/images/defaultAvatar.png'}
             alt="avatar"
             layout="fill"
             objectFit="cover"
@@ -108,8 +102,8 @@ function ProfilePage(profile: propsType) {
             onChange={handleAvatarChange}
             className="absolute inset-0 opacity-0 cursor-pointer"
           />
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-30 hover:opacity-100 transition-opacity duration-300 ">
-            <span className="text-white font-small">
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 opacity-30 hover:opacity-100 transition-opacity duration-300 ">
+            <span className="text-base-100 font-small">
               <ImageIcon />
             </span>
           </div>
@@ -118,7 +112,7 @@ function ProfilePage(profile: propsType) {
 
       <label
         htmlFor="nickname"
-        className="block mb-4 text-sm md:text-base font-medium text-gray-700"
+        className="block mb-4 text-sm md:text-base font-medium text-base-content"
       >
         닉네임
       </label>
@@ -132,7 +126,10 @@ function ProfilePage(profile: propsType) {
         className="w-full mb-4 p-3 text-sm md:text-base border rounded-lg shadow-sm"
       />
 
-      <label htmlFor="intro" className="block mb-3 text-sm md:text-base font-medium text-gray-700">
+      <label
+        htmlFor="intro"
+        className="block mb-3 text-sm md:text-base font-medium text-base-content"
+      >
         자기 소개
       </label>
       <textarea
@@ -147,8 +144,8 @@ function ProfilePage(profile: propsType) {
       <button
         type="submit"
         disabled={!isChanged}
-        className={`mt-4 w-full px-6 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-lg ${
-          isChanged ? 'hover:bg-primary-700' : 'opacity-50 cursor-not-allowed'
+        className={`mt-4 w-full px-6 py-2 text-sm font-medium text-base-content bg-base-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-lg ${
+          isChanged ? 'hover:bg-base-content hover:text-base-100' : 'opacity-50 cursor-not-allowed'
         }`}
       >
         저장하기
