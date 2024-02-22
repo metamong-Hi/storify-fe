@@ -58,6 +58,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
   useEffect(() => {
     const fetchData = async () => {
       const data: UserProps | null = await getUserInfo(userId);
+      console.log(userId);
       if (userId) {
         if (type === 'liked') {
           setShelfTitle('좋아요한 책장');
@@ -162,7 +163,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
             ))}
           </div>
           <div
-            className={`${userId ? '' : 'hidden'} flex justify-center text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl p-5`}
+            className={`flex justify-center text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl p-5`}
           >
             {shelfTitle}
           </div>

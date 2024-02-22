@@ -27,7 +27,7 @@ function ProfilePage(profile: propsType) {
   useEffect(() => {
     try {
       setOriNickname(profile.data.nickname ?? profile.data.userId);
-      setOriAvatar(profile.data.avatar || '/static/images/defaultAvatar.png');
+      setOriAvatar(profile.data.avatar || '/static/defaultAvatar.png');
       setOriIntroduction(profile.data.introduction ?? '자기 소개를 입력해주세요');
     } catch (error) {
       console.error('유저 프로필을 가져오는 중 오류가 발생했습니다: ', error);
@@ -88,7 +88,7 @@ function ProfilePage(profile: propsType) {
           className="relative item-center w-24 h-24 overflow-hidden rounded-full cursor-pointer"
         >
           <Image
-            src={imagePreview || '/static/images/defaultAvatar.png'}
+            src={imagePreview || '/static/defaultAvatar.png'}
             alt="avatar"
             layout="fill"
             objectFit="cover"

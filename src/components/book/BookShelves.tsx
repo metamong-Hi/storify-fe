@@ -32,8 +32,8 @@ import Swal from 'sweetalert2';
 import { getUserInfo } from '@/services/userService';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const bookCover = '/static/images/bookCover.png';
-const personIcon = '/static/images/defaultAvatar.png';
+const bookCover = '/static/bookCover.png';
+const personIcon = '/static/defaultAvatar.png';
 
 interface ProfileProps {
   _id: string;
@@ -260,13 +260,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
       if (socket) socket.off('like');
     };
   }, [book._id]);
-  const openLoginModal = () => {
-    const modal = document.getElementById('authModal');
-    if (modal) {
-      const modalElement = document.getElementById('authModal') as HTMLDialogElement;
-      modalElement.showModal();
-    }
-  };
 
   return (
     <div
