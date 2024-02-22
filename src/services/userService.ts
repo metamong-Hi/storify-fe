@@ -83,13 +83,15 @@ export async function updateUserProfile(
     if (!response.ok) {
       throw new Error('Failed to update profile');
     }
-    console.log(response.json());
+    const data = await response.json(); 
 
-    console.log('프로필 업데이트 성공');
+    sessionStorage.setItem('nickname',data.nickname);
+    window.location.reload();
   } catch (error) {
     console.error('프로필 업데이트 실패: ', error);
   }
 }
+
 
 export async function getUserInfo(_id: string): Promise<any> {
   const response = await fetch(`${API_URL}/users/${_id}`, {
