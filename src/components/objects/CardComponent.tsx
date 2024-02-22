@@ -45,8 +45,8 @@ const CardComponent: React.FC<CardProps> = ({ title, description, imgUrl, link  
     <figure className="relative w-full h-full">
       <Image src={imgUrl}
       alt={title}
-      width={512}
-      height={512}
+      width={448}
+      height={448}
       quality={75}
       style={{objectFit: "cover"}}/>
     </figure>
