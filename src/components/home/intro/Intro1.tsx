@@ -66,7 +66,7 @@ const Intro1: React.FC = () => {
                 alt={`Slide ${index}`}
                 width={720}
                 height={360}
-                quality={75}
+                quality={100}
                 sizes="50vw"
               />
             </SwiperSlide>
