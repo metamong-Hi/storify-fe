@@ -5,14 +5,20 @@ import { updateUserProfile } from '@/services/userService';
 import CameraIcon from '../../../public/icons/CameraIcon';
 import ImageIcon from '../../../public/icons/ImageIcon';
 import { ProfileData } from '@/types/user';
-import { useRouter } from 'next/navigation';
+import { redirect, useParams, useRouter } from 'next/navigation';
 import exp from 'constants';
+import { revalidatePath } from 'next/cache';
+import { navigate } from '@/hooks/useRedirect';
+import Swal from 'sweetalert2';
+import { set } from 'lodash';
 
 interface propsType {
   data: ProfileData;
 }
 
 function ProfilePage(profile: propsType) {
+  const userId = useParams().userID;
+
   const [isChanged, setIsChanged] = useState(false);
   const [avatar, setAvatar] = useState<File | string>('');
   const [nickname, setNickname] = useState('');
@@ -21,6 +27,8 @@ function ProfilePage(profile: propsType) {
   const [oriAvatar, setOriAvatar] = useState('');
   const [oriNickname, setOriNickname] = useState('');
   const [oriIntroduction, setOriIntroduction] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -60,16 +68,31 @@ function ProfilePage(profile: propsType) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      setLoading(true);
       await updateUserProfile(nickname, avatar, introduction);
-      setOriNickname(nickname);
-      setOriIntroduction(introduction);
-      setOriAvatar(imagePreview);
+
+      if (avatar !== '' && typeof avatar !== 'string') {
+        setOriAvatar(imagePreview);
+      }
+      if (nickname !== '') {
+        setOriNickname(nickname);
+      }
+      if (introduction !== '') {
+        setOriIntroduction(introduction);
+      }
+
       setAvatar('');
       setNickname('');
       setIntroduction('');
-      router.push(`/user/${profile.data._id}/profile`);
-    } catch (error) {
-      console.error('프로필 업데이트 중 오류가 발생했습니다: ', error);
+
+      setLoading(false);
+    } catch (error: any) {
+      Swal.fire({
+        icon: 'error',
+        title: '프로필 업데이트 실패',
+        text: error.message,
+      });
+      setLoading(false);
     }
   };
 
@@ -102,9 +125,9 @@ function ProfilePage(profile: propsType) {
             onChange={handleAvatarChange}
             className="absolute inset-0 opacity-0 cursor-pointer"
           />
-          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 opacity-30 hover:opacity-100 transition-opacity duration-300 ">
-            <span className="text-base-100 font-small">
-              <ImageIcon />
+          <div className="absolute inset-0 flex items-center justify-center hover:bg-primary/50  ">
+            <span className="opacity-50 ">
+              <Image src={'/static/plusIcon.png'} width="30" height="30" alt={''} />
             </span>
           </div>
         </label>
@@ -143,12 +166,12 @@ function ProfilePage(profile: propsType) {
       />
       <button
         type="submit"
-        disabled={!isChanged}
+        disabled={!isChanged || !loading}
         className={`mt-4 w-full px-6 py-2 text-sm font-medium text-base-content bg-base-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-lg ${
           isChanged ? 'hover:bg-base-content hover:text-base-100' : 'opacity-50 cursor-not-allowed'
         }`}
       >
-        저장하기
+        {loading ? '저장 중...' : '저장하기'}
       </button>
     </form>
   );

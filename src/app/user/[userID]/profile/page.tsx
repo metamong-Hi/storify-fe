@@ -61,7 +61,7 @@ const Page = ({ params }: { params: { userID: string } }) => {
       </div>
       {message && (
         <p
-          className={`text-${message.includes('실패') ? 'error' : 'success'}-500 text-xs italic mb-4`}
+          className={`text-${message.includes('실패') ? 'error' : 'success'} mt-10 text-xs italic mb-4`}
         >
           {message}
         </p>
