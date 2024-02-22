@@ -49,8 +49,6 @@ const NavbarComponent = () => {
     }
   }, [notifications]);
 
-
-
   // 로그인 모달 상태
   const {
     isOpen: isLoginOpen,
@@ -75,12 +73,12 @@ const NavbarComponent = () => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
 
-    // 페이지의 다른 부분을 클릭했을 때 실행될 핸들러
-    const handlePageClick = () => {
-      if (showNotifications) {
-        setShowNotifications(false);
-      }
-    };
+  // 페이지의 다른 부분을 클릭했을 때 실행될 핸들러
+  const handlePageClick = () => {
+    if (showNotifications) {
+      setShowNotifications(false);
+    }
+  };
   useEffect(() => {
     // 클릭 이벤트 리스너 등록
     document.addEventListener('click', handlePageClick);
@@ -89,7 +87,7 @@ const NavbarComponent = () => {
     return () => {
       document.removeEventListener('click', handlePageClick);
     };
-  }, [showNotifications]); 
+  }, [showNotifications]);
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
@@ -314,16 +312,27 @@ const NavbarComponent = () => {
                     </Link>
                   </li>
                   <li>
+                    <Link
+                      href={`/user/${userId}/liked-books`}
+                      className="p-2 text-lg text-base-content"
+                    >
+                      좋아요한 책
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      href={`/user/${userId}/profile`}
+                      className="p-2 text-lg text-base-content"
+                    >
+                      프로필
+                    </Link>
+                  </li>
+                  <li>
                     <Link href={`/user-setting`} className="p-2 text-lg text-base-content">
                       환경설정
                     </Link>
                   </li>
-
-                  {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-2 text-lg text-base-content">
-                      프로필
-                    </Link>
-                  </li> */}
                   <li>
                     <div className="text-danger p-2 text-lg " onClick={() => handleClickLogout()}>
                       로그아웃
