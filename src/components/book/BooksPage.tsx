@@ -11,6 +11,19 @@ import { jwtDecode } from 'jwt-decode';
 import { redirect } from 'next/navigation';
 import { BooksData } from '@/types/books';
 import { set } from 'lodash';
+import { getUserInfo } from '@/services/userService';
+import { user } from '@nextui-org/react';
+
+interface UserProps {
+  _id: string;
+  password: string;
+  email: string;
+  createdAt: Date;
+  __v: number;
+  refreshToken: string;
+  userId: string;
+  nickname: string;
+}
 
 interface UseBooksDataProps {
   userId: string;
@@ -33,41 +46,37 @@ async function GET(url: string): Promise<userIDProps> {
   }
 }
 
-async function getOtherUserId(userId: string) {
-  const response = await GET(process.env.NEXT_PUBLIC_API_URL + `/users/${userId}`);
-  return response;
-}
-
 const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },
     { label: '좋아요순', value: 'like' },
     { label: '조회순', value: 'count' },
   ];
-  const [otherNickname, setOtherNickname] = useState('');
+  const [data, setData] = useState<UserProps>();
   const [shelfTitle, setShelfTitle] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      let id = '';
-      if (typeof window !== 'undefined') {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-          id = jwtDecode(token)?.sub as string;
-          if (id !== userId) {
-            const data = await getOtherUserId(userId);
-            setOtherNickname(data.nickname);
-          }
+      const data: UserProps | null = await getUserInfo(userId);
+      if (userId) {
+        if (type === 'liked') {
+          setShelfTitle('좋아요한 책장');
+        } else if (typeof window !== 'undefined') {
+          const token = sessionStorage.getItem('token');
+          const decoded = token ? jwtDecode(token) : null;
+          setShelfTitle(
+            decoded && decoded.sub === userId ? '내 책장' : `${data?.nickname} 님의 책장`,
+          );
         } else {
-          const data = await getOtherUserId(userId);
-          setOtherNickname(data.nickname);
+          setShelfTitle(`${data?.nickname} 님의 책장`);
         }
+      } else {
+        setShelfTitle('전체 책장');
       }
-      setShelfTitle(userId ? (id === userId ? '내 책장' : `${otherNickname}님의 책장`) : '');
     };
 
     fetchData();
-  }, [userId, otherNickname]);
+  }, [type, userId]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState<number>(24);

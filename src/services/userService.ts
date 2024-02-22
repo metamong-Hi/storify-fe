@@ -1,6 +1,17 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const token = sessionStorage.getItem('token');
 
+interface UserProps {
+  _id: string;
+  password: string;
+  email: string;
+  createdAt: Date;
+  __v: number;
+  refreshToken: string;
+  userId: string;
+  nickname: string;
+}
+
 export async function updateUserPassword(oldPassword: string, newPassword: string): Promise<void> {
   try {
     await fetch(`${API_URL}/auth/password`, {
@@ -91,7 +102,10 @@ export async function updateUserProfile(
   }
 }
 
-export async function getUserInfo(_id: string): Promise<any> {
+export async function getUserInfo(_id: string): Promise<UserProps | null> {
+  if (!_id ?? _id === '') {
+    return null;
+  }
   const response = await fetch(`${API_URL}/users/${_id}`, {
     method: 'GET',
   });

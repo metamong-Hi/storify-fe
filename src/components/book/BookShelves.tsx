@@ -29,6 +29,7 @@ import { RootState } from '@/store';
 
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 import Swal from 'sweetalert2';
+import { getUserInfo } from '@/services/userService';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const bookCover = '/static/images/bookCover.png';
@@ -92,13 +93,7 @@ async function getUserIdtoProfile(_id: string) {
   if (!_id) {
     return;
   }
-  const response: UserProps = await fetch(`${API_URL}/users/${_id}`, {
-    method: 'GET',
-  })
-    .then((res) => res.json())
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+  const response: UserProps = await getUserInfo(_id);
 
   const response2 = await getUserProfile(response.userId);
 
@@ -236,7 +231,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
         likedBooksLink: `/user/${encodeURIComponent(_id)}/liked-books`,
       };
       setUser(user);
-      console.log('user:', user.avatar);
     };
 
     fetchData();
@@ -245,7 +239,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
       initializeWebSocket(userToken);
-      console.log('소켓셋팅됨');
+      // console.log('소켓셋팅됨');
     }
   }, []);
   useEffect(() => {
@@ -277,7 +271,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
   return (
     <div
       key={index}
-      className="bg-opacity-20 bg-accent backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
+      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
     >
       <div className="object-center transition-transform duration-500 hover:scale-105 ">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
@@ -306,13 +300,6 @@ export const Book = ({ book, index }: BookComponentProps) => {
               tabIndex={0}
               role="button"
               className="flex items-center rounded-4xl space-x-2 hover:bg-black/10 cursor-pointer"
-              // onClick={
-              //   token
-              //     ? () => console.log('User profile link')
-              //     : () => {
-              //         alert('로그인이 필요합니다.');
-              //       }
-              // }
             >
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
@@ -406,8 +393,13 @@ export default function BookShelves({ books = [], limit, search }: BookShelvesPr
   return (
     <>
       {Array.isArray(books) && books.length === 0 ? (
-        <BookSkeleton cnt={24} />
+        <div className="flex justify-center items-center w-full h-96">
+          <span className="text-base-content text-2xl">검색 결과가 없습니다.</span>
+        </div>
       ) : (
+        // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-1 md:gap-4 2xl:gap-8">
+        //   <BookSkeleton cnt={24} />
+        // </div>
         Array.isArray(books) &&
         books.map((book, index) => <Book key={index} book={book} index={index} />)
       )}
