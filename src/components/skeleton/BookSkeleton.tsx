@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { EyeIcon } from '../icons/EyeIcon';
-import { HeartIcon } from '../icons/HeartIcon';
+import { EyeIcon } from '../../../public/icons/EyeIcon';
+import { HeartIcon } from '../../../public/icons/HeartIcon';
 interface Props {
   cnt: number;
 }
