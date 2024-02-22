@@ -19,7 +19,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { CopyToClipboard } from "react-copy-to-clipboard";
+// import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -704,9 +704,9 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
       <LineShareButton url={currentUrl}>
         <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
       </LineShareButton>
-      <CopyToClipboard text={url} onCopy={handleCopy}>
+      {/* <CopyToClipboard text={url} onCopy={handleCopy}>
         <button>복사</button>
-      </CopyToClipboard>
+      </CopyToClipboard> */}
 
 {/* 
       <button onClick={handleShare}>공유하기</button> */}
