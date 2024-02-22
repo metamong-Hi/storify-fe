@@ -23,6 +23,7 @@ async function GET(url: string): Promise<BooksResponse> {
 }
 
 export async function getUserLikedBooks() {
+  if (typeof window === 'undefined') throw new Error('No token found');
   const token = sessionStorage.getItem('token');
   try {
     const response = await fetch(`${API_URL}/books/likes`, {
@@ -34,11 +35,6 @@ export async function getUserLikedBooks() {
   } catch (error: any) {
     return error.message;
   }
-}
-
-export async function getUserBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
-  const data = await GET(`${API_URL}/books?page=${page}&limit=${limit}&userId=${id}`);
-  return data;
 }
 
 export async function getAllBooks(page = 1, limit = 24, sort = '', search = '', id = '') {
@@ -53,8 +49,6 @@ export async function getBooks(page = 1, limit = 24, sort = '', search = '', id 
     const data = await getUserLikedBooks();
 
     return data;
-  } else if (type === 'user') {
-    return getUserBooks(page, limit, sort, search, id);
   } else {
     return getAllBooks(page, limit, sort, search, id);
   }
