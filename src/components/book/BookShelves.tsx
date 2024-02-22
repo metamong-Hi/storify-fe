@@ -246,7 +246,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
     const socket = getSocket();
 
     if (socket) {
-      socket.emit('like', { bookId: book._id });
+      //socket.emit('like', { bookId: book._id });
 
       //여긴 유지
       // socket.on('like', (data) => {
