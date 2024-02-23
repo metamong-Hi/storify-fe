@@ -262,7 +262,7 @@ const ComplexWritingPage: React.FC = () => {
               <button onClick={playAudio} className="btn btn-circle btn-outline ml-4">
                 <div className="w-10 h-10 relative ">
                   <Image
-                    src="/static/logos/speakerIcon.png "
+                    src="/static/speakerIcon.png "
                     width={64}
                     height={64}
                     quality={100}
@@ -282,7 +282,7 @@ const ComplexWritingPage: React.FC = () => {
               <div className="w-12 lg:w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
                 <Image
                   alt="Tailwind CSS chat bubble component"
-                  src="/static/logos/rabbitIcon.png"
+                  src="/static/rabbitIcon.png"
                   width={64}
                 height={64}
                 quality={100}

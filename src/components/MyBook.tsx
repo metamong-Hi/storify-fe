@@ -628,7 +628,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           </Button>
         )}
 
-        {currentPageIndex < page.length / 2 - 1 ? (
+        {currentPageIndex < page.length / 2 + 1 ? (
           <Button size="lg" onClick={goToNextPage} style={{ marginLeft: '10px' }}>
             다음 페이지
           </Button>
