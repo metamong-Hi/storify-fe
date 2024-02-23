@@ -85,14 +85,12 @@ function ResetPasswordPage() {
     e.preventDefault();
     dispatch(login({ userId: formData.userId, password: formData.password }))
       .then(() => {
-        
         showLoginSuccessAlert();
       })
       .catch((error) => {
         console.error('로그인 실패: ', error);
         showLoginFailedAlert();
       });
- 
   };
 
   const [formSignupData, setFormSignupData] = useState({
@@ -125,7 +123,6 @@ function ResetPasswordPage() {
         console.log('회원가입 실패: ********* ', error);
         showSignupFailedAlert();
       });
-
   };
   const handleSelectionChange = (key: string | number) => {
     setSelected(String(key));
@@ -134,84 +131,79 @@ function ResetPasswordPage() {
     <div className="flex flex-col w-full">
       <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden">
-                <p>비밀번호 재설정</p>
-              <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
-                <Input
-                  isRequired
-                  label="비밀번호"
-                  placeholder="현재 비밀번호를 입력하세요"
-                  type="text"
-                  name="username"
-                  value={formData.userId}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  isRequired
-                  label="비밀번호"
-                  placeholder="비밀번호를 입력하세요"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-                <p className="text-center text-small">
-                  계정이 없으신가요?{' '}
-                  <Link
-                    size="sm"
-                
-                    onPress={() => setSelected('sign-up')}
-                  >
-                    회원가입
-                  </Link>
-                </p>
-                <div className="flex gap-2 justify-end">
-                  <Button type="submit" fullWidth>
-                    로그인
-                  </Button>
-                </div>
-              </form>
-     
-              <form className="flex flex-col gap-4 h-[300px]" onSubmit={handleSignUpSubmit}>
-                <Input
-                  isRequired
-                  label="이름"
-                  placeholder="이름을 입력하세요"
-                  type="text"
-                  name="username"
-                  value={formSignupData.userId}
-                  onChange={handleInputChangeSignup}
-                />
-                <Input
-                  isRequired
-                  label="비밀번호"
-                  placeholder="비밀번호를 입력하세요"
-                  type="password"
-                  name="password"
-                  value={formSignupData.password}
-                  onChange={handleInputChangeSignup}
-                />
-                <Input
-                  isRequired
-                  label="이메일"
-                  placeholder="이메일을 입력하세요"
-                  type="email"
-                  name="email"
-                  value={formSignupData.email}
-                  onChange={handleInputChangeSignup}
-                />
-                <p className="text-center text-small">
-                  이미 계정이 있으신가요?{' '}
-                  <Link size="sm"  onPress={() => setSelected('login')}>
-                    로그인
-                  </Link>
-                </p>
-                <div className="flex gap-2 justify-end">
-                  <Button type="submit" fullWidth >
-                    회원가입
-                  </Button>
-                </div>
-              </form>
-        
+          <p>비밀번호 재설정</p>
+          <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
+            <Input
+              isRequired
+              label="비밀번호"
+              placeholder="현재 비밀번호를 입력하세요"
+              type="text"
+              name="username"
+              value={formData.userId}
+              onChange={handleInputChange}
+            />
+            <Input
+              isRequired
+              label="비밀번호"
+              placeholder="비밀번호를 입력하세요"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+            <p className="text-center text-small">
+              계정이 없으신가요?{' '}
+              <Link size="sm" onPress={() => setSelected('sign-up')}>
+                회원가입
+              </Link>
+            </p>
+            <div className="flex gap-2 justify-end">
+              <Button type="submit" fullWidth>
+                로그인
+              </Button>
+            </div>
+          </form>
+
+          <form className="flex flex-col gap-4 h-[300px]" onSubmit={handleSignUpSubmit}>
+            <Input
+              isRequired
+              label="이름"
+              placeholder="이름을 입력하세요"
+              type="text"
+              name="username"
+              value={formSignupData.userId}
+              onChange={handleInputChangeSignup}
+            />
+            <Input
+              isRequired
+              label="비밀번호"
+              placeholder="비밀번호를 입력하세요"
+              type="password"
+              name="password"
+              value={formSignupData.password}
+              onChange={handleInputChangeSignup}
+            />
+            <Input
+              isRequired
+              label="이메일"
+              placeholder="이메일을 입력하세요"
+              type="email"
+              name="email"
+              value={formSignupData.email}
+              onChange={handleInputChangeSignup}
+            />
+            <p className="text-center text-small">
+              이미 계정이 있으신가요?{' '}
+              <Link size="sm" onPress={() => setSelected('login')}>
+                로그인
+              </Link>
+            </p>
+            <div className="flex gap-2 justify-end">
+              <Button type="submit" fullWidth>
+                회원가입
+              </Button>
+            </div>
+          </form>
         </CardBody>
       </Card>
     </div>

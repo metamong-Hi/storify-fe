@@ -1,7 +1,5 @@
-import SimpleWritingPageSkeleton from "@/components/skeleton/writing/SimpleWriting";
+import SimpleWritingPageSkeleton from '@/components/skeleton/writing/SimpleWriting';
 
 export default function Loading() {
-  return (
-    <SimpleWritingPageSkeleton/>
-  );
+  return <SimpleWritingPageSkeleton />;
 }

@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ interface FooterLinkProps {
   alt: string;
   label: string;
 }
-
 
 const FooterLink: React.FC<FooterLinkProps> = ({ href, src, alt, label }) => {
   const theme = useSelector((state: RootState) => state.theme.value);

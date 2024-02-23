@@ -1,5 +1,4 @@
 'use client';
-
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { useAppSelector } from '@/hooks/useAppSelector';

@@ -13,18 +13,17 @@ import Image from 'next/image';
 import { setNotifications } from '@/store/notificationSlice';
 const StyledLink = styled(Link)`
   color: '#FFC4D0';
-  cursor: pointer; 
+  cursor: pointer;
 
   &:hover {
   }
 `;
 interface UpdateTitleProps {
-    bookId: string;
-  }
-  const UpdateTitle: React.FC<UpdateTitleProps> = ({ bookId }) => {
- 
+  bookId: string;
+}
+const UpdateTitle: React.FC<UpdateTitleProps> = ({ bookId }) => {
   const [formData, setFormData] = useState({
-    title:'',
+    title: '',
   });
 
   const showTitleSuccessAlert = () => {
@@ -40,7 +39,7 @@ interface UpdateTitleProps {
       }
     });
   };
- 
+
   const showTitleFailedAlert = () => {
     Swal.fire({
       title: `제목 수정 실패`,
@@ -53,7 +52,7 @@ interface UpdateTitleProps {
       }
     });
   };
- 
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     const name = target.name;
@@ -62,57 +61,54 @@ interface UpdateTitleProps {
       ...formData,
       [name]: value,
     });
-    
   };
 
   const handleTitleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-          console.log('No token found');
-          return;
-        }
-    
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${bookId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ title: formData.title }),
-        });
-  
-        const data = await response.json();
-        console.log("성공함", data);
-      } catch (error) {
-        console.error("망함", error);
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        console.log('No token found');
+        return;
       }
-        window.location.reload();
-   
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${bookId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title: formData.title }),
+      });
+
+      const data = await response.json();
+      console.log('성공함', data);
+    } catch (error) {
+      console.error('망함', error);
     }
+    window.location.reload();
+  };
 
   return (
     <div className=" max-w-full w-[340px] h-[160px] gap-10">
-              <form className="flex flex-col gap-6" onSubmit={handleTitleSubmit}>
-                <Input
-                  isRequired
-                  label="제목 수정"
-                  placeholder="새로운 제목을 입력하세요"
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                />
-                 <div className="flex gap-6 justify-end">
-                  <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
-                    확인
-                  </Button>
-                </div>
-              </form>
-    
+      <form className="flex flex-col gap-6" onSubmit={handleTitleSubmit}>
+        <Input
+          isRequired
+          label="제목 수정"
+          placeholder="새로운 제목을 입력하세요"
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleInputChange}
+        />
+        <div className="flex gap-6 justify-end">
+          <Button type="submit" fullWidth style={{ backgroundColor: '#FFC4D0' }}>
+            확인
+          </Button>
+        </div>
+      </form>
     </div>
   );
-}
+};
 
 export default UpdateTitle;
