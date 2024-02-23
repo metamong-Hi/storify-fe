@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </head>
-      <body className="font-default">
+      <body className="font-KyoboHand">
         <Provider store={store}>
           <NextUIProvider>
             <NavigationBar />
