@@ -114,4 +114,4 @@ Inference API를 통해 관련 이미지 생성 시간과 인프라 비용을 �
 classbinu@gmail.com
 
 ## Memo
-deploy
+deploy1
