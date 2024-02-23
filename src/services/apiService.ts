@@ -12,17 +12,17 @@ async function apiService(endpoint: string, options?: RequestInit) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         };
-        console.log("apiService에서 토큰 불러옴: " + token);
-        console.log("Header: ", headers);
+        // console.log("apiService에서 토큰 불러옴: " + token);
+        // console.log("Header: ", headers);
         
         let response = await fetch(`${endpoint}`, {
             ...options,
             headers,
         });
-        console.log("Response: ", response);
+        // console.log("Response: ", response);
 
         if (response.status === 401) {
-            console.log("401 에러 감지됨, 토큰 재발급 시도");
+            // console.log("401 에러 감지됨, 토큰 재발급 시도");
             const refreshAction = await store.dispatch(refreshAccessToken());
             if (refreshAccessToken.fulfilled.match(refreshAction)) {
                 const newToken = refreshAction.payload.accessToken;
@@ -32,7 +32,7 @@ async function apiService(endpoint: string, options?: RequestInit) {
                     ...options,
                     headers,
                 });
-                console.log("재시도 Response: ", response);
+                // console.log("재시도 Response: ", response);
 
                 if (!response.ok) {
                     throw new Error('요청 재시도 실패');
