@@ -61,22 +61,27 @@ const NavbarComponent = () => {
   } = useDisclosure();
 
   const theme = useSelector((state: RootState) => state.theme.value);
-  const handleNotificationsClick = () => {
+  const handleNotificationsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); 
     setShowNotifications(!showNotifications);
     sessionStorage.removeItem('notifications');
   };
   // notifications.forEach((notification, index) => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
-  useEffect(() => {
-    // 클릭 이벤트 리스너 등록
-    document.addEventListener('click', handleNotificationsClick);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      document.removeEventListener('click', handleNotificationsClick);
+  useEffect(() => {
+    const handlePageClick = () => {
+      if (showNotifications) {
+        setShowNotifications(false);
+      }
     };
-  }, [showNotifications]); 
+
+    document.addEventListener('click', handlePageClick);
+    return () => {
+      document.removeEventListener('click', handlePageClick);
+    };
+  }, [showNotifications]);
   const isWhiteIconTheme = [
     'luxury',
     'dark',
@@ -183,7 +188,7 @@ const NavbarComponent = () => {
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
+                className="h-10 w-10"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -251,7 +256,7 @@ const NavbarComponent = () => {
                 <button onClick={handleNotificationsClick} className="btn btn-ghost btn-circle">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8"
+                    className="h-10 w-10"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -284,10 +289,10 @@ const NavbarComponent = () => {
               </div>
               <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-8 rounded-full">
+                  <div className="w-10 rounded-full">
                     <Image
                       alt="Tailwind CSS Navbar component"
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
+                      src="/static/rabbitIcon.png"
                       width={128}
                       height={128}
                       style={{ filter: iconFilter }}
@@ -307,16 +312,26 @@ const NavbarComponent = () => {
                     </Link>
                   </li>
                   <li>
+                    <Link
+                      href={`/user/${userId}/liked-books`}
+                      className="p-2 text-lg text-base-content"
+                    >
+                      좋아요한 책
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/user/${userId}/profile`}
+                      className="p-2 text-lg text-base-content"
+                    >
+                      프로필
+                    </Link>
+                  </li>
+                  <li>
                     <Link href={`/user-setting`} className="p-2 text-lg text-base-content">
                       환경설정
                     </Link>
                   </li>
-
-                  {/* <li>
-                    <Link href={`/user/${userId}/profile`} className="p-2 text-lg text-base-content">
-                      프로필
-                    </Link>
-                  </li> */}
                   <li>
                     <div className="text-danger p-2 text-lg " onClick={() => handleClickLogout()}>
                       로그아웃
