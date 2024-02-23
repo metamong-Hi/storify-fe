@@ -29,24 +29,22 @@ import {
   LineShareButton,
   LineIcon,
   InstapaperShareButton,
-  InstapaperIcon
-} from "react-share";
-
-
+  InstapaperIcon,
+} from 'react-share';
 
 const URLShareButton = styled.button`
-	width: 48px;
-	height: 48px;
-	color: white;
-	border-radius: 24px;
-	border: 0px;
-	font-weight: 800;
-	font-size: 18px;
-	cursor: pointer;
-	background-color: #7362ff;
-	&:hover {
-		background-color: #a99fee;
-	}
+  width: 48px;
+  height: 48px;
+  color: white;
+  border-radius: 24px;
+  border: 0px;
+  font-weight: 800;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #7362ff;
+  &:hover {
+    background-color: #a99fee;
+  }
 `;
 const StyledFlipBook = styled.div`
   display: flex;
@@ -208,9 +206,16 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [author, setAuthor] = useState('');
   const router = useRouter();
   const getCurrentUrl = () => {
-    return window.location.href;
+    if(typeof window !== undefined)
+    {
+      return window.location.href;
+    }
+    else
+    {
+      throw new Error("window를 찾을 수 없습니다.");
+    }
   };
-  const currentUrl=process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`;
+  const currentUrl = process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`;
   const [url, setUrl] = useState(getCurrentUrl());
   const handleCopy = () => {
     alert('주소가 복사되었습니다.');
@@ -416,7 +421,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
     };
 
     fetchBookData();
-  }, [bookId, token]);
+  }, [bookId]);
   const handleDelete = async () => {
     try {
       const response = await apiService(process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`, {
@@ -573,7 +578,7 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-10 menu p-0 md:p-1 shadow bg-base-100 rounded-box w-28 md:w-32"
+            className="dropdown-content z-10 menu p-0 md:p-1 shadow bg-base-100 rounded-box w-28 md:w-32 lg:w-36"
           >
             <li>
               <Link href={`/user/${userId}/bookshelf`}>
@@ -631,8 +636,8 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   textAlign: 'center',
-                  height: '512px', // 페이지 높이 설정
-                  width: '512px', // 페이지 너비 설정
+                  height: '512px', 
+                  width: '512px',
 
                   overflow: 'hidden',
                 }}
@@ -679,24 +684,21 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             책장으로 가기
           </Button>
         )}
-        
       </div>
-      <div style={{  display: 'flex',justifyContent: 'center' }}>
-      <FacebookShareButton style={{ marginRight: "20px" }} url={currentUrl}>
-        <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
-      </FacebookShareButton>
-      {/* <FacebookMessengerShareButton style={{ marginRight: "20px" }} url={currentUrl}>
+      <div className="flex justify-center lg:justify-end mt-4">
+        <FacebookShareButton style={{ marginRight: '20px' }} url={currentUrl}>
+          <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
+        </FacebookShareButton>
+        {/* <FacebookMessengerShareButton style={{ marginRight: "20px" }} url={currentUrl}>
         <FacebookMessengerIcon size={48} round={true} borderRadius={24}></FacebookMessengerIcon>
       </FacebookMessengerShareButton> */}
-      <TwitterShareButton style={{ marginRight: "20px" }} url={currentUrl}>
-        <TwitterIcon size={48} round={true} borderRadius={24}></TwitterIcon>
-      </TwitterShareButton>
-      <LineShareButton url={currentUrl}>
-        <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
-      </LineShareButton>
-  
+        <TwitterShareButton style={{ marginRight: '20px' }} url={currentUrl}>
+          <TwitterIcon size={48} round={true} borderRadius={24}></TwitterIcon>
+        </TwitterShareButton>
+        <LineShareButton url={currentUrl}>
+          <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
+        </LineShareButton>
       </div>
-      
     </>
   );
 };

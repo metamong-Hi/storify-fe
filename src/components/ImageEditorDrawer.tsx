@@ -32,33 +32,35 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({
   const token = sessionStorage.getItem('token');
   const realPageNumber = (Number(hellopage) + 2) / 2;
 
-  const fetchImages = async () => {
-    try {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + `/ai/books/${bookId}/${realPageNumber}/new-images`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
 
-      if (!response.ok) {
-        throw new Error('이미지 못사져옴');
-      }
-
-      const data: string[] = await response.json();
-      setImageUrls(data);
-    } catch (error) {
-      console.error('오류:', error);
-    }
-  };
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(
+          process.env.NEXT_PUBLIC_API_URL + `/ai/books/${bookId}/${realPageNumber}/new-images`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+  
+        if (!response.ok) {
+          throw new Error('이미지 못사져옴');
+        }
+  
+        const data: string[] = await response.json();
+        setImageUrls(data);
+      } catch (error) {
+        console.error('오류:', error);
+      }
+    };
+    
     fetchImages();
-  }, [hellopage, bookId]);
+  }, [hellopage, bookId,realPageNumber, token]);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
