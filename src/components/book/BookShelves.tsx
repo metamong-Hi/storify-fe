@@ -261,7 +261,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
               <div className="avatar">
                 <div className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full">
                   <Image
-                    src={user.avatar}
+                    src={user.avatar ? user.avatar : personIcon}
                     alt={`${user.name}'s Avatar`}
                     width={64}
                     height={64}
