@@ -19,6 +19,35 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  LineShareButton,
+  LineIcon,
+  InstapaperShareButton,
+  InstapaperIcon
+} from "react-share";
+
+
+
+const URLShareButton = styled.button`
+	width: 48px;
+	height: 48px;
+	color: white;
+	border-radius: 24px;
+	border: 0px;
+	font-weight: 800;
+	font-size: 18px;
+	cursor: pointer;
+	background-color: #7362ff;
+	&:hover {
+		background-color: #a99fee;
+	}
+`;
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
@@ -178,7 +207,20 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
   const [userId, setUserId] = useState('');
   const [author, setAuthor] = useState('');
   const router = useRouter();
+  const getCurrentUrl = () => {
+    return window.location.href;
+  };
+  const currentUrl=process.env.NEXT_PUBLIC_API_URL + `/books/${bookId}`;
+  const [url, setUrl] = useState(getCurrentUrl());
+  const handleCopy = () => {
+    alert('주소가 복사되었습니다.');
+    // 여기서 필요한 추가 작업 수행 가능
+  };
 
+  // 공유 버튼 클릭 시 URL을 업데이트하는 함수
+  const handleShare = () => {
+    setUrl(getCurrentUrl());
+  };
   const [isTitleModalOpen, setIsTitleModalOpen] = useState<boolean>(false);
   // const {isOpen,onOpen,onOpenChange}=useDisclosure();
 
@@ -637,7 +679,24 @@ const MyBook: React.FC<MyBookProps> = ({ bookId }) => {
             책장으로 가기
           </Button>
         )}
+        
       </div>
+      <div style={{  display: 'flex',justifyContent: 'center' }}>
+      <FacebookShareButton style={{ marginRight: "20px" }} url={currentUrl}>
+        <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
+      </FacebookShareButton>
+      {/* <FacebookMessengerShareButton style={{ marginRight: "20px" }} url={currentUrl}>
+        <FacebookMessengerIcon size={48} round={true} borderRadius={24}></FacebookMessengerIcon>
+      </FacebookMessengerShareButton> */}
+      <TwitterShareButton style={{ marginRight: "20px" }} url={currentUrl}>
+        <TwitterIcon size={48} round={true} borderRadius={24}></TwitterIcon>
+      </TwitterShareButton>
+      <LineShareButton url={currentUrl}>
+        <LineIcon size={48} round={true} borderRadius={24}></LineIcon>
+      </LineShareButton>
+  
+      </div>
+      
     </>
   );
 };
