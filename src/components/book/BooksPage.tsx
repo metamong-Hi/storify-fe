@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 
 import Pagination from '@/components/Pagination';
@@ -8,11 +8,8 @@ import { SearchIcon } from '@/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
-import { redirect } from 'next/navigation';
 import { BooksData } from '@/types/books';
-import { set } from 'lodash';
 import { getUserInfo } from '@/services/userService';
-import { user } from '@nextui-org/react';
 import ResetIcon from '@/icons/ResetIcon';
 import { ProfileData } from '@/types/user';
 
@@ -20,21 +17,11 @@ interface UseBooksDataProps {
   userId: string;
   type: string;
 }
-interface BookListProps {
-  userId: string;
-}
+
 interface userIDProps {
   _id: string;
   nickname: string;
   userId: string;
-}
-
-async function GET(url: string): Promise<userIDProps> {
-  try {
-    return (await fetch(url, { cache: 'no-store' })).json();
-  } catch (error: any) {
-    return error.message;
-  }
 }
 
 const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {

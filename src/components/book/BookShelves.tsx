@@ -2,16 +2,12 @@
 
 import React, { use, useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
-import { BooksData, userData } from '@/types/books';
-import io from 'socket.io-client';
+import { BooksData } from '@/types/books';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HeartIcon } from '../../../public/icons/HeartIcon';
-import { EyeIcon } from '../../../public/icons/EyeIcon';
-import { getAllBooks } from './AllBooks';
-import { get, set } from 'lodash';
-import { LikeIcon } from '../../../public/icons/LikeIcon';
-import { XIcon } from '../../../public/icons/XIcon';
+import { HeartIcon } from '@/icons/HeartIcon';
+import { EyeIcon } from '@/icons/EyeIcon';
+import { XIcon } from '@/icons/XIcon';
 
 // import bookCover from '@/images/bookCover.png';
 
@@ -362,7 +358,7 @@ export default function BookShelves({ books = [], limit, search }: BookShelvesPr
     <>
       {Array.isArray(books) && books.length === 0 ? (
         <div className="flex justify-center items-center w-full h-96">
-          <span className="text-base-content text-2xl">검색 결과가 없습니다.</span>
+          <span className="text-base-content text-2xl">결과가 없습니다.</span>
         </div>
       ) : (
         // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-1 md:gap-4 2xl:gap-8">
