@@ -23,19 +23,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      
-        <body className="font-KyoboHand">
-          <Provider store={store}>
-            <NextUIProvider>
-              <NavigationBar />
-              <Banner />
-              <main className="pb-20 bg-base-100 ">{children}</main>
-              <Footer />
-            </NextUIProvider>
-          </Provider>
-        </body>
-        <GoogleAnalytics gaId="G-PQN39348RK" />
-      </html>
+
+      <body className="font-KyoboHand">
+        <Provider store={store}>
+          <NextUIProvider>
+            <NavigationBar />
+            <Banner />
+            <main className="pb-20 bg-base-100 ">{children}</main>
+            <Footer />
+          </NextUIProvider>
+        </Provider>
+      </body>
+      <GoogleAnalytics gaId="G-PQN39348RK" />
+    </html>
   );
 }
-

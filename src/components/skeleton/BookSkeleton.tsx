@@ -1,7 +1,5 @@
 'use client';
-
 import React from 'react';
-
 import { EyeIcon } from '../../../public/icons/EyeIcon';
 import { HeartIcon } from '../../../public/icons/HeartIcon';
 interface Props {
