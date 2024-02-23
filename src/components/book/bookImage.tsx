@@ -23,7 +23,7 @@ const BookImage: React.FC<BookImageProps> = ({ src, alt, width, height, priority
 
   const handleError = () => {
     // 기본 이미지로 교체
-    setImageSrc('https://s3.ap-northeast-2.amazonaws.com/storify/public/bookCover-1708544260293.png');
+    setImageSrc('/static/defaultAvatar.png');
   };
 
   return (

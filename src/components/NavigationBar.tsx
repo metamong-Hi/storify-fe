@@ -187,7 +187,7 @@ const NavbarComponent = () => {
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
+                className="h-10 w-10"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -255,7 +255,7 @@ const NavbarComponent = () => {
                 <button onClick={handleNotificationsClick} className="btn btn-ghost btn-circle">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8"
+                    className="h-10 w-10"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -288,13 +288,13 @@ const NavbarComponent = () => {
               </div>
               <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-8 rounded-full">
+                  <div className="w-12 rounded-full">
                     <Image
                       alt="Tailwind CSS Navbar component"
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={32}
-                      height={32}
-                      quality={75}
+                      src="/static/logos/rabbitIcon.png"
+                      width={64}
+                      height={64}
+                      quality={100}
                       style={{ filter: iconFilter }}
                     />
                   </div>
