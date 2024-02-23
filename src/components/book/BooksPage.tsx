@@ -134,7 +134,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
             ))}
           </div>
           <div
-            className={`flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-3xl 2xl:text-3xl p-5`}
+            className={`flex justify-center text-base-content text-md sm:text-md md:text-lg lg:text-xl xl:text-3xl 2xl:text-3xl p-5`}
           >
             {shelfTitle}
           </div>
