@@ -36,7 +36,7 @@ const ComplexWritingPage: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string>('');
   const theme = useSelector((state: RootState) => state.theme.value);
-  const iconFilter = getIconFilter(theme); 
+  const iconFilter = getIconFilter(theme);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -257,7 +257,9 @@ const ComplexWritingPage: React.FC = () => {
             </div>
           </div>
           <div className="flex">
-            <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{message}</div>
+            <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">
+              {message}
+            </div>
             {index === 0 && (
               <button onClick={playAudio} className="btn btn-circle btn-outline ml-4">
                 <div className="w-10 h-10 relative ">
@@ -284,12 +286,14 @@ const ComplexWritingPage: React.FC = () => {
                   alt="Tailwind CSS chat bubble component"
                   src="/static/rabbitIcon.png"
                   width={64}
-                height={64}
-                quality={100}
+                  height={64}
+                  quality={100}
                 />
               </div>
             </div>
-            <div className="chat-bubble chat-bubble-success text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{exchange.question}</div>
+            <div className="chat-bubble chat-bubble-success text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">
+              {exchange.question}
+            </div>
           </div>
           <div className="chat chat-start">
             <div className="chat-image avatar">
@@ -298,8 +302,8 @@ const ComplexWritingPage: React.FC = () => {
                   alt="Tailwind CSS chat bubble component"
                   src="/static/fairy.jpeg"
                   width={64}
-                height={64}
-                quality={100}
+                  height={64}
+                  quality={100}
                 />
               </div>
             </div>
@@ -308,7 +312,9 @@ const ComplexWritingPage: React.FC = () => {
                 <span className="loading loading-dots loading-lg"></span>
               </div>
             ) : (
-              <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{exchange.answer}</div>
+              <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">
+                {exchange.answer}
+              </div>
             )}
           </div>
         </div>
@@ -350,7 +356,10 @@ const ComplexWritingPage: React.FC = () => {
               </button>
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
-                <button className="btn btn-outline xl:btn-lg btn-primary font-bold border-2" disabled={isSending}>
+                <button
+                  className="btn btn-outline xl:btn-lg btn-primary font-bold border-2"
+                  disabled={isSending}
+                >
                   동화책 만들기
                 </button>
               </Link>

@@ -1,6 +1,5 @@
-"use client"
+'use client';
 import React from 'react';
-
 
 type LeftOverlayContentProps = {
   isAnimated: boolean;
@@ -10,9 +9,7 @@ type LeftOverlayContentProps = {
 const LeftOverlayContent: React.FC<LeftOverlayContentProps> = ({ isAnimated, setIsAnimated }) => {
   return (
     <div className="p-8 text-center">
-      <h1 className="text-6xl font-bold text-white mb-4">
-        계정이 있으신가요?
-      </h1>
+      <h1 className="text-6xl font-bold text-white mb-4">계정이 있으신가요?</h1>
 
       <h5 className="text-xl text-white">닉네임과 비밀번호로 로그인 해주세요</h5>
       <div className="mt-16">

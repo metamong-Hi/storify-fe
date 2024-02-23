@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store/index';
 import { setBookContent, setBookId } from '@/store/bookSlice';
-import { resetText  } from '@/store/textSlice';
+import { resetText } from '@/store/textSlice';
 
 const loadingTexts: string[] = [
   '와, 멋진 글이네요!',
@@ -89,9 +89,7 @@ const ComplexWaitingPage: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      {!isSuccess && (
-        <span className="loading loading-dots loading-lg text-accent"></span>
-      )}
+      {!isSuccess && <span className="loading loading-dots loading-lg text-accent"></span>}
     </div>
   );
 };

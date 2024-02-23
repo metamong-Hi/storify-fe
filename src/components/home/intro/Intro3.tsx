@@ -5,7 +5,6 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import VanillaTilt from 'vanilla-tilt';
 import IntroHeading from './IntroHeading';
 import IntroText from './IntroText';
 import CardComponent from '@/components/objects/CardComponent';

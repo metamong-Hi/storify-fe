@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useFetchStory } from '@/hooks/writing/useFetchStory';
 import LoadingTextSwiper from './LoadingTextSwiper';
-import LoadingIndicator from '../../banner/waiting/LoadingIndicator' ;
+import LoadingIndicator from '../../banner/waiting/LoadingIndicator';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
 

@@ -74,7 +74,7 @@ function LoginPage() {
       if (result.value) {
         dispatch(setSignupSuccess(1));
         setSelected('login');
-      } 
+      }
     });
   };
   const showSignupFailedAlert = () => {
@@ -310,7 +310,7 @@ function LoginPage() {
                     formSignupData.password === '' ||
                     formSignupData.confirmPassword === ''
                       ? '#A9A9A9'
-                      : '#000000', 
+                      : '#000000',
                 }}
                 disabled={
                   userIdError !== '' ||

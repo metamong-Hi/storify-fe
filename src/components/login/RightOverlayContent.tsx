@@ -1,6 +1,5 @@
-"use client"
+'use client';
 import React from 'react';
-
 
 type RightOverlayContentProps = {
   isAnimated: boolean;
@@ -10,9 +9,7 @@ type RightOverlayContentProps = {
 const RightOverlayContent: React.FC<RightOverlayContentProps> = ({ isAnimated, setIsAnimated }) => {
   return (
     <div className="p-8 text-center">
-      <h1 className="text-6xl font-bold text-white mb-4">
-        계정이 없으신가요?
-      </h1>
+      <h1 className="text-6xl font-bold text-white mb-4">계정이 없으신가요?</h1>
 
       <h5 className="text-xl text-white">환영합니다</h5>
       <div className="mt-16">
