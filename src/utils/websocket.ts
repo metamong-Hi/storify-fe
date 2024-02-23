@@ -46,7 +46,7 @@ export const initializeWebSocket = (token: string): Socket => {
         title: '❤️좋아요를 받았어요❤️',
         text:data.message,
         showConfirmButton: false,
-        timer: 1500
+        timer: 5000
       });
     });
 

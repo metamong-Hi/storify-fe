@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ interface FooterLinkProps {
   alt: string;
   label: string;
 }
-
 
 const FooterLink: React.FC<FooterLinkProps> = ({ href, src, alt, label }) => {
   const theme = useSelector((state: RootState) => state.theme.value);
@@ -54,19 +53,19 @@ const Footer: React.FC = () => {
         <div className="flex flex-col justify-center items-center text-center gap-2 ">
           <FooterLink
             href="https://github.com/classbinu/storify-fe"
-            src="https://s3.ap-northeast-2.amazonaws.com/storify/public/GitHubIcon-1707114011024.png"
+            src="/static/GitHubIcon.png"
             alt="Front End"
             label="FE Repo"
           />
           <FooterLink
             href="https://github.com/classbinu/storify-be"
-            src="https://s3.ap-northeast-2.amazonaws.com/storify/public/GitHubIcon-1707114011024.png"
+            src="/static/GitHubIcon.png"
             alt="Back End"
             label="BE Repo"
           />
           <FooterLink
             href="https://velog.io/@classbinu/"
-            src="https://s3.ap-northeast-2.amazonaws.com/storify/public/velogIcon-1707114361278.png"
+            src="/static/velogIcon.png"
             alt="Team Lead Developer Blog"
             label="Dev Blog"
           />

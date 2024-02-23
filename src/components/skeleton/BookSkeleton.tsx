@@ -1,12 +1,12 @@
 'use client';
-
 import React from 'react';
+import { EyeIcon } from '@/icons/EyeIcon';
+import { HeartIcon } from '@/icons/HeartIcon';
 
-import { EyeIcon } from '../../../public/icons/EyeIcon';
-import { HeartIcon } from '../../../public/icons/HeartIcon';
 interface Props {
   cnt: number;
 }
+
 const BookSkeleton = ({ cnt }: Props) => {
   return (
     <div className="flex justify-center flex-wrap gap-4 p-4 mx-auto">

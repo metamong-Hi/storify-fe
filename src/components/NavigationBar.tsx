@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { logout, setSignupSuccess } from '@/store/userSlice';
+import { logout } from '@/store/userSlice';
 import LoginPage from '@/components/login/realLogin';
 import RegisterPage from './login/realRegister';
 import Link from 'next/link';
@@ -26,7 +26,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-import { getIconFilter } from '@/utils/IconFilter';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,7 +33,6 @@ const NavbarComponent = () => {
   const [nickname, setNickname] = useState('');
   const [userId, setUserId] = useState('');
   const pathName = usePathname();
-  const signupSuccess = useAppSelector((state) => state.user.signupSuccess);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
@@ -45,9 +43,9 @@ const NavbarComponent = () => {
     const storedNotifications = sessionStorage.getItem('notifications');
     if (storedNotifications) {
       setNotifications(JSON.parse(storedNotifications));
-      console.log('여기다 확인해라' + notifications);
+      // console.log('여기다 확인해라' + notifications);
     }
-  }, [notifications]);
+  }, []);
 
   // 로그인 모달 상태
   const {
@@ -63,9 +61,8 @@ const NavbarComponent = () => {
   } = useDisclosure();
 
   const theme = useSelector((state: RootState) => state.theme.value);
-  const iconFilter = getIconFilter(theme);
   const handleNotificationsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation(); // 이벤트 버블링 방지
+    event.stopPropagation(); 
     setShowNotifications(!showNotifications);
     sessionStorage.removeItem('notifications');
   };
@@ -74,24 +71,35 @@ const NavbarComponent = () => {
   // });
 
   useEffect(() => {
-    // 페이지의 다른 부분을 클릭했을 때 실행될 핸들러
     const handlePageClick = () => {
       if (showNotifications) {
         setShowNotifications(false);
       }
     };
-    // 클릭 이벤트 리스너 등록
-    document.addEventListener('click', handlePageClick);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    document.addEventListener('click', handlePageClick);
     return () => {
       document.removeEventListener('click', handlePageClick);
     };
   }, [showNotifications]);
+  const isWhiteIconTheme = [
+    'luxury',
+    'dark',
+    'coffee',
+    'night',
+    'halloween',
+    'sunset',
+    'synthwave',
+    'forest',
+    'black',
+    'dracula',
+    'business',
+  ].includes(theme);
+  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
 
   const dispatch = useAppDispatch();
   const realToken = useAppSelector((state) => state.user.token);
-  console.log(realToken);
+  // console.log(realToken);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('selectedTheme');
@@ -129,7 +137,7 @@ const NavbarComponent = () => {
         window.location.href = '/';
       })
       .catch((error) => {
-        console.log('로그아웃 망함' + error);
+        // console.log('로그아웃 망함' + error);
       });
   };
   const toggleMenu = () => {
@@ -172,22 +180,15 @@ const NavbarComponent = () => {
     }
   };
 
-  useEffect(() => {
-    if (signupSuccess === 1) {
-      onLoginOpen();
-      dispatch(setSignupSuccess(0));
-    }
-  }, [signupSuccess, dispatch, onLoginOpen]);
-
   return (
     <>
-      <div className="navbar bg-base-100 px-0 sm:px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-28">
+      <div className="navbar bg-base-100 p-0">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
+                className="h-10 w-10"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -255,7 +256,7 @@ const NavbarComponent = () => {
                 <button onClick={handleNotificationsClick} className="btn btn-ghost btn-circle">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8"
+                    className="h-10 w-10"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -288,13 +289,12 @@ const NavbarComponent = () => {
               </div>
               <div className="dropdown dropdown-end ">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-8 rounded-full">
+                  <div className="w-10 rounded-full">
                     <Image
                       alt="Tailwind CSS Navbar component"
-                      src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
-                      width={32}
-                      height={32}
-                      quality={75}
+                      src="/static/rabbitIcon.png"
+                      width={128}
+                      height={128}
                       style={{ filter: iconFilter }}
                     />
                   </div>
@@ -319,7 +319,6 @@ const NavbarComponent = () => {
                       좋아요한 책
                     </Link>
                   </li>
-
                   <li>
                     <Link
                       href={`/user/${userId}/profile`}

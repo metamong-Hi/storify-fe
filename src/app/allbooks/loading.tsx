@@ -1,4 +1,4 @@
-import { SearchIcon } from '../../../public/icons/SearchIcon';
+import { SearchIcon } from '@/icons/SearchIcon';
 import BookSkeleton from '@/components/skeleton/BookSkeleton';
 import PaginationSkeleton from '@/components/skeleton/PaginationSkeleton';
 import React from 'react';

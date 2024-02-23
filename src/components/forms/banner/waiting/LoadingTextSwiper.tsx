@@ -25,7 +25,9 @@ const LoadingTextSwiper: React.FC = () => (
   >
     {loadingTexts.map((loadingText, index) => (
       <SwiperSlide key={index}>
-        <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold text-base-content">{loadingText}</h1>
+        <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold text-base-content">
+          {loadingText}
+        </h1>
       </SwiperSlide>
     ))}
   </Swiper>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookShelves from '@/components/book/BookShelves';
 
 import Pagination from '@/components/Pagination';
@@ -8,33 +8,14 @@ import { SearchIcon } from '@/icons/SearchIcon';
 import useBooksData from '@/hooks/useBooksData';
 import usePagination from '@/hooks/usePagination';
 import { jwtDecode } from 'jwt-decode';
-import { redirect } from 'next/navigation';
 import { BooksData } from '@/types/books';
-import { set } from 'lodash';
 import { getUserInfo } from '@/services/userService';
-import { user } from '@nextui-org/react';
 import ResetIcon from '@/icons/ResetIcon';
 import { ProfileData } from '@/types/user';
 
 interface UseBooksDataProps {
   userId: string;
   type: string;
-}
-interface BookListProps {
-  userId: string;
-}
-interface userIDProps {
-  _id: string;
-  nickname: string;
-  userId: string;
-}
-
-async function GET(url: string): Promise<userIDProps> {
-  try {
-    return (await fetch(url, { cache: 'no-store' })).json();
-  } catch (error: any) {
-    return error.message;
-  }
 }
 
 const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {
@@ -49,7 +30,6 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
   useEffect(() => {
     const fetchData = async () => {
       const data: ProfileData | null = await getUserInfo(userId);
-      console.log(userId);
       if (userId) {
         if (type === 'liked') {
           setShelfTitle('좋아요한 책장');
@@ -154,7 +134,7 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
             ))}
           </div>
           <div
-            className={`flex justify-center text-md sm:text-md md:text-lg lg:text-xl xl:text-3xl 2xl:text-3xl p-5`}
+            className={`flex justify-center text-base-content text-md sm:text-md md:text-lg lg:text-xl xl:text-3xl 2xl:text-3xl p-5`}
           >
             {shelfTitle}
           </div>

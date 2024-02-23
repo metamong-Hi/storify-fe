@@ -70,7 +70,7 @@ interface UpdateTitleProps {
     try {
         const token = sessionStorage.getItem('token');
         if (!token) {
-          console.log('No token found');
+        //   console.log('No token found');
           return;
         }
     
@@ -84,9 +84,9 @@ interface UpdateTitleProps {
         });
   
         const data = await response.json();
-        console.log("성공함", data);
+        // console.log("성공함", data);
       } catch (error) {
-        console.error("망함", error);
+        // console.error("망함", error);
       }
         window.location.reload();
    

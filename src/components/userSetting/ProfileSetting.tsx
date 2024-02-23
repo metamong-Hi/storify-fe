@@ -2,15 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { updateUserProfile } from '@/services/userService';
-import CameraIcon from '../../../public/icons/CameraIcon';
-import ImageIcon from '../../../public/icons/ImageIcon';
 import { ProfileData } from '@/types/user';
-import { redirect, useParams, useRouter } from 'next/navigation';
-import exp from 'constants';
-import { revalidatePath } from 'next/cache';
+import { useParams, useRouter } from 'next/navigation';
 import { navigate } from '@/hooks/useRedirect';
 import Swal from 'sweetalert2';
-import { set } from 'lodash';
 
 interface propsType {
   data: ProfileData;

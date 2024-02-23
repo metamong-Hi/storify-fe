@@ -16,7 +16,7 @@ const socket = io('http://localhost:3000', {
 });
 
 socket.on('connect', () => {
-  console.log('소켓 연결됨');
+  // console.log('소켓 연결됨');
   socket.emit(
     'auth',
     `${token}`
@@ -24,14 +24,14 @@ socket.on('connect', () => {
 });
 
 socket.on('message', (message: string) => {
-  console.log('Message from server:', message);
+  // console.log('Message from server:', message);
 });
 
 socket.on('error', (error: string) => {
-  console.log('Error from server:', error);
+  // console.log('Error from server:', error);
 });
 
 socket.on('disconnect', () => {
-  console.log('Disconnected from ws-noti');
+  // console.log('Disconnected from ws-noti');
 });
 ﻿

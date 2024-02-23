@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState } from 'react';
+import Link from 'next/link';
 
 const SignUpPage = () => {
-  const [userID, setUserID] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userID, setUserID] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,10 +18,7 @@ const SignUpPage = () => {
       <div className="p-6 max-w-sm w-full bg-white rounded shadow-md">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label
-              htmlFor="userID"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="userID" className="block text-sm font-medium text-gray-700">
               이름
             </label>
             <input
@@ -34,10 +31,7 @@ const SignUpPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               이메일
             </label>
             <input
@@ -50,10 +44,7 @@ const SignUpPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               비밀번호
             </label>
             <input
@@ -66,10 +57,7 @@ const SignUpPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               비밀번호 확인
             </label>
             <input

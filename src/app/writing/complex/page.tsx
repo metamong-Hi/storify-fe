@@ -36,7 +36,7 @@ const ComplexWritingPage: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string>('');
   const theme = useSelector((state: RootState) => state.theme.value);
-  const iconFilter = getIconFilter(theme); 
+  const iconFilter = getIconFilter(theme);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -133,7 +133,7 @@ const ComplexWritingPage: React.FC = () => {
 
     setIsSending(true);
     setIsQuestionLoading(true);
-    const finalText = text.trim().endsWith('.') ? text.trim() : `${text.trim()},`;
+    const finalText = text.trim().endsWith('.') ? text.trim() : `${text.trim()}.`;
 
     dispatch(addText(finalText));
     setText('');
@@ -248,24 +248,26 @@ const ComplexWritingPage: React.FC = () => {
           <div className="chat-image avatar">
             <div className="w-12 lg:w-16 rounded-full">
               <Image
-                alt="Tailwind CSS chat bubble component"
-                src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
+                alt="Tailwind CSS chat bubble component "
+                src="/static/fairy.jpeg"
                 width={64}
                 height={64}
-                quality={75}
+                quality={100}
               />
             </div>
           </div>
           <div className="flex">
-            <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{message}</div>
+            <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">
+              {message}
+            </div>
             {index === 0 && (
               <button onClick={playAudio} className="btn btn-circle btn-outline ml-4">
-                <div className="w-8 h-8 relative">
+                <div className="w-10 h-10 relative ">
                   <Image
-                    src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-speaker-volume-3606847-1706733545145.png"
+                    src="/static/speakerIcon.png"
                     width={64}
                     height={64}
-                    quality={75}
+                    quality={100}
                     style={{ filter: iconFilter }}
                     alt="play audio"
                   />
@@ -282,24 +284,26 @@ const ComplexWritingPage: React.FC = () => {
               <div className="w-12 lg:w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
                 <Image
                   alt="Tailwind CSS chat bubble component"
-                  src="https://s3.ap-northeast-2.amazonaws.com/storify/public/free-icon-person-7542670-1706734232917.png"
+                  src="/static/rabbitIcon.png"
                   width={64}
-                height={64}
-                quality={75}
+                  height={64}
+                  quality={100}
                 />
               </div>
             </div>
-            <div className="chat-bubble chat-bubble-success text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{exchange.question}</div>
+            <div className="chat-bubble chat-bubble-success text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">
+              {exchange.question}
+            </div>
           </div>
           <div className="chat chat-start">
             <div className="chat-image avatar">
-              <div className="w-12 lg:w-16 rounded-full">
+              <div className="w-12 lg:w-16 rounded-full ring">
                 <Image
                   alt="Tailwind CSS chat bubble component"
-                  src="https://s3.ap-northeast-2.amazonaws.com/storify/public/fairy-1706712996223.jpeg"
+                  src="/static/fairy.jpeg"
                   width={64}
-                height={64}
-                quality={75}
+                  height={64}
+                  quality={100}
                 />
               </div>
             </div>
@@ -308,7 +312,9 @@ const ComplexWritingPage: React.FC = () => {
                 <span className="loading loading-dots loading-lg"></span>
               </div>
             ) : (
-              <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">{exchange.answer}</div>
+              <div className="chat-bubble text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl ">
+                {exchange.answer}
+              </div>
             )}
           </div>
         </div>
@@ -350,7 +356,10 @@ const ComplexWritingPage: React.FC = () => {
               </button>
             ) : (
               <Link href={`/writing/complex/waiting`} passHref>
-                <button className="btn btn-outline xl:btn-lg btn-primary font-bold border-2" disabled={isSending}>
+                <button
+                  className="btn btn-outline xl:btn-lg btn-primary font-bold border-2"
+                  disabled={isSending}
+                >
                   동화책 만들기
                 </button>
               </Link>
