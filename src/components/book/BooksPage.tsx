@@ -18,12 +18,6 @@ interface UseBooksDataProps {
   type: string;
 }
 
-interface userIDProps {
-  _id: string;
-  nickname: string;
-  userId: string;
-}
-
 const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataProps) => {
   const sortOptions = [
     { label: '최신순', value: 'recent' },

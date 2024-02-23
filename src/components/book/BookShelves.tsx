@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import BookSkeleton from '../skeleton/BookSkeleton';
 import { BooksData } from '@/types/books';
 import Link from 'next/link';
@@ -8,18 +8,10 @@ import Image from 'next/image';
 import { HeartIcon } from '@/icons/HeartIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { XIcon } from '@/icons/XIcon';
-
-// import bookCover from '@/images/bookCover.png';
-
 import useSessionStorage from '@/hooks/useSessionStorage';
-
 import { jwtDecode } from 'jwt-decode';
-import { error } from 'console';
-
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
-import { useAppSelector } from '@/hooks/useAppSelector';
-
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { getIconFilter } from '@/utils/IconFilter';
@@ -53,6 +45,7 @@ interface UserProfileProps {
 BookShelves.propTypes = {
   books: PropTypes.array.isRequired,
 };
+
 interface BookShelvesProps {
   books: Array<BooksData>;
   limit: number;
