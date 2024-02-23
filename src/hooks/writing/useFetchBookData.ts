@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setBookId, setImageUrls } from '@/store/bookSlice';
@@ -20,9 +20,9 @@ interface FetchBookDataResult {
 }
 
 const useFetchBookData = (
-  token: string | null, 
-  bookContent: string, 
-  initialBookId: string
+  token: string | null,
+  bookContent: string,
+  initialBookId: string,
 ): FetchBookDataResult => {
   const [bookId, setLocalBookId] = useState<string>(initialBookId);
   const [imageUrls, setImageUrlsLocal] = useState<string[]>([]);

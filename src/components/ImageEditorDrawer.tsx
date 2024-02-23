@@ -69,7 +69,7 @@ const ImageEditorDrawer: React.FC<ImageEditorDrawerProps> = ({
   };
 
   return (
-    <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant="persistent" >
+    <Drawer anchor="bottom" open={isOpen} onClose={onClose} variant="persistent">
       <List>
         <ListItem>
           <ListItemText primary="그림바꾸기" />

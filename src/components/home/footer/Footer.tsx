@@ -13,7 +13,6 @@ interface FooterLinkProps {
   label: string;
 }
 
-
 const FooterLink: React.FC<FooterLinkProps> = ({ href, src, alt, label }) => {
   const theme = useSelector((state: RootState) => state.theme.value);
   const iconFilter = getIconFilter(theme);

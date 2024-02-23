@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
 import Swal from 'sweetalert2';
 
-const BannerControl:React.FC = () => {
+const BannerControl: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isBannerVisible, setIsBannerVisible] = useState(true); 
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -39,9 +39,13 @@ const BannerControl:React.FC = () => {
 
   if (!isBannerVisible) return null;
 
-  return <Banner isLoggedIn={isLoggedIn}
-  onBannerClick={handleBannerClick}
-  onCloseBanner={handleCloseBanner} />;
+  return (
+    <Banner
+      isLoggedIn={isLoggedIn}
+      onBannerClick={handleBannerClick}
+      onCloseBanner={handleCloseBanner}
+    />
+  );
 };
 
 export default BannerControl;

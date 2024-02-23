@@ -1,9 +1,9 @@
-"use client"
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 const SigninForm: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   // Add the rest of your component logic and JSX here
   return (
@@ -13,9 +13,7 @@ const SigninForm: React.FC = () => {
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-indigo-600">
-                로그인을 해보아요
-              </h1>
+              <h1 className="text-5xl font-bold text-indigo-600">로그인을 해보아요</h1>
 
               <form className="mt-12" action="" method="POST">
                 <div className="relative">
@@ -59,8 +57,8 @@ const SigninForm: React.FC = () => {
                 href="#"
                 className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                {" "}
-                비밀번호를 잊으셨나요?{" "}
+                {' '}
+                비밀번호를 잊으셨나요?{' '}
               </a>
             </div>
           </div>

@@ -1,15 +1,12 @@
-"use client"
+'use client';
 import { io } from 'socket.io-client';
 
-
-
-const token=sessionStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 const socket = io('http://localhost:3000', {
   transportOptions: {
     polling: {
       extraHeaders: {
-        Authorization:
-          `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     },
   },
@@ -17,10 +14,7 @@ const socket = io('http://localhost:3000', {
 
 socket.on('connect', () => {
   console.log('소켓 연결됨');
-  socket.emit(
-    'auth',
-    `${token}`
-  );
+  socket.emit('auth', `${token}`);
 });
 
 socket.on('message', (message: string) => {
@@ -34,4 +28,3 @@ socket.on('error', (error: string) => {
 socket.on('disconnect', () => {
   console.log('Disconnected from ws-noti');
 });
-﻿
