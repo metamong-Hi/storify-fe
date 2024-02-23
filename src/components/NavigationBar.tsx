@@ -73,13 +73,13 @@ const NavbarComponent = () => {
   //   console.log(`Notification ${index}:`, notification.senderId);
   // });
 
-  // 페이지의 다른 부분을 클릭했을 때 실행될 핸들러
-  const handlePageClick = () => {
-    if (showNotifications) {
-      setShowNotifications(false);
-    }
-  };
   useEffect(() => {
+    // 페이지의 다른 부분을 클릭했을 때 실행될 핸들러
+    const handlePageClick = () => {
+      if (showNotifications) {
+        setShowNotifications(false);
+      }
+    };
     // 클릭 이벤트 리스너 등록
     document.addEventListener('click', handlePageClick);
 
@@ -181,7 +181,7 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 px-0 sm:px-4 md:px-8 lg:px-12 xl:px-12 2xl:px-18">
+      <div className="navbar bg-base-100 px-0 sm:px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-28">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

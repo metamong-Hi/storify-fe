@@ -6,14 +6,26 @@ import ImageSwiper from './ImageSwiper';
 import HeroSection from './HeroSection';
 import StoryButton from './StoryButton';
 
+// const images = [
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg',
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg',
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai4-1706699657952.jpeg',
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai5-1706699671535.jpeg',
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg',
+//   'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai7-1706699697628.jpeg',
+// ];
+
 const images = [
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai1-1706699591500.jpeg',
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai2-1706699626175.jpeg',
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai3-1706699643732.jpeg',
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai4-1706699657952.jpeg',
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai5-1706699671535.jpeg',
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai6-1706699685087.jpeg',
-  'https://s3.ap-northeast-2.amazonaws.com/storify/public/ai7-1706699697628.jpeg',
+  '/static/main/ai1.jpeg',
+  '/static/main/ai2.jpeg',
+  '/static/main/ai3.jpeg',
+  '/static/main/ai4.jpeg',
+  '/static/main/ai5.jpeg',
+  '/static/main/ai6.jpeg',
+  '/static/main/ai7.jpeg',
+  '/static/main/ai8.jpeg',
+  '/static/main/ai9.jpeg',
 ];
 
 const HomeDesign: React.FC = () => {

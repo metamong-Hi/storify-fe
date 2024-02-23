@@ -26,7 +26,7 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-
+import { getIconFilter } from '@/utils/IconFilter';
 import { getSocket, initializeWebSocket } from '@/utils/websocket';
 import Swal from 'sweetalert2';
 import { getUserInfo } from '@/services/userService';
@@ -106,21 +106,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
   });
 
   const theme = useSelector((state: RootState) => state.theme.value);
-
-  const isWhiteIconTheme = [
-    'luxury',
-    'dark',
-    'coffee',
-    'night',
-    'halloween',
-    'sunset',
-    'synthwave',
-    'forest',
-    'black',
-    'dracula',
-    'business',
-  ].includes(theme);
-  const iconFilter = isWhiteIconTheme ? 'invert(100%)' : 'none';
+  const iconFilter = getIconFilter(theme);
 
   const sendLikeRequestToServer = async (likeStatus: boolean) => {
     try {
@@ -254,7 +240,7 @@ export const Book = ({ book, index }: BookComponentProps) => {
   return (
     <div
       key={index}
-      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl"
+      className="bg-opacity-10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-2xl w-72"
     >
       <div className="object-center transition-transform duration-500 hover:scale-105 ">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
@@ -264,8 +250,8 @@ export const Book = ({ book, index }: BookComponentProps) => {
             priority={index < 4}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
-            height={256}
-            width={256}
+            height={320}
+            width={320}
             quality={75}
           />
         </Link>
