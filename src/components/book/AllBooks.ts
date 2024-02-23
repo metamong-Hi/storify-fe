@@ -33,6 +33,7 @@ export async function getUserLikedBooks() {
     const data = await response.json();
     return data;
   } catch (error: any) {
+    //test
     return error.message;
   }
 }
@@ -48,7 +49,7 @@ export async function getBooks(page = 1, limit = 24, sort = '', search = '', id 
   if (type === 'liked') {
     const data = await getUserLikedBooks();
 
-    
+
     return data;
   } else {
     return getAllBooks(page, limit, sort, search, id);
