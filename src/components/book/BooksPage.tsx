@@ -30,7 +30,6 @@ const BooksPage: React.FC<UseBooksDataProps> = ({ userId, type }: UseBooksDataPr
   useEffect(() => {
     const fetchData = async () => {
       const data: ProfileData | null = await getUserInfo(userId);
-      console.log(userId);
       if (userId) {
         if (type === 'liked') {
           setShelfTitle('좋아요한 책장');
