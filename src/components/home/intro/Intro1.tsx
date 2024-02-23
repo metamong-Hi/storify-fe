@@ -18,17 +18,7 @@ const Intro1: React.FC = () => {
     });
   }, []);
 
-  // const images = [
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/1-1708654381212.png',
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/2-1708654463324.png',
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/3-1708654477032.png',
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/4-1708654541579.png',
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/5-1708654560148.png',
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/6-1708654574882.png',
-  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/7-1708654591411.png',
-  // ];
-
-    const images = [
+  const images = [
     '/static/intro/intro1.png',
     '/static/intro/intro2.png',
     '/static/intro/intro3.png',
@@ -36,11 +26,14 @@ const Intro1: React.FC = () => {
     '/static/intro/intro5.png',
     '/static/intro/intro6.png',
     '/static/intro/intro7.png',
+    '/static/intro/intro8.png',
   ];
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <IntroHeading>어린이들이 만든 <span className="text-accent">AI 동화책</span></IntroHeading>
+      <IntroHeading>
+        어린이들이 만든 <span className="text-accent">AI 동화책</span>
+      </IntroHeading>
       <IntroText>모든 동화책을 무료로 이용할 수 있습니다.</IntroText>
       <div className="max-w-[100vw] mt-5">
         <Swiper
@@ -67,10 +60,7 @@ const Intro1: React.FC = () => {
           data-aos-delay="200"
         >
           {images.map((src, index) => (
-            <SwiperSlide
-              key={index}
-              style={{ width: '50vw', position: 'relative' }}
-            >
+            <SwiperSlide key={index} style={{ width: '50vw', position: 'relative' }}>
               <Image
                 src={src}
                 alt={`Slide ${index}`}

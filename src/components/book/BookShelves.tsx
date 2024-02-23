@@ -245,14 +245,13 @@ export const Book = ({ book, index }: BookComponentProps) => {
       <div className="object-center transition-transform duration-500 hover:scale-105 ">
         <Link as={`/book/${encodeURIComponent(book?._id ?? '')}`} href={''}>
           <Image
-            loading="eager"
             src={imageURL}
             priority={index < 4}
             alt="Book Cover Image"
             className="object-contain w-full h-full "
             height={320}
             width={320}
-            quality={75}
+            quality={100}
           />
         </Link>
       </div>
@@ -275,9 +274,9 @@ export const Book = ({ book, index }: BookComponentProps) => {
                   <Image
                     src={user.avatar}
                     alt={`${user.name}'s Avatar`}
-                    width={32}
-                    height={32}
-                    quality={75}
+                    width={64}
+                    height={64}
+                    quality={100}
                     style={{ filter: iconFilter }}
                   />
                 </div>

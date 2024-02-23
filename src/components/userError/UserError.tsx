@@ -7,7 +7,7 @@ const ErrorPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <Image
-        src="https://s3.ap-northeast-2.amazonaws.com/storify/public/CE9866CAD59FC17B8AFB52161ED9A8729F2BB90639CB0C214D8864B625B7F643 (1)-1708088076682.jpeg"
+        src="static/error1.jpeg"
         className="relative z-0"
         alt="landscape"
         layout="fill"
