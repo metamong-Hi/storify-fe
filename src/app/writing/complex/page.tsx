@@ -264,7 +264,7 @@ const ComplexWritingPage: React.FC = () => {
               <button onClick={playAudio} className="btn btn-circle btn-outline ml-4">
                 <div className="w-10 h-10 relative ">
                   <Image
-                    src="/static/speakerIcon.png "
+                    src="/static/speakerIcon.png"
                     width={64}
                     height={64}
                     quality={100}
