@@ -291,7 +291,7 @@ const NavbarComponent = () => {
                   <div className="w-12 rounded-full">
                     <Image
                       alt="Tailwind CSS Navbar component"
-                      src="/static/logos/rabbitIcon.png"
+                      src="/static/rabbitIcon.png"
                       width={64}
                       height={64}
                       quality={100}

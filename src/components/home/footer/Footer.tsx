@@ -54,19 +54,19 @@ const Footer: React.FC = () => {
         <div className="flex flex-col justify-center items-center text-center gap-2 ">
           <FooterLink
             href="https://github.com/classbinu/storify-fe"
-            src="/static/logos/GitHubIcon.png"
+            src="/static/GitHubIcon.png"
             alt="Front End"
             label="FE Repo"
           />
           <FooterLink
             href="https://github.com/classbinu/storify-be"
-            src="/static/logos/GitHubIcon.png"
+            src="/static/GitHubIcon.png"
             alt="Back End"
             label="BE Repo"
           />
           <FooterLink
             href="https://velog.io/@classbinu/"
-            src="/static/logos/velogIcon.png"
+            src="/static/velogIcon.png"
             alt="Team Lead Developer Blog"
             label="Dev Blog"
           />
