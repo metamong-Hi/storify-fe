@@ -18,14 +18,24 @@ const Intro1: React.FC = () => {
     });
   }, []);
 
-  const images = [
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/1-1708592079757.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/4-1708592098720.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/2-1708592125784.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/3-1708592136624.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/5-1708592147827.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/6-1708592157119.png',
-    'https://s3.ap-northeast-2.amazonaws.com/storify/public/4-1708592098720.png',
+  // const images = [
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/1-1708654381212.png',
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/2-1708654463324.png',
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/3-1708654477032.png',
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/4-1708654541579.png',
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/5-1708654560148.png',
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/6-1708654574882.png',
+  //   'https://s3.ap-northeast-2.amazonaws.com/storify/public/7-1708654591411.png',
+  // ];
+
+    const images = [
+    '/static/intro/intro1.png',
+    '/static/intro/intro2.png',
+    '/static/intro/intro3.png',
+    '/static/intro/intro4.png',
+    '/static/intro/intro5.png',
+    '/static/intro/intro6.png',
+    '/static/intro/intro7.png',
   ];
 
   return (

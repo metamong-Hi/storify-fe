@@ -23,7 +23,7 @@ const Intro2: React.FC = () => {
         sizes="100vw"
         width={1440}
         height={720}
-        quality={75}
+        quality={100}
         data-aos="fade-up"
         data-aos-delay="200"
       />
