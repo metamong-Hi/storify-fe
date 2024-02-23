@@ -51,7 +51,7 @@ const URLShareButton = styled.button`
 const StyledFlipBook = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;ㄴ
+  align-items: center;
   height: 100vh;
   border-radius: 20px;
   overflow: hidden;

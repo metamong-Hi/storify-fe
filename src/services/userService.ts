@@ -106,6 +106,7 @@ export async function updateUserProfile(
         text: '프로필이 업데이트 되었습니다.',
       });
     }
+<<<<<<< HEAD
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -115,6 +116,19 @@ export async function getUserInfo(_id: string): Promise<ProfileData | null> {
   if (!_id ?? _id === '') {
     return null;
   }
+=======
+    const data = await response.json(); 
+
+    sessionStorage.setItem('nickname',data.nickname);
+    window.location.reload();
+  } catch (error) {
+    console.error('프로필 업데이트 실패: ', error);
+  }
+}
+
+
+export async function getUserInfo(_id: string): Promise<any> {
+>>>>>>> 8cc6d23070fac1c221146114dee476cd009249e1
   const response = await fetch(`${API_URL}/users/${_id}`, {
     method: 'GET',
   });
