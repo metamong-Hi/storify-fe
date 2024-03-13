@@ -100,8 +100,8 @@ Inference API를 통해 관련 이미지 생성 시간과 인프라 비용을 �
 - [민상기](https://github.com/classbinu) 팀장, BE, AI(Stable Diffusion)  
 - [정진환](https://github.com/JinJung0101) BE, AI(LangChain)  
 - [김병현](https://github.com/sirloinbh) FE, 홈/생성/테마/디자인전체/figma/UX/UI  
-- [이서진](https://github.com/metamong-Hi) FE, 웹소켓/apiService/책/헤더/로그인+회원가입/반응형UX/UI  
-- [조윤희](https://github.com/y0c0y) FE, 책장/UX/UI  
+- [이서진](https://github.com/metamong-Hi) FE, 웹소켓/apiService/책/헤더/로그인+회원가입/GA/반응형UX/UI  
+- [조윤희](https://github.com/y0c0y) FE, 책장/마이페이지/UX/UI  
 
 
 ## 프로젝트 발표 동영상
